@@ -5,7 +5,7 @@
   "scripts": {
     "format": "npx prettier --write .",
     "lint": "npx nx lint amalihomes",
-    "prepare": "npx husky"
+    "prepare": "npx husky install"
   },
   "private": true,
   "dependencies": {
