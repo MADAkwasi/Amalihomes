@@ -13,16 +13,11 @@ describe('ButtonComponent - Text Only', () => {
 
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
-    // Setup for a text-only button
-    component.hasText = true;
-    component.buttonText = 'Test Button';
-    component.leftIcon = undefined;
-    component.rightIcon = undefined;
-    component.iconOnly = false;
-    fixture.detectChanges();
   });
 
   it('should display button text when text is true', () => {
+    component.buttonText = 'Test Button';
+    fixture.detectChanges();
     const spanEl = fixture.debugElement.query(By.css('span'));
     expect(spanEl).toBeTruthy();
     expect(spanEl.nativeElement.textContent).toContain('Test Button');
