@@ -1,0 +1,48 @@
+button {
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #ea690c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  line-height: 24px;
+  font-size: 16px;
+  gap: 8px;
+}
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  size: 21px;
+}
+
+.primary {
+  background-color: #ea690c;
+  color: white;
+}
+
+.secondary {
+  background-color: white;
+  color: #ea690c;
+}
+
+.full-width {
+  width: 100%;
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.large {
+  height: 48px;
+}
+
+.icon-only {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
