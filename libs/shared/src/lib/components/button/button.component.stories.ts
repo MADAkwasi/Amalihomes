@@ -10,7 +10,7 @@ const meta: Meta<ButtonComponent> = {
     state: { control: 'radio', options: ['default', 'disabled'] },
     size: { control: 'radio', options: ['small', 'medium', 'large'] },
     buttonType: { control: 'radio', options: ['submit', 'button'] },
-    text: { control: 'boolean' },
+    hasText: { control: 'boolean' },
     leftIcon: {
       control: 'select',
       options: ['search', 'arrowRight', 'check', 'x', 'chevronDown', 'chevronUp'],
@@ -35,7 +35,7 @@ export const Primary: Story = {
     type: 'primary',
     state: 'default',
     size: 'large',
-    text: true,
+    hasText: true,
     leftIcon: undefined,
     rightIcon: undefined,
     iconOnly: false,
@@ -62,7 +62,7 @@ export const WithRightIcon: Story = {
 export const IconOnlyButton: Story = {
   args: {
     ...Primary.args,
-    text: false,
+    hasText: false,
     iconOnly: true,
     leftIcon: 'check',
   },

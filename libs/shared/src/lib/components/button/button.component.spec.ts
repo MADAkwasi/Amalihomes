@@ -14,7 +14,7 @@ describe('ButtonComponent - Text Only', () => {
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
     // Setup for a text-only button
-    component.text = true;
+    component.hasText = true;
     component.buttonText = 'Test Button';
     component.leftIcon = undefined;
     component.rightIcon = undefined;

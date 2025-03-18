@@ -13,7 +13,7 @@ export class ButtonComponent {
   @Input() type: 'primary' | 'secondary' = 'primary';
   @Input() state: 'default' | 'disabled' = 'default';
   @Input() size: 'small' | 'medium' | 'large' = 'large';
-  @Input() text = true;
+  @Input() hasText = true;
   @Input() leftIcon?: keyof typeof this.icons;
   @Input() rightIcon?: keyof typeof this.icons;
   @Input() iconOnly = false;
