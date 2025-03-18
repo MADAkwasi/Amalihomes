@@ -7,6 +7,11 @@ module.exports = {
     join(__dirname, '../../libs/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  content: [
+    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
+    join(__dirname, '../../libs/**/!(*.stories|*.spec).{ts,html}'),
+    ...createGlobPatternsForDependencies(__dirname),
+  ],
   theme: {
     extend: {
       screens: {
@@ -23,6 +28,9 @@ module.exports = {
       },
       animation: {
         skeleton: 'loading 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      colors: {
+        border: 'hsl(var(--border))',
       },
     },
   },

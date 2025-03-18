@@ -5,6 +5,8 @@
   "scripts": {
     "format": "npx prettier --write .",
     "lint": "npx nx lint amalihomes",
+    "amalihomes": "npx nx serve amalihomes",
+    "gen": "bash .scripts/generator.sh",
     "prepare": "npx husky install"
   },
   "private": true,
@@ -19,6 +21,7 @@
     "lucide-angular": "^0.482.0",
     "rxjs": "~7.8.0",
     "storyblok-js-client": "^6.10.10",
+    "tailwindcss-animate": "^1.0.7",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
