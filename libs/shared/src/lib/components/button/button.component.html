@@ -1,0 +1,20 @@
+<button
+  [ngClass]="[
+    type,
+    size,
+    state === 'disabled' ? 'disabled' : '',
+    iconOnly ? 'icon-only' : '',
+    fullWidth ? 'full-width' : ''
+  ]"
+  [disabled]="state === 'disabled'"
+  [type]="buttonType"
+  (click)="handleClick($event)"
+>
+  <ng-container *ngIf="leftIcon">
+    <lucide-icon [img]="icons[leftIcon]" [size]="iconSize" [strokeWidth]="strokeWidth" class="icon"></lucide-icon>
+  </ng-container>
+  <span *ngIf="hasText">{{ buttonText }}</span>
+  <ng-container *ngIf="rightIcon">
+    <lucide-icon [img]="icons[rightIcon]" [size]="iconSize" [strokeWidth]="strokeWidth" class="icon"></lucide-icon>
+  </ng-container>
+</button>

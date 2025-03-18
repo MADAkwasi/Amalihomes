@@ -15,7 +15,7 @@
 To run the dev server for your app, use:
 
 ```sh
-npx nx serve amalihomes
+npm run amalihomes
 ```
 
 To create a production bundle:
@@ -28,6 +28,14 @@ To see all available targets to run for a project, run:
 
 ```sh
 npx nx show project amalihomes
+```
+
+## Generate Services, Directives and Components
+
+The following command can be used to generate files based on the project's file structure.
+
+```sh
+npm run gen <directive|service|component|page|lib> <name>
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
