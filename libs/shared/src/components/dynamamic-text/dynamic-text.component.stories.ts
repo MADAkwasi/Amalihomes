@@ -24,7 +24,7 @@ type Story = StoryObj<DynamicTextComponent>;
 export const Default: Story = {
   args: {
     tagName: 'p',
-    text: 'Hello World',
+    text: 'Your ultimate destination for premium furniture that blends elegance, comfort, and functionality. Whether youre revamping your living room, upgrading your office ,we bring you an exquisite collection tailored to your taste',
   },
 };
 
@@ -32,7 +32,7 @@ export const H1Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h1',
-    text: 'Heading',
+    text: 'Quality Furniture for Every Home & Office',
   },
 };
 
@@ -40,7 +40,7 @@ export const H2Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h2',
-    text: 'Heading',
+    text: 'Why Choose Us',
   },
 };
 
@@ -48,7 +48,7 @@ export const H3Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h3',
-    text: 'Heading',
+    text: 'Premium Quality & Durability',
   },
 };
 
@@ -56,7 +56,7 @@ export const H4Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h4',
-    text: 'Heading',
+    text: 'Join our newsletter',
   },
 };
 
