@@ -10,7 +10,7 @@ import { LucideAngularModule, Search, ArrowRight, Check, X, Globe, ChevronDown, 
   styleUrls: ['./button.component.css'],
 })
 export class ButtonComponent {
-  @Input() type: 'primary' | 'secondary' = 'primary';
+  @Input() type: 'primary' | 'secondary' | 'tetiary' = 'primary';
   @Input() state: 'default' | 'disabled' = 'default';
   @Input() size: 'small' | 'medium' | 'large' = 'large';
   @Input() hasText = true;
@@ -25,10 +25,10 @@ export class ButtonComponent {
   @Input() buttonType: 'submit' | 'button' = 'button';
   @Output() buttonClick = new EventEmitter<Event>();
   @Input() buttonStyles = '';
-  @Input() buttonContainerStyless = '';
+  @Input() buttonContainerStyles = '';
 
   @HostBinding('class') get hostClasses() {
-    return `${this.buttonContainerStyless} md:w-32 w-full`;
+    return `${this.buttonContainerStyles} md:w-32 w-full`;
   }
   public icons = {
     search: Search,

@@ -6,7 +6,7 @@ const meta: Meta<ButtonComponent> = {
   component: ButtonComponent,
   tags: ['autodocs'],
   argTypes: {
-    type: { control: 'radio', options: ['primary', 'secondary'] },
+    type: { control: 'radio', options: ['primary', 'secondary', 'tetiary'] },
     state: { control: 'radio', options: ['default', 'disabled'] },
     size: { control: 'radio', options: ['small', 'medium', 'large'] },
     buttonType: { control: 'radio', options: ['submit', 'button'] },
@@ -72,6 +72,12 @@ export const Secondary: Story = {
   args: {
     ...Primary.args,
     type: 'secondary',
+  },
+};
+export const Tetiary: Story = {
+  args: {
+    ...Primary.args,
+    type: 'tetiary',
   },
 };
 

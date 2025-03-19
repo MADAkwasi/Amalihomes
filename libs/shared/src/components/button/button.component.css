@@ -29,6 +29,12 @@ button {
   color: #ea690c;
 }
 
+.tetiary {
+  background-color: #fff;
+  color: #4f4f4f;
+  border-color: #fff;
+}
+
 .full-width {
   width: 100%;
 }
