@@ -1,6 +1,17 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Search, ArrowRight, Check, X, ChevronDown, ChevronUp } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Search,
+  ArrowRight,
+  Check,
+  X,
+  Globe,
+  ChevronDown,
+  ChevronUp,
+  Menu,
+  ShoppingCart,
+} from 'lucide-angular';
 
 @Component({
   selector: 'lib-button',
@@ -10,7 +21,7 @@ import { LucideAngularModule, Search, ArrowRight, Check, X, ChevronDown, Chevron
   styleUrls: ['./button.component.css'],
 })
 export class ButtonComponent {
-  @Input() type: 'primary' | 'secondary' = 'primary';
+  @Input() type: 'primary' | 'secondary' | 'tetiary' = 'primary';
   @Input() state: 'default' | 'disabled' = 'default';
   @Input() size: 'small' | 'medium' | 'large' = 'large';
   @Input() hasText = true;
@@ -24,7 +35,12 @@ export class ButtonComponent {
   @Input() strokeWidth = 3;
   @Input() buttonType: 'submit' | 'button' = 'button';
   @Output() buttonClick = new EventEmitter<Event>();
+  @Input() buttonStyles = '';
+  @Input() buttonContainerStyles = '';
 
+  @HostBinding('class') get hostClasses() {
+    return `${this.buttonContainerStyles} md:w-32 w-full`;
+  }
   public icons = {
     search: Search,
     arrowRight: ArrowRight,
@@ -32,6 +48,9 @@ export class ButtonComponent {
     x: X,
     chevronDown: ChevronDown,
     chevronUp: ChevronUp,
+    globe: Globe,
+    Menu: Menu,
+    ShoppingCart: ShoppingCart,
   };
 
   handleClick(event: Event) {
