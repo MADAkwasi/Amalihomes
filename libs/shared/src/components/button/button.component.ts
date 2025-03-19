@@ -1,6 +1,17 @@
 import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Search, ArrowRight, Check, X, Globe, ChevronDown, ChevronUp } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Search,
+  ArrowRight,
+  Check,
+  X,
+  Globe,
+  ChevronDown,
+  ChevronUp,
+  Menu,
+  ShoppingCart,
+} from 'lucide-angular';
 
 @Component({
   selector: 'lib-button',
@@ -38,6 +49,8 @@ export class ButtonComponent {
     chevronDown: ChevronDown,
     chevronUp: ChevronUp,
     globe: Globe,
+    Menu: Menu,
+    ShoppingCart: ShoppingCart,
   };
 
   handleClick(event: Event) {
