@@ -65,6 +65,31 @@ describe('DynamicTextComponent', () => {
     component.text = 'Test Text';
     fixture.detectChanges();
     const pElement = fixture.debugElement.query(By.css('p'));
-    expect(pElement.nativeElement.classList.contains('default')).toBe(false); // No default class
+    expect(pElement.nativeElement.classList.contains('default')).toBe(false);
+  });
+
+  it('should not render any tag when tagName is invalid', () => {
+    component.tagName = 'invalidTag' as any;
+    component.text = 'Invalid Tag Text';
+    fixture.detectChanges();
+
+    const h1Element = fixture.debugElement.query(By.css('h1'));
+    const h2Element = fixture.debugElement.query(By.css('h2'));
+    const h3Element = fixture.debugElement.query(By.css('h3'));
+    const h4Element = fixture.debugElement.query(By.css('h4'));
+    const h5Element = fixture.debugElement.query(By.css('h5'));
+    const h6Element = fixture.debugElement.query(By.css('h6'));
+    const pElement = fixture.debugElement.query(By.css('p'));
+
+    expect(h1Element).toBeNull();
+    expect(h2Element).toBeNull();
+    expect(h3Element).toBeNull();
+    expect(h4Element).toBeNull();
+    expect(h5Element).toBeNull();
+    expect(h6Element).toBeNull();
+    expect(pElement).toBeNull();
+
+    const container = fixture.debugElement.nativeElement;
+    expect(container.children.length).toBe(0);
   });
 });
