@@ -24,7 +24,7 @@ type Story = StoryObj<DynamicTextComponent>;
 export const Default: Story = {
   args: {
     tagName: 'p',
-    text: 'Your ultimate destination for premium furniture that blends elegance, comfort, and functionality. Whether youre revamping your living room, upgrading your office ,we bring you an exquisite collection tailored to your taste',
+    text: 'paragraph',
   },
 };
 
@@ -32,7 +32,7 @@ export const H1Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h1',
-    text: 'Quality Furniture for Every Home & Office',
+    text: 'H1 Heading',
   },
 };
 
@@ -40,7 +40,7 @@ export const H2Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h2',
-    text: 'Why Choose Us',
+    text: 'H2 Heading',
   },
 };
 
@@ -48,7 +48,7 @@ export const H3Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h3',
-    text: 'Premium Quality & Durability',
+    text: 'H3 Heading',
   },
 };
 
@@ -56,7 +56,7 @@ export const H4Heading: Story = {
   args: {
     ...Default.args,
     tagName: 'h4',
-    text: 'Join our newsletter',
+    text: 'H4 Heading',
   },
 };
 
@@ -64,7 +64,7 @@ export const LargeDescription: Story = {
   args: {
     ...Default.args,
     tagName: 'p',
-    text: 'Description',
+    text: 'Description paragraph',
     className: 'large-description',
   },
 };
@@ -73,7 +73,7 @@ export const SmallDescription: Story = {
   args: {
     ...Default.args,
     tagName: 'p',
-    text: 'Description',
+    text: 'Description paragraph',
     className: 'small-description',
   },
 };
@@ -82,7 +82,7 @@ export const ExtraSmallDescription: Story = {
   args: {
     ...Default.args,
     tagName: 'p',
-    text: 'Description',
+    text: 'Description paragraph',
     className: 'extra-small-description',
   },
 };
