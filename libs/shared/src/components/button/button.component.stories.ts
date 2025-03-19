@@ -13,7 +13,7 @@ const meta: Meta<ButtonComponent> = {
     hasText: { control: 'boolean' },
     leftIcon: {
       control: 'select',
-      options: ['search', 'arrowRight', 'check', 'x', 'chevronDown', 'chevronUp'],
+      options: ['search', 'arrowRight', 'check', 'x', 'chevronDown', 'chevronUp', 'globe'],
     },
     rightIcon: {
       control: 'select',

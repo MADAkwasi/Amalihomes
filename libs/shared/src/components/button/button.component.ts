@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Search, ArrowRight, Check, X, ChevronDown, ChevronUp } from 'lucide-angular';
+import { LucideAngularModule, Search, ArrowRight, Check, X, Globe, ChevronDown, ChevronUp } from 'lucide-angular';
 
 @Component({
   selector: 'lib-button',
@@ -24,7 +24,12 @@ export class ButtonComponent {
   @Input() strokeWidth = 3;
   @Input() buttonType: 'submit' | 'button' = 'button';
   @Output() buttonClick = new EventEmitter<Event>();
+  @Input() buttonStyles = '';
+  @Input() buttonContainerStyless = '';
 
+  @HostBinding('class') get hostClasses() {
+    return `${this.buttonContainerStyless} md:w-32 w-full`;
+  }
   public icons = {
     search: Search,
     arrowRight: ArrowRight,
@@ -32,6 +37,7 @@ export class ButtonComponent {
     x: X,
     chevronDown: ChevronDown,
     chevronUp: ChevronUp,
+    globe: Globe,
   };
 
   handleClick(event: Event) {
