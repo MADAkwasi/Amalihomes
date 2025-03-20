@@ -60,3 +60,19 @@
     @apply border-border;
   }
 }
+
+.active-route {
+  @apply px-6 py-2 border-b-primary border-b-[2px];
+}
+
+.route {
+  @apply px-6 py-2 border-b-transparent border-b-[2px];
+}
+
+.show-search-field {
+  @apply translate-y-0 duration-200 opacity-100;
+}
+
+.transparent {
+  @apply bg-transparent;
+}

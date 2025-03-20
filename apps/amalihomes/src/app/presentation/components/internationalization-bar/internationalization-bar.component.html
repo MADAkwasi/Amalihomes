@@ -1,0 +1,10 @@
+@let info = currentLocale()?.country + ' | ' + currentLocale()?.language;
+<div class="flex justify-end py-3 px-[1rem] bg-neutral">
+  <lib-button
+    buttonContainerStyles="!w-fit"
+    buttonStyles="!bg-[#fff] !text-neutral !border-neutral"
+    leftIcon="globe"
+    [fullWidth]="true"
+    [buttonText]="info"
+  ></lib-button>
+</div>
