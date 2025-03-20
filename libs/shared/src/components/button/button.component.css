@@ -12,6 +12,7 @@ button {
   font-size: 16px;
   gap: 8px;
 }
+
 .icon {
   display: flex;
   justify-content: center;
@@ -38,6 +39,7 @@ button {
 .full-width {
   width: 100%;
 }
+
 .disabled {
   opacity: 0.5;
   cursor: not-allowed;

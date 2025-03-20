@@ -1,11 +1,12 @@
 <button
   [ngClass]="[
-    buttonStyles,
     type,
     size,
     state === 'disabled' ? 'disabled' : '',
     iconOnly ? 'icon-only' : '',
-    fullWidth ? 'full-width' : ''
+    fullWidth ? 'full-width' : '',
+    hideBelow950px ? 'hidden md:flex' : '',
+    buttonStyles
   ]"
   [disabled]="state === 'disabled'"
   [type]="buttonType"
