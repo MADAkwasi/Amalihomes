@@ -39,7 +39,6 @@ export class ButtonComponent {
   @Input() buttonContainerStyles = '';
   @Input() hideBelow950px = false;
 
-
   @HostBinding('class') get hostClasses() {
     return `${this.buttonContainerStyles} md:w-32 w-full`;
   }
