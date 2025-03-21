@@ -31,7 +31,7 @@ pipeline {
    stage("Run Tests"){
       steps{
         script {
-          sh "npm run test:ci"
+          sh "npm run test:coverage"
         }
       }
     } 

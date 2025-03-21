@@ -7,6 +7,8 @@
     "format:check": "npx prettier --check .",
     "build": "npx nx build amalihomes",
     "lint": "npx nx lint amalihomes",
+    "test": "npx jest",
+    "test:coverage": "npx jest --coverage",
     "test:ci": "npx nx affected:test --base=origin/develop --head=HEAD --parallel",
     "amalihomes": "npx nx serve amalihomes",
     "gen": "bash .scripts/generator.sh",
