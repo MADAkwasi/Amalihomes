@@ -4,7 +4,7 @@ pipeline {
 
   tools {nodejs "node22"}
   stages {
-/*
+
     stage('Install Dependencies'){
       steps{
         script {
@@ -26,14 +26,16 @@ pipeline {
         }
       }
     }
+
+
    stage("Run Tests"){
       steps{
         script {
-          sh "npm run test:ci"
+          sh "npm run test:coverage"
         }
       }
     } 
-*/
+    
     stage('Sonar Analysis'){
       steps{
         withSonarQubeEnv('SonarQube'){
