@@ -15,5 +15,5 @@ export class ImageComponent {
   @Input() orientation: 'portrait' | 'landscape' = 'landscape';
   @Input() styles = '';
   @Input() containerStyles = '';
-  @Input() lable = 'somehting';
+  @Input() ImageLabel = 'Label here';
 }
