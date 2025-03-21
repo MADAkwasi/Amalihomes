@@ -3,7 +3,7 @@ button {
   padding: 12px 24px;
   font-size: 16px;
   cursor: pointer;
-  border: 1px solid #ea690c;
+  border: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,9 +18,25 @@ button {
   color: white;
 }
 
+.primary:hover {
+  background-color: #f98416;
+  color: white;
+}
+
+.primary:active {
+  background-color: #c24f0c;
+  color: white;
+}
+
+.primary:disabled {
+  background-color: #fff8ed;
+  color: #feddaa;
+  cursor: not-allowed;
+}
 .secondary {
   background-color: white;
   color: #ea690c;
+  border: 1px solid #ea690c;
 }
 
 .tetiary {
@@ -30,6 +46,5 @@ button {
 }
 
 .disabled {
-  opacity: 0.5;
   cursor: not-allowed;
 }
