@@ -45,6 +45,7 @@ button {
   border-color: #fff;
 }
 
-.disabled {
+.primary:disabled,
+.secondary:disabled {
   cursor: not-allowed;
 }
