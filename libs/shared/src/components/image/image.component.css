@@ -1,0 +1,33 @@
+img {
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+img.portrait {
+  aspect-ratio: 2/3;
+}
+
+img.landscape {
+  aspect-ratio: 16/9;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-lable {
+  font-size: 20px;
+  font-weight: 700;
+  color: #5d5d5d;
+  margin-top: 8px;
+  line-height: 28px;
+  text-align: center;
+}
