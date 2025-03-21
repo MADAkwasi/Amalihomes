@@ -1,24 +1,21 @@
-<div class="input-container" [ngClass]="variant">
+<div class="input-container primary w-[30px]" [ngClass]="containerStyles">
   <ng-container *ngIf="leftIcon">
-    <lucide-icon [img]="icons[leftIcon]" [size]="iconSize" [strokeWidth]="strokeWidth" class="left-icon"></lucide-icon>
+    <ng-content select="leftIcon" class="left-icon"></ng-content>
   </ng-container>
 
   <input
     [ngClass]="{
       'with-left-icon': leftIcon,
-      'with-right-icon': rightIcon
+      'with-right-icon': rightIcon,
+      
     }"
     [placeholder]="placeholder"
     [value]="value"
     (input)="onInput($event)"
+    [disabled]="disabled"
   />
 
   <ng-container *ngIf="rightIcon">
-    <lucide-icon
-      [img]="icons[rightIcon]"
-      [size]="iconSize"
-      [strokeWidth]="strokeWidth"
-      class="right-icon"
-    ></lucide-icon>
+    <ng-content select="rightIcon" class="right-icon"></ng-content>
   </ng-container>
 </div>

@@ -1,37 +1,59 @@
-import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+/* eslint-disable no-empty-function */
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Search, Mail, Lock, Eye, EyeOff } from 'lucide-angular';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-text-input',
-  imports: [CommonModule, LucideAngularModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './text-input.component.html',
   styleUrl: './text-input.component.css',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputComponent),
+      multi: true,
+    },
+  ],
 })
-export class InputComponent {
-  @Input() variant: 'primary' | 'secondary' = 'primary';
+export class InputComponent implements ControlValueAccessor {
   @Input() placeholder = '';
   @Input() iconSize = 20;
   @Input() strokeWidth = 2;
-  @Input() leftIcon?: keyof typeof this.icons;
-  @Input() rightIcon?: keyof typeof this.icons;
-  @Input() value = '';
-  @Output() valueChange = new EventEmitter<string>();
+  @Input() leftIcon = false;
+  @Input() rightIcon = false;
+  @Input() containerStyles = '';
+  @Input() inputStyles = '';
 
-  public icons = {
-    search: Search,
-    mail: Mail,
-    lock: Lock,
-    eye: Eye,
-    eyeOff: EyeOff,
-  };
+  value = '';
+  disabled = false;
 
-  @HostBinding('class') get hostClasses() {
-    return this.variant === 'secondary' ? 'w-full' : '';
+  onChange: any = () => {};
+
+  onTouched: any = () => {};
+
+  writeValue(value: string): void {
+    this.value = value;
   }
 
-  onInput(event: Event) {
-    this.value = (event.target as HTMLInputElement).value;
-    this.valueChange.emit(this.value);
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  onInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.value = value;
+    this.onChange(value);
+    this.onTouched();
   }
 }
