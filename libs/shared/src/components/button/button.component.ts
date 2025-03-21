@@ -15,7 +15,7 @@ export class ButtonComponent {
   @Input() buttonType: 'submit' | 'button' = 'button';
   @Output() buttonClick = new EventEmitter<Event>();
   @Input() buttonStyles = '';
-  @Input({ required: true }) buttonRole!: string;
+  @Input({ required: true }) buttonIdentifier!: string;
 
   handleClick(event: Event) {
     if (this.state !== 'disabled') {
