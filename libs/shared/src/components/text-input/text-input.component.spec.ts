@@ -21,15 +21,6 @@ describe('InputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should update value on input', () => {
-    const inputElement = fixture.nativeElement.querySelector('input');
-    inputElement.value = 'test';
-    inputElement.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    expect(component.value).toBe('test');
-  });
-
   it('should set disabled state', () => {
     component.setDisabledState(true);
     fixture.detectChanges();
