@@ -1,6 +1,6 @@
 <button
-  [attr.data-btn-id]="buttonRole"
-  [ngClass]="[type, state === 'disabled' ? 'disabled' : '', buttonStyles]"
+  [attr.data-btn-id]="buttonIdentifier"
+  [ngClass]="[type, buttonStyles]"
   [disabled]="state === 'disabled'"
   [type]="buttonType"
   (click)="handleClick($event)"
