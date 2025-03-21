@@ -1,0 +1,50 @@
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1.5px solid;
+  background: white;
+  color: #5d5d5d;
+  font-size: 16px;
+}
+
+input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #5d5d5d;
+  padding: 0 12px;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #a0a0a0;
+}
+
+.primary {
+  height: 48px;
+  border-color: #d1d1d1;
+  padding: 0 16px;
+}
+
+.secondary {
+  height: 40px;
+  border-color: #d1d1d1;
+  padding: 0 12px;
+}
+
+.with-left-icon {
+  padding-left: 8px;
+}
+
+.with-right-icon {
+  padding-right: 8px;
+}
+
+.left-icon,
+.right-icon {
+  color: #5d5d5d;
+  display: flex;
+}
