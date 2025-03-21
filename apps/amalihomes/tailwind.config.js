@@ -7,11 +7,6 @@ module.exports = {
     join(__dirname, '../../libs/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
-    join(__dirname, '../../libs/**/!(*.stories|*.spec).{ts,html}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
   theme: {
     extend: {
       screens: {
@@ -34,6 +29,9 @@ module.exports = {
         primary: '#ea690c',
         'typo-1': '#6d6d6d',
         neutral: '#888888',
+      },
+      backgroundColor: {
+        muted: 'hsl(var(--muted))',
       },
     },
   },

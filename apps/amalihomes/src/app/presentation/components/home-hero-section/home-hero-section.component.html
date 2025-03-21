@@ -1,0 +1,95 @@
+<div>
+  <div class="w-full 2xl:max-w-[750px] xl:max-w-[550px] lg:max-w-[450px] mb-5">
+    <h1 class="font-bold text-[1.5rem] md:text-[3.5rem] lg:text-[3rem] text-black max-w-[43.75rem]">
+      Quality Furniture for Every Home & Office
+    </h1>
+
+    <p class="font-normal py-5 max-w-[770px] lg:max-w-[520px] 2xl:max-w-[700px] text-[17px]">
+      Your ultimate destination for premium furniture that blends elegance, comfort, and functionality. Whether you're
+      revamping your living room, upgrading your office, we bring you an exquisite collection tailored to your taste
+    </p>
+
+    <!-- Hero Section CTA bttons -->
+    <div class="flex items-center gap-4 flex-col md:flex-row">
+      <div class="w-full md:w-auto">
+        <lib-button buttonText="Shop Now" buttonStyles="w-full" />
+      </div>
+
+      <div class="w-full md:w-auto">
+        <lib-button buttonText="Learn More" type="secondary" buttonStyles="w-full" />
+      </div>
+    </div>
+  </div>
+</div>
+
+@let heroImageDataAvailable = heroImages && heroImages.length > 2;
+
+<div
+  class="flex mt-24 lg:mt-0 justify-center lg:justify-end w-full max-w-[750px] 2xl:max-w-[750px] xl:max-w-[600px] lg:max-w-[500px] py-5 gap-4 lg:gap-0 xl:gap-4 relative"
+>
+  <div class="md:mr-3 flex flex-col items-center gap-4">
+    <!-- Hero Section Image -->
+
+    @if (!heroImageDataAvailable) {
+    <div
+      appSkeleton
+      class="h-[13.75rem] xsm:h-[18.75rem] sm:h-[25rem] md:h-[28.125rem] lg:h-[21.875rem] xl:h-[23.75rem] 2xl:h-[29.375rem] w-[15.625rem] xsm:w-[18.75rem] sm:w-[30rem] lg:w-[25rem] xl:w-[29.375rem] 2xl:w-[34.375rem] rounded-t-full"
+    ></div>
+    } @else {
+    <div
+      class="group h-[13.75rem] xsm:h-[18.75rem] sm:h-[25rem] md:h-[28.125rem] 2xl:h-[29.375rem] xl:h-[23.75rem] lg:h-[21.875rem] w-[15.625rem] xsm:w-[18.75rem] sm:w-[30rem] 2xl:w-[34.37rem] xl:w-[29.375rem] lg:w-[25rem] rounded-t-full bg-muted overflow-hidden relative flex justify-center items-center flex-col"
+      [ngClass]="heroImageLoading ? 'animate-skeleton' : ''"
+    >
+      <img
+        alt="{{ heroImages[selectedIndex].name }}"
+        class="size-9/12 group-hover:scale-110 transition-all mt-9"
+        [ngClass]="heroImageLoading ? 'duration-500 opacity-0 scale-50' : 'duration-700 opacity-100 scale-100'"
+        [src]="heroImages[selectedIndex].image"
+      />
+    </div>
+    }
+
+    <!-- Hero Image Arrow Navigations -->
+    <div class="flex flex-row gap-4">
+      <button
+        (click)="handlePreviousButtonClick()"
+        title="Previous"
+        class="size-10 rounded-full flex justify-center items-center flex-col bg-muted"
+      >
+        <lucide-angular [img]="icons.ArrowLeft" [size]="20" color="#545F71" />
+      </button>
+      <button
+        (click)="handleNextButtonClick()"
+        title="Next"
+        class="size-10 rounded-full flex justify-center items-center flex-col bg-muted"
+      >
+        <lucide-angular [img]="icons.ArrowRight" [size]="20" color="#545F71" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Hero Image Navigations -->
+  <div>
+    <div
+      class="flex flex-col justify-between gap-4 h-[220px] xsm:h-[300px] sm:h-[400px] md:h-[450px] 2xl:h-[470px] xl:h-[380px] lg:h-[350px]"
+    >
+      @if (!heroImageDataAvailable) {
+      <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
+      <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
+      <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
+      } @else { @for(position of imagePostions; track heroImages[position]._id){ @let imageData = heroImages[position];
+
+      <div class="group relative h-[35px] w-[60px] md:h-[55px] md:w-[88px] rounded-b-full bg-muted cursor-pointer">
+        <div class="flex items-center flex-col -mt-6 rounded-full absolute inset-0 bottom-auto">
+          <img
+            alt="{{ imageData.name }}"
+            class="size-3/4 block rounded-full aspect-square group-hover:scale-110 transition-all duration-300"
+            [src]="imageData.image"
+          />
+        </div>
+      </div>
+
+      } }
+    </div>
+  </div>
+</div>
