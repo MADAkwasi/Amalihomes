@@ -8,22 +8,7 @@ const meta: Meta<ButtonComponent> = {
   argTypes: {
     type: { control: 'radio', options: ['primary', 'secondary', 'tetiary'] },
     state: { control: 'radio', options: ['default', 'disabled'] },
-    size: { control: 'radio', options: ['small', 'medium', 'large'] },
     buttonType: { control: 'radio', options: ['submit', 'button'] },
-    hasText: { control: 'boolean' },
-    leftIcon: {
-      control: 'select',
-      options: ['search', 'arrowRight', 'check', 'x', 'chevronDown', 'chevronUp', 'globe'],
-    },
-    rightIcon: {
-      control: 'select',
-      options: ['search', 'arrowRight', 'check', 'x', 'chevronDown', 'chevronUp'],
-    },
-    iconOnly: { control: 'boolean' },
-    buttonText: { control: 'text' },
-    fullWidth: { control: 'boolean' },
-    iconSize: { control: 'number' },
-    strokeWidth: { control: 'number' },
   },
 };
 
@@ -34,38 +19,15 @@ export const Primary: Story = {
   args: {
     type: 'primary',
     state: 'default',
-    size: 'large',
-    hasText: true,
-    leftIcon: undefined,
-    rightIcon: undefined,
-    iconOnly: false,
-    buttonText: 'Primary Button',
   },
-};
-
-export const WithLeftIcon: Story = {
-  args: {
-    ...Primary.args,
-    leftIcon: 'search',
-    buttonText: 'Search',
-  },
-};
-
-export const WithRightIcon: Story = {
-  args: {
-    ...Primary.args,
-    rightIcon: 'arrowRight',
-    buttonText: 'Continue',
-  },
-};
-
-export const IconOnlyButton: Story = {
-  args: {
-    ...Primary.args,
-    hasText: false,
-    iconOnly: true,
-    leftIcon: 'check',
-  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <lib-button [type]="type" [state]="state" [size]="size" [iconOnly]="iconOnly">
+        <span class="icon">button</span>
+      </lib-button>
+    `,
+  }),
 };
 
 export const Secondary: Story = {
@@ -73,12 +35,28 @@ export const Secondary: Story = {
     ...Primary.args,
     type: 'secondary',
   },
+  render: (args) => ({
+    props: args,
+    template: `
+      <lib-button [type]="type" [state]="state" [size]="size" [iconOnly]="iconOnly">
+        <span class="icon">button</span>
+      </lib-button>
+    `,
+  }),
 };
 export const Tetiary: Story = {
   args: {
     ...Primary.args,
     type: 'tetiary',
   },
+  render: (args) => ({
+    props: args,
+    template: `
+      <lib-button [type]="type" [state]="state" [size]="size" [iconOnly]="iconOnly">
+        <span class="icon">button</span>
+      </lib-button>
+    `,
+  }),
 };
 
 export const Disabled: Story = {
@@ -86,11 +64,26 @@ export const Disabled: Story = {
     ...Primary.args,
     state: 'disabled',
   },
+  render: (args) => ({
+    props: args,
+    template: `
+      <lib-button [type]="type" [state]="state" [size]="size">
+        <span class="icon">button</span>
+      </lib-button>
+    `,
+  }),
 };
 
-export const fullWidth: Story = {
+export const IconOnly: Story = {
   args: {
     ...Primary.args,
-    fullWidth: true,
   },
+  render: (args) => ({
+    props: args,
+    template: `
+      <lib-button [type]="type" [state]="state" [size]="size">
+        <span class="icon">✖️</span>
+      </lib-button>
+    `,
+  }),
 };

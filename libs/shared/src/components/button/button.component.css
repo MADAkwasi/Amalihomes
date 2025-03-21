@@ -13,13 +13,6 @@ button {
   gap: 8px;
 }
 
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  size: 21px;
-}
-
 .primary {
   background-color: #ea690c;
   color: white;
@@ -36,21 +29,7 @@ button {
   border-color: #fff;
 }
 
-.full-width {
-  width: 100%;
-}
-
 .disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.large {
-  height: 48px;
-}
-
-.icon-only {
-  width: 48px;
-  height: 48px;
-  padding: 0;
 }
