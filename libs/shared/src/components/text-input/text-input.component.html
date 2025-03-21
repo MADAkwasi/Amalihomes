@@ -7,11 +7,9 @@
     [ngClass]="{
       'with-left-icon': leftIcon,
       'with-right-icon': rightIcon,
-      
     }"
     [placeholder]="placeholder"
-    [value]="value"
-    (input)="onInput($event)"
+    [formControl]="control"
     [disabled]="disabled"
   />
 
