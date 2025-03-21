@@ -1,0 +1,16 @@
+<div [class]="isOpen ? 'show-search-field px-[1rem] py-2' : 'relative items-center -translate-y-20 -z-10 opacity-0'">
+  <lib-button
+    buttonStyles="!bg-transparent !border-transparent"
+    class="absolute left-1"
+    [hasText]="false"
+    rightIcon="search"
+    [iconSize]="14"
+    type="tetiary"
+  ></lib-button>
+  <input
+    class="items-center flex"
+    type="text"
+    placeholder="Search Products"
+    class="border-2 px-8 py-2 w-[100%] rounded-md"
+  />
+</div>

@@ -1,0 +1,61 @@
+<header>
+  <app-internationalization-bar></app-internationalization-bar>
+  <nav class="flex justify-between px-[1rem] items-center text-xs py-[0.8rem] border-b-border border-b">
+    <img src="images/logo.svg" alt="logo" />
+
+    <ul class="min-[975px]:flex gap-[1rem] text-typo-1 hidden">
+      <li routerLinkActive="active-route" class="route">
+        <a routerLink="/home" routerLinkActive="text-primary font-medium">Home</a>
+      </li>
+      <li routerLinkActive="active-route" class="route">
+        <a routerLink="/home" routerLinkActive="text-primary font-medium">Shop</a>
+      </li>
+      <li routerLinkActive="active-route" class="route">
+        <a routerLink="/home" routerLinkActive="text-primary font-medium">About</a>
+      </li>
+      <li routerLinkActive="active-route" class="route">
+        <a routerLink="/home" routerLinkActive="text-primary font-medium"> FAQs </a>
+      </li>
+      <li routerLinkActive="active-route" class="route">
+        <a routerLink="/home" routerLinkActive="text-primary font-medium">News</a>
+      </li>
+    </ul>
+
+    <span class="flex items-center justify-center gap-5" [ngClass]="{ 'gap-0': isAuthenticated }">
+      <lib-button
+        [iconOnly]="true"
+        rightIcon="search"
+        [hasText]="false"
+        [iconSize]="15"
+        type="tetiary"
+        size="small"
+        (buttonClick)="isSearching = !isSearching"
+        buttonStyles="!w-fit"
+        buttonContainerStyles="!w-fit"
+      ></lib-button>
+
+      @if(isAuthenticated){
+      <lib-button
+        [hasText]="false"
+        [iconOnly]="true"
+        rightIcon="ShoppingCart"
+        type="tetiary"
+        buttonContainerStyles="!w-fit"
+        buttonStyles="!w-fit"
+      ></lib-button>
+      <img class="h-7 cursor-pointer" src="images/user.png" alt="user" />
+      }@else {
+      <lib-button buttonContainerStyles="!w-fit !min-[975px]:hidden" buttonText="Login"></lib-button>
+      }
+
+      <lib-button
+        buttonContainerStyles="!w-fit !hidden !min-[975px]:flex"
+        type="tetiary"
+        [iconOnly]="true"
+        rightIcon="Menu"
+        [hasText]="false"
+      ></lib-button>
+    </span>
+  </nav>
+  <app-search-field [isOpen]="isSearching"></app-search-field>
+</header>
