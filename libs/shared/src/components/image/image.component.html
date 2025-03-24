@@ -1,6 +1,1 @@
-<div class="image-container" [ngClass]="containerStyles">
-  <img [src]="src" [alt]="alt" [ngClass]="[orientation, styles]" [style.width.px]="width" [style.height.px]="height" />
-  @if(ImageLabel){
-  <p class="image-lable">{{ ImageLabel }}</p>
-  }
-</div>
+<img [src]="src" [alt]="alt" [ngClass]="[orientation, class]" [style.width.px]="width" [style.height.px]="height" />

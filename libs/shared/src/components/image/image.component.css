@@ -15,19 +15,3 @@ img.landscape {
 img:hover {
   transform: scale(1.05);
 }
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.image-lable {
-  font-size: 20px;
-  font-weight: 700;
-  color: #5d5d5d;
-  margin-top: 8px;
-  line-height: 28px;
-  text-align: center;
-}
