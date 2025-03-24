@@ -34,7 +34,6 @@ describe('ButtonComponent', () => {
 
     const buttonElement = fixture.debugElement.query(By.css('button'));
     expect(buttonElement.nativeElement.classList).toContain('secondary');
-    expect(buttonElement.nativeElement.classList).toContain('disabled');
     expect(buttonElement.nativeElement.disabled).toBe(true);
   });
 

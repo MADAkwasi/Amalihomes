@@ -1,10 +1,12 @@
 @let info = currentLocale()?.country + ' | ' + currentLocale()?.language;
 <div class="flex justify-end py-3 bg-neutral px-4 lg:px-8 xl:px-16">
   <lib-button
-    buttonContainerStyles="!w-fit"
+    buttonIdentifier="internationalization-bar-btn"
+    class="!w-fit"
     buttonStyles="!bg-[#fff] !text-neutral !border-neutral"
     leftIcon="globe"
-    [fullWidth]="true"
-    [buttonText]="info"
-  ></lib-button>
+  >
+    <lucide-angular [img]="icons.Globe" [size]="18" color="#5d5d5d" />
+    {{ info }}
+  </lib-button>
 </div>
