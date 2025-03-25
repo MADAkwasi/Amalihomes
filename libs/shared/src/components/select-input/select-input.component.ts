@@ -18,10 +18,9 @@ export class SelectInputComponent {
   label = input('');
   class = input('');
   arrowIcon = ChevronDown;
-
   isOpen = false;
 
-  get selectedLabel(): string {
+  get computedLabel(): string {
     const selectedOption = this.options().find((opt) => opt.value === this.control().value);
     return selectedOption ? selectedOption.label : this.placeholder();
   }
