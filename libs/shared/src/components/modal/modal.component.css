@@ -1,0 +1,48 @@
+.modal-wrapper {
+  display: contents;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #3d3d3d4d;
+  z-index: 1000;
+}
+
+.modal-backdrop.transparent {
+  background-color: transparent;
+}
+
+.modal-content {
+  position: fixed;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  overflow: auto;
+}
+
+.modal-left {
+  top: 0;
+  left: 0;
+}
+
+.modal-right {
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+.modal-top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.modal-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
