@@ -33,6 +33,7 @@ module.exports = {
       },
       backgroundColor: {
         muted: 'hsl(var(--muted))',
+        'primary-light': 'hsl(var(--primary-light))',
       },
     },
   },
