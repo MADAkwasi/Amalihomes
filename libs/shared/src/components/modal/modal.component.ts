@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,10 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
-  @Input() position: 'left' | 'right' | 'top' | 'bottom' = 'top';
-  @Input() modalClass = '';
+  position = input<'left' | 'right' | 'top' | 'bottom'>('top');
+  modalClass = input('');
   isOpen = false;
-  @Input() hasModalBackdrop = false;
+  hasModalBackdrop = input(false);
 
   toggleModal() {
     this.isOpen = !this.isOpen;
