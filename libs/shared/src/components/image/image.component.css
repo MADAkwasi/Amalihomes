@@ -4,14 +4,6 @@ img {
   transition: transform 0.3s ease;
 }
 
-img.portrait {
-  aspect-ratio: 2/3;
-}
-
-img.landscape {
-  aspect-ratio: 16/9;
-}
-
 img:hover {
   transform: scale(1.05);
 }

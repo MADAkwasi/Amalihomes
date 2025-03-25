@@ -10,8 +10,5 @@ import { CommonModule } from '@angular/common';
 export class ImageComponent {
   @Input() src = '';
   @Input() alt = '';
-  @Input() width = 300;
-  @Input() height = 200;
-  @Input() orientation: 'portrait' | 'landscape' = 'landscape';
   @Input() class = '';
 }
