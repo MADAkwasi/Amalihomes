@@ -62,17 +62,21 @@
 }
 
 .active-route {
-  @apply px-6 py-2 border-b-primary border-b-[2px];
+  @apply p-2 border-b-primary border-b-[2px];
 }
 
 .route {
-  @apply px-6 py-2 border-b-transparent border-b-[2px];
+  @apply p-2 border-b-transparent border-b-[2px];
 }
 
 .show-search-field {
   @apply translate-y-0 duration-200 opacity-100;
 }
 
-.transparent {
-  @apply bg-transparent;
+input.ng-invalid.ng-touched {
+  @apply border-red-500;
+}
+
+input:focus.ng-invalid.ng-touched {
+  @apply border-0 outline-red-500 outline;
 }

@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideMockStore } from '@ngrx/store/testing';
+import { selectIsMenuOpen, selectIsSearching } from './logic/stores/selectors/interactions.selector';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -10,6 +12,14 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, AppComponent],
+      providers: [
+        provideMockStore({
+          selectors: [
+            { selector: selectIsMenuOpen, value: false },
+            { selector: selectIsSearching, value: false },
+          ],
+        }),
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

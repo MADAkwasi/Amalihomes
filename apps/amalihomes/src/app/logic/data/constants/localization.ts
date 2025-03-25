@@ -1,4 +1,10 @@
-import { Localization } from './models';
+export interface Localization {
+  country: string;
+  countryCode: string;
+  language: string;
+  languageCode: string;
+  direction?: 'ltr' | 'rtl';
+}
 
 export const localization: Localization[] = [
   { country: 'Austria', language: 'Deutch', languageCode: 'de', countryCode: 'AT', direction: 'ltr' },

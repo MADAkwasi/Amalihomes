@@ -1,0 +1,80 @@
+<footer class="bg-footer py-6 px-4 md:py-16 md:px-14 text-white flex flex-col gap-10 md:gap-20">
+  <div class="flex lg:flex-row flex-col gap-6 justify-between items-start">
+    <span class="w-[100%] lg:w-[40%] flex flex-col gap-2 text-center md:text-left">
+      <h4 class="font-medium text-lg">Join our newsletter</h4>
+      <p class="text-xs font-light">
+        Sign up for exclusive deals, latest arrivals, and stylish home inspiration. Be the first to know about special
+        offers and new collections
+      </p>
+    </span>
+
+    <span class="w-[100%] lg:w-[32%] flex flex-col gap-2">
+      <form #form="ngForm" (ngSubmit)="onSubmit()" class="flex flex-col lg:flex-row lg:gap-[5%] gap-2">
+        <input
+          name="email"
+          [(ngModel)]="email"
+          appEmailValidator
+          #emailRef="ngModel"
+          type="text"
+          class="bg-transparent border-white border rounded-md w-[100%] md:w-[50%] lg:w-[85%] px-4 py-3 placeholder:text-white"
+          placeholder="Enter your email"
+          required
+        />
+        <p *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-[10px] tracking-wider block lg:hidden">
+          Enter a valid email
+        </p>
+        <lib-button
+          buttonStyles="!w-[100%] md:!w-[50%] lg:!w-[100%]"
+          type="tetiary"
+          (buttonClick)="onSubmit()"
+          buttonIdentifier="subscription-button"
+          >Subscribe</lib-button
+        >
+      </form>
+      <p *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-[10px] tracking-wider hidden lg:block">
+        Enter a valid email
+      </p>
+      <span class="flex text-xs font-thin gap-2 justify-center md:justify-start">
+        <p>By Subscribing you agree to our</p>
+        <a class="underline" routerLink="#">Privacy Policy</a>
+      </span>
+    </span>
+  </div>
+
+  <div class="flex flex-col md:flex-row items-center gap-8 md:gap-20 md:items-start lg:gap-48">
+    <app-hyperlinks category="Quick Links" [links]="quickLinks()"></app-hyperlinks>
+    <app-hyperlinks category="Company" [links]="companyLinks()"></app-hyperlinks>
+    <app-hyperlinks category="Legal Services" [links]="legalServicesLinks()"></app-hyperlinks>
+    <span class="flex flex-col gap-6 text-center md:text-left">
+      <h4 class="font-semibold text-md">Contact Us</h4>
+      <ul class="text-sm font-light flex flex-col gap-4">
+        <li>+233 6355 9553</li>
+        <li>amalihomes&#64;gmail.com</li>
+      </ul>
+    </span>
+  </div>
+
+  <div class="flex flex-col gap-6 text-xs">
+    <hr />
+
+    <span class="flex flex-col gap-4 lg:flex-row justify-between items-center">
+      <span>
+        <p>&copy; 2024 Amalihomes. All rights reserved</p>
+      </span>
+
+      <ul class="flex gap-4 md:hidden">
+        <a href="#"> <li>Privacy Policy</li></a>
+        <a href="#"> <li>Terms of Services</li></a>
+        <a href="#"> <li>Cookies Settings</li></a>
+      </ul>
+
+      <span class="flex gap-4">
+        <a href="#"><lucide-icon [img]="facebookIcon" [size]="18"></lucide-icon></a>
+        <a href="#"><lucide-icon [img]="instagramIcon" [size]="18"></lucide-icon></a>
+        <a href="#"><lucide-icon [img]="twitterIcon" [size]="18"></lucide-icon></a>
+        <a href="#"><lucide-icon [img]="instagramIcon" [size]="18"></lucide-icon></a>
+        <a href="#"><lucide-icon [img]="youtubeIcon" [size]="18"></lucide-icon></a>
+      </span>
+    </span>
+  </div>
+</footer>

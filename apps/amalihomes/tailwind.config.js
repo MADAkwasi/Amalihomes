@@ -29,6 +29,7 @@ module.exports = {
         primary: '#ea690c',
         'typo-1': '#6d6d6d',
         neutral: '#888888',
+        footer: '#3d3d3d',
       },
       backgroundColor: {
         muted: 'hsl(var(--muted))',

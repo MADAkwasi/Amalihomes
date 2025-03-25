@@ -1,14 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '@amalihomes/shared';
+import { Store } from '@ngrx/store';
+import { selectIsSearching } from '../../../logic/stores/selectors/interactions.selector';
 import { LucideAngularModule, Search } from 'lucide-angular';
 
 @Component({
   selector: 'app-search-field',
-  imports: [CommonModule, ButtonComponent, CommonModule, LucideAngularModule],
+  imports: [CommonModule, CommonModule, LucideAngularModule],
   templateUrl: './search-field.component.html',
 })
 export class SearchFieldComponent {
-  @Input() isOpen!: boolean;
-  public icons = { Search };
+  private readonly store = inject(Store);
+  public readonly searchIcon = Search;
+  public isSearching = this.store.selectSignal(selectIsSearching);
 }

@@ -1,8 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
-import { localization } from '../../../logic/data/constants';
-import { LucideAngularModule, Globe } from 'lucide-angular';
+import { localization } from '../../../logic/data/constants/localization';
+import { Globe, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-internationalization-bar',
@@ -10,7 +10,8 @@ import { LucideAngularModule, Globe } from 'lucide-angular';
   templateUrl: './internationalization-bar.component.html',
 })
 export class InternationalizationBarComponent {
-  public localization = signal(localization);
+  public readonly localization = signal(localization);
+  public readonly globeIcon = Globe;
   public currentLocale = computed(() => {
     const defaultLocale = {
       country: 'USA',
@@ -21,6 +22,4 @@ export class InternationalizationBarComponent {
     };
     return this.localization().find((curLocale) => curLocale.country === defaultLocale.country);
   });
-
-  public icons = { Globe };
 }

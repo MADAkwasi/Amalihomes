@@ -1,22 +1,18 @@
 <div
   [class]="
-    isOpen
-      ? 'show-search-field px-[1rem] py-2 flex items-center justify-center'
-      : 'relative items-center -translate-y-20 -z-10 opacity-0'
+    isSearching()
+      ? 'flex items-center show-search-field px-4 lg-px-8 xl:px-16 py-2'
+      : 'relative -translate-y-20 -z-10 opacity-0'
   "
 >
-  <lib-button
-    buttonStyles="!bg-transparent !border-transparent"
-    class="absolute left-1"
-    type="tetiary"
-    buttonIdentifier="home-search-field-button"
-  >
-    <lucide-angular [img]="icons.Search" [size]="14" color="#5d5d5d" />
-  </lib-button>
+  <lucide-icon
+    [img]="searchIcon"
+    [size]="14"
+    class="absolute left-3 lg:left-9 bottom-[50%] translate-y-[50%]"
+  ></lucide-icon>
   <input
-    class="items-center flex"
+    class="items-center flex border-2 px-7 py-2 w-[100%] rounded-md focus:outline-primary"
     type="text"
     placeholder="Search Products"
-    class="border-2 px-8 py-2 w-[100%] rounded-md"
   />
 </div>

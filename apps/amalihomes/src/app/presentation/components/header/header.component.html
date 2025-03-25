@@ -3,65 +3,43 @@
   <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b px-4 lg-px-8 xl:px-16">
     <img src="images/logo.svg" alt="logo" />
 
-    <ul class="min-[975px]:flex gap-[1rem] text-typo-1 hidden">
-      <li routerLinkActive="active-route" class="route">
-        <a routerLink="/home" routerLinkActive="text-primary font-medium">Home</a>
-      </li>
-      <li routerLinkActive="active-route" class="route">
-        <a routerLink="/home" routerLinkActive="text-primary font-medium">Shop</a>
-      </li>
-      <li routerLinkActive="active-route" class="route">
-        <a routerLink="/home" routerLinkActive="text-primary font-medium">About</a>
-      </li>
-      <li routerLinkActive="active-route" class="route">
-        <a routerLink="/home" routerLinkActive="text-primary font-medium"> FAQs </a>
-      </li>
-      <li routerLinkActive="active-route" class="route">
-        <a routerLink="/home" routerLinkActive="text-primary font-medium">News</a>
-      </li>
-    </ul>
+    <app-navlinks class="hidden lg:flex"></app-navlinks>
 
-    <span class="flex items-center justify-center gap-5" [ngClass]="{ 'gap-0': isAuthenticated }">
+    <span class="flex items-center">
       <lib-button
-        buttonIdentifier="page-header-search-btn"
         type="tetiary"
         size="small"
-        (buttonClick)="isSearching = !isSearching"
-        buttonStyles="!w-fit"
-        class="!w-fit"
+        (buttonClick)="onOpenSearchField()"
+        buttonStyles="!w-fit !px-4"
+        buttonIdentifier="search-button"
       >
-        <lucide-angular [img]="icons.Search" [size]="15" color="#5d5d5d" />
+        <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
       </lib-button>
 
       @if(isAuthenticated){
-      <lib-button
-        buttonIdentifier="page-header-shopping-cart-btn"
-        type="tetiary"
-        (buttonClick)="isSearching = !isSearching"
-        buttonStyles="!w-fit"
-        class="!w-fit"
-      >
-        <lucide-angular [img]="icons.ShoppingCart" [size]="20" color="#5d5d5d" />
+      <lib-button type="tetiary" buttonStyles="!w-fit !px-4" buttonIdentifier="shopping-cart-button">
+        <lucide-icon [img]="cartIcon" [size]="18"></lucide-icon>
       </lib-button>
-
       <img class="h-7 cursor-pointer" src="images/user.png" alt="user" />
 
       }@else {
-
-      <lib-button class="!w-fit !min-[975px]:hidden" buttonIdentifier="page-header-login-btn"> Login </lib-button>
-
+      <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">Login</lib-button>
       }
 
       <lib-button
-        buttonIdentifier="page-header-menu-btn"
+        buttonStyles="!w-fit !block !px-0 !ml-4 lg:!hidden"
         type="tetiary"
-        (buttonClick)="isSearching = !isSearching"
-        buttonStyles="!w-fit"
-        class="!w-fit !hidden !min-[975px]:flex"
+        (buttonClick)="onMenuToggle()"
+        buttonIdentifier="menu-button"
       >
-        <lucide-angular [img]="icons.Menu" [size]="20" color="#5d5d5d" />
+        <lucide-icon
+          [img]="isMenuOpen() ? closeIcon : menuIcon"
+          [size]="18"
+          [color]="isMenuOpen() ? '#ea690c' : '#000'"
+        ></lucide-icon>
       </lib-button>
     </span>
   </nav>
-  <app-search-field [isOpen]="isSearching"></app-search-field>
+  <app-menu *ngIf="isMenuOpen()" [isAuthenticated]="isAuthenticated"></app-menu>
+  <app-search-field class="w-[100%] absolute" [class]="isMenuOpen() ? 'hidden lg:block' : ''"></app-search-field>
 </header>
