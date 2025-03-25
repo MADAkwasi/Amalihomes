@@ -46,7 +46,7 @@ describe('SelectInputComponent', () => {
   });
 
   it('should show placeholder when no value is selected', () => {
-    expect(component.selectedLabel).toBe('Select an option');
+    expect(component.computedLabel).toBe('Select an option');
     const placeholderSpan = fixture.debugElement.query(By.css('.placeholder'));
     expect(placeholderSpan).toBeTruthy();
   });
@@ -126,7 +126,7 @@ describe('SelectInputComponent', () => {
     fixture.componentRef.setInput('control', new FormControl('2'));
     fixture.detectChanges();
 
-    expect(component.selectedLabel).toBe('Option 2');
+    expect(component.computedLabel).toBe('Option 2');
     const selectedValue = fixture.debugElement.query(By.css('.selected-value'));
     expect(selectedValue.nativeElement.textContent).toContain('Option 2');
     expect(selectedValue.nativeElement.classList.contains('placeholder')).toBe(false);
