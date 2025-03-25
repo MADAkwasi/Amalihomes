@@ -15,12 +15,11 @@ describe('SelectInputComponent', () => {
     fixture = TestBed.createComponent(SelectInputComponent);
     component = fixture.componentInstance;
 
-    // Initialize required inputs
-    component.options = [
+    fixture.componentRef.setInput('options', [
       { value: '1', label: 'Option 1' },
       { value: '2', label: 'Option 2' },
-    ];
-    component.control = new FormControl('');
+    ]);
+    fixture.componentRef.setInput('control', new FormControl(''));
 
     fixture.detectChanges();
   });
@@ -30,15 +29,15 @@ describe('SelectInputComponent', () => {
   });
 
   it('should initialize with default values', () => {
-    expect(component.placeholder).toBe('Select an option');
-    expect(component.disabled).toBe(false);
+    expect(component.placeholder()).toBe('Select an option');
+    expect(component.disabled()).toBe(false);
     expect(component.isOpen).toBe(false);
-    expect(component.label).toBe('');
-    expect(component.class).toBe('');
+    expect(component.label()).toBe('');
+    expect(component.class()).toBe('');
   });
 
   it('should display the label when provided', () => {
-    component.label = 'Test Label';
+    fixture.componentRef.setInput('label', 'Test Label');
     fixture.detectChanges();
 
     const labelElement = fixture.debugElement.query(By.css('.select-label'));
@@ -48,34 +47,31 @@ describe('SelectInputComponent', () => {
 
   it('should show placeholder when no value is selected', () => {
     expect(component.selectedLabel).toBe('Select an option');
-
     const placeholderSpan = fixture.debugElement.query(By.css('.placeholder'));
     expect(placeholderSpan).toBeTruthy();
   });
 
   it('should toggle dropdown on click', () => {
     const trigger = fixture.debugElement.query(By.css('.select-trigger'));
+
     trigger.nativeElement.click();
     fixture.detectChanges();
-
     expect(component.isOpen).toBe(true);
     expect(fixture.debugElement.query(By.css('.dropdown-options'))).toBeTruthy();
 
     trigger.nativeElement.click();
     fixture.detectChanges();
-
     expect(component.isOpen).toBe(false);
     expect(fixture.debugElement.query(By.css('.dropdown-options'))).toBeNull();
   });
 
   it('should not toggle dropdown when disabled', () => {
-    component.disabled = true;
+    fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
 
     const trigger = fixture.debugElement.query(By.css('.select-trigger'));
     trigger.nativeElement.click();
     fixture.detectChanges();
-
     expect(component.isOpen).toBe(false);
   });
 
@@ -87,7 +83,7 @@ describe('SelectInputComponent', () => {
     options[0].nativeElement.click();
     fixture.detectChanges();
 
-    expect(component.control.value).toBe('1');
+    expect(component.control().value).toBe('1');
     expect(component.isOpen).toBe(false);
   });
 
@@ -98,7 +94,6 @@ describe('SelectInputComponent', () => {
     const backdrop = fixture.debugElement.query(By.css('.dropdown-backdrop'));
     backdrop.nativeElement.click();
     fixture.detectChanges();
-
     expect(component.isOpen).toBe(false);
   });
 
@@ -111,16 +106,16 @@ describe('SelectInputComponent', () => {
     expect(component.isOpen).toBe(true);
 
     // Test Space key
-    trigger.triggerEventHandler('keydown.space', {
-      preventDefault: jest.fn(),
-      key: ' ',
-    });
+    const spaceEvent = new KeyboardEvent('keydown', { key: ' ' });
+    jest.spyOn(spaceEvent, 'preventDefault');
+    trigger.triggerEventHandler('keydown.space', spaceEvent);
     fixture.detectChanges();
     expect(component.isOpen).toBe(false);
+    expect(spaceEvent.preventDefault).toHaveBeenCalled();
   });
 
   it('should apply custom classes', () => {
-    component.class = 'custom-class';
+    fixture.componentRef.setInput('class', 'custom-class');
     fixture.detectChanges();
 
     const wrapper = fixture.debugElement.query(By.css('.select-wrapper'));
@@ -128,18 +123,17 @@ describe('SelectInputComponent', () => {
   });
 
   it('should display selected option label', () => {
-    component.control.setValue('2');
+    fixture.componentRef.setInput('control', new FormControl('2'));
     fixture.detectChanges();
 
     expect(component.selectedLabel).toBe('Option 2');
-
     const selectedValue = fixture.debugElement.query(By.css('.selected-value'));
     expect(selectedValue.nativeElement.textContent).toContain('Option 2');
     expect(selectedValue.nativeElement.classList.contains('placeholder')).toBe(false);
   });
 
   it('should mark selected option with selected class', () => {
-    component.control.setValue('1');
+    fixture.componentRef.setInput('control', new FormControl('1'));
     component.isOpen = true;
     fixture.detectChanges();
 
