@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,7 +8,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './image.component.css',
 })
 export class ImageComponent {
-  @Input() src = '';
-  @Input() alt = '';
-  @Input() class = '';
+  src = input('');
+  alt = input('');
+  class = input('');
+  width = input(200);
+  height = input(400);
 }

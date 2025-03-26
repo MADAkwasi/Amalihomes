@@ -21,8 +21,8 @@ describe('ImageComponent', () => {
   });
 
   it('should render the image with the correct src and alt', () => {
-    component.src = 'https://example.com/image.jpg';
-    component.alt = 'Test Image';
+    fixture.componentRef.setInput('src', 'https://example.com/image.jpg');
+    fixture.componentRef.setInput('alt', 'Test Image');
     fixture.detectChanges();
 
     const imgElement = fixture.debugElement.query(By.css('img'));
@@ -31,7 +31,7 @@ describe('ImageComponent', () => {
   });
 
   it('should render the image with the correct class', () => {
-    component.class = 'test-class';
+    fixture.componentRef.setInput('class', 'test-class');
     fixture.detectChanges();
 
     const imgElement = fixture.debugElement.query(By.css('img'));
