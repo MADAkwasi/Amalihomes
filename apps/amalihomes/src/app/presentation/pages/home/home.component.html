@@ -1,3 +1,17 @@
-<main class="flex flex-col justify-around px-4 lg:px-8 xl:px-16">
-  <app-home-hero-section class="flex flex-row flex-wrap lg:flex-nowrap py-5 justify-between pt-[52px] lg:pt-16" />
+<main class="flex flex-col justify-around page-horizontal-padding gap-10">
+  <app-home-hero-section
+    class="flex flex-row flex-wrap lg:flex-nowrap justify-between lg:gap-4 xl:gap-6 home-section-vertical-margin pt-12 md:pt-16"
+  />
+  <app-value-proposition class="home-section-vertical-margin" />
+  <app-home-category-section
+    categoryTitle="Product Categories"
+    categoryType="products"
+    class="home-section-vertical-margin"
+  />
+  <app-home-flash-sale class="home-section-vertical-margin" />
+  <app-home-category-section
+    categoryTitle="New Arrivals"
+    categoryType="arrivals"
+    class="home-section-vertical-margin pb-10"
+  />
 </main>

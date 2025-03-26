@@ -20,5 +20,5 @@ import {
   templateUrl: './value-prop-icon.component.html',
 })
 export class ValuePropIconComponent {
-  iconName = input.required<ValuePropIconName>();
+  public readonly iconName = input.required<ValuePropIconName>();
 }

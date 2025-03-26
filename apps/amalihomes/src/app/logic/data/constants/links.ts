@@ -4,7 +4,7 @@ export interface Link {
 }
 
 export const quickLinks: Link[] = [
-  { label: 'Home', path: '/home' },
+  { label: 'Home', path: '/' },
   { label: 'Shop', path: '/shop' },
   { label: 'Cart', path: '/cart' },
   { label: 'FAQ', path: '/faq' },
@@ -24,7 +24,7 @@ export const legalServicesLinks: Link[] = [
 ];
 
 export const navLinks: Link[] = [
-  { label: 'Home', path: '/home' },
+  { label: 'Home', path: '/' },
   { label: 'Shop', path: '/shop' },
   { label: 'About', path: '/about' },
   { label: 'FAQs', path: '/faqs' },

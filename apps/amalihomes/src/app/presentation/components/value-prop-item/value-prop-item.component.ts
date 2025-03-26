@@ -9,9 +9,9 @@ import { ValuePropIconName } from '../value-prop-icon/constants';
   templateUrl: './value-prop-item.component.html',
 })
 export class ValuePropItemComponent {
-  meritDescription = input.required<string>();
+  public readonly meritDescription = input.required<string>();
 
-  meritTitle = input.required<string>();
+  public readonly meritTitle = input.required<string>();
 
-  iconName = input.required<ValuePropIconName>();
+  public readonly iconName = input.required<ValuePropIconName>();
 }

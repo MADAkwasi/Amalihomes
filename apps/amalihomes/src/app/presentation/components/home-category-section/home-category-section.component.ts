@@ -19,9 +19,9 @@ const CARDS_GAP_DISTANCE = 16;
 export class HomeCategorySectionComponent {
   private readonly imagesStore = inject(Store<ApplicationStore>);
 
-  protected readonly categoryTitle = input.required<string>();
+  public readonly categoryTitle = input.required<string>();
 
-  protected readonly categoryType = input<'products' | 'arrivals'>('products');
+  public readonly categoryType = input<'products' | 'arrivals'>('products');
 
   protected readonly productsShowcase = this.imagesStore.selectSignal(
     selectApplicationImageDataByNumber({ startIndex: 0, total: 6 }),
