@@ -65,6 +65,16 @@
   }
 }
 
+@layer components {
+  .home-arrivals-image {
+    @apply object-cover md:aspect-square w-[14.75rem] md:w-[19.75rem] lg:w-[26.31rem] h-[19.75rem] md:h-[26.38rem] lg:h-[35.12rem];
+  }
+
+  .home-products-image {
+    @apply object-cover md:aspect-square w-[14.75rem] md:w-[19.75rem] lg:w-[26.31rem] h-[12.68rem] md:h-auto;
+  }
+}
+
 .active-route {
   @apply p-2 border-b-primary border-b-[2px];
 }

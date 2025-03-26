@@ -1,0 +1,48 @@
+<section>
+  <!-- Header with navigation arrows -->
+  <div class="flex justify-between items-center mb-10">
+    <h2 libText textType="heading2">{{ categoryTitle() }}</h2>
+    <div class="flex flex-row gap-2">
+      <lib-button
+        type="tetiary"
+        title="Previous section"
+        [buttonIdentifier]="`home-${categoryType()}-category-prev-btn`"
+        buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
+        (buttonClick)="autoScroll('left')"
+      >
+        <lucide-angular [img]="icons.ArrowLeft" [size]="20" class="text-icon" />
+      </lib-button>
+      <lib-button
+        type="tetiary"
+        title="Next section"
+        [buttonIdentifier]="`home-${categoryType()}-category-next-btn`"
+        buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
+        (buttonClick)="autoScroll('right')"
+      >
+        <lucide-angular [img]="icons.ArrowRight" [size]="20" class="text-icon" />
+      </lib-button>
+    </div>
+  </div>
+
+  <!-- Category Cards - Horizontally scrollable -->
+  <div #cardsContainer class="flex overflow-x-auto gap-6 hide-scrollbar">
+    @let productsToShowcase = productsShowcase(); @for (item of productsToShowcase; track item._id) {
+    <article class="flex-shrink-0 overflow-hidden">
+      <a
+        [routerLink]="getProductItemLink(item._id, item.name)"
+        class="group w-full overflow-hidden rounded-lg block bg-muted relative"
+      >
+        <lib-image
+          [src]="item.image"
+          alt="{{item.name||`Product item`}}"
+          [class]="categoryType() === 'arrivals' ? 'home-arrivals-image' : 'home-products-image'"
+        />
+
+        <div class="absolute inset-0 group-hover:bg-black/25 transition-all duration-300"></div>
+      </a>
+      <h3 class="!text-[#5d5d5d] text-center mt-6" libText textType="heading3">{{ item.name }}</h3>
+    </article>
+
+    }
+  </div>
+</section>
