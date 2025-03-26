@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { LucideAngularModule, ChevronDown } from 'lucide-angular';
@@ -16,15 +16,24 @@ export class SelectInputComponent {
   disabled = input(false);
   control = input<FormControl>(new FormControl(''));
   label = input('');
-  class = input('');
+  cssClass = input('');
   arrowIcon = ChevronDown;
   isOpen = false;
-
-  get computedLabel(): string {
-    const selectedOption = this.options().find((opt) => opt.value === this.control().value);
-    return selectedOption ? selectedOption.label : this.placeholder();
+  private controlValue = signal<string>('');
+  constructor() {
+    effect((onCleanup) => {
+      const ctrl = this.control();
+      this.controlValue.set(ctrl.value);
+      const sub = ctrl.valueChanges.subscribe((value) => {
+        this.controlValue.set(value);
+      });
+      onCleanup(() => sub.unsubscribe());
+    });
   }
-
+  computedLabel = computed(() => {
+    const selectedOption = this.options().find((opt) => opt.value === this.controlValue());
+    return selectedOption ? selectedOption.label : this.placeholder();
+  });
   toggleDropdown(): void {
     if (this.disabled()) {
       return;

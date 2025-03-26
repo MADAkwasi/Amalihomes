@@ -19,7 +19,6 @@
   --primary-foreground: 0 0% 98%;
   --secondary: 240 4.8% 95.9%;
   --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
   --muted-foreground: 240 3.8% 46.1%;
   --accent: 240 4.8% 95.9%;
   --accent-foreground: 240 5.9% 10%;
@@ -30,6 +29,9 @@
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
   color-scheme: light;
+
+  --muted: 240 4.8% 95.9%;
+  --primary-light: 37 100% 96%;
 }
 
 .dark {
@@ -43,7 +45,6 @@
   --primary-foreground: 240 5.9% 10%;
   --secondary: 240 3.7% 15.9%;
   --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
   --muted-foreground: 240 5% 64.9%;
   --accent: 240 3.7% 15.9%;
   --accent-foreground: 0 0% 98%;
@@ -53,11 +54,24 @@
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
   color-scheme: dark;
+
+  --muted: 240 3.7% 15.9%;
+  --primary-light: 37 100% 96%;
 }
 
 @layer base {
   * {
     @apply border-border;
+  }
+}
+
+@layer components {
+  .home-arrivals-image {
+    @apply object-cover md:aspect-square w-[14.75rem] md:w-[19.75rem] lg:w-[26.31rem] h-[19.75rem] md:h-[26.38rem] lg:h-[35.12rem];
+  }
+
+  .home-products-image {
+    @apply object-cover md:aspect-square w-[14.75rem] md:w-[19.75rem] lg:w-[26.31rem] h-[12.68rem] md:h-auto;
   }
 }
 

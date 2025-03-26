@@ -1,4 +1,4 @@
-<div class="select-wrapper" [ngClass]="class()">
+<div class="select-wrapper">
   @if (label()) {
   <label class="select-label" [for]="label()">{{ label() }}</label>
   }
@@ -14,7 +14,7 @@
     (keydown.space)="toggleDropdown(); $event.preventDefault()"
   >
     <span class="selected-value" [class.placeholder]="!control().value">
-      {{ computedLabel }}
+      {{ computedLabel() }}
     </span>
     <div class="dropdown-icon">
       <lucide-icon [img]="arrowIcon" class="icon"></lucide-icon>

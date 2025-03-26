@@ -33,7 +33,6 @@ describe('SelectInputComponent', () => {
     expect(component.disabled()).toBe(false);
     expect(component.isOpen).toBe(false);
     expect(component.label()).toBe('');
-    expect(component.class()).toBe('');
   });
 
   it('should display the label when provided', () => {
@@ -46,7 +45,7 @@ describe('SelectInputComponent', () => {
   });
 
   it('should show placeholder when no value is selected', () => {
-    expect(component.computedLabel).toBe('Select an option');
+    expect(component.computedLabel()).toBe('Select an option');
     const placeholderSpan = fixture.debugElement.query(By.css('.placeholder'));
     expect(placeholderSpan).toBeTruthy();
   });
@@ -114,19 +113,11 @@ describe('SelectInputComponent', () => {
     expect(spaceEvent.preventDefault).toHaveBeenCalled();
   });
 
-  it('should apply custom classes', () => {
-    fixture.componentRef.setInput('class', 'custom-class');
-    fixture.detectChanges();
-
-    const wrapper = fixture.debugElement.query(By.css('.select-wrapper'));
-    expect(wrapper.nativeElement.classList.contains('custom-class')).toBe(true);
-  });
-
   it('should display selected option label', () => {
     fixture.componentRef.setInput('control', new FormControl('2'));
     fixture.detectChanges();
 
-    expect(component.computedLabel).toBe('Option 2');
+    expect(component.computedLabel()).toBe('Option 2');
     const selectedValue = fixture.debugElement.query(By.css('.selected-value'));
     expect(selectedValue.nativeElement.textContent).toContain('Option 2');
     expect(selectedValue.nativeElement.classList.contains('placeholder')).toBe(false);

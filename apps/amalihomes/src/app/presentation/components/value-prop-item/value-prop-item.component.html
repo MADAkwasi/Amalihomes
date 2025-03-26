@@ -1,0 +1,10 @@
+<article class="gap-2 flex flex-col mb-8">
+  <app-value-prop-icon
+    class="bg-primary-light size-16 flex justify-center items-center flex-col rounded-md"
+    [iconName]="iconName()"
+  />
+  <h3 class="capitalize mt-6 mb-4" libText textType="heading3">
+    {{ meritTitle() }}
+  </h3>
+  <p libText textType="text-normal">{{ meritDescription() }}</p>
+</article>
