@@ -14,7 +14,7 @@
     (keydown.space)="toggleDropdown(); $event.preventDefault()"
   >
     <span class="selected-value" [class.placeholder]="!control().value">
-      {{ computedLabel() }}
+      {{ selectedLabel() }}
     </span>
     <div class="dropdown-icon">
       <lucide-icon [img]="arrowIcon" class="icon"></lucide-icon>
