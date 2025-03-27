@@ -12,13 +12,12 @@
     (keydown.escape)="closeModal()"
   ></div>
   <div
-    [ngClass]="modalClass"
+    [ngClass]="['modal-' + position(), modalClass()]"
     *ngIf="isOpen"
     class="modal-content"
     (keydown.enter)="$event.stopPropagation()"
     (keydown.space)="$event.stopPropagation()"
     tabindex="0"
-    [class]="'modal-' + position"
     (click)="$event.stopPropagation()"
   >
     <ng-content select="[modalContent]"></ng-content>
