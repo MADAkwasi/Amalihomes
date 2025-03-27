@@ -1,11 +1,44 @@
-@let info = currentLocale()?.country + ' | ' + currentLocale()?.language;
 <div class="flex justify-end py-3 bg-neutral px-4 lg:px-8 xl:px-16">
-  <lib-button
-    buttonIdentifier="internationalization-bar-btn"
-    class="!w-fit"
-    buttonStyles="!bg-[#fff] !text-neutral !border-neutral"
-    buttonIdentifier="localization-button"
-  >
-    <lucide-icon [img]="globeIcon" [size]="18"></lucide-icon>{{ info }}
-  </lib-button>
+  <lib-modal [modalClass]="'bg-green-500'" [position]="'right'" #modalComponent>
+    <div modalButton>
+      <div class="flex bg-white py-1 px-2 gap-2 items-center rounded-sm font-bold text-base">
+        <lucide-icon [img]="globeIcon" [size]="18"></lucide-icon>
+        <p>{{ currentLocale()?.country }}</p>
+        <span class="h-[20px] w-[1px] bg-grayText"></span>
+        <p>{{ currentLocale()?.language }}</p>
+      </div>
+    </div>
+    <div modalContent class="h-full">
+      <div
+        class="p-4 sm:p-6 md:p-8 flex flex-col gap-8 md:gap-[44px] w-screen sm:w-[492px] lg:w-[549px] max-h-[calc(100vh-56px)] overflow-y-auto h-full"
+      >
+        <p libText textType="heading4">Select your language and Country</p>
+        <div class="flex flex-col">
+          <lib-select-input placeholder="Select country" label="Country" [options]="countries()" />
+          <lib-select-input placeholder="Select language" label="Language" [options]="languages()" />
+          <div class="flex p-4 flex-col gap-2 bg-gray-100 rounded-md mt-8">
+            <div class="flex items-center gap-2">
+              <span><app-information-circle-icon /></span>
+              <p>Countries we operate</p>
+            </div>
+            <p class="text-base leading-[24px]">
+              The countries we operate in with their default language are; Austria (de), Belgium (fr), Germany (de),
+              Switzerland (de), France (fr), Italy (en), Spain (en), Nigeria (en), South Africa (en), Ghana (en), United
+              States (en), Bolivia (en) Brazil (en), Canada (fr).
+            </p>
+          </div>
+        </div>
+        <div>
+          <lib-button
+            (click)="modalComponent.closeModal()"
+            buttonStyles="w-full"
+            varient="primary"
+            buttonIdentifier="inter-close-btn"
+          >
+            Close
+          </lib-button>
+        </div>
+      </div>
+    </div>
+  </lib-modal>
 </div>
