@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,19 +7,20 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  @Input() type: 'primary' | 'secondary' | 'tetiary' = 'primary';
-  @Input() state: 'default' | 'disabled' = 'default';
-  @Input() size: 'small' | 'medium' | 'large' = 'large';
-  @Input() title = '';
-  @Input() buttonType: 'submit' | 'button' = 'button';
-  @Output() buttonClick = new EventEmitter<Event>();
-  @Input() buttonStyles = '';
-  @Input({ required: true }) buttonIdentifier!: string;
+  type = input<'primary' | 'secondary' | 'tetiary'>('primary');
+  state = input<'default' | 'disabled'>('default');
+  title = input('');
+  buttonType = input<'submit' | 'button'>('button');
+  buttonStyles = input('');
+  buttonIdentifier = input.required<string>();
+
+  buttonClick = output<Event>();
 
   handleClick(event: Event) {
-    if (this.state !== 'disabled') {
+    if (this.state() !== 'disabled') {
       this.buttonClick.emit(event);
     }
   }

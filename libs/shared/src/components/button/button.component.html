@@ -1,10 +1,10 @@
 <button
-  [attr.data-btn-id]="buttonIdentifier"
-  [ngClass]="[type, buttonStyles]"
-  [disabled]="state === 'disabled'"
-  [type]="buttonType"
+  [attr.data-btn-id]="buttonIdentifier()"
+  [ngClass]="[type(), buttonStyles()]"
+  [disabled]="state() === 'disabled'"
+  [type]="buttonType()"
   (click)="handleClick($event)"
-  [title]="title"
+  [title]="title()"
 >
   <ng-content></ng-content>
 </button>
