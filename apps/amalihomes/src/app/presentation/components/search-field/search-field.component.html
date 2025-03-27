@@ -1,18 +1,9 @@
 <div
-  [class]="
-    isSearching()
-      ? 'flex items-center show-search-field px-4 lg-px-8 xl:px-16 py-2'
-      : 'relative -translate-y-20 -z-10 opacity-0'
-  "
+  [class]="isSearching() ? 'show-search-field px-4 lg-px-8 xl:px-16 py-2' : 'relative -translate-y-20 -z-10 opacity-0'"
 >
-  <lucide-icon
-    [img]="searchIcon"
-    [size]="14"
-    class="absolute left-3 lg:left-9 bottom-[50%] translate-y-[50%]"
-  ></lucide-icon>
-  <input
-    class="items-center flex border-2 px-7 py-2 w-[100%] rounded-md focus:outline-primary"
-    type="text"
-    placeholder="Search Products"
-  />
+  <lib-text-input [leftIcon]="true" [placeholder]="'Search Products'" containerStyles="w-full">
+    <div leftIcon>
+      <lucide-icon [img]="searchIcon" [size]="24" [strokeWidth]="2"></lucide-icon>
+    </div>
+  </lib-text-input>
 </div>
