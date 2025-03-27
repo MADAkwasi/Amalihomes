@@ -12,6 +12,7 @@ export class ButtonComponent {
   @Input() type: 'primary' | 'secondary' | 'tetiary' = 'primary';
   @Input() state: 'default' | 'disabled' = 'default';
   @Input() size: 'small' | 'medium' | 'large' = 'large';
+  @Input() title = '';
   @Input() buttonType: 'submit' | 'button' = 'button';
   @Output() buttonClick = new EventEmitter<Event>();
   @Input() buttonStyles = '';
