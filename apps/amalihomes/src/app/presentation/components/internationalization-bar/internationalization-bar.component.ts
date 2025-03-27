@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent, SelectInputComponent, TextDirective, ButtonComponent } from '@amalihomes/shared';
 import { localization, countries, languages } from '../../../logic/data/constants/localization';
@@ -17,6 +17,7 @@ import { InformationCircleIconComponent } from '../svg-icons';
     ButtonComponent,
   ],
   templateUrl: './internationalization-bar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InternationalizationBarComponent {
   public readonly localization = signal(localization);
