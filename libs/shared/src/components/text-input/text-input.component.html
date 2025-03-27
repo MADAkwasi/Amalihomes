@@ -1,19 +1,20 @@
-<div class="input-container primary w-[30px]" [ngClass]="containerStyles">
-  <ng-container *ngIf="leftIcon">
+<div class="input-container primary w-[30px]" [ngClass]="containerStyles()">
+  <ng-container *ngIf="leftIcon()">
     <ng-content select="[leftIcon]" class="left-icon"></ng-content>
   </ng-container>
 
   <input
     [ngClass]="{
-      'with-left-icon': leftIcon,
-      'with-right-icon': rightIcon,
+      'with-left-icon': leftIcon(),
+      'with-right-icon': rightIcon()
     }"
-    [placeholder]="placeholder"
-    [formControl]="control"
-    [disabled]="disabled"
+    [class]="inputStyles()"
+    [placeholder]="placeholder()"
+    [formControl]="control()"
+    [disabled]="disabled()"
   />
 
-  <ng-container *ngIf="rightIcon">
+  <ng-container *ngIf="rightIcon()">
     <ng-content select="[rightIcon]" class="right-icon"></ng-content>
   </ng-container>
 </div>
