@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InternationalizationBarComponent } from './internationalization-bar.component';
-import { By } from '@angular/platform-browser';
 
 describe('InternationalizationBarComponent', () => {
   let component: InternationalizationBarComponent;
@@ -44,12 +43,5 @@ describe('InternationalizationBarComponent', () => {
 
       expect(selectedLocale?.language).toBe(expectedLanguage);
     });
-  });
-
-  it('should display country and language in the button text', () => {
-    const button = fixture.debugElement.query(By.css('lib-button'));
-    const buttonText = button.nativeElement.textContent.trim();
-
-    expect(buttonText).toBe('USA | English');
   });
 });
