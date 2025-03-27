@@ -3,27 +3,20 @@ import { HomeHeroSectionComponent } from './home-hero-section.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { selectApplicationImageData } from '../../../logic/stores/selectors/image-data';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DestroyRef } from '@angular/core';
+import { mockedTestImageData } from '../../../logic/data/testing/mocked-data';
 
 describe('HomeHeroSectionComponent', () => {
   let component: HomeHeroSectionComponent;
   let fixture: ComponentFixture<HomeHeroSectionComponent>;
   let store: MockStore;
 
-  const mockHeroImages = [
-    { id: '1', url: 'image1.jpg', alt: 'Image 1' },
-    { id: '2', url: 'image2.jpg', alt: 'Image 2' },
-    { id: '3', url: 'image3.jpg', alt: 'Image 3' },
-  ];
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomeHeroSectionComponent],
       providers: [
         provideMockStore({
-          selectors: [{ selector: selectApplicationImageData, value: mockHeroImages }],
+          selectors: [{ selector: selectApplicationImageData, value: mockedTestImageData }],
         }),
-        DestroyRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

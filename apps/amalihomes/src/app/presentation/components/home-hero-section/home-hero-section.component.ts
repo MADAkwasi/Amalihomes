@@ -1,51 +1,29 @@
-/* eslint-disable no-empty-function */
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
-import { ButtonComponent } from '@amalihomes/shared';
+import { ButtonComponent, TextDirective, ImageComponent } from '@amalihomes/shared';
 import { LucideAngularModule, ArrowLeft, ArrowRight } from 'lucide-angular';
-import { ApplicationImageDataType } from '../../../logic/stores/mocked-data';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
-import { selectApplicationImageData } from '../../../logic/stores/selectors/image-data';
-import { map } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { selectApplicationImageDataByNumber } from '../../../logic/stores/selectors/image-data';
 
 @Component({
   selector: 'app-home-hero-section',
-  imports: [CommonModule, SkeletonDirective, LucideAngularModule, ButtonComponent],
+  imports: [CommonModule, SkeletonDirective, LucideAngularModule, ButtonComponent, TextDirective, ImageComponent],
   templateUrl: './home-hero-section.component.html',
 })
-export class HomeHeroSectionComponent implements OnInit {
-  heroImages!: ApplicationImageDataType;
+export class HomeHeroSectionComponent {
+  public imagePostions = [0, 1, 2];
 
-  // Image positions changes when user clicks next/previous
-  imagePostions = [0, 1, 2];
+  public selectedIndex = 0;
 
-  selectedIndex = 0;
+  protected readonly icons = { ArrowLeft, ArrowRight };
 
-  // Shows loading skeleton while image loads
-  heroImageLoading = true;
+  private readonly imagesStore = inject(Store<ApplicationStore>);
 
-  icons = { ArrowLeft, ArrowRight };
+  protected heroImages = this.imagesStore.selectSignal(selectApplicationImageDataByNumber({ startIndex: 0, total: 3 }));
 
-  constructor(private imagesStore: Store<ApplicationStore>, private destroyRef: DestroyRef) {}
-
-  ngOnInit(): void {
-    // Selects and slice first three as hero images
-    this.imagesStore
-      .select(selectApplicationImageData)
-      .pipe(
-        map((data) => data.slice(0, 3)),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((heroImages) => {
-        this.heroImages = heroImages;
-        this.heroImageLoading = false;
-      });
-  }
-
-  handleNextButtonClick() {
+  public handleNextButtonClick() {
     this.selectedIndex = this.getNextIndexOf(this.imagePostions[0]);
 
     this.imagePostions = [
@@ -55,7 +33,7 @@ export class HomeHeroSectionComponent implements OnInit {
     ];
   }
 
-  handlePreviousButtonClick() {
+  public handlePreviousButtonClick() {
     this.selectedIndex = this.getPreviousIndexOf(this.imagePostions[0]);
 
     this.imagePostions = [
@@ -65,11 +43,11 @@ export class HomeHeroSectionComponent implements OnInit {
     ];
   }
 
-  getNextIndexOf(index: number) {
+  public getNextIndexOf(index: number) {
     return (index + 1) % 3;
   }
 
-  getPreviousIndexOf(index: number) {
+  public getPreviousIndexOf(index: number) {
     return (index - 1 + 3) % 3;
   }
 }

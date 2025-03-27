@@ -1,16 +1,13 @@
 import { Route } from '@angular/router';
-import { AppComponent } from './app.component';
 
 export const appRoutes: Route[] = [
   {
-    path: 'home',
+    path: '',
     loadComponent: () => import('./presentation/pages/home/home.component').then((Default) => Default.HomeComponent),
   },
-
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-
   {
     path: '**',
-    component: AppComponent,
+    loadComponent: () =>
+      import('./presentation/components/not-found/not-found.component').then((Default) => Default.NotFoundComponent),
   },
 ];

@@ -31,6 +31,13 @@ module.exports = {
         neutral: '#888888',
         footer: '#3d3d3d',
         grayText: '#5d5d5d',
+        icon: 'hsl(var(--icons-color))',
+        strong: 'hsl(var(--text-strong))',
+        weak: 'hsl(var(--text-weak))',
+        'stroke-strong': 'hsl(var(--stroke-strong))',
+        'stroke-weak': 'hsl(var(--stroke-weak))',
+        'fill-strong': 'hsl(var(--fill-strong))',
+        'fill-weaker': 'hsl(var(--fill-weaker))',
       },
       backgroundColor: {
         muted: 'hsl(var(--muted))',

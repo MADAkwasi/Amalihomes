@@ -3,12 +3,7 @@ import { HomeFlashSaleComponent } from './home-flash-sale.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { selectApplicationImageData } from '../../../logic/stores/selectors/image-data';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
-const mockImageData = [
-  { id: '1', image: 'image1.jpg', name: 'Image 1' },
-  { id: '2', image: 'image2.jpg', name: 'Image 2' },
-  { id: '3', image: 'image3.jpg', name: 'Image 3' },
-];
+import { mockedTestImageData } from '../../../logic/data/testing/mocked-data';
 
 describe('HomeFlashSaleComponent', () => {
   let component: HomeFlashSaleComponent;
@@ -20,7 +15,7 @@ describe('HomeFlashSaleComponent', () => {
       imports: [HomeFlashSaleComponent],
       providers: [
         provideMockStore({
-          selectors: [{ selector: selectApplicationImageData, value: mockImageData }],
+          selectors: [{ selector: selectApplicationImageData, value: mockedTestImageData }],
         }),
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -37,11 +32,11 @@ describe('HomeFlashSaleComponent', () => {
   });
 
   it('should compute flashSaleImageUrl correctly', () => {
-    expect(component.flashSaleImageUrl()).toBe(mockImageData[2].image);
+    expect(component.flashSaleImageUrl()).toBe(mockedTestImageData[2].image);
   });
 
   it('should compute flashSaleName correctly', () => {
-    expect(component.flashSaleName()).toBe(mockImageData[2].name);
+    expect(component.flashSaleName()).toBe(mockedTestImageData[2].name);
   });
 
   it('should render the image with correct src and alt attributes', () => {

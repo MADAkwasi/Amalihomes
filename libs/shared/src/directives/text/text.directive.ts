@@ -45,7 +45,7 @@ export class TextDirective implements OnInit {
           'leading-[2rem]',
         ];
       case 'heading2':
-        return ['font-bold', 'text-[2.5rem]', 'leading-[3rem]', 'text-black'];
+        return ['font-bold', 'lg:text-[2.5rem]', 'lg:leading-[3rem]', 'text-black', 'text-[1.5rem]', 'leading-[2rem]'];
       case 'heading3':
         return ['leading-[1.75rem]', 'font-bold', 'text-xl', 'text-black'];
       case 'heading4':
