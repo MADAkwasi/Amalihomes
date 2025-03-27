@@ -1,16 +1,28 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '@amalihomes/shared';
-import { localization } from '../../../logic/data/constants/localization';
+import { ModalComponent, SelectInputComponent, TextDirective, ButtonComponent } from '@amalihomes/shared';
+import { localization, countries, languages } from '../../../logic/data/constants/localization';
 import { Globe, LucideAngularModule } from 'lucide-angular';
+import { InformationCircleIconComponent } from '../svg-icons';
 
 @Component({
   selector: 'app-internationalization-bar',
-  imports: [CommonModule, ButtonComponent, LucideAngularModule],
+  imports: [
+    CommonModule,
+    LucideAngularModule,
+    TextDirective,
+    ModalComponent,
+    SelectInputComponent,
+    InformationCircleIconComponent,
+    ButtonComponent,
+  ],
   templateUrl: './internationalization-bar.component.html',
 })
 export class InternationalizationBarComponent {
   public readonly localization = signal(localization);
+  public readonly countries = signal(countries);
+  public readonly languages = signal(languages);
+
   public readonly globeIcon = Globe;
   public currentLocale = computed(() => {
     const defaultLocale = {
