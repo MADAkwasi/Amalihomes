@@ -30,6 +30,7 @@ module.exports = {
         'typo-1': '#6d6d6d',
         neutral: '#888888',
         footer: '#3d3d3d',
+        grayText: '#5d5d5d',
       },
       backgroundColor: {
         muted: 'hsl(var(--muted))',
