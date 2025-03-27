@@ -21,8 +21,8 @@ describe('ImageComponent', () => {
   });
 
   it('should render the image with the correct src and alt', () => {
-    component.src = 'https://example.com/image.jpg';
-    component.alt = 'Test Image';
+    fixture.componentRef.setInput('src', 'https://example.com/image.jpg');
+    fixture.componentRef.setInput('alt', 'Test Image');
     fixture.detectChanges();
 
     const imgElement = fixture.debugElement.query(By.css('img'));
@@ -30,29 +30,11 @@ describe('ImageComponent', () => {
     expect(imgElement.nativeElement.alt).toBe('Test Image');
   });
 
-  it('should apply landscape orientation', () => {
-    component.orientation = 'landscape';
+  it('should render the image with the correct class', () => {
+    fixture.componentRef.setInput('class', 'test-class');
     fixture.detectChanges();
 
     const imgElement = fixture.debugElement.query(By.css('img'));
-    expect(imgElement.nativeElement.classList).toContain('landscape');
-  });
-
-  it('should apply portrait orientation', () => {
-    component.orientation = 'portrait';
-    fixture.detectChanges();
-
-    const imgElement = fixture.debugElement.query(By.css('img'));
-    expect(imgElement.nativeElement.classList).toContain('portrait');
-  });
-
-  it('should set width and height', () => {
-    component.width = 400;
-    component.height = 300;
-    fixture.detectChanges();
-
-    const imgElement = fixture.debugElement.query(By.css('img'));
-    expect(imgElement.nativeElement.style.width).toBe('400px');
-    expect(imgElement.nativeElement.style.height).toBe('300px');
+    expect(imgElement.nativeElement.classList).toContain('test-class');
   });
 });
