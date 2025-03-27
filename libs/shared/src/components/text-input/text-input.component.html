@@ -1,6 +1,6 @@
 <div class="input-container primary w-[30px]" [ngClass]="containerStyles">
   <ng-container *ngIf="leftIcon">
-    <ng-content select="leftIcon" class="left-icon"></ng-content>
+    <ng-content select="[leftIcon]" class="left-icon"></ng-content>
   </ng-container>
 
   <input
@@ -14,6 +14,6 @@
   />
 
   <ng-container *ngIf="rightIcon">
-    <ng-content select="rightIcon" class="right-icon"></ng-content>
+    <ng-content select="[rightIcon]" class="right-icon"></ng-content>
   </ng-container>
 </div>
