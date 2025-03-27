@@ -6,6 +6,11 @@ export interface Localization {
   direction?: 'ltr' | 'rtl';
 }
 
+interface CountryLanguage {
+  value: string;
+  label: string;
+}
+
 export const localization: Localization[] = [
   { country: 'Austria', language: 'Deutch', languageCode: 'de', countryCode: 'AT', direction: 'ltr' },
   { country: 'Belgium', language: 'French', languageCode: 'fr', countryCode: 'BE', direction: 'ltr' },
@@ -22,3 +27,20 @@ export const localization: Localization[] = [
   { country: 'Brazil', language: 'English', languageCode: 'en', countryCode: 'BR', direction: 'ltr' },
   { country: 'Canada', language: 'French', languageCode: 'fr', countryCode: 'CA', direction: 'ltr' },
 ];
+
+export const countries: CountryLanguage[] = localization.map((locale) => ({
+  value: locale.countryCode,
+  label: `${locale.country} (${locale.languageCode})`,
+}));
+
+export const languages: CountryLanguage[] = Array.from(
+  new Map(
+    localization.map((locale) => [
+      locale.languageCode,
+      {
+        value: locale.languageCode,
+        label: locale.language,
+      },
+    ]),
+  ).values(),
+);
