@@ -15,6 +15,14 @@ module.exports = {
       fontFamily: {
         lato: '"Lato", sans-serif',
       },
+      width: {
+        modalLarge: '34.3125rem' /* 549px */,
+        modalMedium: '30.75rem' /* 492px */,
+      },
+      gap: {
+        extraLarge: '2.75rem' /* 44px */,
+      },
+
       keyframes: {
         loading: {
           '40%': { opacity: 0.3 },
