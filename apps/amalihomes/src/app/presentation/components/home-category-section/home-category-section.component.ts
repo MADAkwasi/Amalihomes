@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, ArrowRight, ArrowLeft } from 'lucide-angular';
 import { ApplicationStore } from '../../../logic/stores';
@@ -15,6 +15,7 @@ const CARDS_GAP_DISTANCE = 16;
   imports: [CommonModule, LucideAngularModule, RouterModule, ButtonComponent, ImageComponent, TextDirective],
   templateUrl: './home-category-section.component.html',
   styleUrl: './home-category-section.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeCategorySectionComponent {
   private readonly imagesStore = inject(Store<ApplicationStore>);

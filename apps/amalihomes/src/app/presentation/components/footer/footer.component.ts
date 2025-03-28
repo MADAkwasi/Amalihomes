@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { RouterLink } from '@angular/router';
@@ -20,6 +20,7 @@ import { Facebook, Instagram, Linkedin, LucideAngularModule, Twitter, Youtube } 
     LucideAngularModule,
   ],
   templateUrl: './footer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
   public readonly facebookIcon = Facebook;

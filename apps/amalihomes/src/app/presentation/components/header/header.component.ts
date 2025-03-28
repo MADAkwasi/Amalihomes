@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { InternationalizationBarComponent } from '../internationalization-bar/internationalization-bar.component';
@@ -24,6 +24,7 @@ import { LucideAngularModule, Menu, Search, ShoppingCart, X } from 'lucide-angul
     LucideAngularModule,
   ],
   templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
