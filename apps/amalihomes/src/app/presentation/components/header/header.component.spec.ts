@@ -54,6 +54,7 @@ describe('HeaderComponent', () => {
 
   it('should show user and cart when authenticated', () => {
     component.isAuthenticated = true;
+    component.cdRef.markForCheck();
     fixture.detectChanges();
 
     const userImage = fixture.debugElement.query(By.css('img[alt="user"]'));
@@ -61,21 +62,24 @@ describe('HeaderComponent', () => {
     const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
 
     expect(userImage).toBeTruthy();
+    expect(userImage.nativeElement).toBeTruthy();
     expect(shoppingCart).toBeTruthy();
-    expect(loginButton).toBeFalsy();
+    expect(loginButton).toBeNull();
   });
 
   it('should show a login button when not authenticated', () => {
     component.isAuthenticated = false;
+    component.cdRef.markForCheck();
     fixture.detectChanges();
 
     const userImage = fixture.debugElement.query(By.css('img[alt="user"]'));
     const shoppingCart = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="shopping-cart-button"]'));
     const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
 
-    expect(userImage).toBeFalsy();
-    expect(shoppingCart).toBeFalsy();
+    expect(userImage).toBeNull();
+    expect(shoppingCart).toBeNull();
     expect(loginButton).toBeTruthy();
+    expect(loginButton.nativeElement).toBeTruthy();
   });
 
   it('should dispatch openMenu when menu is closed', () => {

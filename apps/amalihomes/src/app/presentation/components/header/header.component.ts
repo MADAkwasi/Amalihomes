@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { InternationalizationBarComponent } from '../internationalization-bar/internationalization-bar.component';
@@ -35,10 +35,15 @@ export class HeaderComponent {
   public isSearching = this.store.selectSignal(selectIsSearching);
   public isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
   public isAuthenticated!: boolean;
+  public cdRef = inject(ChangeDetectorRef);
 
   public onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
     else this.store.dispatch(interactionsActions.openSearchField());
+  }
+  setAuthentication(isAuthenticated: boolean) {
+    this.isAuthenticated = isAuthenticated;
+    this.cdRef.markForCheck();
   }
 
   onMenuToggle() {
