@@ -40,8 +40,43 @@ describe('InternationalizationBarComponent', () => {
 
     testCountries.forEach(({ country, expectedLanguage }) => {
       const selectedLocale = component.localization().find((locale) => locale.country === country);
-
       expect(selectedLocale?.language).toBe(expectedLanguage);
     });
+  });
+
+  it('should have default current locale set to USA', () => {
+    expect(component.currentLocale()).toBeDefined();
+    expect(component.currentLocale()?.country).toBe('USA');
+    expect(component.currentLocale()?.language).toBe('English');
+  });
+
+  it('should update currentLocale when selected country changes', () => {
+    component.localization.set([
+      { country: 'France', language: 'French', languageCode: 'fr', countryCode: 'FR', direction: 'ltr' },
+      { country: 'Germany', language: 'German', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
+      { country: 'USA', language: 'English', languageCode: 'en', countryCode: 'US', direction: 'ltr' },
+    ]);
+
+    expect(component.currentLocale()?.country).toBe('USA');
+    expect(component.currentLocale()?.language).toBe('English');
+    component.setCountry('France');
+    fixture.detectChanges();
+    expect(component.currentLocale()?.country).toBe('France');
+    expect(component.currentLocale()?.language).toBe('French');
+    component.setCountry('NonExistent');
+    fixture.detectChanges();
+    expect(component.currentLocale()?.country).toBe('France');
+  });
+
+  it('should correctly compute supportedCountries', () => {
+    component.localization.set([
+      { country: 'Austria', language: 'German', languageCode: 'de', countryCode: 'AT', direction: 'ltr' },
+      { country: 'Germany', language: 'German', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
+      { country: 'Switzerland', language: 'German', languageCode: 'de', countryCode: 'CH', direction: 'ltr' },
+    ]);
+
+    fixture.detectChanges();
+
+    expect(component.supportedCountries()).toBe('Austria (de), Germany (de), Switzerland (de)');
   });
 });

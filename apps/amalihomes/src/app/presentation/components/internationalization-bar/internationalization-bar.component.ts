@@ -36,14 +36,14 @@ export class InternationalizationBarComponent {
   });
 
   public readonly globeIcon = Globe;
+  public selectedCountry = signal('USA');
   public currentLocale = computed(() => {
-    const defaultLocale = {
-      country: 'USA',
-      language: 'English',
-      languageCode: 'en',
-      countryCode: 'US',
-      direction: 'ltr',
-    };
-    return this.localization().find((curLocale) => curLocale.country === defaultLocale.country);
+    return (
+      this.localization().find((curLocale) => curLocale.country === this.selectedCountry()) || this.localization()[0]
+    );
   });
+
+  public setCountry(country: string): void {
+    this.selectedCountry.set(country);
+  }
 }

@@ -3,9 +3,9 @@
     <div modalButton>
       <div class="flex bg-white py-1 px-2 gap-2 items-center rounded-sm font-bold text-base">
         <lucide-icon [img]="globeIcon" [size]="18"></lucide-icon>
-        <p>{{ currentLocale()?.country }}</p>
+        <p>{{ currentLocale().country }}</p>
         <span class="h-6 w-[1px] bg-grayText"></span>
-        <p>{{ currentLocale()?.language }}</p>
+        <p>{{ currentLocale().language }}</p>
       </div>
     </div>
     <div modalContent class="h-full">
