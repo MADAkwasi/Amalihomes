@@ -23,6 +23,17 @@ export class InternationalizationBarComponent {
   public readonly localization = signal(localization);
   public readonly countries = signal(countries);
   public readonly languages = signal(languages);
+  public readonly supportedCountries = computed(() => {
+    const uniqueCountries = new Map<string, string>();
+
+    this.localization().forEach((locale) => {
+      if (!uniqueCountries.has(locale.country)) {
+        uniqueCountries.set(locale.country, `${locale.country} (${locale.languageCode})`);
+      }
+    });
+
+    return Array.from(uniqueCountries.values()).join(', ');
+  });
 
   public readonly globeIcon = Globe;
   public currentLocale = computed(() => {
