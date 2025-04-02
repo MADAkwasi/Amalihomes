@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { ButtonComponent } from './button.component';
 
-const meta: Meta<ButtonComponent> = {
+type StoryButtonInputs = {
+  type: 'primary' | 'secondary' | 'tetiary';
+  state: 'default' | 'disabled';
+  size: 'small' | 'medium' | 'large';
+  buttonType: 'submit' | 'button';
+  title: string;
+  buttonIdentifier: string;
+  buttonStyles: string;
+};
+
+const meta: Meta<StoryButtonInputs> = {
   title: 'Shared/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
@@ -10,80 +20,91 @@ const meta: Meta<ButtonComponent> = {
     state: { control: 'radio', options: ['default', 'disabled'] },
     buttonType: { control: 'radio', options: ['submit', 'button'] },
   },
-};
-
-export default meta;
-type Story = StoryObj<ButtonComponent>;
-
-export const Primary: Story = {
   args: {
     type: 'primary',
     state: 'default',
+    buttonType: 'button',
+    title: '',
+    buttonIdentifier: 'button-1',
+    buttonStyles: '',
   },
+};
+
+export default meta;
+type Story = StoryObj<StoryButtonInputs>;
+
+const Template: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <lib-button [type]="type" [state]="state" [size]="size" [iconOnly]="iconOnly">
-        <span class="icon">button</span>
+      <lib-button
+        [type]="type"
+        [state]="state"
+        [buttonType]="buttonType"
+        [title]="title"
+        [buttonIdentifier]="buttonIdentifier"
+        [buttonStyles]="buttonStyles"
+      >
+        <ng-content>Button</ng-content>
       </lib-button>
     `,
   }),
 };
 
+export const Primary: Story = {
+  ...Template,
+  args: {
+    type: 'primary',
+  },
+  parameters: {
+    docs: {
+      storyDescription: 'Primary button variant',
+    },
+  },
+};
+
 export const Secondary: Story = {
+  ...Template,
   args: {
     ...Primary.args,
     type: 'secondary',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <lib-button [type]="type" [state]="state" [size]="size" [iconOnly]="iconOnly">
-        <span class="icon">button</span>
-      </lib-button>
-    `,
-  }),
 };
+
 export const Tetiary: Story = {
+  ...Template,
   args: {
     ...Primary.args,
     type: 'tetiary',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <lib-button [type]="type" [state]="state" [size]="size" [iconOnly]="iconOnly">
-        <span class="icon">button</span>
-      </lib-button>
-    `,
-  }),
 };
 
 export const Disabled: Story = {
+  ...Template,
   args: {
     ...Primary.args,
     state: 'disabled',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <lib-button [type]="type" [state]="state" [size]="size">
-        <span class="icon">button</span>
-      </lib-button>
-    `,
-  }),
 };
 
-export const IconOnly: Story = {
+export const WithCustomStyling: Story = {
+  ...Template,
   args: {
     ...Primary.args,
+    buttonStyles: 'custom-class',
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <lib-button [type]="type" [state]="state" [size]="size">
-        <span class="icon">✖️</span>
-      </lib-button>
-    `,
-  }),
+  parameters: {
+    docs: {
+      source: {
+        code: `
+          <lib-button
+            type="primary"
+            buttonIdentifier="custom-btn"
+          >
+            🚀 Custom Content
+          </lib-button>
+        `,
+      },
+    },
+  },
 };

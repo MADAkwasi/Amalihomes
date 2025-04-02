@@ -15,6 +15,14 @@ module.exports = {
       fontFamily: {
         lato: '"Lato", sans-serif',
       },
+      width: {
+        modalLarge: '34.3125rem' /* 549px */,
+        modalMedium: '30.75rem' /* 492px */,
+      },
+      gap: {
+        extraLarge: '2.75rem' /* 44px */,
+      },
+
       keyframes: {
         loading: {
           '40%': { opacity: 0.3 },
@@ -30,6 +38,7 @@ module.exports = {
         'typo-1': '#6d6d6d',
         neutral: '#888888',
         footer: '#3d3d3d',
+        grayText: '#5d5d5d',
         icon: 'hsl(var(--icons-color))',
         strong: 'hsl(var(--text-strong))',
         weak: 'hsl(var(--text-weak))',

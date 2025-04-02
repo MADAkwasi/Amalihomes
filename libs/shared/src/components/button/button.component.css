@@ -49,3 +49,11 @@ button {
 .secondary:disabled {
   cursor: not-allowed;
 }
+
+.custom-class {
+  background-color: green;
+  color: #f98416;
+  width: 100%;
+  height: 30px;
+  font-size: 12px;
+}

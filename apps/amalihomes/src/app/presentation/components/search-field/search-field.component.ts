@@ -1,13 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectIsSearching } from '../../../logic/stores/selectors/interactions.selector';
 import { LucideAngularModule, Search } from 'lucide-angular';
+import { InputComponent } from '@amalihomes/shared';
 
 @Component({
   selector: 'app-search-field',
-  imports: [CommonModule, CommonModule, LucideAngularModule],
+  imports: [CommonModule, CommonModule, LucideAngularModule, InputComponent],
   templateUrl: './search-field.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFieldComponent {
   private readonly store = inject(Store);

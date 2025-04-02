@@ -1,8 +1,7 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { LucideAngularModule, ChevronDown } from 'lucide-angular';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'lib-select-input',
@@ -10,6 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [CommonModule, FormsModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './select-input.component.html',
   styleUrl: './select-input.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectInputComponent {
   placeholder = input('Select an option');
@@ -18,27 +18,49 @@ export class SelectInputComponent {
   control = input<FormControl>(new FormControl(''));
   label = input('');
   arrowIcon = ChevronDown;
-  isOpen = false;
-  controlValue = toSignal(this.control().valueChanges, {
-    initialValue: this.control().value,
-  });
+  isOpen = signal(false);
+  controlValue = signal<string>('');
+
+  constructor() {
+    effect((onCleanup) => {
+      const control = this.control();
+      const sub = control.valueChanges.subscribe((value) => {
+        this.controlValue.set(value);
+      });
+      this.controlValue.set(control.value);
+      onCleanup(() => sub.unsubscribe());
+    });
+
+    effect((onCleanup) => {
+      const handler = (event: MouseEvent) => {
+        if (this.isOpen() && !(event.target as HTMLElement).closest('lib-select-input')) {
+          this.closeDropdown();
+        }
+      };
+      document.addEventListener('click', handler);
+      onCleanup(() => document.removeEventListener('click', handler));
+    });
+  }
+
   selectedLabel = computed(() => {
     const selectedOption = this.options().find(({ value }) => value === this.controlValue());
     return selectedOption ? selectedOption.label : this.placeholder();
   });
+
   toggleDropdown(): void {
     if (this.disabled()) {
       return;
     }
-    this.isOpen = !this.isOpen;
+    this.isOpen.update((v) => !v);
   }
 
   selectOption(value: string): void {
-    this.control().setValue(value);
-    this.isOpen = false;
+    const control = this.control();
+    control.setValue(value);
+    this.closeDropdown();
   }
 
   closeDropdown(): void {
-    this.isOpen = false;
+    this.isOpen.set(false);
   }
 }

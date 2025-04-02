@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ValuePropItemComponent } from '../value-prop-item/value-prop-item.component';
 import { ApplicationStore } from '../../../logic/stores';
@@ -10,6 +10,7 @@ import { ImageComponent, TextDirective } from '@amalihomes/shared';
   selector: 'app-value-proposition',
   imports: [CommonModule, ValuePropItemComponent, ImageComponent, TextDirective],
   templateUrl: './value-proposition.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ValuePropositionComponent {
   protected items = MERITS;

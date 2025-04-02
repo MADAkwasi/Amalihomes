@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
@@ -9,6 +9,7 @@ import { ButtonComponent, TextDirective } from '@amalihomes/shared';
   selector: 'app-home-flash-sale',
   imports: [CommonModule, ButtonComponent, TextDirective],
   templateUrl: './home-flash-sale.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeFlashSaleComponent {
   private store = inject(Store<ApplicationStore>);

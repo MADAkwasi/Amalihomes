@@ -45,7 +45,7 @@ describe('MenuComponent', () => {
   });
 
   it('should show login button when not authenticated', () => {
-    component.isAuthenticated = false;
+    fixture.componentRef.setInput('isAuthenticated', false);
     fixture.detectChanges();
 
     const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
@@ -53,7 +53,7 @@ describe('MenuComponent', () => {
   });
 
   it('should not show login button when authenticated', () => {
-    component.isAuthenticated = true;
+    fixture.componentRef.setInput('isAuthenticated', true);
     fixture.detectChanges();
 
     const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));

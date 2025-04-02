@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
 import { ButtonComponent, TextDirective, ImageComponent } from '@amalihomes/shared';
@@ -11,6 +11,7 @@ import { selectApplicationImageDataByNumber } from '../../../logic/stores/select
   selector: 'app-home-hero-section',
   imports: [CommonModule, SkeletonDirective, LucideAngularModule, ButtonComponent, TextDirective, ImageComponent],
   templateUrl: './home-hero-section.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeHeroSectionComponent {
   public imagePostions = [0, 1, 2];

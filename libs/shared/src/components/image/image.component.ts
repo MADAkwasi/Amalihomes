@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './image.component.html',
   styleUrl: './image.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageComponent {
   src = input('');

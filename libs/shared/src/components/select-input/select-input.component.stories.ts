@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { SelectInputComponent } from './select-input.component';
+import { FormControl } from '@angular/forms';
 
 const meta: Meta<SelectInputComponent> = {
   title: 'Shared/SelectInput',
@@ -11,12 +12,6 @@ const meta: Meta<SelectInputComponent> = {
     disabled: { control: 'boolean' },
     label: { control: 'text' },
   },
-};
-
-export default meta;
-type Story = StoryObj<SelectInputComponent>;
-
-export const Default: Story = {
   args: {
     placeholder: 'Select an option',
     options: [
@@ -25,18 +20,36 @@ export const Default: Story = {
       { value: 'nigeria', label: 'Nigeria' },
     ],
     disabled: false,
-    label: 'Select an option',
+    label: 'Country',
   },
+  render: (args) => ({
+    props: {
+      ...args,
+      control: args.control || new FormControl(args.options?.[0]?.value || ''),
+    },
+  }),
 };
+
+export default meta;
+type Story = StoryObj<SelectInputComponent>;
+
+export const Default: Story = {};
 
 export const Disabled: Story = {
   args: {
-    placeholder: 'inactive input',
-    options: [
-      { value: 'english', label: 'english' },
-      { value: 'french', label: 'french' },
-    ],
     disabled: true,
-    label: 'Select an option',
+    placeholder: 'Disabled input',
+    options: [
+      { value: 'english', label: 'English' },
+      { value: 'french', label: 'French' },
+    ],
+    label: 'Language',
+  },
+};
+
+export const WithDefaultValue: Story = {
+  args: {
+    label: 'Country with default',
+    control: new FormControl('germany'),
   },
 };

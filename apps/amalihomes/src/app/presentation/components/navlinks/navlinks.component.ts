@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { navLinks } from '../../../logic/data/constants/links';
@@ -10,6 +10,7 @@ import { interactionsActions } from '../../../logic/stores/actions/interactions.
   selector: 'app-navlinks',
   imports: [CommonModule, RouterModule],
   templateUrl: './navlinks.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavlinksComponent {
   private readonly store = inject(Store);

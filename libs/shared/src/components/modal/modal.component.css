@@ -4,7 +4,7 @@
 
 .modal-backdrop {
   position: fixed;
-  top: 0;
+  top: 56px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -22,21 +22,22 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 1001;
   overflow: auto;
+  top: 56px;
+  height: 100%;
 }
 
 .modal-left {
-  top: 0;
   left: 0;
 }
 
 .modal-right {
-  top: 0;
   right: 0;
   height: 100%;
+  width: auto;
+  max-width: 100%;
 }
 
 .modal-top {
-  top: 0;
   left: 50%;
   transform: translateX(-50%);
 }
