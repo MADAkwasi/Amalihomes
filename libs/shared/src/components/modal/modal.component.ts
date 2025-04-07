@@ -16,9 +16,13 @@ export class ModalComponent {
 
   toggleModal() {
     this.isOpen = !this.isOpen;
+
+    if (this.isOpen) document.body.style.overflowY = 'hidden';
+    else document.body.style.overflowY = '';
   }
 
   closeModal() {
     this.isOpen = false;
+    document.body.style.overflowY = '';
   }
 }
