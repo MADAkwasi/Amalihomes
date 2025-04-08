@@ -1,3 +1,4 @@
+export * from './components/button/button.component';
 export * from './components/file-upload/file-upload.component';
 export * from './components/text-input/text-input.component';
 export * from './directives/text/text.directive';
@@ -7,5 +8,5 @@ export * from './components/select-input/select-input.component';
 export * from './ui/icons/check/check-icon.component';
 export * from './ui/icons/close/close-icon.component';
 export * from './ui/icons/info/info-icon.component';
+export * from './ui/icons/image/image-icon.component';
 export * from './ui/icons/warning/warning-icon.component';
-export * from './components/button/button.component';
