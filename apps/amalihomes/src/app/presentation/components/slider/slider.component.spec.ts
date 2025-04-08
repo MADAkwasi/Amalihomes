@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HomeCategorySectionComponent } from './home-category-section.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { selectHomePageData } from '../../../logic/stores/selectors/home-page';
 import { HomePageTestData } from '../../../logic/stores/testing/home-page';
+import { SliderComponent } from './slider.component';
 
-describe('HomeCategorySectionComponent', () => {
-  let component: HomeCategorySectionComponent;
-  let fixture: ComponentFixture<HomeCategorySectionComponent>;
+describe('SliderComponent', () => {
+  let component: SliderComponent;
+  let fixture: ComponentFixture<SliderComponent>;
 
   beforeEach(async () => {
     class MockIntersectionObserver implements IntersectionObserver {
@@ -43,7 +43,7 @@ describe('HomeCategorySectionComponent', () => {
     }
 
     await TestBed.configureTestingModule({
-      imports: [HomeCategorySectionComponent, RouterModule],
+      imports: [SliderComponent, RouterModule],
       providers: [
         provideMockStore({
           selectors: [
@@ -65,8 +65,10 @@ describe('HomeCategorySectionComponent', () => {
     }).compileComponents();
 
     global.IntersectionObserver = MockIntersectionObserver;
-    fixture = TestBed.createComponent(HomeCategorySectionComponent);
+    fixture = TestBed.createComponent(SliderComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('sliderImages', null);
+
     fixture.detectChanges();
   });
 

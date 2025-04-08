@@ -1,58 +1,38 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  ElementRef,
-  inject,
-  input,
-  viewChild,
-  ChangeDetectionStrategy,
-  signal,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, input, QueryList, signal, viewChild, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, ArrowRight, ArrowLeft } from 'lucide-angular';
-import { ApplicationStore } from '../../../logic/stores';
-import { Store } from '@ngrx/store';
-import { RouterModule } from '@angular/router';
 import { ButtonComponent, ImageComponent, TextDirective } from '@amalihomes/shared';
-import { selectHomePageSectionData } from '../../../logic/stores/selectors/home-page';
+import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
+import { StoryblokSections } from '../../../types';
 
 const DEFAULT_SCROLL_DISTANCE = 200;
 const CARDS_GAP_DISTANCE = 16;
 
 @Component({
-  selector: 'app-home-category-section',
-  imports: [CommonModule, LucideAngularModule, RouterModule, ButtonComponent, ImageComponent, TextDirective],
-  templateUrl: './home-category-section.component.html',
-  styleUrl: './home-category-section.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-slider',
+  standalone: true,
+  imports: [CommonModule, ButtonComponent, LucideAngularModule, ImageComponent, TextDirective],
+  templateUrl: './slider.component.html',
+  styleUrl: './slider.component.css',
 })
-export class HomeCategorySectionComponent implements AfterViewInit {
+export class SliderComponent implements AfterViewInit {
   @ViewChildren('cardElements') private readonly cardElements!: QueryList<ElementRef>;
-  public readonly categoryType = input.required<'products' | 'arrivals'>();
+  public readonly sliderImages = input<StoryblokSections[]>();
+  public readonly categoryType = input<'products' | 'arrivals'>();
+  public readonly title = input<string>();
   private readonly cardsContainerRef = viewChild<ElementRef<HTMLDivElement>>('cardsContainer');
   protected readonly icons = { ArrowLeft, ArrowRight };
-  private readonly store = inject(Store<ApplicationStore>);
-  protected readonly data = this.store.selectSignal(selectHomePageSectionData('categories'));
-  protected readonly sectionData = computed(() => {
-    const categories = this.data();
+  public isLastCardVisible = signal(false);
+  public isAtStart = signal(true);
 
-    if (!categories) return null;
+  ngAfterViewInit(): void {
+    this.setupObserver();
+  }
 
-    return categories.each.find((category) => category.key === this.categoryType());
-  });
-  protected disableScrollToLeftButton = false;
-  protected disableScrollToRightButton = false;
-  isLastCardVisible = signal(false);
-  isAtStart = signal(true);
-
-  public getProductItemLink(productId: string, productName: string) {
+  public getProductItemLink(productId: string, productName: string): string {
     return `/${this.categoryType()}/${productId}/${productName}`;
   }
 
-  protected autoScroll(scrollTo: 'left' | 'right') {
+  protected autoScroll(scrollTo: 'left' | 'right'): void {
     const cardsContainerElement = this.cardsContainerRef()?.nativeElement;
 
     if (!cardsContainerElement) return;
@@ -66,11 +46,7 @@ export class HomeCategorySectionComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.setupObserver();
-  }
-
-  setupObserver() {
+  public setupObserver(): void {
     const observer = new IntersectionObserver(
       (entries) => {
         this.isLastCardVisible.set(entries.some((entry) => entry.isIntersecting));
@@ -85,7 +61,7 @@ export class HomeCategorySectionComponent implements AfterViewInit {
     }
   }
 
-  onScroll() {
+  public onScroll(): void {
     const container = this.cardsContainerRef()?.nativeElement as HTMLDivElement;
     const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
@@ -93,13 +69,13 @@ export class HomeCategorySectionComponent implements AfterViewInit {
     this.isLastCardVisible.set(container.scrollLeft >= maxScrollLeft - 10);
   }
 
-  scrollNext() {
+  public scrollNext(): void {
     if (this.cardsContainerRef()) {
       this.cardsContainerRef()?.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
     }
   }
 
-  scrollPrev() {
+  public scrollPrev(): void {
     if (this.cardsContainerRef()) {
       this.cardsContainerRef()?.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
     }

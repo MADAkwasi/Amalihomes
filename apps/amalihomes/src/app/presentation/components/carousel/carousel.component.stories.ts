@@ -6,15 +6,16 @@ const meta: Meta<CarouselComponent> = {
   component: CarouselComponent,
   tags: ['autodocs'],
   argTypes: {
-    isImageAvailable: { control: 'boolean' },
-    carouselImages: { control: 'object' },
+    isImageAvailable: {
+      control: 'boolean',
+      description: 'Boolean value to activate loader skeleton when images are not ready',
+    },
+    carouselImages: { control: 'object', description: 'Images for carousel' },
   },
 };
 
 export default meta;
 type Story = StoryObj<CarouselComponent>;
-
-export const Default: Story = {};
 
 export const isFetchingImages: Story = {
   args: {

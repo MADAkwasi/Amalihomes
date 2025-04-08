@@ -1,16 +1,17 @@
 import { Component, computed, inject, ChangeDetectionStrategy, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { selectHomePageSectionData } from '../../../logic/stores/selectors/home-page';
 import { HeroStoryblok } from '../../../types';
+import { RouterLink } from '@angular/router';
+import { TextDirective } from '@amalihomes/shared';
 
 @Component({
   selector: 'app-home-hero-section',
-  imports: [CommonModule, LucideAngularModule, ButtonComponent, TextDirective, CarouselComponent],
+  imports: [CommonModule, LucideAngularModule, TextDirective, CarouselComponent, RouterLink],
   templateUrl: './home-hero-section.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

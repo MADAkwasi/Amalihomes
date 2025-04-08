@@ -1,4 +1,4 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
@@ -9,12 +9,13 @@ import { HeroStoryblok } from '../../../types';
   selector: 'app-carousel',
   imports: [CommonModule, ButtonComponent, ImageComponent, LucideAngularModule, SkeletonDirective],
   templateUrl: './carousel.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent {
   public readonly carouselImages = input<HeroStoryblok['images']>([]);
-  public readonly imagePositions = signal<number[]>([]);
-  public selectedIndex = 0;
   public readonly isImageAvailable = input<boolean>(false);
+  protected readonly imagePositions = signal<number[]>([]);
+  protected selectedIndex = 0;
   protected readonly icons = { ArrowLeft, ArrowRight };
 
   constructor() {
