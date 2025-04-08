@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,12 +14,15 @@ export class ModalComponent {
   public readonly modalClass = input('');
   public isOpen = false;
   public readonly hasModalBackdrop = input(false);
+  public cdRef = inject(ChangeDetectorRef);
 
   public toggleModal() {
     this.isOpen = !this.isOpen;
+    this.cdRef.detectChanges();
   }
 
   public closeModal() {
     this.isOpen = false;
+    this.cdRef.detectChanges();
   }
 }
