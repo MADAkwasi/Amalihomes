@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { selectIsMenuOpen, selectIsSearching } from '../../../logic/stores/selectors/interactions.selector';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
 import { LucideAngularModule, Menu, Search, ShoppingCart, X } from 'lucide-angular';
+import { selectGlobalPageSectionData } from '../../../logic/stores/selectors/global-page';
+import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +24,10 @@ import { LucideAngularModule, Menu, Search, ShoppingCart, X } from 'lucide-angul
     NavlinksComponent,
     MenuComponent,
     LucideAngularModule,
+    SkeletonDirective,
   ],
   templateUrl: './header.component.html',
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
@@ -37,13 +41,11 @@ export class HeaderComponent {
   public isAuthenticated!: boolean;
   public cdRef = inject(ChangeDetectorRef);
 
+  protected readonly data = this.store.selectSignal(selectGlobalPageSectionData('header'));
+
   public onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
     else this.store.dispatch(interactionsActions.openSearchField());
-  }
-  setAuthentication(isAuthenticated: boolean) {
-    this.isAuthenticated = isAuthenticated;
-    this.cdRef.markForCheck();
   }
 
   onMenuToggle() {

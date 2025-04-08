@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Link } from '../../../logic/data/constants/links';
 import { RouterLink } from '@angular/router';
+import { FooterStoryblok } from '../../../types';
 
 @Component({
   selector: 'app-hyperlinks',
@@ -10,6 +10,6 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HyperlinksComponent {
-  @Input() public category!: string;
-  @Input() public links!: Link[];
+  public readonly category = input.required<string>();
+  public readonly links = input.required<FooterStoryblok['linksSection']>();
 }

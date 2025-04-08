@@ -12,6 +12,7 @@ interface CountryLanguage {
 }
 
 export const localization: Localization[] = [
+  { country: 'USA', language: 'English', languageCode: 'en', countryCode: 'US', direction: 'ltr' },
   { country: 'Austria', language: 'Deutch', languageCode: 'de', countryCode: 'AT', direction: 'ltr' },
   { country: 'Belgium', language: 'French', languageCode: 'fr', countryCode: 'BE', direction: 'ltr' },
   { country: 'Germany', language: 'Deutch', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
@@ -22,7 +23,6 @@ export const localization: Localization[] = [
   { country: 'Nigeria', language: 'English', languageCode: 'en', countryCode: 'NG', direction: 'ltr' },
   { country: 'South Africa', language: 'English', languageCode: 'en', countryCode: 'ZA', direction: 'ltr' },
   { country: 'Ghana', language: 'English', languageCode: 'en', countryCode: 'GH', direction: 'ltr' },
-  { country: 'USA', language: 'English', languageCode: 'en', countryCode: 'US', direction: 'ltr' },
   { country: 'Bolivia', language: 'English', languageCode: 'en', countryCode: 'BO', direction: 'ltr' },
   { country: 'Brazil', language: 'English', languageCode: 'en', countryCode: 'BR', direction: 'ltr' },
   { country: 'Canada', language: 'French', languageCode: 'fr', countryCode: 'CA', direction: 'ltr' },

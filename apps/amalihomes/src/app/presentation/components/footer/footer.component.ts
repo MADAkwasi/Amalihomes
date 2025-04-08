@@ -1,12 +1,13 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { RouterLink } from '@angular/router';
 import { HyperlinksComponent } from '../hyperlinks/hyperlinks.component';
-import { companyLinks, legalServicesLinks, quickLinks } from '../../../logic/data/constants/links';
 import { FormsModule } from '@angular/forms';
 import { EmailValidatorDirective } from '../../../logic/directives/email-validator/email-validator.directive';
-import { Facebook, Instagram, Linkedin, LucideAngularModule, Twitter, Youtube } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
+import { Store } from '@ngrx/store';
+import { selectGlobalPageSectionData } from '../../../logic/stores/selectors/global-page';
 
 @Component({
   selector: 'app-footer',
@@ -23,14 +24,15 @@ import { Facebook, Instagram, Linkedin, LucideAngularModule, Twitter, Youtube } 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
-  public readonly facebookIcon = Facebook;
-  public readonly instagramIcon = Instagram;
-  public readonly twitterIcon = Twitter;
-  public readonly linkedinIcon = Linkedin;
-  public readonly youtubeIcon = Youtube;
-  public readonly quickLinks = signal(quickLinks);
-  public readonly companyLinks = signal(companyLinks);
-  public readonly legalServicesLinks = signal(legalServicesLinks);
+  private readonly store = inject(Store);
+  protected readonly data = this.store.selectSignal(selectGlobalPageSectionData('footer'));
+  private readonly findLinksByTitles = (key: string) =>
+    computed(() => this.data()?.linksSection?.find((links) => links.key === key));
+
+  public readonly quickLinks = this.findLinksByTitles('quickLinks');
+  public readonly companyLinks = this.findLinksByTitles('company');
+  public readonly legalServicesLinks = this.findLinksByTitles('legalServices');
+  public readonly mobileViewLinks = this.findLinksByTitles('mobileLinks');
   public email!: string;
 
   public onSubmit(): void {

@@ -32,6 +32,8 @@ describe('NavlinksComponent', () => {
 
     fixture = TestBed.createComponent(NavlinksComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('navLinks', null);
+
     fixture.detectChanges();
   });
 

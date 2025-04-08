@@ -3,7 +3,7 @@ export interface Link {
   path: string;
 }
 
-export const quickLinks: Link[] = [
+export const quickLinks = [
   { label: 'Home', path: '/' },
   { label: 'Shop', path: '/shop' },
   { label: 'Cart', path: '/cart' },

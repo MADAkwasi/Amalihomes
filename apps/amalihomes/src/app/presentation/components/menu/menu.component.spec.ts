@@ -4,6 +4,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { signal } from '@angular/core';
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -37,6 +38,11 @@ describe('MenuComponent', () => {
 
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('navLinks', null);
+    fixture.componentRef.setInput('placeholder', null);
+    fixture.componentRef.setInput('authBtn', null);
+    fixture.componentRef.setInput('isAuthenticated', null);
   });
 
   it('should create', () => {
@@ -45,18 +51,24 @@ describe('MenuComponent', () => {
   });
 
   it('should show login button when not authenticated', () => {
-    fixture.componentRef.setInput('isAuthenticated', false);
+    fixture.componentRef.setInput('isAuthenticated', signal(false));
     fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
 
-    const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
-    expect(loginButton).toBeTruthy();
+      const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
+      expect(loginButton).toBeTruthy();
+    });
   });
 
   it('should not show login button when authenticated', () => {
-    fixture.componentRef.setInput('isAuthenticated', true);
+    fixture.componentRef.setInput('isAuthenticated', signal(true));
     fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
 
-    const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
-    expect(loginButton).toBeFalsy();
+      const loginButton = fixture.debugElement.query(By.css('lib-button[buttonIdentifier="login-button"]'));
+      expect(loginButton).toBeFalsy();
+    });
   });
 });

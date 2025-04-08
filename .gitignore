@@ -4,6 +4,10 @@
 .env
 .env.*
 
+#storyblok
+components.*.json
+presets.*.json
+
 # compiled output
 dist
 tmp

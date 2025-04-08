@@ -1,10 +1,10 @@
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { navLinks } from '../../../logic/data/constants/links';
 import { Store } from '@ngrx/store';
 import { selectIsMenuOpen } from '../../../logic/stores/selectors/interactions.selector';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
+import { HeaderStoryblok } from '../../../types';
 
 @Component({
   selector: 'app-navlinks',
@@ -14,7 +14,7 @@ import { interactionsActions } from '../../../logic/stores/actions/interactions.
 })
 export class NavlinksComponent {
   private readonly store = inject(Store);
-  public readonly navLinks = signal(navLinks);
+  public readonly navLinks = input.required<HeaderStoryblok['navLinks']>();
   public isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
 
   public onCloseMenu() {
