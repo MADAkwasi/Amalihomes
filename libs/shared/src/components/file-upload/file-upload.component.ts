@@ -1,20 +1,21 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ImageIconComponent } from '../../ui/icons/image/image-icon.component';
 
 @Component({
   selector: 'lib-file-upload',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImageIconComponent],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent {
-  label = input('');
-  id = input('');
-  accept = input('image/*');
-
-  fileName = signal('');
-  previewUrl = signal<string | ArrayBuffer | null>(null);
+  readonly label = input('');
+  readonly id = input('');
+  readonly accept = input('image/*');
+  readonly fileName = signal('');
+  readonly previewUrl = signal<string | ArrayBuffer | null>(null);
 
   onFileSelected(event: Event) {
     const inputValue = event.target as HTMLInputElement;
