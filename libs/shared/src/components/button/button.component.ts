@@ -10,16 +10,16 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  type = input<'primary' | 'secondary' | 'tetiary'>('primary');
-  state = input<'default' | 'disabled'>('default');
-  title = input('');
-  buttonType = input<'submit' | 'button'>('button');
-  buttonStyles = input('');
-  buttonIdentifier = input.required<string>();
+  public readonly type = input<'primary' | 'secondary' | 'tetiary'>('primary');
+  public readonly state = input<'default' | 'disabled'>('default');
+  public readonly title = input('');
+  public readonly buttonType = input<'submit' | 'button'>('button');
+  public readonly buttonStyles = input('');
+  public readonly buttonIdentifier = input.required<string>();
 
-  buttonClick = output<Event>();
+  public buttonClick = output<Event>();
 
-  handleClick(event: Event) {
+  public handleClick(event: Event) {
     if (this.state() !== 'disabled') {
       this.buttonClick.emit(event);
     }

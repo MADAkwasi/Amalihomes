@@ -1,4 +1,13 @@
-import { Component, input, computed, signal, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  input,
+  computed,
+  signal,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CloseIconComponent } from '../../ui/icons/close/close-icon.component';
 import { CheckIconComponent } from '../../ui/icons/check/check-icon.component';
@@ -16,18 +25,18 @@ export type ToastType = 'error' | 'success' | 'info' | 'warning';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastComponent {
-  readonly type = input<ToastType>('info');
-  readonly title = input<string>('');
-  readonly message = input<string>('');
-  readonly duration = input<number>(5000);
-  readonly autoClose = input<boolean>(true);
+  public readonly type = input<ToastType>('info');
+  public readonly title = input<string>('');
+  public readonly message = input<string>('');
+  public readonly duration = input<number>(5000);
+  public readonly autoClose = input<boolean>(true);
 
   @Output() closed = new EventEmitter<void>();
+  public closeed = output<Event>();
 
-  readonly visible = signal<boolean>(true);
-
-  readonly typeClass = computed(() => `toast-${this.type()}`);
-  readonly role = computed(() => {
+  public readonly visible = signal<boolean>(true);
+  public readonly typeClass = computed(() => `toast-${this.type()}`);
+  public readonly role = computed(() => {
     switch (this.type()) {
       case 'error':
         return 'alert';
@@ -52,7 +61,7 @@ export class ToastComponent {
     }
   }
 
-  close(): void {
+  public close(): void {
     this.visible.set(false);
     this.closed.emit();
 

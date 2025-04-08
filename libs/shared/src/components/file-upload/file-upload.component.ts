@@ -11,13 +11,13 @@ import { ImageIconComponent } from '../../ui/icons/image/image-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent {
-  readonly label = input('');
-  readonly id = input('');
-  readonly accept = input('image/*');
-  readonly fileName = signal('');
-  readonly previewUrl = signal<string | ArrayBuffer | null>(null);
+  public readonly label = input('');
+  public readonly id = input('');
+  public readonly accept = input('image/*');
+  public readonly fileName = signal('');
+  public readonly previewUrl = signal<string | ArrayBuffer | null>(null);
 
-  onFileSelected(event: Event) {
+  public onFileSelected(event: Event) {
     const inputValue = event.target as HTMLInputElement;
     if (inputValue.files && inputValue.files[0]) {
       const file = inputValue.files[0];

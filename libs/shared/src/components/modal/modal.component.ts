@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,18 +7,19 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
-  position = input<'left' | 'right' | 'top' | 'bottom'>('top');
-  modalClass = input('');
-  isOpen = false;
-  hasModalBackdrop = input(false);
+  public readonly position = input<'left' | 'right' | 'top' | 'bottom'>('top');
+  public readonly modalClass = input('');
+  public isOpen = false;
+  public readonly hasModalBackdrop = input(false);
 
-  toggleModal() {
+  public toggleModal() {
     this.isOpen = !this.isOpen;
   }
 
-  closeModal() {
+  public closeModal() {
     this.isOpen = false;
   }
 }
