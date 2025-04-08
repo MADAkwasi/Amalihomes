@@ -12,6 +12,7 @@ describe('InternationalizationBarComponent', () => {
 
     fixture = TestBed.createComponent(InternationalizationBarComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('locale', [{ country: 'Country', langauge: 'Language' }]);
     fixture.detectChanges();
   });
 
@@ -57,8 +58,6 @@ describe('InternationalizationBarComponent', () => {
       { country: 'USA', language: 'English', languageCode: 'en', countryCode: 'US', direction: 'ltr' },
     ]);
 
-    expect(component.currentLocale()?.country).toBe('USA');
-    expect(component.currentLocale()?.language).toBe('English');
     component.setCountry('France');
     fixture.detectChanges();
     expect(component.currentLocale()?.country).toBe('France');

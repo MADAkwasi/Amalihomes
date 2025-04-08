@@ -1,9 +1,10 @@
-<header>
-  <app-internationalization-bar></app-internationalization-bar>
-  <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b px-4 lg-px-8 xl:px-16">
+@let sectionData = data();
+<header *ngIf="sectionData">
+  <app-internationalization-bar [locale]="sectionData.locale"></app-internationalization-bar>
+  <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding">
     <img src="images/logo.svg" alt="logo" />
 
-    <app-navlinks class="hidden lg:flex"></app-navlinks>
+    <app-navlinks [navLinks]="sectionData.navLinks" class="hidden lg:flex"></app-navlinks>
 
     <span class="flex items-center">
       <lib-button
@@ -23,7 +24,9 @@
       <img class="h-7 cursor-pointer" src="images/user.png" alt="user" />
 
       }@else {
-      <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">Login</lib-button>
+      <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
+        sectionData.loginButton
+      }}</lib-button>
       }
 
       <lib-button
@@ -40,6 +43,33 @@
       </lib-button>
     </span>
   </nav>
-  <app-menu *ngIf="isMenuOpen()" [isAuthenticated]="isAuthenticated"></app-menu>
-  <app-search-field class="w-[100%] absolute" [class]="isMenuOpen() ? 'hidden lg:block' : ''"></app-search-field>
+
+  <app-menu
+    *ngIf="isMenuOpen()"
+    [isAuthenticated]="isAuthenticated"
+    [navLinks]="sectionData.navLinks"
+    [placeholder]="sectionData.inputPlaceholder"
+    [authBtn]="sectionData.loginButton"
+  ></app-menu>
+  <app-search-field
+    [placeholder]="sectionData.inputPlaceholder"
+    class="w-[100%] absolute"
+    [class]="isMenuOpen() ? 'hidden lg:block' : ''"
+  ></app-search-field>
 </header>
+
+<!-- Displays loading skeletons while header data is fetched -->
+<div
+  *ngIf="!sectionData"
+  class="flex justify-between items-center bg-white border-b border-b-gray-200 page-horizontal-padding pb-3 pt-[5rem] overflow-x-hidden"
+>
+  <div appSkeleton class="w-24 h-7 rounded-md"></div>
+  <div class="flex items-center gap-4">
+    <div appSkeleton class="w-20 h-5 rounded-md"></div>
+    <div appSkeleton class="w-20 h-5 rounded-md"></div>
+    <div appSkeleton class="w-20 h-5 rounded-md"></div>
+    <div appSkeleton class="w-20 h-5 rounded-md"></div>
+    <div appSkeleton class="w-20 h-5 rounded-md"></div>
+  </div>
+  <div appSkeleton class="w-24 h-11 rounded-md"></div>
+</div>

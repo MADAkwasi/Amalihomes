@@ -41,28 +41,36 @@ export class TextDirective implements OnInit {
           'md:text-[3.5rem]',
           'xl:text-[3rem]',
           'text-black',
-          'md:leading-[4.18rem]',
+          'md:leading-[4rem]',
+          'xl:leading-[3.5rem]',
           'leading-[2rem]',
         ];
       case 'heading2':
-        return ['font-bold', 'lg:text-[2.5rem]', 'lg:leading-[3rem]', 'text-black', 'text-[1.5rem]', 'leading-[2rem]'];
+        return [
+          'font-semibold',
+          'lg:text-[2.5rem]',
+          'lg:leading-[3rem]',
+          'text-black',
+          'text-[1.5rem]',
+          'leading-[2rem]',
+        ];
       case 'heading3':
-        return ['leading-[1.75rem]', 'font-bold', 'text-xl', 'text-black'];
+        return ['leading-[1.75rem]', 'font-semibold', 'text-xl', 'text-black'];
       case 'heading4':
-        return ['font-bold', 'text-lg', 'text-black'];
+        return ['font-semibold', 'text-lg', 'text-black'];
       case 'heading5':
-        return ['font-bold', 'text-base', 'text-black'];
+        return ['font-semibold', 'text-base', 'text-black'];
       case 'heading6':
-        return ['font-bold', 'text-sm', 'text-black'];
+        return ['font-semibold', 'text-sm', 'text-black'];
       case 'text-small':
-        return ['text-sm', 'text-[#5d5d5d]'];
+        return ['text-xsm', '2xl:text-sm', 'text-[#5d5d5d]'];
       case 'text-medium':
-        return ['text-lg', 'text-[#5d5d5d]', 'md:leading-[1.62rem]', 'leading-[1.5rem]'];
+        return ['text-base', '2xl:text-lg', 'text-[#5d5d5d]', 'md:leading-[1.62rem]', 'leading-[1.5rem]'];
       case 'text-large':
-        return ['text-xl', 'text-[#5d5d5d]'];
+        return ['text-lg', '2xl:text-xl', 'text-[#5d5d5d]'];
       case 'text-normal':
       default:
-        return ['text-base', 'leading-[1.5rem]', 'text-[#5d5d5d]'];
+        return ['text-sm', '2xl:text-base', 'leading-[1.5rem]', 'text-[#5d5d5d]'];
     }
   }
 }

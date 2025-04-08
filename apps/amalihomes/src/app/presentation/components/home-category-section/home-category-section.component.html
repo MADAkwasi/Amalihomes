@@ -1,23 +1,27 @@
-<section>
+<section *ngIf="sectionData()">
   <!-- Header with navigation arrows -->
   <div class="flex justify-between items-center mb-10">
-    <h2 libText textType="heading2">{{ categoryTitle() }}</h2>
+    <h2 libText textType="heading2">{{ sectionData()?.title }}</h2>
     <div class="flex flex-row gap-2">
       <lib-button
+        [state]="isAtStart() ? 'disabled' : 'default'"
         type="tetiary"
         title="Previous section"
         [buttonIdentifier]="`home-${categoryType()}-category-prev-btn`"
         buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
         (buttonClick)="autoScroll('left')"
+        [ngClass]="{ 'opacity-40': isAtStart() }"
       >
         <lucide-angular [img]="icons.ArrowLeft" [size]="20" class="text-icon" />
       </lib-button>
       <lib-button
+        [state]="isLastCardVisible() ? 'disabled' : 'default'"
         type="tetiary"
         title="Next section"
         [buttonIdentifier]="`home-${categoryType()}-category-next-btn`"
         buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
         (buttonClick)="autoScroll('right')"
+        [ngClass]="{ 'opacity-40': isLastCardVisible() }"
       >
         <lucide-angular [img]="icons.ArrowRight" [size]="20" class="text-icon" />
       </lib-button>
@@ -25,11 +29,11 @@
   </div>
 
   <!-- Category Cards - Horizontally scrollable -->
-  <div #cardsContainer class="flex overflow-x-auto gap-6 hide-scrollbar">
-    @let productsToShowcase = productsShowcase(); @for (item of productsToShowcase; track item._id) {
-    <article class="flex-shrink-0 overflow-hidden">
+  <div #cardsContainer class="flex overflow-x-auto gap-6 hide-scrollbar" (scroll)="onScroll()">
+    @let productsToShowcase = sectionData()?.items; @for (item of productsToShowcase; track item._uid) {
+    <article class="flex-shrink-0 overflow-hidden" #cardElements>
       <a
-        [routerLink]="getProductItemLink(item._id, item.name)"
+        [routerLink]="getProductItemLink(item._uid, item.name)"
         class="group w-full overflow-hidden rounded-lg block bg-muted relative"
       >
         <lib-image

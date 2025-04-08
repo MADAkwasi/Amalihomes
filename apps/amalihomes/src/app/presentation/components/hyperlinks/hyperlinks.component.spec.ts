@@ -12,6 +12,10 @@ describe('HyperlinksComponent', () => {
 
     fixture = TestBed.createComponent(HyperlinksComponent);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('links', null);
+    fixture.componentRef.setInput('category', null);
+
     fixture.detectChanges();
   });
 

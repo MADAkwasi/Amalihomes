@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ValuePropositionComponent } from './value-proposition.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { selectApplicationImageData } from '../../../logic/stores/selectors/image-data';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { mockedTestImageData } from '../../../logic/data/testing/mocked-data';
+import { selectHomePageData } from '../../../logic/stores/selectors/home-page';
 
 describe('ValuePropositionComponent', () => {
   let component: ValuePropositionComponent;
@@ -17,7 +17,7 @@ describe('ValuePropositionComponent', () => {
         provideMockStore({
           selectors: [
             {
-              selector: selectApplicationImageData,
+              selector: selectHomePageData,
               value: mockedTestImageData,
             },
           ],
@@ -34,18 +34,5 @@ describe('ValuePropositionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should select correct image data from store', () => {
-    expect(component['sectionImageData']().image).toBe(mockedTestImageData[1].image);
-    expect(component['sectionImageData']().name).toBe(mockedTestImageData[1].name);
-  });
-
-  it('should compute correct section image URL', () => {
-    expect(component['sectionImageUrl']()).toBe(mockedTestImageData[1].image);
-  });
-
-  it('should compute correct image title', () => {
-    expect(component['imageTitle']()).toBe(mockedTestImageData[1].name);
   });
 });

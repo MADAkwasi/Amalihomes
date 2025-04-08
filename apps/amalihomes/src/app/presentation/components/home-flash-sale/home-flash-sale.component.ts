@@ -1,9 +1,9 @@
-import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
-import { selectApplicationImageData } from '../../../logic/stores/selectors/image-data';
 import { ButtonComponent, TextDirective } from '@amalihomes/shared';
+import { selectHomePageSectionData } from '../../../logic/stores/selectors/home-page';
 
 @Component({
   selector: 'app-home-flash-sale',
@@ -12,11 +12,6 @@ import { ButtonComponent, TextDirective } from '@amalihomes/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeFlashSaleComponent {
-  private store = inject(Store<ApplicationStore>);
-
-  public imageData = this.store.selectSignal(selectApplicationImageData);
-
-  public flashSaleImageUrl = computed(() => this.imageData()?.[2]?.image || '');
-
-  public flashSaleName = computed(() => this.imageData()?.[2]?.name || '');
+  private readonly store = inject(Store<ApplicationStore>);
+  protected readonly data = this.store.selectSignal(selectHomePageSectionData('flash-sale'));
 }

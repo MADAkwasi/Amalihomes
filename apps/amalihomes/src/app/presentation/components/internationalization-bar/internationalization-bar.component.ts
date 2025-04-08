@@ -1,8 +1,9 @@
-import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModalComponent, SelectInputComponent, TextDirective, ButtonComponent } from '@amalihomes/shared';
 import { localization, countries, languages } from '../../../logic/data/constants/localization';
 import { Globe, LucideAngularModule } from 'lucide-angular';
+import { HeaderStoryblok } from '../../../types';
 import { InformationCircleIconComponent } from '../svg-icons';
 
 @Component({
@@ -20,6 +21,7 @@ import { InformationCircleIconComponent } from '../svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InternationalizationBarComponent {
+  public readonly locale = input.required<HeaderStoryblok['locale']>();
   public readonly localization = signal(localization);
   public readonly countries = signal(countries);
   public readonly languages = signal(languages);
@@ -38,9 +40,7 @@ export class InternationalizationBarComponent {
   public readonly globeIcon = Globe;
   public selectedCountry = signal('USA');
   public currentLocale = computed(() => {
-    return (
-      this.localization().find((curLocale) => curLocale.country === this.selectedCountry()) || this.localization()[0]
-    );
+    return this.locale().find((curLocale) => curLocale.country === this.selectedCountry()) ?? this.localization()[0];
   });
 
   public setCountry(country: string): void {

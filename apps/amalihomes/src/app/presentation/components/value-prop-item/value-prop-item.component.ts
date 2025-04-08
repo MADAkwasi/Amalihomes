@@ -11,8 +11,6 @@ import { ValuePropIconName } from '../value-prop-icon/constants';
 })
 export class ValuePropItemComponent {
   public readonly meritDescription = input.required<string>();
-
   public readonly meritTitle = input.required<string>();
-
   public readonly iconName = input.required<ValuePropIconName>();
 }

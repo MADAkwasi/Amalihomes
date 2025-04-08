@@ -1,28 +1,47 @@
+@let sectionData = data();
 <div>
   <div class="w-full 2xl:max-w-[750px] xl:max-w-[550px] lg:max-w-[450px] mb-5">
-    <h1 class="max-w-[43.75rem]" libText textType="heading1">Quality Furniture for Every Home & Office</h1>
+    @if (sectionData) {
+    <h1 class="max-w-[43.75rem]" libText textType="heading1">{{ sectionData.title }}</h1>
+    } @else {
+    <div class="h-8 w-11/12 rounded-md mb-6" appSkeleton></div>
+    <div class="h-8 w-11/12 rounded-md mb-4" appSkeleton></div>
+    }
 
-    <p class="mt-6" libText textType="text-medium">
-      Your ultimate destination for premium furniture that blends elegance, comfort, and functionality. Whether you're
-      revamping your living room, upgrading your office, we bring you an exquisite collection tailored to your taste
+    <p
+      class="mt-6"
+      [ngClass]="{ 'h-24 w-full min-w-[20rem] xsm:w-[25rem] sm:w-[39rem]': !sectionData }"
+      libText
+      textType="text-medium"
+    >
+      {{ sectionData?.description }}
     </p>
 
     <!-- Hero Section CTA bttons -->
     <div class="flex items-center gap-6 flex-col md:flex-row mt-10">
       <div class="w-full md:w-auto">
-        <lib-button buttonIdentifier="home-hero-section-shop-now-btn" buttonStyles="w-full"> Shop Now </lib-button>
+        <lib-button *ngIf="sectionData" buttonIdentifier="home-hero-section-shop-now-btn" buttonStyles="w-full">{{
+          sectionData.firstButton
+        }}</lib-button>
+        <div *ngIf="!sectionData" class="h-12 w-full md:min-w-32 rounded-md" appSkeleton></div>
       </div>
 
       <div class="w-full md:w-auto">
-        <lib-button buttonIdentifier="home-hero-section-learn-more-btn" type="secondary" buttonStyles="w-full">
-          Learn More
+        <lib-button
+          *ngIf="sectionData"
+          buttonIdentifier="home-hero-section-learn-more-btn"
+          type="secondary"
+          buttonStyles="w-full"
+        >
+          {{ sectionData.secondButton }}
         </lib-button>
+        <div *ngIf="!sectionData" class="h-12 w-full md:min-w-32 rounded-md" appSkeleton></div>
       </div>
     </div>
   </div>
 </div>
 
-@let imagesData = heroImages(); @let heroImageDataAvailable = imagesData && imagesData.length > 2;
+@let imagesData = heroImages(); @let heroImageDataAvailable = imagesData && imagesData.length > 3;
 
 <div class="flex mt-16 lg:mt-0 justify-center lg:justify-end gap-2 w-full lg:w-auto lg:gap-0 xl:gap-6 relative">
   <div class="md:mr-3 flex flex-col items-center gap-4">
@@ -34,22 +53,22 @@
     <div
       class="group home-hero-image rounded-t-full bg-muted overflow-hidden relative flex justify-center items-center flex-col ml-2 md:ml-0"
     >
-      <lib-image
+      <img
         alt="{{ imagesData[selectedIndex].name }}"
         [src]="imagesData[selectedIndex].image"
-        class="size-9/12 group-hover:scale-110 transition-all mt-9"
+        class="w-9/12 group-hover:scale-110 transition-all mt-6"
       />
     </div>
     }
 
     <!-- Hero Image Arrow Navigations -->
-    <div class="flex flex-row gap-2 mt-6 ml-16 lg:ml-0">
+    <div *ngIf="sectionData" class="flex flex-row gap-2 mt-6 ml-16 lg:ml-0">
       <lib-button
         type="tetiary"
         title="Previous section"
         [buttonIdentifier]="'home-hero-section-prev-btn'"
         buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
-        (buttonClick)="handlePreviousButtonClick()"
+        (buttonClick)="handleCarouselMovement('prev')"
       >
         <lucide-angular [img]="icons.ArrowLeft" [size]="20" class="text-icon" />
       </lib-button>
@@ -58,7 +77,7 @@
         title="Next section"
         [buttonIdentifier]="'home-hero-section-next-btn'"
         buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
-        (buttonClick)="handleNextButtonClick()"
+        (buttonClick)="handleCarouselMovement('next')"
       >
         <lucide-angular [img]="icons.ArrowRight" [size]="20" class="text-icon" />
       </lib-button>
@@ -68,21 +87,24 @@
   <!-- Hero Image Navigations -->
   <div>
     <div
-      class="flex flex-col justify-between gap-4 h-[220px] xsm:h-[300px] sm:h-[400px] md:h-[450px] 2xl:h-[470px] xl:h-[380px] lg:h-[350px]"
+      class="flex flex-col justify-between gap-4 h-[220px] xsm:h-[300px] sm:h-[400px] md:h-[450px] 2xl:h-[470px] xl:h-[26.75rem] lg:h-[350px]"
     >
       @if (!heroImageDataAvailable) {
       <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
       <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
       <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
-      } @else { @for(position of imagePostions; track heroImages()[position]._id){ @let imageData =
+      } @else { @for(position of imagePositions(); track heroImages()[position]._uid){ @let imageData =
       imagesData[position];
 
-      <div class="group relative h-[35px] w-[60px] md:h-[55px] md:w-[88px] rounded-b-full bg-muted cursor-pointer">
+      <div
+        [ngClass]="{ 'mt-6': $index === 0 }"
+        class="group relative h-[35px] w-[60px] md:h-[50px] md:w-[88px] rounded-b-full bg-muted cursor-pointer"
+      >
         <div class="flex items-center flex-col -mt-6 rounded-full absolute inset-0 bottom-auto">
-          <lib-image
+          <img
             alt="{{ imageData.name }}"
-            class="flex items-center flex-col rounded-full overflow-hidden group-hover:scale-110 transition-all duration-300 group group-first:!size-3/4 group-first:aspect-square group-first:rounded-full"
             [src]="imageData.image"
+            class="flex items-center flex-col hover:scale-110 transition-all duration-300 w-3/4 aspect-square rounded-full"
           />
         </div>
       </div>

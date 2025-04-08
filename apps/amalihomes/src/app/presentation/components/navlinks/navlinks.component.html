@@ -3,11 +3,12 @@
 
   <li class="route">
     <a
-      [routerLink]="navlink.path"
+      [routerLink]="navlink.url"
       class="p-2 border-b-transparent border-b-[2px]"
       [routerLinkActive]="!isMenuOpen() ? 'text-primary font-medium active-route' : ''"
+      [routerLinkActiveOptions]="{ exact: true }"
       (click)="onCloseMenu()"
-      >{{ navlink.label }}</a
+      >{{ navlink.text }}</a
     >
   </li>
   }

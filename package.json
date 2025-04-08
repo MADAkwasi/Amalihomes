@@ -5,7 +5,8 @@
   "scripts": {
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
-    "build": "npx nx build amalihomes",
+    "build": "yarn run config && npx nx build amalihomes",
+    "config": "ts-node apps/amalihomes/src/app/environments/set-environments.ts",
     "lint": "npx nx lint amalihomes",
     "test": "npx jest",
     "test:coverage": "npx jest --coverage",

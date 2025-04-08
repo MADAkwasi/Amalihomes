@@ -18,11 +18,15 @@ export class ModalComponent {
 
   public toggleModal() {
     this.isOpen = !this.isOpen;
+
+    if (this.isOpen) document.body.style.overflowY = 'hidden';
+    else document.body.style.overflowY = '';
     this.cdRef.detectChanges();
   }
 
   public closeModal() {
     this.isOpen = false;
+    document.body.style.overflowY = '';
     this.cdRef.detectChanges();
   }
 }

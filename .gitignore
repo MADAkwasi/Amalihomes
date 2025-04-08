@@ -4,6 +4,10 @@
 .env
 .env.*
 
+#storyblok
+components.*.json
+presets.*.json
+
 # compiled output
 dist
 tmp
@@ -47,3 +51,7 @@ Thumbs.db
 
 .angular
 .qodo
+
+amalihomes/src/app/environments/*
+
+!amalihomes/src/app/environments/set-environment.ts
