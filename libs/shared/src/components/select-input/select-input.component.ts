@@ -12,14 +12,18 @@ import { LucideAngularModule, ChevronDown } from 'lucide-angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectInputComponent {
-  placeholder = input('Select an option');
-  options = input<{ value: string; label: string }[]>([]);
-  disabled = input(false);
-  control = input<FormControl>(new FormControl(''));
-  label = input('');
-  arrowIcon = ChevronDown;
-  isOpen = signal(false);
-  controlValue = signal<string>('');
+  public readonly placeholder = input('Select an option');
+  public readonly options = input<{ value: string; label: string }[]>([]);
+  public readonly disabled = input(false);
+  public readonly control = input<FormControl>(new FormControl(''));
+  public readonly label = input('');
+  public readonly arrowIcon = ChevronDown;
+  public readonly isOpen = signal(false);
+  public readonly controlValue = signal<string>('');
+  public readonly selectedLabel = computed(() => {
+    const selectedOption = this.options().find(({ value }) => value === this.controlValue());
+    return selectedOption ? selectedOption.label : this.placeholder();
+  });
 
   constructor() {
     effect((onCleanup) => {
@@ -42,25 +46,18 @@ export class SelectInputComponent {
     });
   }
 
-  selectedLabel = computed(() => {
-    const selectedOption = this.options().find(({ value }) => value === this.controlValue());
-    return selectedOption ? selectedOption.label : this.placeholder();
-  });
-
-  toggleDropdown(): void {
-    if (this.disabled()) {
-      return;
-    }
+  public toggleDropdown(): void {
+    if (this.disabled()) return;
     this.isOpen.update((v) => !v);
   }
 
-  selectOption(value: string): void {
+  public selectOption(value: string): void {
     const control = this.control();
     control.setValue(value);
     this.closeDropdown();
   }
 
-  closeDropdown(): void {
+  public closeDropdown(): void {
     this.isOpen.set(false);
   }
 }

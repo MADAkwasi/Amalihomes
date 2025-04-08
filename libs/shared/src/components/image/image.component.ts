@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageComponent {
-  src = input('');
-  alt = input('');
-  class = input('');
-  width = input(200);
-  height = input(400);
+  public readonly src = input('');
+  public readonly alt = input('');
+  public readonly class = input('');
+  public readonly width = input(200);
+  public readonly height = input(400);
 }

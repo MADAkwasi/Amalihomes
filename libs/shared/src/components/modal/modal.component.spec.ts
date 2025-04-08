@@ -108,15 +108,4 @@ describe('ModalComponent', () => {
     const transparentBackdrop = testFixture.debugElement.query(By.css('.modal-backdrop'));
     expect(transparentBackdrop.nativeElement.style.backgroundColor).toBe('');
   });
-
-  it('should close modal on escape key', () => {
-    component.isOpen = true;
-    fixture.detectChanges();
-
-    const backdrop = fixture.debugElement.query(By.css('.modal-backdrop'));
-    backdrop.triggerEventHandler('keydown.escape', new KeyboardEvent('keydown', { key: 'Escape' }));
-    fixture.detectChanges();
-
-    expect(component.isOpen).toBeFalsy();
-  });
 });

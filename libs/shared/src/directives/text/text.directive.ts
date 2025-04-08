@@ -1,5 +1,5 @@
 /* eslint-disable no-empty-function */
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, input, OnInit, Renderer2 } from '@angular/core';
 
 type TextType =
   | 'heading1'
@@ -17,7 +17,7 @@ type TextType =
   selector: '[libText]',
 })
 export class TextDirective implements OnInit {
-  @Input() textType: TextType = 'text-normal';
+  public readonly textType = input<TextType>('text-normal');
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
@@ -26,7 +26,7 @@ export class TextDirective implements OnInit {
   }
 
   private applyStyles() {
-    const classes = this.getClassList(this.textType);
+    const classes = this.getClassList(this.textType());
     classes.forEach((className) => {
       this.renderer.addClass(this.elementRef.nativeElement, className);
     });

@@ -1,0 +1,23 @@
+<div class="toast-container" [ngClass]="typeClass()" [attr.role]="role()" *ngIf="visible()">
+  <div class="toast-header">
+    <div class="toast-icon">
+      @switch (type()) { @case ('error') {
+      <span class="icon-error"><lib-close-icon size="12" /></span>
+      } @case ('success') {
+      <span class="icon-success"><lib-check-icon /></span>
+      } @case ('info') {
+      <span class="icon-info"><lib-info-icon /></span>
+      } @case ('warning') {
+      <span class="icon-warning"><lib-warning-icon /></span>
+      } @default {
+      <span class="icon-warning"><lib-warning-icon /></span>
+      } }
+
+      <div class="toast-title">{{ title() }}</div>
+    </div>
+    <button class="toast-close" (click)="close()" aria-label="Close"><lib-close-icon size="11" /></button>
+  </div>
+  <div class="toast-content">
+    <div class="toast-message">{{ message() }}</div>
+  </div>
+</div>

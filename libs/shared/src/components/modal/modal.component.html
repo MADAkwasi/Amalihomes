@@ -2,9 +2,8 @@
   <button class="modal-trigger" (click)="toggleModal()">
     <ng-content select="[modalButton]"></ng-content>
   </button>
-
+  @if(isOpen){
   <div
-    *ngIf="isOpen"
     class="modal-backdrop"
     [class.transparent]="!hasModalBackdrop"
     (click)="closeModal()"
@@ -13,7 +12,6 @@
   ></div>
   <div
     [ngClass]="['modal-' + position(), modalClass()]"
-    *ngIf="isOpen"
     class="modal-content"
     (keydown.enter)="$event.stopPropagation()"
     (keydown.space)="$event.stopPropagation()"
@@ -22,4 +20,5 @@
   >
     <ng-content select="[modalContent]"></ng-content>
   </div>
+  }
 </div>
