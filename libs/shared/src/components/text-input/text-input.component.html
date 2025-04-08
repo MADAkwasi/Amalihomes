@@ -1,20 +1,36 @@
-<div class="input-container primary w-[30px]" [ngClass]="containerStyles()">
-  <ng-container *ngIf="leftIcon()">
-    <ng-content select="[leftIcon]" class="left-icon"></ng-content>
+<div class="text-input-container">
+  <ng-container *ngIf="label()">
+    <label [for]="id()" class="label" [ngClass]="classes()">
+      {{ label() }}
+    </label>
   </ng-container>
+  <div class="input-container primary" [ngClass]="classes()">
+    <ng-container *ngIf="leftIcon()">
+      <ng-content select="[leftIcon]" class="left-icon">👈</ng-content>
+    </ng-container>
 
-  <input
-    [ngClass]="{
+    <input
+      [ngClass]="{
       'with-left-icon': leftIcon(),
-      'with-right-icon': rightIcon()
+      'with-right-icon': rightIcon(),
+      
     }"
-    [class]="inputStyles()"
-    [placeholder]="placeholder()"
-    [formControl]="control()"
-    [disabled]="disabled()"
-  />
+      [id]="id()"
+      [type]="type()"
+      [class]="inputStyles()"
+      [placeholder]="placeholder()"
+      [formControl]="control()"
+      [readonly]="disabled()"
+    />
 
-  <ng-container *ngIf="rightIcon()">
-    <ng-content select="[rightIcon]" class="right-icon"></ng-content>
-  </ng-container>
+    <ng-container *ngIf="rightIcon()">
+      <ng-content select="[rightIcon]" class="right-icon">👉</ng-content>
+    </ng-container>
+  </div>
+  @if (error() && errorMessage()) {
+  <div class="error-message">
+    <lucide-icon [img]="errorIcon" [size]="15"></lucide-icon>
+    <p>{{ errorMessage() }}</p>
+  </div>
+  }
 </div>

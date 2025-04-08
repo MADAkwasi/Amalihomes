@@ -34,10 +34,10 @@ describe('InputComponent', () => {
   });
 
   it('should set disabled state correctly', () => {
-    component.setDisabledState(true);
+    fixture.componentRef.setInput('disabled', true);
     expect(component.disabled()).toBe(true);
 
-    component.setDisabledState(false);
+    fixture.componentRef.setInput('disabled', false);
     expect(component.disabled()).toBe(false);
   });
 

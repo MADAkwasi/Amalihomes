@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .input-container {
   display: flex;
   align-items: center;
@@ -5,8 +11,8 @@
   border-radius: 8px;
   border: 1.5px solid;
   background: white;
-  color: #5d5d5d;
-  font-size: 16px;
+  color: #4f4f4f;
+  font-size: 18px;
 }
 
 input {
@@ -14,13 +20,44 @@ input {
   border: none;
   outline: none;
   background: transparent;
-  color: #5d5d5d;
-  padding: 0 12px;
   font-size: 16px;
 }
 
-input::placeholder {
-  color: #a0a0a0;
+.text-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'lato';
+}
+
+.error-message {
+  color: #e22420;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  gap: 8px;
+}
+
+lucide-icon {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
+}
+
+.is-disabled,
+.is-disabled input {
+  color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.is-disabled input::placeholder {
+  color: #e7e7e7;
 }
 
 .primary {
@@ -33,6 +70,31 @@ input::placeholder {
   height: 40px;
   border-color: #d1d1d1;
   padding: 0 12px;
+}
+
+.is-disabled .label {
+  color: #d1d1d1;
+}
+
+.is-disabled.input-container {
+  color: #e7e7e7;
+}
+
+.is-disabled .left-icon,
+.is-disabled .right-icon {
+  color: #d1d1d1;
+}
+
+.is-disabled {
+  border-color: #f6f6f6;
+}
+
+.with-error {
+  border-color: #e22420;
+}
+
+.with-warning {
+  border-color: #f6a600;
 }
 
 .with-left-icon {
