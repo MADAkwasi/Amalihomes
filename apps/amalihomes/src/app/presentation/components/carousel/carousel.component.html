@@ -1,0 +1,65 @@
+<div class="flex mt-16 lg:mt-0 justify-center lg:justify-end gap-2 w-full lg:w-auto lg:gap-0 xl:gap-6 relative">
+  <div class="md:mr-3 flex flex-col items-center gap-4">
+    @if (!isImageAvailable()) {
+    <div appSkeleton class="home-hero-image rounded-t-full"></div>
+    } @else {
+    <div
+      class="group home-hero-image rounded-t-full bg-muted overflow-hidden relative flex justify-center items-center flex-col ml-2 md:ml-0"
+    >
+      <lib-image
+        alt="{{ carouselImages()[selectedIndex].name }}"
+        [src]="carouselImages()[selectedIndex].image"
+        class="size-9/12 group-hover:scale-110 transition-all mt-9 flex justify-center"
+      />
+    </div>
+    }
+
+    <!-- Hero Image Arrow Navigations -->
+    <div class="flex flex-row gap-2 mt-6 ml-16 lg:ml-0">
+      <lib-button
+        type="tetiary"
+        title="Previous section"
+        [buttonIdentifier]="'home-hero-section-prev-btn'"
+        buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
+        (buttonClick)="handleCarouselMovement('prev')"
+      >
+        <lucide-angular [img]="icons.ArrowLeft" [size]="20" class="text-icon" />
+      </lib-button>
+      <lib-button
+        type="tetiary"
+        title="Next section"
+        [buttonIdentifier]="'home-hero-section-next-btn'"
+        buttonStyles="size-10 !rounded-full flex justify-center items-center flex-col !bg-muted !p-0"
+        (buttonClick)="handleCarouselMovement('next')"
+      >
+        <lucide-angular [img]="icons.ArrowRight" [size]="20" class="text-icon" />
+      </lib-button>
+    </div>
+  </div>
+
+  <!-- Hero Image Navigations -->
+  <div>
+    <div
+      class="flex flex-col justify-between gap-4 h-[220px] xsm:h-[300px] sm:h-[400px] md:h-[450px] 2xl:h-[470px] xl:h-[380px] lg:h-[350px]"
+    >
+      @if (!isImageAvailable()) {
+      <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
+      <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
+      <div class="h-[60px] w-[60px] md:h-[88px] md:w-[88px] rounded-full" appSkeleton></div>
+      } @else { @for(position of imagePositions(); track carouselImages()[position]._uid){ @let imageData =
+      carouselImages()[position];
+
+      <div class="group relative h-[35px] w-[60px] md:h-[55px] md:w-[88px] rounded-b-full bg-muted cursor-pointer">
+        <div class="flex items-center flex-col -mt-6 rounded-full absolute inset-0 bottom-auto">
+          <lib-image
+            alt="{{ imageData.name }}"
+            class="flex items-center flex-col rounded-full overflow-hidden group-hover:scale-110 transition-all duration-300 group group-first:!size-3/4 group-first:aspect-square group-first:rounded-full"
+            [src]="imageData.image"
+          />
+        </div>
+      </div>
+
+      } }
+    </div>
+  </div>
+</div>
