@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckIconComponent {
-  size = input<number | string>(16);
-  strokeWidth = input<number | string>(1.5);
-  color = input<string>('#348537');
+  readonly size = input<number | string>(16);
+  readonly strokeWidth = input<number | string>(1.5);
+  readonly color = input<string>('#348537');
 }
