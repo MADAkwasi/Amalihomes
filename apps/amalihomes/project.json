@@ -2,7 +2,7 @@
   "name": "amalihomes",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": ["app", "lib"],
   "sourceRoot": "apps/amalihomes/src",
   "tags": [],
   "targets": {

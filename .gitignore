@@ -52,6 +52,6 @@ Thumbs.db
 .angular
 .qodo
 
-amalihomes/src/app/environments/*
+apps/amalihomes/src/app/environments/*
 
-!amalihomes/src/app/environments/set-environment.ts
+!apps/amalihomes/src/app/environments/set-environment.ts

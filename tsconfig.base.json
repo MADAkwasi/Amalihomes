@@ -17,7 +17,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@amalihomes/shared": ["libs/shared/src/index.ts"]
+      "@amalihomes/shared": ["apps/amalihomes/src/app/shared-ui/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
