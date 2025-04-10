@@ -1,0 +1,19 @@
+<main class="flex flex-col justify-around page-horizontal-padding gap-10">
+  <app-home-hero-section
+    class="flex flex-row flex-wrap lg:flex-nowrap justify-between lg:gap-4 xl:gap-12 home-section-vertical-margin pt-12 md:pt-16"
+  />
+  <app-value-proposition class="home-section-vertical-margin 2xl:mt-28" />
+  <app-slider
+    categoryType="products"
+    class="home-section-vertical-margin"
+    title="Product Categories"
+    [sliderImages]="getImagesByKey('products')()"
+  ></app-slider>
+  <app-home-flash-sale class="home-section-vertical-margin" />
+  <app-slider
+    categoryType="arrivals"
+    title="New Arrivals"
+    [sliderImages]="getImagesByKey('arrivals')()"
+    class="home-section-vertical-margin pb-10"
+  ></app-slider>
+</main>

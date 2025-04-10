@@ -1,0 +1,30 @@
+@let sectionData = flashSaleSection();
+
+<article class="rounded-lg overflow-hidden">
+  <div class="flex flex-col md:flex-row">
+    <div [ngClass]="{ 'animate-skeleton': !sectionData }" class="w-full md:w-1/2 h-[19.63rem] lg:h-[27.63rem] bg-muted">
+      @if (sectionData) { @let flashSaleData = sectionData.images?.[0];
+
+      <img
+        [src]="flashSaleData?.image"
+        alt="{{ flashSaleData?.name || 'Flash sale section picture' }}"
+        class="w-full h-full object-cover"
+        *ngIf="sectionData"
+      />
+      }
+    </div>
+
+    <div
+      [ngClass]="{ 'md:h-auto h-80': !sectionData }"
+      class="w-full md:w-1/2 bg-[#3c3c3c] py-10 px-6 flex flex-col justify-center"
+    >
+      @if (sectionData) {
+      <h2 class="mb-2 !text-white" libText textType="heading2">{{ sectionData.title }}</h2>
+      <p libText textType="text-normal" class="!text-white">{{ sectionData.description }}</p>
+      <a routerLink="#" class="bg-primary mt-10 text-white block text-center py-3 rounded-sm md:px-4 md:w-fit">
+        {{ sectionData.buttonText }}
+      </a>
+      }
+    </div>
+  </div>
+</article>

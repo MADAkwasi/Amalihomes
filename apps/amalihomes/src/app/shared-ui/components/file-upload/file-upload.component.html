@@ -1,0 +1,23 @@
+<div class="file-upload-container">
+  @if (label()) {
+  <label [for]="id()" class="file-upload-label">{{ label() }}</label>
+  }
+
+  <div class="file-upload-area">
+    <input type="file" [id]="id()" [accept]="accept()" (change)="onFileSelected($event)" class="file-upload-input" />
+
+    <div class="upload-content">
+      @if (previewUrl()) {
+      <div class="image-preview">
+        <img [src]="previewUrl()" alt="Preview" class="preview-image" />
+      </div>
+      } @else {
+      <lib-image-icon />
+      }
+
+      <p class="upload-text">
+        {{ fileName() || 'Upload your image or browse to add your image' }}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+import { Component, computed, input, signal, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ModalComponent, SelectInputComponent, TextDirective, ButtonComponent } from '@amalihomes/shared';
+import { localization, countries, languages } from '../../../logic/data/constants/localization';
+import { Globe, LucideAngularModule } from 'lucide-angular';
+import { InformationCircleIconComponent } from '../svg-icons';
+import { Locale } from '../../../types/storyblok';
+
+@Component({
+  standalone: true,
+  selector: 'app-internationalization-bar',
+  imports: [
+    CommonModule,
+    LucideAngularModule,
+    TextDirective,
+    ModalComponent,
+    SelectInputComponent,
+    InformationCircleIconComponent,
+    ButtonComponent,
+  ],
+  templateUrl: './internationalization-bar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class InternationalizationBarComponent {
+  public readonly locale = input.required<Locale[]>();
+  public readonly localization = signal(localization);
+  public readonly countries = signal(countries);
+  public readonly languages = signal(languages);
+  public readonly supportedCountries = computed(() => {
+    const uniqueCountries = new Map<string, string>();
+
+    this.localization().forEach((locale) => {
+      if (!uniqueCountries.has(locale.country)) {
+        uniqueCountries.set(locale.country, `${locale.country} (${locale.languageCode})`);
+      }
+    });
+
+    return Array.from(uniqueCountries.values()).join(', ');
+  });
+
+  public readonly globeIcon = Globe;
+  public selectedCountry = signal('USA');
+  public currentLocale = computed(() => {
+    return this.locale().find((curLocale) => curLocale.country === this.selectedCountry()) ?? this.localization()[0];
+  });
+
+  public setCountry(country: string): void {
+    this.selectedCountry.set(country);
+  }
+}

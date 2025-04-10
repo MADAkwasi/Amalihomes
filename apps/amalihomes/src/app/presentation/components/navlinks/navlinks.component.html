@@ -1,0 +1,15 @@
+<ul class="flex flex-col lg:flex-row gap-2 text-typo-1 -mt-2 lg:mt-0">
+  @for(navlink of navLinks(); track $index){
+
+  <li class="route">
+    <a
+      [routerLink]="navlink.href.url"
+      class="p-2 border-b-transparent border-b-[2px]"
+      [routerLinkActive]="!isMenuOpen() ? 'text-primary font-medium active-route' : ''"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="onCloseMenu()"
+      >{{ navlink.text }}</a
+    >
+  </li>
+  }
+</ul>

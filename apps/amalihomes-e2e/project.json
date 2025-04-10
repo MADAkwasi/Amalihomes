@@ -1,0 +1,10 @@
+{
+  "name": "amalihomes-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/amalihomes-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["amalihomes"],
+  "// targets": "to see all targets run: nx show project amalihomes-e2e --web",
+  "targets": {}
+}

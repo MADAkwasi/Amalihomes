@@ -1,0 +1,38 @@
+<div class="text-input-container">
+  @if(label()) {
+  <label [for]="id()" class="label" [ngClass]="classes()">
+    {{ label() }}
+  </label>
+  }
+
+  <div class="input-container primary" [ngClass]="classes()">
+    @if (leftIcon()) {
+    <ng-content select="[leftIcon]" class="left-icon">👈</ng-content>
+
+    }
+
+    <input
+      [ngClass]="{
+      'with-left-icon': leftIcon(),
+      'with-right-icon': rightIcon(),
+      
+    }"
+      [id]="id()"
+      [type]="type()"
+      [class]="inputStyles()"
+      [placeholder]="placeholder()"
+      [formControl]="control()"
+      [readonly]="disabled()"
+    />
+
+    @if(rightIcon()) {
+    <ng-content select="[rightIcon]" class="right-icon">👉</ng-content>
+    }
+  </div>
+  @if (error() && errorMessage()) {
+  <div class="error-message">
+    <lucide-icon [img]="errorIcon" [size]="15"></lucide-icon>
+    <p>{{ errorMessage() }}</p>
+  </div>
+  }
+</div>
