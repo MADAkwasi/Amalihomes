@@ -60,12 +60,12 @@ describe('HeaderComponent', () => {
 
     mockSelectIsMenuOpen.setResult(false);
     store.refreshState();
-    component.onMenuToggle();
+    component['onMenuToggle']();
     expect(dispatchSpy).toHaveBeenCalledWith(interactionsActions.openMenu());
 
     mockSelectIsMenuOpen.setResult(true);
     store.refreshState();
-    component.onMenuToggle();
+    component['onMenuToggle']();
     expect(dispatchSpy).toHaveBeenCalledWith(interactionsActions.closeMenu());
   });
 
@@ -74,12 +74,12 @@ describe('HeaderComponent', () => {
 
     mockSelectIsSearching.setResult(false);
     store.refreshState();
-    component.onOpenSearchField();
+    component['onOpenSearchField']();
     expect(dispatchSpy).toHaveBeenCalledWith(interactionsActions.openSearchField());
 
     mockSelectIsSearching.setResult(true);
     store.refreshState();
-    component.onOpenSearchField();
+    component['onOpenSearchField']();
     expect(dispatchSpy).toHaveBeenCalledWith(interactionsActions.closeSearchField());
   });
 });

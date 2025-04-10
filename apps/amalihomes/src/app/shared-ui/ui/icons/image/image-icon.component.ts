@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageIconComponent {
-  readonly width = input<number>(57);
-  readonly height = input<number>(49);
-  readonly color = input<string>('#B0B0B0');
+  public readonly width = input<number>(57);
+  public readonly height = input<number>(49);
+  public readonly color = input<string>('#B0B0B0');
 }

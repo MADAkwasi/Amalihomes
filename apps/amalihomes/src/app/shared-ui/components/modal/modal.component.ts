@@ -1,5 +1,5 @@
 import { Component, input, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'lib-modal',
@@ -10,23 +10,23 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
+  private readonly document = inject(DOCUMENT);
   public readonly position = input<'left' | 'right' | 'top' | 'bottom'>('top');
   public readonly modalClass = input('');
-  public isOpen = false;
   public readonly hasModalBackdrop = input(false);
-  public cdRef = inject(ChangeDetectorRef);
+  protected isOpen = false;
+  protected cdRef = inject(ChangeDetectorRef);
 
-  public toggleModal() {
+  protected toggleModal() {
     this.isOpen = !this.isOpen;
-
-    if (this.isOpen) document.body.style.overflowY = 'hidden';
-    else document.body.style.overflowY = '';
+    if (this.isOpen) this.document.body.style.overflowY = 'hidden';
+    else this.document.body.style.overflowY = '';
     this.cdRef.detectChanges();
   }
 
-  public closeModal() {
+  protected closeModal() {
     this.isOpen = false;
-    document.body.style.overflowY = '';
+    this.document.body.style.overflowY = '';
     this.cdRef.detectChanges();
   }
 }

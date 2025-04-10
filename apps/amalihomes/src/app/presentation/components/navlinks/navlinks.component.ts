@@ -15,9 +15,9 @@ import { StoryblokNavLink } from '../../../types/storyblok';
 export class NavlinksComponent {
   private readonly store = inject(Store);
   public readonly navLinks = input.required<StoryblokNavLink[]>();
-  public isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
+  protected isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
 
-  public onCloseMenu() {
+  protected onCloseMenu() {
     this.store.dispatch(interactionsActions.closeMenu());
   }
 }

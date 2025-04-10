@@ -25,35 +25,35 @@ describe('ModalComponent', () => {
     expect(component.position()).toBe('top');
     expect(component.modalClass()).toBe('');
     expect(component.hasModalBackdrop()).toBeFalsy();
-    expect(component.isOpen).toBeFalsy();
+    expect(component['isOpen']).toBeFalsy();
   });
 
   it('should toggle modal open/close state', () => {
     // Initial state
-    expect(component.isOpen).toBeFalsy();
+    expect(component['isOpen']).toBeFalsy();
     expect(fixture.debugElement.query(By.css('.modal-content'))).toBeNull();
 
     // Open modal
-    component.toggleModal();
+    component['toggleModal']();
     fixture.detectChanges();
-    expect(component.isOpen).toBeTruthy();
+    expect(component['isOpen']).toBeTruthy();
     expect(fixture.debugElement.query(By.css('.modal-content'))).toBeTruthy();
 
     // Close modal
-    component.toggleModal();
+    component['toggleModal']();
     fixture.detectChanges();
-    expect(component.isOpen).toBeFalsy();
+    expect(component['isOpen']).toBeFalsy();
     expect(fixture.debugElement.query(By.css('.modal-content'))).toBeNull();
   });
 
   it('should close modal via closeModal()', () => {
-    component.isOpen = true;
+    component['isOpen'] = true;
     fixture.detectChanges();
 
-    component.closeModal();
+    component['closeModal']();
     fixture.detectChanges();
 
-    expect(component.isOpen).toBeFalsy();
+    expect(component['isOpen']).toBeFalsy();
     expect(fixture.debugElement.query(By.css('.modal-content'))).toBeNull();
   });
 
@@ -92,9 +92,7 @@ describe('ModalComponent', () => {
 
     const testFixture = TestBed.createComponent(TestHostComponent);
     const modalComponent = testFixture.debugElement.query(By.directive(ModalComponent)).componentInstance;
-
-    // Open the modal
-    modalComponent.isOpen = true;
+    modalComponent['isOpen'] = true;
 
     // Test with backdrop
     testFixture.componentInstance.testBackdrop = true;

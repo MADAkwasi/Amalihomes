@@ -7,8 +7,10 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   output,
+  PLATFORM_ID,
+  inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CloseIconComponent } from '../../ui/icons/close/close-icon.component';
 import { CheckIconComponent } from '../../ui/icons/check/check-icon.component';
 import { InfoIconComponent } from '../../ui/icons/info/info-icon.component';
@@ -30,13 +32,14 @@ export class ToastComponent {
   public readonly message = input<string>('');
   public readonly duration = input<number>(5000);
   public readonly autoClose = input<boolean>(true);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  @Output() closed = new EventEmitter<void>();
+  @Output() public closed = new EventEmitter<void>();
   public closeed = output<Event>();
 
-  public readonly visible = signal<boolean>(true);
-  public readonly typeClass = computed(() => `toast-${this.type()}`);
-  public readonly role = computed(() => {
+  protected readonly visible = signal<boolean>(true);
+  protected readonly typeClass = computed(() => `toast-${this.type()}`);
+  protected readonly role = computed(() => {
     switch (this.type()) {
       case 'error':
         return 'alert';
@@ -54,14 +57,14 @@ export class ToastComponent {
   private timeoutId: number | null = null;
 
   constructor() {
-    if (this.autoClose() && this.duration() > 0) {
+    if (isPlatformBrowser(this.platformId) && this.autoClose() && this.duration() > 0) {
       this.timeoutId = window.setTimeout(() => {
         this.close();
       }, this.duration());
     }
   }
 
-  public close(): void {
+  protected close(): void {
     this.visible.set(false);
     this.closed.emit();
 

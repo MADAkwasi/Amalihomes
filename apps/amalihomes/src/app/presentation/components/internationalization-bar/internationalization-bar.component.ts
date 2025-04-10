@@ -23,10 +23,10 @@ import { Locale } from '../../../types/storyblok';
 })
 export class InternationalizationBarComponent {
   public readonly locale = input.required<Locale[]>();
-  public readonly localization = signal(localization);
-  public readonly countries = signal(countries);
-  public readonly languages = signal(languages);
-  public readonly supportedCountries = computed(() => {
+  protected readonly localization = signal(localization);
+  protected readonly countries = signal(countries);
+  protected readonly languages = signal(languages);
+  protected readonly supportedCountries = computed(() => {
     const uniqueCountries = new Map<string, string>();
 
     this.localization().forEach((locale) => {
@@ -38,13 +38,13 @@ export class InternationalizationBarComponent {
     return Array.from(uniqueCountries.values()).join(', ');
   });
 
-  public readonly globeIcon = Globe;
-  public selectedCountry = signal('USA');
-  public currentLocale = computed(() => {
+  protected readonly globeIcon = Globe;
+  protected selectedCountry = signal('USA');
+  protected currentLocale = computed(() => {
     return this.locale().find((curLocale) => curLocale.country === this.selectedCountry()) ?? this.localization()[0];
   });
 
-  public setCountry(country: string): void {
+  protected setCountry(country: string): void {
     this.selectedCountry.set(country);
   }
 }

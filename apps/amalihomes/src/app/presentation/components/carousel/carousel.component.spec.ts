@@ -29,39 +29,39 @@ describe('CarouselComponent', () => {
   });
 
   it('should initialize with correct selectedIndex and imagePositions', () => {
-    expect(component.selectedIndex()).toBe(0);
-    expect(component.imagePositions()).toEqual([1, 2, 3]);
+    expect(component['selectedIndex']()).toBe(0);
+    expect(component['imagePositions']()).toEqual([1, 2, 3]);
   });
 
   it('should move carousel to next image', () => {
-    component.handleCarouselMovement('next');
-    expect(component.selectedIndex()).toBe(1);
-    expect(component.imagePositions()).toEqual([0, 2, 3]);
+    component['handleCarouselMovement']('next');
+    expect(component['selectedIndex']()).toBe(1);
+    expect(component['imagePositions']()).toEqual([0, 2, 3]);
   });
 
   it('should move carousel to previous image', () => {
-    component.handleCarouselMovement('prev');
-    expect(component.selectedIndex()).toBe(3);
-    expect(component.imagePositions()).toEqual([0, 1, 2]);
+    component['handleCarouselMovement']('prev');
+    expect(component['selectedIndex']()).toBe(3);
+    expect(component['imagePositions']()).toEqual([0, 1, 2]);
   });
 
   it('should update selectedIndex and imagePositions when thumbnail is clicked', () => {
-    component.navigateToImage(1);
-    expect(component.selectedIndex()).toBe(2);
-    expect(component.imagePositions()).toEqual([0, 1, 3]);
+    component['navigateToImage'](1);
+    expect(component['selectedIndex']()).toBe(2);
+    expect(component['imagePositions']()).toEqual([0, 1, 3]);
   });
 
   it('should respond to ArrowRight key press', () => {
     const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
     window.dispatchEvent(event);
-    expect(component.selectedIndex()).toBe(1);
+    expect(component['selectedIndex']()).toBe(1);
   });
 
   it('should respond to ArrowLeft key press', () => {
-    component.selectedIndex.set(1);
+    component['selectedIndex'].set(1);
     const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
     window.dispatchEvent(event);
-    expect(component.selectedIndex()).toBe(0);
+    expect(component['selectedIndex']()).toBe(0);
   });
 
   it('should remove event listener on destroy', () => {

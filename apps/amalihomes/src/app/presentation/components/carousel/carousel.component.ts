@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, effect, input, OnDestroy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  OnDestroy,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
 import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
@@ -14,16 +23,19 @@ import { StoryblokImages } from '../../../types/storyblok';
 export class CarouselComponent implements OnDestroy {
   public readonly carouselImages = input<StoryblokImages[]>([]);
   public readonly isImageAvailable = input<boolean>(false);
-  public readonly imagePositions = signal<number[]>([]);
-  public selectedIndex = signal(0);
+  protected readonly imagePositions = signal<number[]>([]);
+  protected selectedIndex = signal(0);
   protected readonly icons = { ArrowLeft, ArrowRight };
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor() {
     effect(() => {
       this.imagePositions.set(Array.from({ length: this.carouselImages().length - 1 }, (_, i) => i + 1));
     });
 
-    window.addEventListener('keydown', this.onKeyDown.bind(this));
+    if (isPlatformBrowser(this.platformId)) {
+      window.addEventListener('keydown', this.onKeyDown.bind(this));
+    }
   }
 
   private onKeyDown(event: KeyboardEvent): void {
@@ -31,7 +43,7 @@ export class CarouselComponent implements OnDestroy {
     else if (event.key === 'ArrowLeft') this.handleCarouselMovement('prev');
   }
 
-  public handleCarouselMovement(direction: 'prev' | 'next'): void {
+  protected handleCarouselMovement(direction: 'prev' | 'next'): void {
     const total = this.carouselImages().length;
     const nextIndex =
       direction === 'next' ? (this.selectedIndex() + 1) % total : (this.selectedIndex() - 1 + total) % total;
@@ -45,7 +57,7 @@ export class CarouselComponent implements OnDestroy {
     this.imagePositions.set(newImagePositions);
   }
 
-  public navigateToImage(positionIndex: number): void {
+  protected navigateToImage(positionIndex: number): void {
     const clickedIndex = this.imagePositions()[positionIndex];
 
     if (clickedIndex === this.selectedIndex()) return;
@@ -57,6 +69,8 @@ export class CarouselComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('keydown', this.onKeyDown);
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('keydown', this.onKeyDown);
+    }
   }
 }

@@ -29,13 +29,13 @@ export class FooterComponent {
   private readonly findLinksByTitles = (key: string) =>
     computed(() => this.data()?.linksSection?.find((links) => links.key === key));
 
-  public readonly quickLinks = this.findLinksByTitles('quickLinks');
-  public readonly companyLinks = this.findLinksByTitles('company');
-  public readonly legalServicesLinks = this.findLinksByTitles('legalServices');
-  public readonly mobileViewLinks = this.findLinksByTitles('mobileLinks');
-  public email!: string;
+  protected readonly quickLinks = this.findLinksByTitles('quickLinks');
+  protected readonly companyLinks = this.findLinksByTitles('company');
+  protected readonly legalServicesLinks = this.findLinksByTitles('legalServices');
+  protected readonly mobileViewLinks = this.findLinksByTitles('mobileLinks');
+  protected email!: string;
 
-  public onSubmit(): void {
+  protected onSubmit(): void {
     return;
   }
 }
