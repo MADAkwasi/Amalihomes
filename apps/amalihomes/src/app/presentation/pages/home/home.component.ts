@@ -11,6 +11,8 @@ import { FetchState } from '../../../logic/data/constants';
 import { selectGlobalPageStoreField } from '../../../logic/stores/selectors/global-page';
 import { SliderComponent } from '../../components/slider/slider.component';
 import { CategoryStoryblok, StoryblokSections } from '../../../types';
+import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
+import { HomeMetaData } from './static-mata-data';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +30,15 @@ export class HomeComponent implements OnInit {
   protected readonly getImagesByKey = (key: string): Signal<StoryblokSections[]> =>
     computed(() => this.productsData()?.each.find((category) => category.key === key)?.items);
 
+  private readonly pageHeadTags = inject(MetaTagsService);
+
   ngOnInit(): void {
     const fetchState = this.fetchState();
 
     if ([FetchState.DEFAULT, FetchState.FAILED].includes(fetchState)) {
       this.store.dispatch(HomePageActions.fetchHomePageData({ language: this.selecetedLanguage() }));
     }
+
+    this.pageHeadTags.updateMetaData(HomeMetaData);
   }
 }
