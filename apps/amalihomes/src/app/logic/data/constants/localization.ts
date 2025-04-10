@@ -44,3 +44,5 @@ export const languages: CountryLanguage[] = Array.from(
     ]),
   ).values(),
 );
+
+export type LanguageCode = 'en' | 'fr' | 'de';

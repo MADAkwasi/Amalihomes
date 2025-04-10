@@ -3,7 +3,7 @@ import { ValuePropositionComponent } from './value-proposition.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { mockedTestImageData } from '../../../logic/data/testing/mocked-data';
-import { selectHomePageData } from '../../../logic/stores/selectors/home-page';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 
 describe('ValuePropositionComponent', () => {
   let component: ValuePropositionComponent;
@@ -17,7 +17,7 @@ describe('ValuePropositionComponent', () => {
         provideMockStore({
           selectors: [
             {
-              selector: selectHomePageData,
+              selector: selectStoryblokPageState,
               value: mockedTestImageData,
             },
           ],

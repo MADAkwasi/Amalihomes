@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectIsMenuOpen } from '../../../logic/stores/selectors/interactions.selector';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
-import { HeaderStoryblok } from '../../../types';
+import { StoryblokNavLink } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-navlinks',
@@ -14,7 +14,7 @@ import { HeaderStoryblok } from '../../../types';
 })
 export class NavlinksComponent {
   private readonly store = inject(Store);
-  public readonly navLinks = input.required<HeaderStoryblok['navLinks']>();
+  public readonly navLinks = input.required<StoryblokNavLink[]>();
   public isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
 
   public onCloseMenu() {

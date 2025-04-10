@@ -4,8 +4,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { selectHomePageData } from '../../../logic/stores/selectors/home-page';
 import { HomePageTestData } from '../../../logic/stores/testing/home-page';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -45,7 +45,7 @@ describe('HomeComponent', () => {
       imports: [HomeComponent],
       providers: [
         provideMockStore({
-          selectors: [{ selector: selectHomePageData, value: HomePageTestData.data }],
+          selectors: [{ selector: selectStoryblokPageState, value: HomePageTestData.content }],
         }),
         {
           provide: ActivatedRoute,

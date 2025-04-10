@@ -1,23 +1,18 @@
-import { ImageData } from './mocked-data';
-import { GlobalPageReducer } from './reducers/global-page';
-import { HomePageReducer } from './reducers/home-page';
-import { applicationImageDataReducers } from './reducers/image-data';
+import { dummyData } from './mocked-data';
+import { storyblokPageReducer, StoryblokPageState } from './reducers/storyblok.reducers.';
+import { applicationDummyDataReducers } from './reducers/image-data';
 import { interactionsReducer, InteractionsState } from './reducers/interactions.reducer';
-import { GlobalStore } from './types/global-page';
-import { HomeStore } from './types/home-page';
 
 export interface ApplicationStore {
-  'image-data': typeof ImageData;
+  dummyData: typeof dummyData; //reducer for dummy data. to be remove in the future
+  storyblokPage: StoryblokPageState;
   interactions: InteractionsState;
-  homePage: HomeStore;
-  globalPage: GlobalStore;
 }
 
 export const selectApplicationStore = (store: ApplicationStore) => store;
 
 export const applicationReducer = {
-  'image-data': applicationImageDataReducers,
+  dummyData: applicationDummyDataReducers,
   interactions: interactionsReducer,
-  homePage: HomePageReducer,
-  globalPage: GlobalPageReducer,
+  storyblokPage: storyblokPageReducer,
 };

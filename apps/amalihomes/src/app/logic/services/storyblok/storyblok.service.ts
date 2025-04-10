@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
-import Client, { ISbStoriesParams } from 'storyblok-js-client';
-import { StoryBlokStories } from '../../../types';
-import { from } from 'rxjs';
+import Client, { ISbComponentType, ISbStory, ISbStoryParams } from 'storyblok-js-client';
+import { from, Observable } from 'rxjs';
+import { LanguageCode } from '../../data/constants/localization';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoryblokService {
-  public version: 'draft' | 'published' = 'draft';
-
   private readonly sbClient = new Client({
     accessToken: STORYBLOK_APIKEY || '',
   });
 
-  public getStories<S extends StoryBlokStories<any>>(params?: ISbStoriesParams) {
-    return from(this.sbClient.getStories(params || {}).then((res) => res.data) as Promise<S>);
+  public getStoryblokPage(
+    slug: string,
+    language: LanguageCode = 'en',
+    version: ISbStoryParams['version'] = 'draft',
+  ): Observable<ISbStory<ISbComponentType<string>>> {
+    const stories = this.sbClient.getStory(slug, {
+      version,
+      language,
+    });
+
+    return from(stories);
   }
 }

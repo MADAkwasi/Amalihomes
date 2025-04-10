@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { EmailValidatorDirective } from '../../../logic/directives/email-validator/email-validator.directive';
 import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngrx/store';
-import { selectGlobalPageSectionData } from '../../../logic/stores/selectors/global-page';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-footer',
@@ -25,7 +25,7 @@ import { selectGlobalPageSectionData } from '../../../logic/stores/selectors/glo
 })
 export class FooterComponent {
   private readonly store = inject(Store);
-  protected readonly data = this.store.selectSignal(selectGlobalPageSectionData('footer'));
+  protected readonly data = this.store.selectSignal(selectSection('footer'));
   private readonly findLinksByTitles = (key: string) =>
     computed(() => this.data()?.linksSection?.find((links) => links.key === key));
 

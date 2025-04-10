@@ -4,8 +4,8 @@ import { appRoutes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { applicationReducer, ApplicationStore } from './logic/stores';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { provideHomePageEffects } from './logic/stores/effects/home-page';
-import { provideGlobalPageEffects } from './logic/stores/effects/global-page';
+import { StoryblokEffects } from './logic/stores/effects/storyblok-effects';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideStore<ApplicationStore>(applicationReducer),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideHomePageEffects,
-    provideGlobalPageEffects,
+    provideEffects([StoryblokEffects]),
   ],
 };

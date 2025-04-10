@@ -1,4 +1,4 @@
-@let sectionData = data();
+@let sectionData = meritData();
 <section *ngIf="sectionData" class="w-full flex justify-between gap-4">
   <div class="lg:max-w-[52.13rem] w-full">
     <h2 class="max-w-[700px] mb-3" libText textType="heading2">{{ sectionData.title }}</h2>
@@ -20,7 +20,7 @@
     <div class="w-full h-full flex flex-col justify-center items-center">
       <div class="bg-muted rounded-xl overflow-hidden">
         <lib-image
-          [src]="sectionData.image"
+          [src]="meritSectionImage()"
           alt="{{ 'Merits section image' }}"
           class="object-cover home-merits-image"
         />

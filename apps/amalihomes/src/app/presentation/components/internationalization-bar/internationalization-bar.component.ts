@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent, SelectInputComponent, TextDirective, ButtonComponent } from '@amalihomes/shared';
 import { localization, countries, languages } from '../../../logic/data/constants/localization';
 import { Globe, LucideAngularModule } from 'lucide-angular';
-import { HeaderStoryblok } from '../../../types';
 import { InformationCircleIconComponent } from '../svg-icons';
+import { Locale } from '../../../types/storyblok';
 
 @Component({
+  standalone: true,
   selector: 'app-internationalization-bar',
   imports: [
     CommonModule,
@@ -21,7 +22,7 @@ import { InformationCircleIconComponent } from '../svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InternationalizationBarComponent {
-  public readonly locale = input.required<HeaderStoryblok['locale']>();
+  public readonly locale = input.required<Locale[]>();
   public readonly localization = signal(localization);
   public readonly countries = signal(countries);
   public readonly languages = signal(languages);

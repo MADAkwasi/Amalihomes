@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, input, QueryList, signal, viewChi
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, ImageComponent, TextDirective } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
-import { StoryblokSections } from '../../../types';
+import { StoryblokImages } from '../../../types/storyblok';
 
 const DEFAULT_SCROLL_DISTANCE = 200;
 const CARDS_GAP_DISTANCE = 16;
@@ -16,7 +16,7 @@ const CARDS_GAP_DISTANCE = 16;
 })
 export class SliderComponent implements AfterViewInit {
   @ViewChildren('cardElements') private readonly cardElements!: QueryList<ElementRef>;
-  public readonly sliderImages = input<StoryblokSections[]>();
+  public readonly sliderImages = input<StoryblokImages[]>();
   public readonly categoryType = input<'products' | 'arrivals'>();
   public readonly title = input<string>();
   private readonly cardsContainerRef = viewChild<ElementRef<HTMLDivElement>>('cardsContainer');

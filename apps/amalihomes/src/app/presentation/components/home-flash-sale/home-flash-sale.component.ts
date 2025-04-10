@@ -1,21 +1,18 @@
-import { Component, inject, ChangeDetectionStrategy, computed, input } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
-import { ButtonComponent, TextDirective } from '@amalihomes/shared';
-import { selectHomePageSectionData } from '../../../logic/stores/selectors/home-page';
-import { FlashSaleStoryblok } from '../../../types';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { RouterLink } from '@angular/router';
+import { TextDirective } from '@amalihomes/shared';
 
 @Component({
   selector: 'app-home-flash-sale',
-  standalone: true,
-  imports: [CommonModule, ButtonComponent, TextDirective],
+  imports: [CommonModule, TextDirective, RouterLink],
   templateUrl: './home-flash-sale.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeFlashSaleComponent {
   private readonly store = inject(Store<ApplicationStore>);
-  protected readonly externalData = input<FlashSaleStoryblok | null>(null);
-  private readonly storeData = this.store.selectSignal(selectHomePageSectionData('flash-sale'));
-  protected readonly data = computed(() => this.externalData() ?? this.storeData());
+  protected readonly flashSaleSection = this.store.selectSignal(selectSection('flashSale'));
 }

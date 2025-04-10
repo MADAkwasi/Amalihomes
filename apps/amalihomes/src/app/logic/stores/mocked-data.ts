@@ -1,4 +1,4 @@
-export const ImageData = [
+export const dummyData = [
   {
     _id: 'a7ecc543-61ae-455e-9d6c-bc5f2eae217e',
     name: 'Foldable Dining Set',

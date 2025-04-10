@@ -4,7 +4,7 @@
   <ul class="text-sm font-light flex flex-col gap-4">
     @for(link of links(); track link._uid){
     <li>
-      <a [routerLink]="link.url" class="hover:underline delay-300">{{ link.text }}</a>
+      <a [routerLink]="link.href.url" class="hover:underline delay-300">{{ link.text }}</a>
     </li>
     }
   </ul>

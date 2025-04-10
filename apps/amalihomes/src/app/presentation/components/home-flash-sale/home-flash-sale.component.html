@@ -1,4 +1,4 @@
-@let sectionData = data();
+@let sectionData = flashSaleSection();
 
 <article class="rounded-lg overflow-hidden">
   <div class="flex flex-col md:flex-row">
@@ -7,7 +7,7 @@
 
       <img
         [src]="flashSaleData?.image"
-        alt="{{ flashSaleData?.name || 'Flash sale section image' }}"
+        alt="{{ flashSaleData?.name || 'Flash sale section picture' }}"
         class="w-full h-full object-cover"
         *ngIf="sectionData"
       />
@@ -21,11 +21,9 @@
       @if (sectionData) {
       <h2 class="mb-2 !text-white" libText textType="heading2">{{ sectionData.title }}</h2>
       <p libText textType="text-normal" class="!text-white">{{ sectionData.description }}</p>
-      <div class="mt-10">
-        <lib-button buttonIdentifier="home-flash-sale-btn" buttonStyles="w-full sm:w-auto transition-colors">
-          {{ sectionData.buttonText }}
-        </lib-button>
-      </div>
+      <a routerLink="#" class="bg-primary mt-10 text-white block text-center py-3 rounded-sm md:px-4 md:w-fit">
+        {{ sectionData.buttonText }}
+      </a>
       }
     </div>
   </div>

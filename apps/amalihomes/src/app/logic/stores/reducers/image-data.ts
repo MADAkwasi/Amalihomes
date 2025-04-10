@@ -1,4 +1,4 @@
 import { createReducer } from '@ngrx/store';
-import { ImageData } from '../mocked-data';
+import { dummyData } from '../mocked-data';
 
-export const applicationImageDataReducers = createReducer(ImageData);
+export const applicationDummyDataReducers = createReducer(dummyData);

@@ -5,9 +5,9 @@ import { MemoizedSelector, Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { selectIsMenuOpen, selectIsSearching } from '../../../logic/stores/selectors/interactions.selector';
-import { selectGlobalPageData } from '../../../logic/stores/selectors/global-page';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
-import { GloablPageTestingData } from '../../../logic/stores/testing/global-page';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
+import { HomePageTestData } from '../../../logic/stores/testing/home-page';
 
 let store: MockStore;
 
@@ -25,7 +25,7 @@ describe('HeaderComponent', () => {
           selectors: [
             { selector: selectIsMenuOpen, value: false },
             { selector: selectIsSearching, value: false },
-            { selector: selectGlobalPageData, value: GloablPageTestingData.data },
+            { selector: selectStoryblokPageState, value: HomePageTestData.content },
           ],
         }),
         {

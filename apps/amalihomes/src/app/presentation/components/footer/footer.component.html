@@ -26,7 +26,7 @@
           type="tetiary"
           (buttonClick)="onSubmit()"
           buttonIdentifier="subscription-button"
-          >{{ sectionData?.subscriptionButton }}</lib-button
+          >{{ sectionData?.buttonText }}</lib-button
         >
       </form>
       <p *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-[10px] tracking-wider hidden lg:block">
@@ -34,7 +34,9 @@
       </p>
       <span class="flex text-xs font-thin gap-2 justify-center md:justify-start">
         <p>{{ sectionData?.privacyAcceptanceText }}</p>
-        <a class="underline" routerLink="#">{{ sectionData?.privacyLinkText }}</a>
+        <a class="underline" [routerLink]="sectionData?.privacyLink?.[0]?.href?.url">{{
+          sectionData?.privacyLink?.[0]?.text
+        }}</a>
       </span>
     </span>
   </div>
@@ -62,7 +64,7 @@
 
       <ul class="flex gap-4 md:hidden">
         <li *ngFor="let link of mobileViewLinks()?.links">
-          <a [routerLink]="link.url">
+          <a [routerLink]="link.href.url">
             {{ link.text }}
           </a>
         </li>

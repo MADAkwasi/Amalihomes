@@ -1,12 +1,12 @@
 import { createSelector } from '@ngrx/store';
 import { selectApplicationStore } from '..';
 
-export const selectApplicationImageData = createSelector(selectApplicationStore, (store) => store['image-data']);
+export const selectApplicationDummyData = createSelector(selectApplicationStore, (store) => store.dummyData);
 
-export const selectApplicationImageDataByIndex = (index: number) =>
-  createSelector(selectApplicationImageData, (data) => data[index]);
+export const selectApplicationDummyDataByIndex = (index: number) =>
+  createSelector(selectApplicationDummyData, (data) => data[index]);
 
-export const selectApplicationImageDataByNumber = ({ startIndex, total }: { startIndex: number; total: number }) => {
+export const selectApplicationDummyDataByNumber = ({ startIndex, total }: { startIndex: number; total: number }) => {
   if (startIndex < 1) startIndex = 0;
-  return createSelector(selectApplicationImageData, (data) => data.slice(startIndex, startIndex + total));
+  return createSelector(selectApplicationDummyData, (data) => data.slice(startIndex, startIndex + total));
 };

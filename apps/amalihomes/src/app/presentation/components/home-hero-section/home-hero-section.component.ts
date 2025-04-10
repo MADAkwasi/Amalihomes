@@ -1,13 +1,13 @@
-import { Component, computed, inject, ChangeDetectionStrategy, Signal } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
 import { CarouselComponent } from '../carousel/carousel.component';
-import { selectHomePageSectionData } from '../../../logic/stores/selectors/home-page';
-import { HeroStoryblok } from '../../../types';
 import { RouterLink } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { Button } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-home-hero-section',
@@ -17,6 +17,10 @@ import { TextDirective } from '@amalihomes/shared';
 })
 export class HomeHeroSectionComponent {
   private readonly store = inject(Store<ApplicationStore>);
-  protected readonly data = this.store.selectSignal(selectHomePageSectionData('hero')) as Signal<HeroStoryblok>;
-  public heroImages = computed(() => this.data()?.images ?? []);
+  protected readonly heroContent = this.store.selectSignal(selectSection('hero'));
+  public heroImages = computed(() => this.heroContent()?.images ?? []);
+
+  protected getButtonData(btnId: string): Button {
+    return this.heroContent()?.buttons.find((btn) => btn.identifier === btnId) as Button;
+  }
 }

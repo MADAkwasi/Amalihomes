@@ -1,7 +1,6 @@
 import { Component, inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
-import { InternationalizationBarComponent } from '../internationalization-bar/internationalization-bar.component';
 import { SearchFieldComponent } from '../search-field/search-field.component';
 import { RouterModule } from '@angular/router';
 import { NavlinksComponent } from '../navlinks/navlinks.component';
@@ -10,21 +9,22 @@ import { Store } from '@ngrx/store';
 import { selectIsMenuOpen, selectIsSearching } from '../../../logic/stores/selectors/interactions.selector';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
 import { LucideAngularModule, Menu, Search, ShoppingCart, X } from 'lucide-angular';
-import { selectGlobalPageSectionData } from '../../../logic/stores/selectors/global-page';
 import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { InternationalizationBarComponent } from '../internationalization-bar/internationalization-bar.component';
 
 @Component({
   selector: 'app-header',
   imports: [
     CommonModule,
     ButtonComponent,
-    InternationalizationBarComponent,
     SearchFieldComponent,
     RouterModule,
     NavlinksComponent,
     MenuComponent,
     LucideAngularModule,
     SkeletonDirective,
+    InternationalizationBarComponent,
   ],
   templateUrl: './header.component.html',
   standalone: true,
@@ -41,7 +41,7 @@ export class HeaderComponent {
   public isAuthenticated!: boolean;
   public cdRef = inject(ChangeDetectorRef);
 
-  protected readonly data = this.store.selectSignal(selectGlobalPageSectionData('header'));
+  protected readonly data = this.store.selectSignal(selectSection('header'));
 
   public onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());

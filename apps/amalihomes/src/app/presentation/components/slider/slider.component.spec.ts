@@ -3,9 +3,9 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { selectHomePageData } from '../../../logic/stores/selectors/home-page';
 import { HomePageTestData } from '../../../logic/stores/testing/home-page';
 import { SliderComponent } from './slider.component';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 
 describe('SliderComponent', () => {
   let component: SliderComponent;
@@ -48,8 +48,8 @@ describe('SliderComponent', () => {
         provideMockStore({
           selectors: [
             {
-              selector: selectHomePageData,
-              value: HomePageTestData.data,
+              selector: selectStoryblokPageState,
+              value: HomePageTestData.content,
             },
           ],
         }),

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectIsSearching } from '../../../logic/stores/selectors/interactions.selector';
 import { LucideAngularModule, Search } from 'lucide-angular';
-import { HeaderStoryblok } from '../../../types';
 import { InputComponent } from '@amalihomes/shared';
+import { Section } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-search-field',
@@ -15,6 +15,6 @@ import { InputComponent } from '@amalihomes/shared';
 export class SearchFieldComponent {
   private readonly store = inject(Store);
   public readonly searchIcon = Search;
-  public readonly placeholder = input<HeaderStoryblok['inputPlaceholder']>();
+  public readonly placeholder = input<Section['inputPlaceholder']>();
   public isSearching = this.store.selectSignal(selectIsSearching);
 }

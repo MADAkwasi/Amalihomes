@@ -25,7 +25,7 @@
 
       }@else {
       <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
-        sectionData.loginButton
+        sectionData.buttonText
       }}</lib-button>
       }
 
@@ -49,7 +49,7 @@
     [isAuthenticated]="isAuthenticated"
     [navLinks]="sectionData.navLinks"
     [placeholder]="sectionData.inputPlaceholder"
-    [authBtn]="sectionData.loginButton"
+    [authBtn]="sectionData.buttonText"
   ></app-menu>
   <app-search-field
     [placeholder]="sectionData.inputPlaceholder"

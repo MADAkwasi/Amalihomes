@@ -5,12 +5,10 @@ import { ValuePropositionComponent } from '../../components/value-proposition/va
 import { HomeFlashSaleComponent } from '../../components/home-flash-sale/home-flash-sale.component';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
-import { selectHomePageSectionData, selectHomePageStoreField } from '../../../logic/stores/selectors/home-page';
-import { HomePageActions } from '../../../logic/stores/actions/home-page';
-import { FetchState } from '../../../logic/data/constants';
-import { selectGlobalPageStoreField } from '../../../logic/stores/selectors/global-page';
+import { selectLanguage, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { SliderComponent } from '../../components/slider/slider.component';
-import { CategoryStoryblok, StoryblokSections } from '../../../types';
+import { StoryblokImages } from '../../../types/storyblok';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { HomeMetaData } from './static-mata-data';
 
@@ -22,22 +20,17 @@ import { HomeMetaData } from './static-mata-data';
 })
 export class HomeComponent implements OnInit {
   private readonly store = inject(Store<ApplicationStore>);
-  private readonly fetchState = this.store.selectSignal(selectHomePageStoreField('fetchState'));
-  private readonly selecetedLanguage = this.store.selectSignal(selectGlobalPageStoreField('selectedLanguage'));
-  protected readonly productsData = this.store.selectSignal(
-    selectHomePageSectionData('categories'),
-  ) as Signal<CategoryStoryblok>;
-  protected readonly getImagesByKey = (key: string): Signal<StoryblokSections[]> =>
-    computed(() => this.productsData()?.each.find((category) => category.key === key)?.items);
+  private readonly selecetedLanguage = this.store.selectSignal(selectLanguage);
+  protected readonly productsData = this.store.selectSignal(selectSection('category'));
+  protected readonly getImagesByKey = (key: string): Signal<StoryblokImages[]> =>
+    computed(() => this.productsData()?.each?.find((category) => key === category.key)?.items ?? []);
 
   private readonly pageHeadTags = inject(MetaTagsService);
 
   ngOnInit(): void {
-    const fetchState = this.fetchState();
-
-    if ([FetchState.DEFAULT, FetchState.FAILED].includes(fetchState)) {
-      this.store.dispatch(HomePageActions.fetchHomePageData({ language: this.selecetedLanguage() }));
-    }
+    this.store.dispatch(
+      StoryblokPageActions.loadPage({ slug: 'home-page', language: this.selecetedLanguage(), version: 'draft' }),
+    );
 
     this.pageHeadTags.updateMetaData(HomeMetaData);
   }
