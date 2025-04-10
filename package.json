@@ -10,7 +10,7 @@
     "lint": "npx nx lint amalihomes",
     "test": "npx jest",
     "test:coverage": "npx jest --ci --runInBand --coverage",
-    "test:ci": "jest --ci --runInBand",
+    "test:ci": "jest --ci --runInBand --forceExit",
     "amalihomes": "npx nx serve amalihomes",
     "gen": "bash .scripts/generator.sh",
     "prepare": "npx husky install"
