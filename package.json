@@ -5,12 +5,12 @@
   "scripts": {
     "format": "npx prettier --write .",
     "format:check": "npx prettier --check .",
-    "build": "yarn run config && npx nx build amalihomes",
+    "build": "npm run config && npx nx build amalihomes",
     "config": "ts-node apps/amalihomes/src/app/environments/set-environments.ts",
     "lint": "npx nx lint amalihomes",
     "test": "npx jest",
-    "test:coverage": "npx jest --coverage",
-    "test:ci": "npx nx affected:test --base=origin/develop --head=HEAD --parallel",
+    "test:coverage": "npx jest --ci --runInBand --coverage",
+    "test:ci": "jest --ci --runInBand",
     "amalihomes": "npx nx serve amalihomes",
     "gen": "bash .scripts/generator.sh",
     "prepare": "npx husky install"
