@@ -1,13 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { StoryblokPageActions } from '../actions/storyblok.actions';
 import { Body } from '../../../types/storyblok';
-import { LanguageCode } from '../../data/constants/localization';
+import { Localization } from '../../data/constants/localization';
 
 export interface StoryblokPageState {
   page: string;
   isFetchingContent: boolean;
   content: Body | null;
-  lang: LanguageCode;
+  locale: Localization | null;
   error: unknown;
 }
 
@@ -15,7 +15,7 @@ const initialStoryblokPageState: StoryblokPageState = {
   page: '',
   isFetchingContent: false,
   content: null,
-  lang: 'en',
+  locale: null,
   error: null,
 };
 
@@ -25,7 +25,6 @@ export const storyblokPageReducer = createReducer(
   on(StoryblokPageActions.loadPage, (state) => ({
     ...state,
     isFetchingContent: true,
-    error: null,
   })),
 
   on(StoryblokPageActions.loadPageSuccess, (state, { story }) => ({
@@ -41,8 +40,30 @@ export const storyblokPageReducer = createReducer(
     isFetchingContent: false,
   })),
 
-  on(StoryblokPageActions.changeLanguage, (state, { lang }) => ({
+  on(StoryblokPageActions.loadUserLocale, (state) => ({
     ...state,
-    lang,
+    isFetchingContent: true,
+  })),
+
+  on(StoryblokPageActions.loadUserLocaleSuccess, (state, { locale }) => ({
+    ...state,
+    locale,
+    isFetchingContent: false,
+  })),
+
+  on(StoryblokPageActions.loadUserLocaleFailure, (state, { error }) => ({
+    ...state,
+    error,
+    isFetchingContent: false,
+  })),
+
+  on(StoryblokPageActions.changeLanguage, (state, { langCode, lang }) => ({
+    ...state,
+    locale: state.locale ? { ...state.locale, languageCode: langCode, language: lang } : null,
+  })),
+
+  on(StoryblokPageActions.changeLocale, (state, { locale }) => ({
+    ...state,
+    locale,
   })),
 );
