@@ -6,6 +6,5 @@ import { RootLayoutComponent } from './presentation/layouts/root-layout/root-lay
   imports: [RouterModule, RootLayoutComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {}
