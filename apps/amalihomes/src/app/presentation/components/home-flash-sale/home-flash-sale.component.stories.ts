@@ -26,7 +26,7 @@ const mockFlashSaleData = {
 };
 
 const meta: Meta<HomeFlashSaleComponent> = {
-  title: 'Components/Home/Flash Sale',
+  title: 'FlashSale',
   component: HomeFlashSaleComponent,
   decorators: [
     applicationConfig({
