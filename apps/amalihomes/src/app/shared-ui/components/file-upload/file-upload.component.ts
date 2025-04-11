@@ -14,10 +14,10 @@ export class FileUploadComponent {
   public readonly label = input('');
   public readonly id = input('');
   public readonly accept = input('image/*');
-  public readonly fileName = signal('');
-  public readonly previewUrl = signal<string | ArrayBuffer | null>(null);
+  protected readonly fileName = signal('');
+  protected readonly previewUrl = signal<string | ArrayBuffer | null>(null);
 
-  public onFileSelected(event: Event) {
+  protected onFileSelected(event: Event) {
     const inputValue = event.target as HTMLInputElement;
     if (inputValue.files && inputValue.files[0]) {
       const file = inputValue.files[0];

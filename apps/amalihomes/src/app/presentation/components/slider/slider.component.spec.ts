@@ -79,7 +79,7 @@ describe('SliderComponent', () => {
   it('should set categoryType to arrivals', () => {
     fixture.componentRef.setInput('categoryType', 'arrivals');
     fixture.detectChanges();
-    const link = component.getProductItemLink('123', 'Test');
+    const link = component['getProductItemLink']('123', 'Test');
     expect(link).toBe('/arrivals/123/Test');
   });
 });

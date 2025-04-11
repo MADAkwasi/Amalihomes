@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class UnderConstructionComponent implements OnInit {
   private readonly router = inject(Router);
-  public time = signal(this.getCurrentTime());
-  public currentRoute = signal('');
+  protected time = signal(this.getCurrentTime());
+  protected currentRoute = signal('');
 
   constructor() {
     setInterval(() => {
@@ -27,7 +27,7 @@ export class UnderConstructionComponent implements OnInit {
     });
   }
 
-  getCurrentTime() {
+  protected getCurrentTime() {
     const date = new Date();
     const options: Intl.DateTimeFormatOptions = {
       hour: '2-digit',

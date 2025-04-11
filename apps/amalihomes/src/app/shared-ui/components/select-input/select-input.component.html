@@ -13,7 +13,7 @@
     (keydown.enter)="toggleDropdown()"
     (keydown.space)="toggleDropdown(); $event.preventDefault()"
   >
-    <span class="selected-value" [class.placeholder]="!control().value">
+    <span class="selected-value" [class.placeholder]="!control()?.value">
       {{ selectedLabel() }}
     </span>
     <div class="dropdown-icon">
@@ -30,7 +30,7 @@
       (keydown.enter)="selectOption(option.value)"
       (keydown.space)="selectOption(option.value); $event.preventDefault()"
       tabindex="0"
-      [class.selected]="control().value === option.value"
+      [class.selected]="control()?.value === option.value"
     >
       {{ option.label }}
     </div>

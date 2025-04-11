@@ -32,23 +32,23 @@ import { InternationalizationBarComponent } from '../internationalization-bar/in
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
-  public readonly searchIcon = Search;
-  public readonly cartIcon = ShoppingCart;
-  public readonly menuIcon = Menu;
-  public readonly closeIcon = X;
-  public isSearching = this.store.selectSignal(selectIsSearching);
-  public isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
-  public isAuthenticated!: boolean;
-  public cdRef = inject(ChangeDetectorRef);
+  protected readonly searchIcon = Search;
+  protected readonly cartIcon = ShoppingCart;
+  protected readonly menuIcon = Menu;
+  protected readonly closeIcon = X;
+  protected isSearching = this.store.selectSignal(selectIsSearching);
+  protected isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
+  protected isAuthenticated!: boolean;
+  protected cdRef = inject(ChangeDetectorRef);
 
   protected readonly data = this.store.selectSignal(selectSection('header'));
 
-  public onOpenSearchField() {
+  protected onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
     else this.store.dispatch(interactionsActions.openSearchField());
   }
 
-  onMenuToggle() {
+  protected onMenuToggle() {
     if (this.isMenuOpen()) this.store.dispatch(interactionsActions.closeMenu());
     else this.store.dispatch(interactionsActions.openMenu());
   }

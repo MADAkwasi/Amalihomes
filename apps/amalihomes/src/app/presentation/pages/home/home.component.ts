@@ -5,7 +5,7 @@ import { ValuePropositionComponent } from '../../components/value-proposition/va
 import { HomeFlashSaleComponent } from '../../components/home-flash-sale/home-flash-sale.component';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
-import { selectLanguage, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { SliderComponent } from '../../components/slider/slider.component';
 import { StoryblokImages } from '../../../types/storyblok';
@@ -20,16 +20,22 @@ import { HomeMetaData } from './static-mata-data';
 })
 export class HomeComponent implements OnInit {
   private readonly store = inject(Store<ApplicationStore>);
-  private readonly selecetedLanguage = this.store.selectSignal(selectLanguage);
+  private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   protected readonly productsData = this.store.selectSignal(selectSection('category'));
   protected readonly getImagesByKey = (key: string): Signal<StoryblokImages[]> =>
     computed(() => this.productsData()?.each?.find((category) => key === category.key)?.items ?? []);
+  protected readonly getTitleByKey = (key: string): Signal<string> =>
+    computed(() => this.productsData()?.each?.find((category) => key === category.key)?.title ?? '');
 
   private readonly pageHeadTags = inject(MetaTagsService);
 
   ngOnInit(): void {
     this.store.dispatch(
-      StoryblokPageActions.loadPage({ slug: 'home-page', language: this.selecetedLanguage(), version: 'draft' }),
+      StoryblokPageActions.loadPage({
+        slug: 'home',
+        language: this.selectedLanguage()?.languageCode ?? 'en',
+        version: 'draft',
+      }),
     );
 
     this.pageHeadTags.updateMetaData(HomeMetaData);

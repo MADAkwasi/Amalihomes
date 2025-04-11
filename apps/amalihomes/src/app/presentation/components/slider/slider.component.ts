@@ -1,5 +1,16 @@
-import { AfterViewInit, Component, ElementRef, input, QueryList, signal, viewChild, ViewChildren } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  PLATFORM_ID,
+  QueryList,
+  signal,
+  viewChild,
+  ViewChildren,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, ImageComponent, TextDirective } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
 import { StoryblokImages } from '../../../types/storyblok';
@@ -21,14 +32,17 @@ export class SliderComponent implements AfterViewInit {
   public readonly title = input<string>();
   private readonly cardsContainerRef = viewChild<ElementRef<HTMLDivElement>>('cardsContainer');
   protected readonly icons = { ArrowLeft, ArrowRight };
-  public isLastCardVisible = signal(false);
-  public isAtStart = signal(true);
+  protected isLastCardVisible = signal(false);
+  protected isAtStart = signal(true);
+  private readonly platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit(): void {
-    this.setupObserver();
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupObserver();
+    }
   }
 
-  public getProductItemLink(productId: string, productName: string): string {
+  protected getProductItemLink(productId: string, productName: string): string {
     return `/${this.categoryType()}/${productId}/${productName}`;
   }
 
@@ -46,7 +60,7 @@ export class SliderComponent implements AfterViewInit {
     });
   }
 
-  public setupObserver(): void {
+  protected setupObserver(): void {
     const observer = new IntersectionObserver(
       (entries) => {
         this.isLastCardVisible.set(entries.some((entry) => entry.isIntersecting));
@@ -61,7 +75,7 @@ export class SliderComponent implements AfterViewInit {
     }
   }
 
-  public onScroll(): void {
+  protected onScroll(): void {
     const container = this.cardsContainerRef()?.nativeElement as HTMLDivElement;
     const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
@@ -69,13 +83,13 @@ export class SliderComponent implements AfterViewInit {
     this.isLastCardVisible.set(container.scrollLeft >= maxScrollLeft - 10);
   }
 
-  public scrollNext(): void {
+  protected scrollNext(): void {
     if (this.cardsContainerRef()) {
       this.cardsContainerRef()?.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
     }
   }
 
-  public scrollPrev(): void {
+  protected scrollPrev(): void {
     if (this.cardsContainerRef()) {
       this.cardsContainerRef()?.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
     }

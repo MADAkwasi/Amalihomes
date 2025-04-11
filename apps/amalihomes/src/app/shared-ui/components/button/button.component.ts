@@ -19,7 +19,7 @@ export class ButtonComponent {
 
   public buttonClick = output<Event>();
 
-  public handleClick(event: Event) {
+  protected handleClick(event: Event) {
     if (this.state() !== 'disabled') {
       this.buttonClick.emit(event);
     }

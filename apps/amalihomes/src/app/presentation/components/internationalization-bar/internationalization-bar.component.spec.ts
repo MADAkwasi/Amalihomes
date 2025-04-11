@@ -1,18 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { InternationalizationBarComponent } from './internationalization-bar.component';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
+import { Localization } from '../../../logic/data/constants/localization';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
+import { HomePageTestData } from '../../../logic/stores/testing/home-page';
 
 describe('InternationalizationBarComponent', () => {
   let component: InternationalizationBarComponent;
   let fixture: ComponentFixture<InternationalizationBarComponent>;
+  let store: MockStore;
+  const mockLocale: Localization[] = [
+    { country: 'USA', language: 'English', languageCode: 'en', countryCode: 'US', direction: 'ltr' },
+    { country: 'France', language: 'French', languageCode: 'fr', countryCode: 'FR', direction: 'ltr' },
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [InternationalizationBarComponent],
+      providers: [
+        provideMockStore({
+          selectors: [{ selector: selectStoryblokPageState, value: HomePageTestData.locale }],
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InternationalizationBarComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('locale', [{ country: 'Country', langauge: 'Language' }]);
+    store = TestBed.inject(MockStore);
+    fixture.componentRef.setInput('locale', mockLocale);
     fixture.detectChanges();
   });
 
@@ -20,62 +36,74 @@ describe('InternationalizationBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should correctly return localization data for each country', () => {
-    component.localization.set([
-      { country: 'Austria', language: 'Deutch', languageCode: 'de', countryCode: 'AT', direction: 'ltr' },
-      { country: 'Belgium', language: 'French', languageCode: 'fr', countryCode: 'BE', direction: 'ltr' },
-      { country: 'Germany', language: 'Deutch', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
-      { country: 'Switzerland', language: 'Deutch', languageCode: 'de', countryCode: 'CH', direction: 'ltr' },
-      { country: 'France', language: 'French', languageCode: 'fr', countryCode: 'FR', direction: 'ltr' },
+  it('should compute supportedCountries correctly', () => {
+    component['localization'].set([
+      { country: 'Ghana', language: 'English', languageCode: 'en', countryCode: 'GH', direction: 'ltr' },
+      { country: 'Germany', language: 'German', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
     ]);
-
-    fixture.detectChanges();
-
-    const testCountries = [
-      { country: 'Austria', expectedLanguage: 'Deutch' },
-      { country: 'Belgium', expectedLanguage: 'French' },
-      { country: 'Germany', expectedLanguage: 'Deutch' },
-      { country: 'Switzerland', expectedLanguage: 'Deutch' },
-      { country: 'France', expectedLanguage: 'French' },
-    ];
-
-    testCountries.forEach(({ country, expectedLanguage }) => {
-      const selectedLocale = component.localization().find((locale) => locale.country === country);
-      expect(selectedLocale?.language).toBe(expectedLanguage);
-    });
+    expect(component['supportedCountries']()).toBe('Ghana (en), Germany (de)');
   });
 
-  it('should have default current locale set to USA', () => {
-    expect(component.currentLocale()).toBeDefined();
-    expect(component.currentLocale()?.country).toBe('USA');
-    expect(component.currentLocale()?.language).toBe('English');
-  });
+  it('should dispatch actions when country value changes', fakeAsync(() => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
 
-  it('should update currentLocale when selected country changes', () => {
-    component.localization.set([
+    component['form'].get('country')?.setValue('FR');
+
+    tick();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: StoryblokPageActions.changeLocale.type,
+      }),
+    );
+
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: StoryblokPageActions.loadPage.type,
+      }),
+    );
+  }));
+
+  it('should dispatch actions when language value changes', fakeAsync(() => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    component['localization'].set([
       { country: 'France', language: 'French', languageCode: 'fr', countryCode: 'FR', direction: 'ltr' },
       { country: 'Germany', language: 'German', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
+    ]);
+
+    component.languageControl.setValue('fr');
+
+    tick();
+
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      StoryblokPageActions.changeLanguage({
+        langCode: 'fr',
+        lang: 'French',
+      }),
+    );
+
+    expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({ type: StoryblokPageActions.loadPage.type }));
+  }));
+
+  it('should default to en when an unknown language is selected', fakeAsync(() => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    component['localization'].set([
       { country: 'USA', language: 'English', languageCode: 'en', countryCode: 'US', direction: 'ltr' },
     ]);
 
-    component.setCountry('France');
-    fixture.detectChanges();
-    expect(component.currentLocale()?.country).toBe('France');
-    expect(component.currentLocale()?.language).toBe('French');
-    component.setCountry('NonExistent');
-    fixture.detectChanges();
-    expect(component.currentLocale()?.country).toBe('France');
-  });
+    component.languageControl.setValue('xx');
 
-  it('should correctly compute supportedCountries', () => {
-    component.localization.set([
-      { country: 'Austria', language: 'German', languageCode: 'de', countryCode: 'AT', direction: 'ltr' },
-      { country: 'Germany', language: 'German', languageCode: 'de', countryCode: 'DE', direction: 'ltr' },
-      { country: 'Switzerland', language: 'German', languageCode: 'de', countryCode: 'CH', direction: 'ltr' },
-    ]);
+    tick();
 
-    fixture.detectChanges();
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      StoryblokPageActions.changeLanguage({
+        langCode: 'en',
+        lang: 'English',
+      }),
+    );
 
-    expect(component.supportedCountries()).toBe('Austria (de), Germany (de), Switzerland (de)');
-  });
+    expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({ type: StoryblokPageActions.loadPage.type }));
+  }));
 });

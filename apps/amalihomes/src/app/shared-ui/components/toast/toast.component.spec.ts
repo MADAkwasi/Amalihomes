@@ -19,7 +19,7 @@ describe('ToastComponent', () => {
   it('should create with default values', () => {
     expect(component).toBeTruthy();
     expect(component.type()).toBe('info');
-    expect(component.visible()).toBe(true);
+    expect(component['visible']()).toBe(true);
     expect(component.duration()).toBe(5000);
     expect(component.autoClose()).toBe(true);
   });
@@ -70,7 +70,7 @@ describe('ToastComponent', () => {
     const closeButton = fixture.debugElement.query(By.css('.toast-close'));
     closeButton.triggerEventHandler('click', null);
 
-    expect(component.visible()).toBe(false);
+    expect(component['visible']()).toBe(false);
     expect(component.closed.emit).toHaveBeenCalled();
   });
 
@@ -80,11 +80,11 @@ describe('ToastComponent', () => {
     fixture.detectChanges();
 
     jest.spyOn(component.closed, 'emit');
-    expect(component.visible()).toBe(true);
+    expect(component['visible']()).toBe(true);
 
     tick(2000);
 
-    expect(component.visible()).toBe(true);
+    expect(component['visible']()).toBe(true);
     expect(component.closed.emit).not.toHaveBeenCalled();
   }));
 
@@ -96,7 +96,7 @@ describe('ToastComponent', () => {
     jest.spyOn(component.closed, 'emit');
     tick(10000);
 
-    expect(component.visible()).toBe(true);
+    expect(component['visible']()).toBe(true);
     expect(component.closed.emit).not.toHaveBeenCalled();
   }));
 

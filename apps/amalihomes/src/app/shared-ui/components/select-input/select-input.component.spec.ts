@@ -65,7 +65,7 @@ describe('SelectInputComponent', () => {
     const event = new KeyboardEvent('keydown', { key: 'Enter' });
     trigger.dispatchEvent(event);
     fixture.detectChanges();
-    expect(component.isOpen()).toBe(true);
+    expect(component['isOpen']()).toBe(true);
   });
 
   it('should open dropdown on Space key', () => {
@@ -73,7 +73,7 @@ describe('SelectInputComponent', () => {
     const event = new KeyboardEvent('keydown', { key: ' ' });
     trigger.dispatchEvent(event);
     fixture.detectChanges();
-    expect(component.isOpen()).toBe(true);
+    expect(component['isOpen']()).toBe(true);
   });
 
   it('should not open dropdown when disabled', () => {
@@ -82,20 +82,20 @@ describe('SelectInputComponent', () => {
     const trigger = fixture.nativeElement.querySelector('.select-trigger');
     trigger.click();
     fixture.detectChanges();
-    expect(component.isOpen()).toBe(false);
+    expect(component['isOpen']()).toBe(false);
   });
 
   it('should select option on click', () => {
-    component.isOpen.set(true);
+    component['isOpen'].set(true);
     fixture.detectChanges();
     const options = fixture.nativeElement.querySelectorAll('.option');
     options[0].click();
     expect(control.value).toBe('1');
-    expect(component.isOpen()).toBe(false);
+    expect(component['isOpen']()).toBe(false);
   });
 
   it('should select option on Enter key', () => {
-    component.isOpen.set(true);
+    component['isOpen'].set(true);
     fixture.detectChanges();
     const option = fixture.nativeElement.querySelector('.option');
     const event = new KeyboardEvent('keydown', { key: 'Enter' });
@@ -107,7 +107,7 @@ describe('SelectInputComponent', () => {
     const trigger = fixture.nativeElement.querySelector('.select-trigger');
     expect(trigger.getAttribute('tabindex')).toBe('0');
 
-    component.isOpen.set(true);
+    component['isOpen'].set(true);
     fixture.detectChanges();
     const option = fixture.nativeElement.querySelector('.option');
     expect(option.getAttribute('tabindex')).toBe('0');
@@ -123,7 +123,7 @@ describe('SelectInputComponent', () => {
   it('should update options when input changes', () => {
     fixture.componentRef.setInput('options', [...component.options(), { value: '3', label: 'Option 3' }]);
     fixture.detectChanges();
-    component.isOpen.set(true);
+    component['isOpen'].set(true);
     fixture.detectChanges();
     const options = fixture.nativeElement.querySelectorAll('.option');
     expect(options.length).toBe(3);

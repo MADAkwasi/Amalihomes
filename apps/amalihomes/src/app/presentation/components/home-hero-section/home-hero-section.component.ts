@@ -18,7 +18,7 @@ import { Button } from '../../../types/storyblok';
 export class HomeHeroSectionComponent {
   private readonly store = inject(Store<ApplicationStore>);
   protected readonly heroContent = this.store.selectSignal(selectSection('hero'));
-  public heroImages = computed(() => this.heroContent()?.images ?? []);
+  protected heroImages = computed(() => this.heroContent()?.images ?? []);
 
   protected getButtonData(btnId: string): Button {
     return this.heroContent()?.buttons.find((btn) => btn.identifier === btnId) as Button;

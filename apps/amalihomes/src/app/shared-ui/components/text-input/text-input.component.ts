@@ -27,8 +27,8 @@ export class InputComponent {
   public readonly label = input('');
   public readonly control = input<FormControl>(new FormControl(''));
   public readonly disabled = input(false);
-  public readonly errorIcon = CircleX;
-  public readonly classes = computed(() => {
+  protected readonly errorIcon = CircleX;
+  protected readonly classes = computed(() => {
     const base = this.containerStyles() || '';
     if (this.disabled()) return `is-disabled ${base} `;
     return this.error() ? `${base} with-error` : this.warning() ? `${base} with-warning` : base;
