@@ -23,9 +23,9 @@ export class HomeComponent implements OnInit {
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   protected readonly productsData = this.store.selectSignal(selectSection('category'));
   protected readonly getImagesByKey = (key: string): Signal<StoryblokImages[]> =>
-    computed(() => this.productsData()?.each?.find((category) => key === category.key)?.items ?? []);
+    computed(() => this.productsData()?.sliders?.find((category) => key === category.key)?.items ?? []);
   protected readonly getTitleByKey = (key: string): Signal<string> =>
-    computed(() => this.productsData()?.each?.find((category) => key === category.key)?.title ?? '');
+    computed(() => this.productsData()?.sliders?.find((category) => key === category.key)?.title ?? '');
 
   private readonly pageHeadTags = inject(MetaTagsService);
 

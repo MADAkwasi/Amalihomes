@@ -15,6 +15,10 @@ import { Section } from '../../../types/storyblok';
 export class SearchFieldComponent {
   private readonly store = inject(Store);
   protected readonly searchIcon = Search;
-  public readonly placeholder = input<Section['inputPlaceholder']>();
+  public readonly searchPlaceholer = input<Section['inputPlaceholder']>();
   protected isSearching = this.store.selectSignal(selectIsSearching);
+
+  get placeholder() {
+    return this.searchPlaceholer() ?? '';
+  }
 }
