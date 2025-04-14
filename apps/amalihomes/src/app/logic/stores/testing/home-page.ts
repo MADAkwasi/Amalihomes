@@ -91,5 +91,12 @@ export const HomePageTestData = {
       },
     ],
   },
+  locale: {
+    country: 'USA',
+    language: 'English',
+    languageCode: 'en',
+    countryCode: 'US',
+    direction: 'ltr',
+  },
   error: {},
 };

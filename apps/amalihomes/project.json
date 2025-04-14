@@ -22,10 +22,7 @@
           }
         ],
         "styles": ["apps/amalihomes/src/styles.css"],
-        "scripts": [],
-        "define": {
-          "STORYBLOK_APIKEY": "'oCQhcH6Y1qu0omYrv4Qbiwtt'"
-        }
+        "scripts": []
       },
       "configurations": {
         "production": {

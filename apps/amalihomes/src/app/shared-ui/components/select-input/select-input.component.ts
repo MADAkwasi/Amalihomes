@@ -16,7 +16,7 @@ export class SelectInputComponent {
   public readonly placeholder = input('Select an option');
   public readonly options = input<{ value: string; label: string }[]>([]);
   public readonly disabled = input(false);
-  public readonly control = input<FormControl>(new FormControl(''));
+  public readonly control = input<FormControl | null>(null);
   public readonly label = input('');
   protected readonly arrowIcon = ChevronDown;
   protected readonly isOpen = signal(false);
@@ -29,11 +29,13 @@ export class SelectInputComponent {
   constructor() {
     effect((onCleanup) => {
       const control = this.control();
-      const sub = control.valueChanges.subscribe((value) => {
-        this.controlValue.set(value);
-      });
-      this.controlValue.set(control.value);
-      onCleanup(() => sub.unsubscribe());
+      if (control) {
+        const sub = control.valueChanges.subscribe((value) => {
+          this.controlValue.set(value);
+        });
+        this.controlValue.set(control.value);
+        onCleanup(() => sub.unsubscribe());
+      }
     });
 
     effect((onCleanup) => {
@@ -54,7 +56,7 @@ export class SelectInputComponent {
 
   protected selectOption(value: string): void {
     const control = this.control();
-    control.setValue(value);
+    control?.setValue(value);
     this.closeDropdown();
   }
 

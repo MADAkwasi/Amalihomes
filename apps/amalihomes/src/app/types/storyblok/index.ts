@@ -44,6 +44,7 @@ export interface MeritItem extends ISbComponentType<string> {
 export interface CategorySection extends ISbComponentType<string> {
   key: string;
   items: StoryblokImages[];
+  title: string;
 }
 
 export interface Locale extends ISbComponentType<string> {
