@@ -2,8 +2,9 @@
 <header *ngIf="sectionData">
   <app-internationalization-bar [locale]="sectionData.locale"></app-internationalization-bar>
   <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding">
-    <img src="images/logo.svg" alt="logo" />
-
+    <a routerLink="/">
+      <app-logo />
+    </a>
     <app-navlinks [navLinks]="sectionData.navLinks" class="hidden lg:flex"></app-navlinks>
 
     <span class="flex items-center">
@@ -21,7 +22,7 @@
       <lib-button type="tetiary" buttonStyles="!w-fit !px-4" buttonIdentifier="shopping-cart-button">
         <lucide-icon [img]="cartIcon" [size]="18"></lucide-icon>
       </lib-button>
-      <img class="h-7 cursor-pointer" src="images/user.png" alt="user" />
+      <app-user-icon />
 
       }@else {
       <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
