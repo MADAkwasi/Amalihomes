@@ -6,10 +6,10 @@
     <div
       class="group home-hero-image rounded-t-full bg-muted overflow-hidden relative flex justify-center items-center flex-col ml-2 md:ml-0"
     >
-      <lib-image
+      <img
         alt="{{ carouselImages()[selectedIndex()].name }}"
         [src]="carouselImages()[selectedIndex()].image"
-        class="size-9/12 group-hover:scale-110 transition-all mt-9 flex justify-center"
+        class="h-[90%] w-[65%] lg:group-hover:scale-110 transition-all mt-9 flex justify-center"
       />
     </div>
     }
@@ -47,11 +47,8 @@
       } @else { @for(position of imagePositions(); track carouselImages()[position]._uid){ @let imageData =
       carouselImages()[position];
 
-      <div class="group relative h-[35px] w-[60px] md:h-[55px] md:w-[88px] rounded-b-full bg-muted cursor-pointer">
-        <button
-          class="flex items-center flex-col -mt-6 rounded-full absolute inset-0 bottom-auto"
-          (click)="navigateToImage($index)"
-        >
+      <div class="group relative h-[35px] w-[60px] md:h-[55px] md:w-[88px] rounded-b-full bg-muted cursor-pointer mt-6">
+        <button class="flex items-center flex-col rounded-full bottom-auto -mt-6" (click)="navigateToImage($index)">
           <lib-image
             alt="{{ imageData.name }}"
             class="flex items-center flex-col rounded-full overflow-hidden group-hover:scale-110 transition-all duration-300 group group-first:!size-3/4 group-first:aspect-square group-first:rounded-full"
