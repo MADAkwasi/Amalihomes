@@ -31,11 +31,11 @@ pipeline {
    stage("Run Tests"){
       steps{
         script {
-          sh "npm run test:coverage"
+          sh "npm run test:ci"
         }
       }
-    } 
-    
+    }
+
     stage('Sonar Analysis'){
       steps{
         withSonarQubeEnv('SonarQube'){
@@ -57,7 +57,7 @@ pipeline {
          echo "Successful"
       }
     }
-    
+
     failure {
       script{
          echo "Build failed"

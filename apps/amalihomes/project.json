@@ -22,7 +22,12 @@
           }
         ],
         "styles": ["apps/amalihomes/src/styles.css"],
-        "scripts": []
+        "scripts": [],
+        "server": "apps/amalihomes/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/amalihomes/src/server.ts"
+        },
+        "outputMode": "server"
       },
       "configurations": {
         "production": {
