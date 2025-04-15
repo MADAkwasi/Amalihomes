@@ -8,6 +8,11 @@ import { EmailValidatorDirective } from '../../../logic/directives/email-validat
 import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { FacebookIconComponent } from '../svg-icons/facebook-icon/facebook-icon.component';
+import { InstaIconComponent } from '../svg-icons/insta-icon/insta-icon.component';
+import { XIconComponent } from '../svg-icons/x-icon/x-icon.component';
+import { LinkedInIconComponent } from '../svg-icons/linkedIn-icon/linkedin-icon.component';
+import { YoutubeIconComponent } from '../svg-icons/youtube-icon/youtube-icon.component';
 
 @Component({
   selector: 'app-footer',
@@ -19,6 +24,11 @@ import { selectSection } from '../../../logic/stores/selectors/storyblok.selecto
     FormsModule,
     EmailValidatorDirective,
     LucideAngularModule,
+    FacebookIconComponent,
+    InstaIconComponent,
+    XIconComponent,
+    LinkedInIconComponent,
+    YoutubeIconComponent,
   ],
   templateUrl: './footer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

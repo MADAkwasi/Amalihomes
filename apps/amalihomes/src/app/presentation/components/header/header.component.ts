@@ -12,6 +12,8 @@ import { LucideAngularModule, Menu, Search, ShoppingCart, X } from 'lucide-angul
 import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { InternationalizationBarComponent } from '../internationalization-bar/internationalization-bar.component';
+import { UserIconComponent } from '../svg-icons/user-icon/userIcon.component';
+import { LogoComponent } from '../svg-icons/logo/logo.component';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +27,8 @@ import { InternationalizationBarComponent } from '../internationalization-bar/in
     LucideAngularModule,
     SkeletonDirective,
     InternationalizationBarComponent,
+    UserIconComponent,
+    LogoComponent,
   ],
   templateUrl: './header.component.html',
   standalone: true,
