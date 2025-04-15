@@ -4,7 +4,7 @@
   <li class="route">
     <a
       [routerLink]="navlink.href.url"
-      class="p-2 border-b-transparent border-b-[2px]"
+      class="p-2 border-b-transparent border-b-[2px] hover:text-primary"
       [routerLinkActive]="!isMenuOpen() ? 'text-primary font-medium active-route' : ''"
       [routerLinkActiveOptions]="{ exact: true }"
       (click)="onCloseMenu()"
