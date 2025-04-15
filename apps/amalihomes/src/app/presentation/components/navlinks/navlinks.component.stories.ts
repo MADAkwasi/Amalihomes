@@ -6,11 +6,11 @@ import { Routes } from '@angular/router';
 
 const mockRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: {} as any },
-  { path: 'shop', component: {} as any },
-  { path: 'about', component: {} as any },
-  { path: 'faqs', component: {} as any },
-  { path: 'news', component: {} as any },
+  { path: 'home', component: class HomeComponent {} },
+  { path: 'shop', component: class ShopComponent {} },
+  { path: 'about', component: class AboutComponent {} },
+  { path: 'faqs', component: class FAQsComponent {} },
+  { path: 'news', component: class NewsComponent {} },
   { path: '**', redirectTo: '/home' },
 ];
 
