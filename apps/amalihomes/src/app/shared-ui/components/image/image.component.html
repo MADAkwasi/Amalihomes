@@ -1,1 +1,8 @@
-<img [src]="src()" [alt]="alt()" [ngClass]="class()" />
+<img
+  [src]="imgSrc"
+  [alt]="alt()"
+  [ngClass]="class()"
+  [style.width]="width()"
+  [style.height]="height()"
+  (error)="onImgError()"
+/>

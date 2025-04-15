@@ -4,6 +4,10 @@
 .env
 .env.*
 
+#built env files
+env.ts
+env.**.ts
+
 #storyblok
 components.*.json
 presets.*.json
@@ -51,7 +55,3 @@ Thumbs.db
 
 .angular
 .qodo
-
-apps/amalihomes/src/app/environments/*
-
-!apps/amalihomes/src/app/environments/set-environment.ts

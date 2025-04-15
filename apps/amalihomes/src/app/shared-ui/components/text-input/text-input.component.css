@@ -27,7 +27,6 @@ input {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: 'lato';
 }
 
 .error-message {
