@@ -9,7 +9,7 @@ export interface Section extends ISbComponentType<string> {
   buttonText?: string;
   buttons: Button[];
   items?: MeritItem[];
-  sliders?: CategorySection[];
+  each?: CategorySection[];
   locale: Locale[];
   inputPlaceholder?: string;
   navLinks: StoryblokNavLink[];

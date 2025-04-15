@@ -8,15 +8,8 @@ import { localization, Localization } from '../../data/constants/localization';
 })
 export class LocalizationService {
   private readonly http = inject(HttpClient);
-
   public getUserCountry(): Observable<string> {
     return this.http.get<{ country_name: string }>('https://ipapi.co/json/').pipe(map((val) => val['country_name']));
-  }
-
-  public translateUnderConstruction(langCode: string): string {
-    if (langCode === 'fr') return 'Est En Construction';
-    if (langCode === 'de') return 'Is In Aanbouw';
-    return 'Is Under Construction';
   }
 
   public getUserLocale(): Observable<Localization | undefined> {

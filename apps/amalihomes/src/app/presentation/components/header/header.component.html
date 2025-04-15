@@ -2,7 +2,7 @@
 <header *ngIf="sectionData">
   <app-internationalization-bar [locale]="sectionData.locale"></app-internationalization-bar>
   <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding">
-    <a routerLink="/"> <img src="images/logo.svg" alt="logo" /></a>
+    <img src="images/logo.svg" alt="logo" />
 
     <app-navlinks [navLinks]="sectionData.navLinks" class="hidden lg:flex"></app-navlinks>
 
@@ -30,7 +30,6 @@
       }
 
       <lib-button
-        aria-label="Toggle search input field"
         buttonStyles="!w-fit !block !px-0 !ml-4 lg:!hidden"
         type="tetiary"
         (buttonClick)="onMenuToggle()"
@@ -53,7 +52,7 @@
     [authBtn]="sectionData.buttonText"
   ></app-menu>
   <app-search-field
-    [searchPlaceholer]="sectionData.inputPlaceholder"
+    [placeholder]="sectionData.inputPlaceholder"
     class="w-[100%] absolute"
     [class]="isMenuOpen() ? 'hidden lg:block' : ''"
   ></app-search-field>

@@ -36,8 +36,6 @@ export class CarouselComponent implements OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('keydown', this.onKeyDown.bind(this));
     }
-
-    setInterval(() => this.handleCarouselMovement('next'), 5000);
   }
 
   private onKeyDown(event: KeyboardEvent): void {

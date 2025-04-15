@@ -1,10 +1,6 @@
-import { Component, signal, inject, effect } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, signal, inject, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { InteractionsService } from '../../../logic/services/interactions/interactions.service';
-import { LocalizationService } from '../../../logic/services/localization/localization.service';
-import { Store } from '@ngrx/store';
-import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-under-construction',
@@ -12,30 +8,22 @@ import { selectLocale } from '../../../logic/stores/selectors/storyblok.selector
   templateUrl: './under-construction.component.html',
   styleUrl: './under-construction.component.css',
 })
-export class UnderConstructionComponent {
-  private readonly store = inject(Store);
+export class UnderConstructionComponent implements OnInit {
   private readonly router = inject(Router);
-  private readonly interactionsService = inject(InteractionsService);
-  private readonly localizationService = inject(LocalizationService);
-  private readonly selectedLocale = this.store.selectSignal(selectLocale);
   protected time = signal(this.getCurrentTime());
-  protected displayText = signal('');
-  public lastText = signal('');
+  protected currentRoute = signal('');
 
   constructor() {
     setInterval(() => {
       this.time.set(this.getCurrentTime());
     }, 1000);
+  }
 
-    effect(() => {
-      const current = this.interactionsService.lastInteractedText();
-      if (current) {
-        this.lastText.set(current);
-      }
+  ngOnInit(): void {
+    this.currentRoute.set(this.router.url.replace('/', ''));
 
-      this.displayText.set(
-        this.localizationService.translateUnderConstruction(this.selectedLocale()?.languageCode ?? 'en'),
-      );
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) this.currentRoute.set(event.urlAfterRedirects.replace('/', ''));
     });
   }
 
