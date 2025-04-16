@@ -7,9 +7,10 @@ pipeline {
 
     stage('Install Dependencies'){
       steps{
-        script {
-          sh "npm install"
-        }
+          withCredentials([file(credentialsId: 'titans-env', variable: 'ENV_FILE')]) {
+            sh "cp $ENV_FILE .env"}
+            sh "npm install"
+              
       }
     }
     stage('Run Lint'){
