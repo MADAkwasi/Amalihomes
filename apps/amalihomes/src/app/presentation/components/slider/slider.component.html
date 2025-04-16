@@ -28,8 +28,8 @@
 
 <div #cardsContainer class="flex overflow-x-auto gap-6 hide-scrollbar" (scroll)="onScroll()">
   @for (item of sliderImages(); track item._uid) {
-  <article class="flex-shrink-0 overflow-hidden" #cardElements>
-    <a class="group w-full overflow-hidden rounded-lg block bg-muted relative">
+  <div class="flex-shrink-0 overflow-hidden" #cardElements>
+    <a class="group w-full overflow-hidden rounded-lg block bg-muted relative" routerLink="/">
       <lib-image
         [src]="item.image"
         alt="{{item.name||`Product item`}}"
@@ -39,7 +39,7 @@
       <div class="absolute inset-0 group-hover:bg-black/25 transition-all duration-300"></div>
     </a>
     <h3 class="!text-[#5d5d5d] text-center mt-6 text-sm md:text-base lg:text-xl font-semibold">{{ item.name }}</h3>
-  </article>
+  </div>
 
   }
 </div>

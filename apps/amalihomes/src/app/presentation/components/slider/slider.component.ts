@@ -14,6 +14,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, ImageComponent, TextDirective } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
 import { StoryblokImages } from '../../../types/storyblok';
+import { RouterModule } from '@angular/router';
 
 const DEFAULT_SCROLL_DISTANCE = 200;
 const CARDS_GAP_DISTANCE = 16;
@@ -21,7 +22,7 @@ const CARDS_GAP_DISTANCE = 16;
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, LucideAngularModule, ImageComponent, TextDirective],
+  imports: [CommonModule, ButtonComponent, LucideAngularModule, ImageComponent, TextDirective, RouterModule],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css',
 })

@@ -2,7 +2,7 @@
 <header *ngIf="sectionData">
   <app-internationalization-bar [locale]="sectionData.locale"></app-internationalization-bar>
   <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding">
-    <a routerLink="/">
+    <a routerLink="/" title="Home">
       <app-logo />
     </a>
     <app-navlinks [navLinks]="sectionData.navLinks" class="hidden lg:flex"></app-navlinks>
@@ -14,6 +14,7 @@
         (buttonClick)="onOpenSearchField()"
         buttonStyles="!w-fit !px-4"
         buttonIdentifier="search-button"
+        title="Search"
       >
         <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
       </lib-button>
@@ -36,8 +37,10 @@
         type="tetiary"
         (buttonClick)="onMenuToggle()"
         buttonIdentifier="menu-button"
+        title="Menu"
       >
         <lucide-icon
+          aria-hidden="true"
           [img]="isMenuOpen() ? closeIcon : menuIcon"
           [size]="18"
           [color]="isMenuOpen() ? '#ea690c' : '#000'"
