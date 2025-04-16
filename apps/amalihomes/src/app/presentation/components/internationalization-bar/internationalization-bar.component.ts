@@ -66,9 +66,17 @@ export class InternationalizationBarComponent implements OnInit {
 
   private onChangeLocale(): void {
     const selected = this.findLocaleByCode(this.countryControl.value, 'country');
-    const newLocale = selected ?? this.localization()[0];
+    let newLocale = selected ?? this.localization()[0];
+
+    if (this.form.value.language !== '')
+      newLocale = {
+        ...newLocale,
+        languageCode: this.userLocale()?.languageCode ?? 'en',
+        language: this.userLocale()?.language ?? 'English',
+      };
 
     this.store.dispatch(StoryblokPageActions.changeLocale({ locale: newLocale }));
+
     this.reloadPageWithCurrentLanguage();
   }
 

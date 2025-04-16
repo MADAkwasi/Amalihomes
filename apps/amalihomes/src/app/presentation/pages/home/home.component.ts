@@ -30,10 +30,12 @@ export class HomeComponent implements OnInit {
   private readonly pageHeadTags = inject(MetaTagsService);
 
   ngOnInit(): void {
+    const langCode = localStorage.getItem('langCode') ?? this.selectedLanguage()?.languageCode ?? 'en';
+
     this.store.dispatch(
       StoryblokPageActions.loadPage({
         slug: 'home',
-        language: this.selectedLanguage()?.languageCode ?? 'en',
+        language: langCode,
         version: 'draft',
       }),
     );
