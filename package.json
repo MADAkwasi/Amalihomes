@@ -13,7 +13,7 @@
     "lint": "npx nx lint amalihomes",
     "test": "npx jest",
     "test:coverage": "npx jest --ci --runInBand --coverage",
-    "test:ci": "npm run build-env && jest --ci --runInBand --detectOpenHandles --coverage --forceExit",
+    "test:ci": "jest --ci --runInBand --detectOpenHandles --coverage --forceExit",
     "app": "sleep 2 && npx nx serve amalihomes",
     "amalihomes": "npm-run-all --parallel app build-env-dev",
     "amalihomes:ssr": "npm run build && node dist/apps/amalihomes/server/server.mjs",
