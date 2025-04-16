@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class LocalizationService {
   private readonly http = inject(HttpClient);
   private readonly platformId = inject(PLATFORM_ID);
+  // private readonly
 
   public getUserCountry(): Observable<string> {
     if (!isPlatformBrowser(this.platformId)) {
@@ -30,14 +31,27 @@ export class LocalizationService {
 
   public getUserLocale(): Observable<Localization> {
     return this.getUserCountry().pipe(
-      map((country) => localization.find((loc) => loc.countryCode === country) ?? localization[0]),
+      map((country) => {
+        if (isPlatformBrowser(this.platformId)) {
+          const stored = localStorage.getItem('locale');
+          if (stored) {
+            return JSON.parse(stored) as Localization;
+          }
+        }
+
+        return localization.find((loc) => loc.countryCode === country) ?? localization[0];
+      }),
       tap((locale) => {
-        const langCode = locale.languageCode;
-        localStorage.setItem('langCode', langCode);
+        if (!isPlatformBrowser(this.platformId)) return;
+        if (!localStorage.getItem('locale')) {
+          localStorage.setItem('locale', JSON.stringify(locale));
+        }
       }),
       catchError(() => {
         const fallback = localization[0];
-        localStorage.setItem('langCode', fallback.languageCode);
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('locale', JSON.stringify(fallback));
+        }
         return of(fallback);
       }),
     );
