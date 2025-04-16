@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HyperlinksComponent } from '../hyperlinks/hyperlinks.component';
 import { FormsModule } from '@angular/forms';
 import { EmailValidatorDirective } from '../../../logic/directives/email-validator/email-validator.directive';
@@ -19,7 +19,7 @@ import { YoutubeIconComponent } from '../svg-icons/youtube-icon/youtube-icon.com
   imports: [
     CommonModule,
     ButtonComponent,
-    RouterLink,
+    RouterModule,
     HyperlinksComponent,
     FormsModule,
     EmailValidatorDirective,

@@ -32,6 +32,7 @@ pipeline {
    stage("Run Tests"){
       steps{
         script {
+          sh "npm run build-env"
           sh "npm run test:ci"
         }
       }

@@ -5,4 +5,5 @@ export const environment = {
   production: ENV.production === 'true',
   STORY_BLOK_APIKEY: ENV.STORY_BLOK_APIKEY,
   GTM_KEY: ENV.GTM_KEY,
+  SERVER_URL: ENV.SERVER_URL,
 };
