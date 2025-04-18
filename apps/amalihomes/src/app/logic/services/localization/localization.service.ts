@@ -10,7 +10,6 @@ import { isPlatformBrowser } from '@angular/common';
 export class LocalizationService {
   private readonly http = inject(HttpClient);
   private readonly platformId = inject(PLATFORM_ID);
-  // private readonly
 
   public getUserCountry(): Observable<string> {
     if (!isPlatformBrowser(this.platformId)) {
