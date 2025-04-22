@@ -1,0 +1,17 @@
+<div class="my-4">
+  <span class="flex gap-8">
+    @for (tab of tabsSignal(); track $index) {
+    <button
+      class="px-4 py-2 cursor-pointer rounded-md hover:bg-muted duration-300"
+      [ngClass]="{ 'active-tab': activeTab() === $index }"
+      (click)="onSelectTab($index)"
+    >
+      {{ tab.title }}
+    </button>
+    }
+  </span>
+
+  <div class="my-6">
+    {{ tabsSignal()[activeTab()].content }}
+  </div>
+</div>
