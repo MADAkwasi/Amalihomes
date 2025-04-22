@@ -40,11 +40,16 @@
       </span>
     </span>
   </div>
-
-  <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
-    <app-hyperlinks [category]="quickLinks()?.title" [links]="quickLinks()?.links"></app-hyperlinks>
-    <app-hyperlinks [category]="companyLinks()?.title" [links]="companyLinks()?.links"></app-hyperlinks>
-    <app-hyperlinks [category]="legalServicesLinks()?.title" [links]="legalServicesLinks()?.links"></app-hyperlinks>
+  <div
+    class="flex flex-col md:flex-row items-center md:items-start justify-stretch md:justify-between lg:justify-normal lg:gap-[15%]"
+  >
+    @for (groupedLink of groupedLinks(); track $index) {
+    <app-hyperlinks
+      class="last-of-type:hidden"
+      [category]="groupedLink?.title"
+      [links]="groupedLink?.links"
+    ></app-hyperlinks>
+    }
     <span class="flex flex-col gap-6 text-center md:text-left">
       <h4 class="font-semibold text-md">{{ sectionData?.contactHeading }}</h4>
       <ul class="text-sm font-light flex flex-col gap-4">
@@ -63,7 +68,7 @@
       </span>
 
       <ul class="flex gap-4 md:hidden">
-        <li *ngFor="let link of mobileViewLinks()?.links">
+        <li *ngFor="let link of groupedLinks()[groupedLinks().length - 1]?.links">
           <a [routerLink]="link.href.url">
             {{ link.text }}
           </a>
