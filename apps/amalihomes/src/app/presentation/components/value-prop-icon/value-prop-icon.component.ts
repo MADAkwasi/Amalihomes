@@ -6,6 +6,10 @@ import {
   HomeCouchIconComponent,
   HomeTruckIconComponent,
   HomeMoneyBagIconComponent,
+  FeaturedMedalIconComponent,
+  FeaturedRecycleIconComponent,
+  FeaturedTropyIconComponent,
+  FeaturedBadgeIconComponent,
 } from '../svg-icons';
 
 @Component({
@@ -16,6 +20,10 @@ import {
     HomeCouchIconComponent,
     HomeTruckIconComponent,
     HomeMoneyBagIconComponent,
+    FeaturedMedalIconComponent,
+    FeaturedRecycleIconComponent,
+    FeaturedTropyIconComponent,
+    FeaturedBadgeIconComponent,
   ],
   templateUrl: './value-prop-icon.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
