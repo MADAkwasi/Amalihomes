@@ -1,0 +1,21 @@
+@for(data of safeAccordionData(); track $index){
+<button
+  class="cursor-pointer flex items-center hover:bg-muted duration-300 rounded-t-md justify-between gap-4 py-4 px-4 mt-3 w-[100%]"
+  (click)="onToggle($index)"
+  [ngClass]="{ 'bg-muted rounded-t-md': isOpen($index) }"
+>
+  <p class="text-black font-medium text-left" [ngClass]="{ 'font-bold text-grayText': isOpen($index) }">
+    {{ data.question }}
+  </p>
+  <app-arrow-up [class]="!isOpen($index) ? 'rotate-180 duration-500' : 'rotate-270 duration-500'"></app-arrow-up>
+</button>
+<div class="px-6 bg-muted rounded-b-md">
+  @if(isOpen($index)){
+  <ol class="flex flex-col gap-4 py-4 list-decimal">
+    @for (answer of data.answers; track $index) {
+    <li libText textType="text-normal">{{ answer }}</li>
+    }
+  </ol>
+  }
+</div>
+}
