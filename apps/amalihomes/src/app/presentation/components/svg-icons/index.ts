@@ -10,3 +10,7 @@ export * from './facebook-icon/facebook-icon.component';
 export * from './x-icon/x-icon.component';
 export * from './youtube-icon/youtube-icon.component';
 export * from './linkedIn-icon/linkedin-icon.component';
+export * from './featured-medal-icon/icon.component';
+export * from './featured-badge-icon/badge-icon.component';
+export * from './featured-recycle-icon/icon.component';
+export * from './featured-star-trophy-icon/icon.component';
