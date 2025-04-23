@@ -1,0 +1,18 @@
+<div class="py-[64px] md:px-[32px]">
+  <div class="mx-auto flex flex-col items-center text-center">
+    <app-responsive-heading
+      title="Building Dreams Since 1990"
+      description="Founded with a vision to redefine modern living, AmaliHomes has evolved from a small family business to a global leader in premium home construction. Our journey has been guided by an unwavering commitment to excellence, innovation, and creating spaces that truly feel like home."
+    />
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 w-full">
+    <div *ngFor="let stat of stats" class="p-6 flex flex-col items-center">
+      <div class="text-[#EA690C] font-lato font-semibold text-[32px] leading-[40px] md:text-[48px] md:leading-[56px]">
+        {{ stat.value }}
+      </div>
+      <div class="text-[#5D5D5D] font-lato font-normal text-base leading-6 mt-4">
+        {{ stat.label }}
+      </div>
+    </div>
+  </div>
+</div>
