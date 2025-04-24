@@ -1,46 +1,52 @@
 import { applicationConfig, Meta, StoryObj } from '@storybook/angular';
 import { HomeFlashSaleComponent } from './home-flash-sale.component';
 import { provideMockStore } from '@ngrx/store/testing';
-import { importProvidersFrom } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
-const mockFlashSaleData = {
-  buttonText: 'Learn More',
+const mockedData = {
   component: 'flashSale',
+  key: 'flashSale',
+  title: 'FLASH SALE: 25% OFF All Living Room Furniture',
   description:
     'Refresh your space for less! Use code NEWSPACE at checkout. Ends March 31st. Free shipping on orders over $500.',
+  buttonText: 'Learn More',
+  buttonLink: '/shop',
   images: [
     {
       component: 'image',
       image: '//a.storyblok.com/f/331937/656x442/cd8e8de159/homepage-flash-sale.png',
+      alt: 'Flash Sale Image',
       name: 'A man with his daughter in a sofa chair',
-      _editable:
-        '<!--#storyblok#{"name": "image", "space": "331937", "uid": "72a9f252-e87c-4ea2-b8d5-ca09ccc688c9", "id": "646375864"}-->',
-      _uid: '72a9f252-e87c-4ea2-b8d5-ca09ccc688c9',
+      _uid: 'b4b80f96-a6c0-4647-8b79-f8138f9c28ba',
     },
   ],
-  title: 'FLASH SALE: 25% OFF All Living Room Furniture',
-  _editable:
-    '<!--#storyblok#{"name": "flashSale", "space": "331937", "uid": "69ed1308-d7e9-4c1d-93ae-af032fa40c6e", "id": "646375864"}-->',
-  _uid: '69ed1308-d7e9-4c1d-93ae-af032fa40c6e',
 };
-
 const meta: Meta<HomeFlashSaleComponent> = {
   title: 'FlashSale',
   component: HomeFlashSaleComponent,
   decorators: [
     applicationConfig({
-      providers: [provideMockStore({ initialState: {} }), importProvidersFrom(HttpClientModule)],
+      providers: [
+        provideMockStore({
+          initialState: {
+            storyblokPage: {
+              content: {
+                body: [mockedData],
+              },
+            },
+          },
+        }),
+        provideRouter([]),
+      ],
     }),
   ],
   tags: ['autodocs'],
+  args: {
+    flashSaleSection: mockedData,
+  },
 };
 
 export default meta;
 type Story = StoryObj<HomeFlashSaleComponent>;
 
-export const Primary: Story = {
-  args: {
-    externalData: mockFlashSaleData,
-  },
-};
+export const Primary: Story = {};

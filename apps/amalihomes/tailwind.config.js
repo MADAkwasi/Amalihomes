@@ -12,6 +12,15 @@ module.exports = {
       screens: {
         xsm: '380px',
       },
+      fontSize: {
+        'dynamic-heading': [
+          '24px',
+          {
+            lineHeight: '32px',
+            fontWeight: '700',
+          },
+        ],
+      },
       fontFamily: {
         lato: '"Lato", sans-serif',
       },
@@ -53,5 +62,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 };

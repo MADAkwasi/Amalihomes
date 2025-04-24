@@ -4,14 +4,14 @@ import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
 import { CarouselComponent } from '../carousel/carousel.component';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { Button } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-home-hero-section',
-  imports: [CommonModule, LucideAngularModule, TextDirective, CarouselComponent, RouterLink],
+  imports: [CommonModule, LucideAngularModule, TextDirective, CarouselComponent, RouterModule],
   templateUrl: './home-hero-section.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

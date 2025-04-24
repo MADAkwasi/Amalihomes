@@ -10,14 +10,14 @@ export const appRoutes: Route[] = [
   //   path: 'shop',
   //   loadComponent: () => import('./presentation/pages/shop/shop.component').then((Default) => Default.ShopComponent),
   // },
-  // {
-  //   path: 'about',
-  //   loadComponent: () => import('./presentation/pages/about/about.component').then((Default) => Default.AboutComponent),
-  // },
-  // {
-  //   path: 'faqs',
-  //   loadComponent: () => import('./presentation/pages/faq/faq.component').then((Default) => Default.FaqComponent),
-  // },
+  {
+    path: 'about',
+    loadComponent: () => import('./presentation/pages/about/about.component').then((Default) => Default.AboutComponent),
+  },
+  {
+    path: 'faqs',
+    loadComponent: () => import('./presentation/pages/faq/faq.component').then((Default) => Default.FaqComponent),
+  },
   // {
   //   path: 'news',
   //   loadComponent: () => import('./presentation/pages/news/news.component').then((Default) => Default.NewsComponent),

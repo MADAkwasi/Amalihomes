@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ApplicationStore } from '../../../logic/stores';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
 
 @Component({
   selector: 'app-home-flash-sale',
-  imports: [CommonModule, TextDirective, RouterLink],
+  imports: [CommonModule, TextDirective, RouterModule],
   templateUrl: './home-flash-sale.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

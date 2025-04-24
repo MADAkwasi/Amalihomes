@@ -20,7 +20,7 @@ export const HomePageTestData = {
       },
 
       {
-        each: [
+        sliders: [
           {
             key: 'products',
             title: 'Text title',

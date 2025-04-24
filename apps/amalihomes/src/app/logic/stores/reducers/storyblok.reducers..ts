@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { StoryblokPageActions } from '../actions/storyblok.actions';
 import { Body } from '../../../types/storyblok';
-import { Localization } from '../../data/constants/localization';
+import { localization, Localization } from '../../data/constants/localization';
 
 export interface StoryblokPageState {
   page: string;
@@ -59,7 +59,7 @@ export const storyblokPageReducer = createReducer(
 
   on(StoryblokPageActions.changeLanguage, (state, { langCode, lang }) => ({
     ...state,
-    locale: state.locale ? { ...state.locale, languageCode: langCode, language: lang } : null,
+    locale: state.locale ? { ...state.locale, languageCode: langCode, language: lang } : localization[0],
   })),
 
   on(StoryblokPageActions.changeLocale, (state, { locale }) => ({

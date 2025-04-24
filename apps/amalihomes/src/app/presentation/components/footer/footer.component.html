@@ -40,11 +40,16 @@
       </span>
     </span>
   </div>
-
-  <div class="flex flex-col md:flex-row items-center gap-8 md:gap-20 md:items-start lg:gap-48">
-    <app-hyperlinks [category]="quickLinks()?.title" [links]="quickLinks()?.links"></app-hyperlinks>
-    <app-hyperlinks [category]="companyLinks()?.title" [links]="companyLinks()?.links"></app-hyperlinks>
-    <app-hyperlinks [category]="legalServicesLinks()?.title" [links]="legalServicesLinks()?.links"></app-hyperlinks>
+  <div
+    class="flex flex-col md:flex-row items-center md:items-start justify-stretch md:justify-between lg:justify-normal lg:gap-[15%]"
+  >
+    @for (groupedLink of groupedLinks(); track $index) {
+    <app-hyperlinks
+      class="last-of-type:hidden"
+      [category]="groupedLink?.title"
+      [links]="groupedLink?.links"
+    ></app-hyperlinks>
+    }
     <span class="flex flex-col gap-6 text-center md:text-left">
       <h4 class="font-semibold text-md">{{ sectionData?.contactHeading }}</h4>
       <ul class="text-sm font-light flex flex-col gap-4">
@@ -63,7 +68,7 @@
       </span>
 
       <ul class="flex gap-4 md:hidden">
-        <li *ngFor="let link of mobileViewLinks()?.links">
+        <li *ngFor="let link of groupedLinks()[groupedLinks().length - 1]?.links">
           <a [routerLink]="link.href.url">
             {{ link.text }}
           </a>
@@ -71,11 +76,11 @@
       </ul>
 
       <span class="flex gap-4 items-center">
-        <a routerLink="#"><img src="icons/facebook.svg" alt="facebook-icon" /></a>
-        <a routerLink="#"><img src="icons/instagram.svg" alt="instagram-icon" /></a>
-        <a routerLink="#"><img src="icons/x.svg" alt="x-icon" /></a>
-        <a routerLink="#"><img src="icons/linkedin.svg" alt="linkedin-icon" /></a>
-        <a routerLink="#"><img src="icons/youtube.svg" alt="youtube-icon" /></a>
+        <a routerLink="#" aria-label="Facebook"><app-facebook-icon aria-hidden="true" /></a>
+        <a routerLink="#" aria-label="Instagram"><app-insta-icon aria-hidden="true" /></a>
+        <a routerLink="#" aria-label="X (formerly Twitter)"><app-x-icon aria-hidden="true" /></a>
+        <a routerLink="#" aria-label="LinkedIn"><app-linkedin-icon aria-hidden="true" /></a>
+        <a routerLink="#" aria-label="YouTube"><app-youtube-icon aria-hidden="true" /></a>
       </span>
     </span>
   </div>

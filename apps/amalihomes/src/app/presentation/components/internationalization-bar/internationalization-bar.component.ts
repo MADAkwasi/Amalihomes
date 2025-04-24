@@ -1,5 +1,14 @@
-import { Component, computed, input, signal, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  computed,
+  input,
+  signal,
+  ChangeDetectionStrategy,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ModalComponent, SelectInputComponent, TextDirective, ButtonComponent } from '@amalihomes/shared';
 import { localization, countries, languages } from '../../../logic/data/constants/localization';
 import { Globe, LucideAngularModule } from 'lucide-angular';
@@ -29,6 +38,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class InternationalizationBarComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly platformId = inject(PLATFORM_ID);
   public readonly locale = input.required<Locale[]>();
   protected readonly userLocale = this.store.selectSignal(selectLocale);
   protected readonly localization = signal(localization);
@@ -66,9 +76,19 @@ export class InternationalizationBarComponent implements OnInit {
 
   private onChangeLocale(): void {
     const selected = this.findLocaleByCode(this.countryControl.value, 'country');
-    const newLocale = selected ?? this.localization()[0];
+    let newLocale = selected ?? this.localization()[0];
+
+    if (this.form.value.language !== '')
+      newLocale = {
+        ...newLocale,
+        languageCode: this.userLocale()?.languageCode ?? 'en',
+        language: this.userLocale()?.language ?? 'English',
+      };
 
     this.store.dispatch(StoryblokPageActions.changeLocale({ locale: newLocale }));
+
+    if (isPlatformBrowser(this.platformId)) localStorage.setItem('locale', JSON.stringify(newLocale));
+
     this.reloadPageWithCurrentLanguage();
   }
 
@@ -78,6 +98,12 @@ export class InternationalizationBarComponent implements OnInit {
     const lang = selected?.language ?? 'English';
 
     this.store.dispatch(StoryblokPageActions.changeLanguage({ langCode, lang }));
+
+    let newLocale = this.userLocale() ?? this.localization()[0];
+    newLocale = { ...newLocale, languageCode: langCode, language: lang };
+
+    if (isPlatformBrowser(this.platformId)) localStorage.setItem('locale', JSON.stringify(newLocale));
+
     this.reloadPageWithCurrentLanguage();
   }
 
