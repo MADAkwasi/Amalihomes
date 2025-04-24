@@ -65,12 +65,12 @@ export class TextDirective implements OnInit {
       case 'text-small':
         return ['text-xsm', '2xl:text-sm', 'text-[#5d5d5d]'];
       case 'text-medium':
-        return ['text-base', '2xl:text-lg', 'text-[#5d5d5d]', 'md:leading-[1.62rem]', 'leading-[1.5rem]'];
+        return ['text-lg', '2xl:text-xl', 'text-[#5d5d5d]', 'md:leading-[1.62rem]', 'leading-[1.5rem]'];
       case 'text-large':
-        return ['text-lg', '2xl:text-xl', 'text-[#5d5d5d]'];
+        return ['text-xl', '2xl:text-2xl', 'text-[#5d5d5d]'];
       case 'text-normal':
       default:
-        return ['text-sm', '2xl:text-base', 'leading-[1.5rem]', 'text-[#5d5d5d]'];
+        return ['text-base', 'lg:text-sm', '2xl:text-base', 'leading-[1.5rem]', 'text-[#5d5d5d]'];
     }
   }
 }
