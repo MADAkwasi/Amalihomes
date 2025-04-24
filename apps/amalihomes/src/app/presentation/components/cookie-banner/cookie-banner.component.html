@@ -1,0 +1,115 @@
+<section
+  role="region"
+  title="Cookie Consent Banner"
+  class="bg-[#FFF8ED] page-horizontal-padding py-6 flex justify-between flex-wrap-reverse shadow-black/5 shadow-lg"
+  *ngIf="showBanner"
+>
+  <div
+    [ngClass]="{ 'items-center': !settingsExpanded }"
+    class="flex gap-6 max-w-[41.75rem] w-full text-2xl flex-wrap md:flex-nowrap"
+  >
+    <div class="min-w-[85px]">
+      <img src="icons/cmp-cookie-badge.svg" class="block w-[84px] h-[94px]" alt="Certified CMP Partner badge" />
+    </div>
+    <div>
+      <h2 aria-level="2" libText textType="heading2" class="mb-2">We value your privacy</h2>
+      <p libText textType="text-normal" class="mb-4">
+        This website uses cookies to personalize content, provide social media features, and analyse our traffic. You
+        can customize your preferences or reject all.
+      </p>
+      @if(settingsExpanded){
+      <ul aria-label="Cookie Settings" id="Custom_Cookie_Settings" class="mx-0 mt-0 mb-2 p-0 list-none">
+        @for(setting of availableSettings; track setting.label;){
+        <li>
+          @if($first){
+          <button
+            #firstCookieSetting
+            role="checkbox"
+            aria-checked="false"
+            [ariaChecked]="setting.enabled"
+            class="flex items-center gap-2 mb-2"
+            (click)="handleSettingChange($index)"
+            [attr.data-btn-id]="`cookie-setting-${setting.label}-btn`"
+          >
+            <span
+              [ngClass]="{ 'bg-primary': setting.enabled }"
+              class="w-5 h-5 rounded border border-primary flex flex-col items-center justify-center"
+            >
+              <lucide-angular
+                *ngIf="setting.enabled"
+                aria-hidden="true"
+                [img]="icons.Check"
+                [size]="14"
+                class="text-white"
+              />
+            </span>
+            <span libText textType="text-normal">
+              {{ setting.label }}
+            </span>
+          </button>
+          } @else {
+          <button
+            role="checkbox"
+            aria-checked="false"
+            [ariaChecked]="setting.enabled"
+            class="flex items-center gap-2 mb-2"
+            (click)="handleSettingChange($index)"
+          >
+            <span
+              [ngClass]="{ 'bg-primary': setting.enabled }"
+              class="w-5 h-5 rounded border border-primary flex flex-col items-center justify-center"
+            >
+              <lucide-angular
+                *ngIf="setting.enabled"
+                aria-hidden="true"
+                [img]="icons.Check"
+                [size]="14"
+                class="text-white"
+              />
+            </span>
+            <span libText textType="text-normal">
+              {{ setting.label }}
+            </span>
+          </button>
+          }
+        </li>
+        }
+      </ul>
+      }
+      <div class="flex items-center gap-6 flex-col md:flex-row">
+        <div class="w-full md:w-auto">
+          <lib-button
+            [attr.aria-expanded]="settingsExpanded"
+            aria-controls="Custom_Cookie_Settings"
+            buttonIdentifier="cookie-banner-seetings-btn"
+            buttonStyles="w-full"
+            (buttonClick)="handleSettingsToggle()"
+          >
+            {{ settingsExpanded ? 'Save and Close' : 'Customise Settings' }}
+          </lib-button>
+        </div>
+
+        <div class="w-full md:w-auto">
+          <lib-button
+            (buttonClick)="handleBannerClose()"
+            buttonIdentifier="cookie-banner-reject-all-btn"
+            type="secondary"
+            buttonStyles="w-full"
+          >
+            Reject All
+          </lib-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <lib-button
+    type="tetiary"
+    title="Close cookie banner"
+    [buttonIdentifier]="'close-cookie-banner-btn'"
+    buttonStyles="size-10 flex justify-center items-center flex-col !bg-transparent !p-0"
+    class="w-full md:w-auto flex justify-end"
+    (buttonClick)="handleBannerClose()"
+  >
+    <lucide-angular aria-hidden="true" [img]="icons.X" [size]="20" class="text-[#5E718D]" />
+  </lib-button>
+</section>
