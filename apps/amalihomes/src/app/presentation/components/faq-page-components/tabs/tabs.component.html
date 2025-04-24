@@ -1,0 +1,21 @@
+<div class="my-4">
+  <span class="flex gap-8 overflow-x-scroll scrollbar-hide">
+    @for (tab of tabs(); track $index) {
+    <button
+      class="px-4 py-2 cursor-pointer rounded-md hover:bg-muted duration-300 min-w-fit"
+      [ngClass]="{ 'active-tab hover:bg-primary-light': activeTab() === $index }"
+      (click)="onSelectTab($index)"
+    >
+      {{ tab.title }}
+    </button>
+    }
+  </span>
+
+  <div class="my-6">
+    @if(typeof tabs()?.[activeTab()]?.content === 'object'){
+    <app-accordion [accordionData]="tabs()?.[activeTab()]?.content"></app-accordion>
+    }@else {
+    <p>{{tabs()?.[activeTab()]?.content}}</p>
+    }
+  </div>
+</div>
