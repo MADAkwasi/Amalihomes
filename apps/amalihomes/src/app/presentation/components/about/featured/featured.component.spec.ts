@@ -40,7 +40,7 @@ describe('FeaturedComponent', () => {
 
   it('should pass the image URL to the ImageComponent', () => {
     const imageComponent = fixture.debugElement.query(By.directive(ImageComponent));
-    expect(imageComponent.componentInstance.src).toBe('https://example.com/image.jpg');
+    expect(imageComponent.componentInstance.src()).toBe('https://example.com/image.jpg');
   });
 
   it('should render the correct number of ValuePropItems', () => {

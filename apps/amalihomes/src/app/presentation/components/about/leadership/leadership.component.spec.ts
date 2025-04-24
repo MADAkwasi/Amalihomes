@@ -23,8 +23,8 @@ describe('LeadershipComponent', () => {
   });
 
   it('should have the correct title and description', () => {
-    expect(component.title).toBe('Global Presence');
-    expect(component.description).toContain('AmaliHomes has expanded globally');
+    expect(component.title()).toBe('Global Presence');
+    expect(component.description()).toContain('AmaliHomes has expanded globally');
   });
 
   it('should render the correct number of leadership cards', () => {
