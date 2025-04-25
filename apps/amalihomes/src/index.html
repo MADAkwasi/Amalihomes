@@ -62,7 +62,7 @@
           ad_personalization: 'denied',
           analytics_storage: 'denied',
         };
-        window.dataLayer = [...window.dataLayer, defaultConsent] || [defaultConsent];
+        window.dataLayer = window.dataLayer ? [...window.dataLayer, defaultConsent] : [defaultConsent];
       })();
     </script>
 

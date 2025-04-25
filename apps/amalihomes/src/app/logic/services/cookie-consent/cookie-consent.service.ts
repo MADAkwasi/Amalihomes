@@ -63,6 +63,7 @@ export class CookieConsentService {
   }
 
   public hasConsent(): boolean {
+    if (!isPlatformBrowser(this.platformId)) return true;
     return this.consentSettings.analytics_storage || this.consentSettings.ad_user_data;
   }
 
