@@ -31,6 +31,7 @@ import { YoutubeIconComponent } from '../svg-icons/youtube-icon/youtube-icon.com
     YoutubeIconComponent,
   ],
   templateUrl: './footer.component.html',
+  styleUrl: './footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {

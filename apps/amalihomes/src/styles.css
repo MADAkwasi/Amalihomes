@@ -117,14 +117,6 @@
   @apply translate-y-0 duration-200 opacity-100;
 }
 
-input.ng-invalid.ng-touched {
-  @apply border-red-500;
-}
-
-input:focus.ng-invalid.ng-touched {
-  @apply border-0 outline-red-500 outline;
-}
-
 .active-tab {
   @apply text-primary bg-primary-light rounded-md font-bold;
 }

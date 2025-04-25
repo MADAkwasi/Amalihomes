@@ -7,11 +7,11 @@ import { Store } from '@ngrx/store';
 import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
 import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
-import { AboutUsComponent } from '../../../shared-ui/components/about-us/about-us.component';
+import { ContactUsComponent } from '../../../shared-ui/components/contact-us/contact-us.component';
 
 @Component({
   selector: 'app-faq',
-  imports: [CommonModule, TabsComponent, HeroComponent, AboutUsComponent],
+  imports: [CommonModule, TabsComponent, HeroComponent, ContactUsComponent],
   templateUrl: './faq.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
