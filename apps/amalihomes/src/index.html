@@ -53,6 +53,20 @@
 
     <!-- Google Tag Manager -->
     <script>
+      !(function () {
+        const defaultConsent = {
+          event: 'consent',
+          consent_action: 'default',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+        };
+        window.dataLayer = [...window.dataLayer, defaultConsent] || [defaultConsent];
+      })();
+    </script>
+
+    <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });

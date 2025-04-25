@@ -7,4 +7,5 @@ export const environment = {
   // Convert to number
   SERVER_PORT: Number(`${process.env['SERVER_PORT']}`),
   STORY_BLOK_APIKEY: `${process.env['STORY_BLOK_APIKEY']}`,
+  SERVER_URL: `${process.env['SERVER_URL']}`,
 };
