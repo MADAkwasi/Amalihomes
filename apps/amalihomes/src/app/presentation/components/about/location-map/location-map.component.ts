@@ -1,4 +1,4 @@
-import { Component, OnInit, input } from '@angular/core';
+import { Component, OnInit, input, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
 
@@ -6,6 +6,7 @@ import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-hea
   selector: 'app-location-map',
   templateUrl: './location-map.component.html',
   imports: [ResponsiveHeadingComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationMapComponent implements OnInit {
   public location = input.required<string>();
