@@ -10,3 +10,4 @@ export * from './ui/icons/close/close-icon.component';
 export * from './ui/icons/info/info-icon.component';
 export * from './ui/icons/image/image-icon.component';
 export * from './ui/icons/warning/warning-icon.component';
+export * from './components/tab-button/tab-button.component';
