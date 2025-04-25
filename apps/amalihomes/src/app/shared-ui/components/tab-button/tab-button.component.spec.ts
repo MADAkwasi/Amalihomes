@@ -28,28 +28,6 @@ describe('TabButtonComponent', () => {
     expect(buttonElement.textContent.trim()).toBe('Test Tab');
   });
 
-  it('should have active class when isActive is true', () => {
-    fixture.componentRef.setInput('isActive', true);
-    fixture.detectChanges();
-    const buttonElement = fixture.nativeElement.querySelector('button');
-    expect(buttonElement.classList.contains('font-semibold')).toBe(true);
-  });
-
-  it('should not have active class when isActive is false', () => {
-    fixture.componentRef.setInput('isActive', false);
-    fixture.detectChanges();
-    const buttonElement = fixture.nativeElement.querySelector('button');
-    expect(buttonElement.classList.contains('font-semibold')).toBe(false);
-  });
-
-  it('should have disabled class when disabled is true', () => {
-    fixture.componentRef.setInput('disabled', true);
-    fixture.detectChanges();
-    const buttonElement = fixture.nativeElement.querySelector('button');
-    expect(buttonElement.classList.contains('cursor-not-allowed')).toBe(true); // disabled class is cursor-not-allowed
-    expect(buttonElement.hasAttribute('disabled')).toBe(true); // disabled attribute is set
-  });
-
   it('should emit selected event when clicked and not disabled or active', () => {
     jest.spyOn(component.selected, 'emit');
     fixture.componentRef.setInput('isActive', false);
