@@ -26,7 +26,9 @@ export class CookieBannerComponent implements OnInit {
   ].map((setting, index) => ({ ...setting, enabled: [1, 2, 3].includes(index) }));
 
   ngOnInit(): void {
-    this.document.body.style.overflow = 'hidden';
+    if (this.showBanner) {
+      this.document.body.style.overflow = 'hidden';
+    }
   }
 
   private updateSettings() {
