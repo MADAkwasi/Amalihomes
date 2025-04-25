@@ -1,7 +1,6 @@
-import { Component, input, signal, computed, OnInit } from '@angular/core';
+import { Component, input, signal, output, computed, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '../tab-button/tab-button.component';
-import { EventEmitter, Output } from '@angular/core';
 
 export interface TabItem {
   label: string;
@@ -14,6 +13,7 @@ export interface TabItem {
   standalone: true,
   imports: [CommonModule, TabButtonComponent],
   templateUrl: './tab-group.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabGroupComponent implements OnInit {
   public tabs = input<TabItem[]>([]);
@@ -22,7 +22,7 @@ export class TabGroupComponent implements OnInit {
   private selectedTabIdInternal = signal(this.selectedTabIdInput());
   public selectedTabId = computed(() => this.selectedTabIdInternal());
 
-  @Output() public tabChange = new EventEmitter<string>();
+  public tabChange = output<string | null>();
 
   onTabSelected(tabId: string): void {
     this.selectedTabIdInternal.set(tabId);

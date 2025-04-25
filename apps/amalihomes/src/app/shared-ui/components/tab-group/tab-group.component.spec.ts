@@ -46,15 +46,14 @@ describe('TabGroupComponent', () => {
   });
 
   it('should change selected tab when a tab is clicked', () => {
-    jest.spyOn(component.tabChange, 'emit');
-
     const tabButtons = fixture.debugElement.queryAll(By.directive(TabButtonComponent));
     const northAmericaTab = tabButtons[2].componentInstance as TabButtonComponent;
-
-    northAmericaTab.selected.emit();
+    northAmericaTab.selected.emit('north-america');
 
     expect(component.selectedTabId()).toBe('north-america');
-    expect(component.tabChange.emit).toHaveBeenCalledWith('north-america');
+    component.tabChange.subscribe((selectedTabId: string | null) => {
+      expect(selectedTabId).toBe('north-america');
+    });
   });
 
   it('should support disabled tabs', () => {

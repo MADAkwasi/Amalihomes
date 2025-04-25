@@ -1,12 +1,4 @@
-import {
-  Component,
-  Output,
-  EventEmitter,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, output, ChangeDetectorRef, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,13 +13,14 @@ export class TabButtonComponent {
   public readonly isActive = input<boolean>(false);
   public readonly disabled = input<boolean>(false);
 
-  @Output() public readonly selected = new EventEmitter<void>();
+  public readonly selected = output<string>();
 
   private readonly cdr = inject(ChangeDetectorRef);
 
   onClick(): void {
     if (!this.disabled() && !this.isActive()) {
-      this.selected.emit();
+      this.selected.emit(this.label());
+
       this.cdr.markForCheck();
     }
   }
