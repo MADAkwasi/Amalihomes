@@ -1,0 +1,9 @@
+<button
+  class="tab-button px-4 py-2 text-base rounded-md relative transition-all bg-transparent text-grayText border-none focus:outline-none hover:bg-black/5 aria-selected:bg-orange-100 aria-selected:text-primary aria-selected:font-semibold disabled:text-gray-400 disabled:cursor-not-allowed"
+  (click)="onClick()"
+  [attr.aria-selected]="isActive()"
+  [attr.disabled]="disabled() ? true : null"
+  type="button"
+>
+  {{ label() }}
+</button>
