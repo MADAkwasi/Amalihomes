@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ShowroomGridComponent, ShowroomsData } from './showroom-grid.component';
+import { ShowroomGridComponent } from './showroom-grid.component';
+import { ShowroomsData } from 'apps/amalihomes/src/app/logic/data/constants/about';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
 import { TabItem } from 'apps/amalihomes/src/app/shared-ui/components/tab-group/tab-group.component';
 import { By } from '@angular/platform-browser';
