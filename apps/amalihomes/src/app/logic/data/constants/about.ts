@@ -1,5 +1,20 @@
 import { ValuePropIconName } from '../../../../app/presentation/components/value-prop-icon/constants';
 
+export interface Showroom {
+  id: string;
+  name: string;
+  image: string;
+}
+
+export interface ShowroomsData {
+  [region: string]: Showroom[];
+}
+
+export interface StatItem {
+  value: string;
+  label: string;
+}
+
 export const teamMembers = {
   title: 'Global Presence',
   description:

@@ -3,17 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TabGroupComponent, TabItem } from 'apps/amalihomes/src/app/shared-ui/components/tab-group/tab-group.component';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
 import { ImageComponent } from '@amalihomes/shared';
-import { showroomsData } from 'apps/amalihomes/src/app/logic/data/constants/about';
-
-export interface Showroom {
-  id: string;
-  name: string;
-  image: string;
-}
-
-export interface ShowroomsData {
-  [region: string]: Showroom[];
-}
+import { showroomsData, ShowroomsData, Showroom } from 'apps/amalihomes/src/app/logic/data/constants/about';
 
 @Component({
   selector: 'app-showroom-grid',
