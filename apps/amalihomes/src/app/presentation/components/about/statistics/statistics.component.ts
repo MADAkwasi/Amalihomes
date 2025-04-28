@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
-import { StatItem } from 'apps/amalihomes/src/app/logic/data/constants/about';
+import { StatItem } from 'apps/amalihomes/src/app/logic/interfaces/about';
 
 @Component({
   selector: 'app-statistics',
