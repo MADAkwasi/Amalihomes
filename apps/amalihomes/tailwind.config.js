@@ -37,9 +37,14 @@ module.exports = {
           '40%': { opacity: 0.3 },
           '100%': { opacity: 1 },
         },
+        slideUp: {
+          '0%': { translateY: '50%' },
+          '100%': { translateY: '0%' },
+        },
       },
       animation: {
         skeleton: 'loading 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        slideUp: 'slideUp 0.5s linear 0.1s',
       },
       colors: {
         border: 'hsl(var(--border))',

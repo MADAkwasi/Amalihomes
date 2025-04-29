@@ -1,0 +1,84 @@
+<div
+  [ngClass]="{ 'h-full': expandChat }"
+  class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 scrollbar-hide md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
+>
+  @if(!expandChat){
+  <lib-button
+    buttonIdentifier="chatbot-start-btn"
+    type="tetiary"
+    title="Chat with sales personnel"
+    buttonStyles="rounded-full !bg-transparent relative !p-0 !py-0 !px-0"
+    (buttonClick)="handleExpandChat()"
+    class="absolute bottom-0 right-0 mb-5 md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
+  >
+    <lib-image
+      [src]="salesRepresentative().image"
+      alt="{{ salesRepresentative().name || '' }}"
+      class="w-[48px] h-[48px] !rounded-full"
+    />
+  </lib-button>
+  } @else {
+  <div
+    class="animate-slideUp relative scrollbar-hide bg-white shadow-xl overflow-auto w-full h-full md:max-w-[393px] md:max-h-[552px] md:min-h-[552px] md:h-3/4 md:rounded-3xl md:mb-5 flex flex-col justify-between"
+  >
+    <!--Header-->
+    <div class="sticky top-0 w-full px-4 bg-white pt-4 pb-1 flex justify-between items-center">
+      <div>
+        <button
+          data-btn-id="chatbot-go-back-btn"
+          aria-label="Go back"
+          *ngIf="showBackButton()"
+          class="rounded-full bg-primary-light w-10 h-10"
+        >
+          <lucide-angular
+            aria-hidden="true"
+            [img]="icons.ChevronLeft"
+            class="mx-auto my-auto text-primary"
+            [size]="16"
+          />
+        </button>
+      </div>
+      <button
+        data-btn-id="chatbot-exit-btn"
+        aria-label="Exit"
+        (click)="handleExpandChat()"
+        class="rounded-full bg-primary-light w-10 h-10"
+      >
+        <lucide-angular aria-hidden="true" [img]="icons.X" class="mx-auto my-auto text-primary" [size]="16" />
+      </button>
+    </div>
+
+    <div class="px-4 w-full md:w-[361px]">
+      <!-- Content Container Space -->
+      @switch (activeTab) { @case (ChatBotTabTypes.home) {
+      <app-chatbot-home [salesRepresentative]="salesRepresentative()" />
+      } @case (ChatBotTabTypes.chat) { } @case (ChatBotTabTypes.help) { } }
+    </div>
+
+    <!--Bottom Navigation-->
+    <div class="sticky bottom-0 bg-white w-full px-4 pb-4">
+      <div class="bg-primary-light h-14 flex items-center justify-around rounded-2xl mobile:rounded-none">
+        @for (tab of tabs; track tab) {
+        <lib-button
+          type="tetiary"
+          buttonIdentifier="chatbot-{{ tab }}-btn"
+          [title]="tabLabels[tab]"
+          (buttonClick)="navigateTo(tab)"
+          buttonStyles="!bg-transparent !p-0 !py-0 !px-0 !m-0 flex flex-col items-center justify-center"
+          class=""
+        >
+          @switch (tab) { @case (ChatBotTabTypes.home) {<app-chatbot-home-icon
+            [selected]="isSelected(ChatBotTabTypes.home)"
+          />} @case (ChatBotTabTypes.chat) {<app-chatbot-chat-icon [selected]="isSelected(ChatBotTabTypes.chat)" /> }
+          @case (ChatBotTabTypes.help) {<app-chatbot-question-icon [selected]="isSelected(ChatBotTabTypes.help)" /> } }
+          <div
+            class="w-2 h-2 rounded-full bg-primary transition-all duration-300 mx-auto"
+            [ngClass]="isSelected(tab) ? 'scale-100 opacity-100' : 'scale-0 opacity-0'"
+          ></div>
+        </lib-button>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>
