@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -13,7 +14,7 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, ImageComponent, TextDirective } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
-import { StoryblokImages } from '../../../types/storyblok';
+import { StoryblokImage } from '../../../types/storyblok';
 import { RouterModule } from '@angular/router';
 
 const DEFAULT_SCROLL_DISTANCE = 200;
@@ -25,10 +26,11 @@ const CARDS_GAP_DISTANCE = 16;
   imports: [CommonModule, ButtonComponent, LucideAngularModule, ImageComponent, TextDirective, RouterModule],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderComponent implements AfterViewInit {
   @ViewChildren('cardElements') private readonly cardElements!: QueryList<ElementRef>;
-  public readonly sliderImages = input<StoryblokImages[]>();
+  public readonly sliderImages = input<StoryblokImage[]>();
   public readonly categoryType = input<'products' | 'arrivals'>();
   public readonly title = input<string>();
   private readonly cardsContainerRef = viewChild<ElementRef<HTMLDivElement>>('cardsContainer');

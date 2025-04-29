@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Client, { ISbComponentType, ISbStory, ISbStoryParams } from 'storyblok-js-client';
+import Client, { ISbComponentType, ISbRichtext, ISbStory, ISbStoryParams, RichtextResolver } from 'storyblok-js-client';
 import { from, Observable } from 'rxjs';
 import { Localization } from '../../data/constants/localization';
 import { environment } from '../../../environments/environment';
@@ -12,6 +12,8 @@ export class StoryblokService {
     accessToken: environment.STORY_BLOK_APIKEY || '',
   });
 
+  private readonly richTextResolver = new RichtextResolver();
+
   public getStoryblokPage(
     slug: string,
     language: Localization['languageCode'] = 'en',
@@ -23,5 +25,9 @@ export class StoryblokService {
     });
 
     return from(stories);
+  }
+
+  public resolveRichText(richTextField: ISbRichtext): string {
+    return this.richTextResolver.render(richTextField);
   }
 }

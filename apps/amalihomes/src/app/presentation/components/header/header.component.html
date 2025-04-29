@@ -60,6 +60,7 @@
     [searchPlaceholer]="sectionData.inputPlaceholder"
     class="w-[100%] absolute"
     [class]="isMenuOpen() ? 'hidden lg:block' : ''"
+    [style.zIndex]="isSearching() ? '3' : ''"
   ></app-search-field>
 </header>
 

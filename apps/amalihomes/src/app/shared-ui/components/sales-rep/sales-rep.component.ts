@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject } from '@angular/core';
 import { MailComponent } from '../../../presentation/components/svg-icons/mail/mail.component';
 import { PhoneComponent } from '../../../presentation/components/svg-icons/phone/phone.component';
 import { TextDirective } from '../../directives/text/text.directive';
+import { Store } from '@ngrx/store';
+import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 
 @Component({
   selector: 'lib-sales-rep',
@@ -10,4 +13,23 @@ import { TextDirective } from '../../directives/text/text.directive';
   templateUrl: './sales-rep.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SaleRepComponent {}
+export class SaleRepComponent {
+  private readonly store = inject(Store);
+  private readonly selectedLocale = this.store.selectSignal(selectLocale);
+  private readonly salesRep = this.store.selectSignal(selectSection('contact'));
+  protected readonly curLocaleSalesRep = computed(() =>
+    this.salesRep()?.salesRep?.find(({ country }) => this.selectedLocale()?.country === country),
+  );
+
+  constructor() {
+    effect(() => {
+      return this.store.dispatch(
+        StoryblokPageActions.loadPage({
+          slug: 'faqs',
+          language: this.selectedLocale()?.languageCode ?? 'en',
+          version: 'draft',
+        }),
+      );
+    });
+  }
+}

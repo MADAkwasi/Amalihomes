@@ -12,7 +12,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
 import { ArrowLeft, ArrowRight, LucideAngularModule } from 'lucide-angular';
 import { SkeletonDirective } from '../../../logic/directives/skeleton/skeleton.directive';
-import { StoryblokImages } from '../../../types/storyblok';
+import { StoryblokImage } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-carousel',
@@ -21,7 +21,7 @@ import { StoryblokImages } from '../../../types/storyblok';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent implements OnDestroy {
-  public readonly carouselImages = input<StoryblokImages[]>([]);
+  public readonly carouselImages = input<StoryblokImage[]>([]);
   public readonly isImageAvailable = input<boolean>(false);
   protected readonly imagePositions = signal<number[]>([]);
   protected selectedIndex = signal(0);

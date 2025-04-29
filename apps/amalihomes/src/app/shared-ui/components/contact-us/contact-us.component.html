@@ -8,21 +8,23 @@
   >
     <div class="w-full lg:w-[40%] flex flex-col gap-12 md:w-[70%]">
       <span class="flex flex-col gap-3 text-center lg:text-left">
-        <h2 libText textType="heading2" class="text-white lg:w-[65%] md:text-4xl">More Questions? Contact us</h2>
-        <p libText textType="text-medium" class="text-white">Send us a message, and we’ll get back to you soon!</p>
+        <h2 libText textType="heading2" class="text-white lg:w-[65%] md:text-4xl">{{ contactUsContent()?.title }}</h2>
+        <p libText textType="text-medium" class="text-white">{{ contactUsContent()?.description }}</p>
       </span>
       <lib-sales-rep></lib-sales-rep>
     </div>
+
+    @if(formContent()){
     <form
       class="w-full md:w-[70%] lg:w-[40%] flex flex-col gap-6 bg-white rounded-md px-8 py-10"
       (ngSubmit)="onSubmit()"
       [formGroup]="contactForm"
     >
-      <h3 libText textType="heading3">Fill The Form Below</h3>
+      <h3 libText textType="heading3">{{ formContent()[0].heading }}</h3>
 
       <lib-text-input
-        placeholder="Full Name"
-        label="Name"
+        [placeholder]="formContent()[0].inputField[0].placeholder"
+        [label]="formContent()[0].inputField[0].label"
         [control]="contactFormControls.name"
         [error]="
           contactFormControls.name.invalid && (contactFormControls.name.touched || contactFormControls.name.dirty)
@@ -31,8 +33,8 @@
       ></lib-text-input>
 
       <lib-text-input
-        placeholder="Email"
-        label="Email"
+        [placeholder]="formContent()[0].inputField[1].placeholder"
+        [label]="formContent()[0].inputField[1].label"
         [control]="contactFormControls.email"
         [error]="
           contactFormControls.email.invalid && (contactFormControls.email.dirty || contactFormControls.email.touched)
@@ -41,10 +43,12 @@
       ></lib-text-input>
 
       <span class="flex flex-col gap-2">
-        <label for="message" libText textType="text-medium" class="text-black font-semibold">Message</label>
+        <label for="message" libText textType="text-medium" class="text-black font-semibold">{{
+          formContent()[0].inputField[2].label
+        }}</label>
         <textarea
           formControlName="message"
-          placeholder="Kindly type your message here..."
+          [placeholder]="formContent()[0].inputField[2].placeholder"
           rows="10"
           class="border px-4 py-3 border-border rounded-md active:outline-none focus:outline-none"
           [ngClass]="{
@@ -63,9 +67,13 @@
         </span>
       </span>
 
-      <lib-button buttonStyles="!w-[100%]" (buttonClick)="onSubmit()" buttonIdentifier="contact-us-submit-button"
-        >Submit</lib-button
+      <lib-button
+        buttonStyles="!w-[100%]"
+        (buttonClick)="onSubmit()"
+        [buttonIdentifier]="formContent()[0].submitBtn[0].identifier"
+        >{{ formContent()[0].submitBtn[0].buttonText }}</lib-button
       >
     </form>
+    }
   </div>
 </section>

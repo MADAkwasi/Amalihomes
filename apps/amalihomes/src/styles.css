@@ -120,3 +120,7 @@
 .active-tab {
   @apply text-primary bg-primary-light rounded-md font-bold;
 }
+
+ol {
+  @apply flex flex-col gap-4 py-4 list-decimal;
+}

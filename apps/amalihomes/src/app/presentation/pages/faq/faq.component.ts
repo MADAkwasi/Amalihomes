@@ -1,25 +1,36 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TabsComponent } from '../../components/faq-page-components/tabs/tabs.component';
 import { HeroComponent } from '../../../shared-ui/components/hero/hero.component';
-import { faqsData } from '../../../logic/data/constants/faqs';
 import { Store } from '@ngrx/store';
-import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
+import {
+  selectLocale,
+  selectPageLoadingState,
+  selectSection,
+} from '../../../logic/stores/selectors/storyblok.selectors';
 import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
-import { ContactUsComponent } from '../../../shared-ui/components/contact-us/contact-us.component';
 
 @Component({
   selector: 'app-faq',
-  imports: [CommonModule, TabsComponent, HeroComponent, ContactUsComponent],
+  imports: [CommonModule, TabsComponent, HeroComponent],
   templateUrl: './faq.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FaqComponent implements OnInit {
-  protected readonly tabsData = signal(faqsData);
   private readonly store = inject(Store);
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
+  protected readonly heroContent = this.store.selectSignal(selectSection('hero'));
+  protected readonly contactContent = this.store.selectSignal(selectSection('contact'));
+  protected readonly isLoading = this.store.selectSignal(selectPageLoadingState);
   private readonly platformId = inject(PLATFORM_ID);
+  protected readonly bgColor = computed(() => this.contactContent()?.bgColor?.trim() ?? null);
+  protected readonly bgImg = computed(() => this.contactContent()?.image?.[0]?.image ?? null);
+
+  protected readonly bgProps = computed(() => ({
+    bgColor: this.bgColor(),
+    bgImg: this.bgColor() ? null : this.bgImg(),
+  }));
 
   ngOnInit(): void {
     let langCode = '';

@@ -3,5 +3,8 @@
   <app-cookie-banner class="absolute top-0 left-0 right-0 z-20" />
   <ng-content></ng-content>
   <app-chatbot-navigation [salesRepresentative]="mockedSalesRep" />
+  @if(!isHomePage()){
+  <lib-contact-us [bgColor]="bgProps().bgColor" [bgImg]="bgProps().bgImg"></lib-contact-us>
+  }
 </div>
 <app-footer></app-footer>

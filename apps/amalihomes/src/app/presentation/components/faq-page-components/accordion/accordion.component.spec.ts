@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccordionComponent } from './accordion.component';
-import { FaqsAccordionData } from 'apps/amalihomes/src/app/logic/data/constants/faqs';
 
 describe('AccordionComponent', () => {
   let component: AccordionComponent;
   let fixture: ComponentFixture<AccordionComponent>;
 
-  const mockAccordionData: FaqsAccordionData[] = [
+  const mockAccordionData = [
     {
       question: 'What is your return policy?',
       answers: ['You can return within 30 days.'],

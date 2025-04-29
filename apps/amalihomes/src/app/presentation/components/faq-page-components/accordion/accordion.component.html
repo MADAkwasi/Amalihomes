@@ -9,13 +9,6 @@
   </p>
   <app-arrow-up [class]="!isOpen($index) ? 'rotate-180 duration-500' : 'rotate-270 duration-500'"></app-arrow-up>
 </button>
-<div class="px-6 bg-muted rounded-b-md">
-  @if(isOpen($index)){
-  <ol class="flex flex-col gap-4 py-4 list-decimal">
-    @for (answer of data.answers; track $index) {
-    <li libText textType="text-normal">{{ answer }}</li>
-    }
-  </ol>
-  }
-</div>
-}
+@if(isOpen($index)){
+<div class="px-6 bg-muted rounded-b-md" [innerHTML]="resolveAnswer(data.answer)"></div>
+} }

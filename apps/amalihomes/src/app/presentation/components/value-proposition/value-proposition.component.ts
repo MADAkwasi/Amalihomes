@@ -14,5 +14,8 @@ import { selectSection } from '../../../logic/stores/selectors/storyblok.selecto
 export class ValuePropositionComponent {
   private readonly store = inject(Store<ApplicationStore>);
   protected readonly meritData = this.store.selectSignal(selectSection('merits'));
-  protected readonly meritSectionImage = computed(() => this.meritData()?.image ?? '');
+  protected readonly meritSectionImage = computed(() => {
+    const images = this.meritData()?.image;
+    return images && images.length > 0 ? images[0].image : '';
+  });
 }
