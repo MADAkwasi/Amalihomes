@@ -43,9 +43,9 @@ describe('ChatbotNavigationComponent', () => {
 
   it('should return true for showBackButton when not on home tab and false when on home tab', () => {
     component['navigateTo'](ChatBotTabs.chat);
-    expect(component['showBackButton']()).toBe(true);
+    expect(component['showBackButton']).toBe(true);
     component['navigateTo'](ChatBotTabs.home);
-    expect(component['showBackButton']()).toBe(false);
+    expect(component['showBackButton']).toBe(false);
   });
 
   it('should return true for isSelected when a tab is active', () => {

@@ -1,0 +1,59 @@
+@if (!isSubmited) {
+<form class="w-full flex flex-col gap-3 bg-white rounded-md pb-5" (ngSubmit)="onSubmit()" [formGroup]="form">
+  <h3 libText textType="heading3" class="capitalize">{{ pageData.title }}</h3>
+  <p libText textType="text-normal" class="mb-4">{{ pageData.description }}</p>
+  <div class="relative w-full flex flex-col gap-3">
+    @for(fieldname of formInputFiledNames; track fieldname) {
+    <lib-text-input
+      [placeholder]="formData[fieldname].placeholder"
+      [label]="formData[fieldname].label"
+      [control]="getControl(fieldname)"
+      [error]="isErrored(fieldname)"
+      [errorMessage]="getErrorMessage(fieldname)"
+      containerStyles="!text-[15px]"
+      inputStyles="!text-sm"
+      [rightIcon]="selectorFieldNames.includes(fieldname)"
+      (handleFocus)="selectorFieldFocus(fieldname)"
+      (handleBlur)="selectorFieldBlur(fieldname)"
+    >
+      <lucide-angular [size]="22" [img]="icons.ChevronDown" class="text-icon" rightIcon />
+    </lib-text-input>
+    }
+    <div
+      *ngIf="showSelector"
+      class="absolute scrollbar-hide bg-white rounded shadow-gray-200 shadow-lg top-20 left-0 right-0 w-full max-h-[300px] overflow-y-auto"
+    >
+      <ng-content select="[selector]" />
+    </div>
+  </div>
+
+  <span class="flex flex-col gap-2">
+    <label for="message" libText textType="text-medium" class="text-black font-semibold !text-[15px]">Message</label>
+    <textarea
+      formControlName="message"
+      placeholder="Kindly type your message here..."
+      rows="5"
+      class="border-2 px-4 py-3 border-border rounded-md active:outline-none focus:outline-none text-sm"
+      [ngClass]="{
+            'border-red-500': isErrored(formFieldType.Message),
+            'border-gray-200': !isErrored(formFieldType.Message),
+          }"
+    ></textarea>
+    <span *ngIf="isErrored(formFieldType.Message)" class="flex gap-2 items-center">
+      <lucide-icon [img]="icons.CircleX" [size]="15" color="rgb(239 68 68)"></lucide-icon>
+      <p libText textType="text-small" class="text-red-500">
+        {{ getErrorMessage(formFieldType.Message) }}
+      </p>
+    </span>
+  </span>
+
+  <lib-button buttonStyles="!w-[100%]" (buttonClick)="onSubmit()" buttonIdentifier="contact-us-submit-button"
+    >Submit</lib-button
+  >
+</form>
+} @else {
+<div class="mx-4">
+  <h3 libText textType="heading3" class="capitalize mb-2 text-center">{{ pageData.thankyouTitle }}</h3>
+  <p libText textType="text-normal" class="text-center">{{ pageData.thankyouMessage }}</p>
+</div>
+}

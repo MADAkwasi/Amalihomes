@@ -15,7 +15,7 @@
       [ngClass]="{
       'with-left-icon': leftIcon(),
       'with-right-icon': rightIcon(),
-      
+
     }"
       [id]="id()"
       [type]="type()"
@@ -23,6 +23,8 @@
       [placeholder]="placeholder()"
       [formControl]="control()"
       [readonly]="disabled()"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
     />
 
     @if(rightIcon()) {
