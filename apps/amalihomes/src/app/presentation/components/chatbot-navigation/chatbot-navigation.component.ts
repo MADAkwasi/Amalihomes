@@ -9,6 +9,7 @@ import { ChatbotQuestionIconComponent } from '../svg-icons/chatbot-question-icon
 import { ChatbotHomeComponent } from '../chatbot-home/chatbot-home.component';
 import { mockedChatbotPages } from './mocked-data';
 import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-order-enquiry.component';
+import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatbot-general-enquiry.component';
 
 @Component({
   selector: 'app-chatbot-navigation',
@@ -22,6 +23,7 @@ import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-o
     ChatbotQuestionIconComponent,
     ChatbotHomeComponent,
     ChatbotOrderEnquiryComponent,
+    ChatbotGeneralEnquiryComponent,
   ],
   templateUrl: './chatbot-navigation.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

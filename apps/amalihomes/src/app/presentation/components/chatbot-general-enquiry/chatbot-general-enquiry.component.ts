@@ -1,30 +1,30 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatbotEnquiryComponent } from '../chatbot-enquiry/chatbot-enquiry.component';
-import { ChatBotEnquiryType } from '../../../types/chatbot';
-import { mockedOrders, Order } from './mocked-data';
 import { ButtonComponent, TextDirective } from '@amalihomes/shared';
+import { ChatBotEnquiryType } from '../../../types/chatbot';
+import { mockedQuestions } from './mocked-data';
 
 @Component({
-  selector: 'app-chatbot-order-enquiry',
+  selector: 'app-chatbot-general-enquiry',
   imports: [CommonModule, ChatbotEnquiryComponent, TextDirective, ButtonComponent],
-  templateUrl: './chatbot-order-enquiry.component.html',
+  templateUrl: './chatbot-general-enquiry.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatbotOrderEnquiryComponent {
+export class ChatbotGeneralEnquiryComponent {
   protected enquiryTypes = ChatBotEnquiryType;
-  protected orders = mockedOrders;
+  protected questions = mockedQuestions;
   protected selected = '';
-  protected selectorFieldValue = signal('');
-  protected filtedOrders = computed(() => {
+  private selectorFieldValue = signal('');
+  protected filtedQuestions = computed(() => {
     const value = this.selectorFieldValue().trim().toLowerCase();
-    if (value.length < 1) return this.orders;
-    return this.orders.filter((order) => order.orderId.toLowerCase().includes(value));
+    if (value.length < 1) return this.questions;
+    return this.questions.filter((question) => question.toLowerCase().includes(value));
   });
+  protected handleSelectedOrder(selectedQuestion: string) {
+    this.selected = selectedQuestion;
+  }
   protected handleSelectorFieldValueChange(value: string) {
     this.selectorFieldValue.set(value);
-  }
-  protected handleSelectedOrder(selectedOrder: Order) {
-    this.selected = selectedOrder.orderId;
   }
 }

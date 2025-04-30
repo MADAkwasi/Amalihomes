@@ -1,5 +1,5 @@
 <div
-  [ngClass]="{ 'h-full': expandChat }"
+  [ngClass]="{ 'h-full': expandChat, 'top-auto': !expandChat }"
   class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 scrollbar-hide md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
 >
   @if(!expandChat){
@@ -58,14 +58,15 @@
       />
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.orders) {
       <app-chatbot-order-enquiry />
-      } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.general) { } } @case (ChatBotTabTypes.chat) { } @case
-      (ChatBotTabTypes.help) { } }
+      } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.general) {
+      <app-chatbot-general-enquiry />
+      } } @case (ChatBotTabTypes.chat) { } @case (ChatBotTabTypes.help) { } }
     </div>
 
     <!--Bottom Navigation-->
     @if (showBottomNavigation) {
     <div class="sticky bottom-0 bg-white w-full px-4 pb-4">
-      <div class="bg-primary-light h-14 flex items-center justify-around rounded-2xl mobile:rounded-none">
+      <div class="bg-primary-light h-14 flex items-center justify-around rounded-2xl">
         @for (tab of tabs; track tab) {
         <lib-button
           type="tetiary"
