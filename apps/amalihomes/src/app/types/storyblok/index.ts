@@ -1,11 +1,11 @@
-import { ISbComponentType } from 'storyblok-js-client';
+import { ISbComponentType, ISbRichtext } from 'storyblok-js-client';
 import { ValuePropIconName } from '../../presentation/components/value-prop-icon/constants';
 
 export interface Section extends ISbComponentType<string> {
   title: string;
   description: string;
-  images?: StoryblokImages[];
-  image?: string;
+  images?: StoryblokImage[];
+  image: StoryblokImage[];
   buttonText?: string;
   buttons: Button[];
   items?: MeritItem[];
@@ -24,15 +24,20 @@ export interface Section extends ISbComponentType<string> {
   contactPhoneNumber?: string;
   privacyAcceptanceText?: string;
   linksSection: StoryblokRouteLink[];
+  tabs?: StoryblokTab[];
+  salesRep?: SalesRep[];
+  contactForm?: StoryblokForm[];
+  bgColor: string;
 }
 
 export interface Body extends ISbComponentType<string> {
   body?: Section[];
 }
 
-export interface StoryblokImages extends ISbComponentType<string> {
+export interface StoryblokImage extends ISbComponentType<string> {
   name: string;
   image: string;
+  filename?: string;
 }
 
 export interface MeritItem extends ISbComponentType<string> {
@@ -43,7 +48,7 @@ export interface MeritItem extends ISbComponentType<string> {
 
 export interface CategorySection extends ISbComponentType<string> {
   key: string;
-  items: StoryblokImages[];
+  items: StoryblokImage[];
   title: string;
 }
 
@@ -71,4 +76,33 @@ export interface StoryblokLink extends ISbComponentType<string> {
 export interface Button extends ISbComponentType<string> {
   buttonText: string;
   identifier: string;
+}
+
+export interface StoryblokTab extends ISbComponentType<string> {
+  title: string;
+  content: StoryblokAccordion[];
+}
+
+export interface StoryblokAccordion extends ISbComponentType<string> {
+  question: string;
+  answer: ISbRichtext;
+}
+
+export interface SalesRep extends ISbComponentType<string> {
+  name: string;
+  email: string;
+  country: string;
+  phoneNumber: string;
+  profilePic: StoryblokImage[];
+}
+
+export interface StoryblokInputField extends ISbComponentType<string> {
+  label: string;
+  placeholder: string;
+}
+
+export interface StoryblokForm extends ISbComponentType<string> {
+  heading: string;
+  submitBtn: Button[];
+  inputField: StoryblokInputField[];
 }

@@ -63,43 +63,48 @@ export const featuredData = {
     },
   ],
 };
-export const regions: Array<keyof typeof showroomsData> = ['Africa', 'Europe', 'North America', 'South America'];
+export const regions: Array<keyof typeof showroomsData.data> = ['Africa', 'Europe', 'North America', 'South America'];
 export const showroomsData = {
-  Africa: [],
-  Europe: [
-    {
-      id: 'germany',
-      name: 'Germany',
-      image: 'https://i.postimg.cc/pTmpqrvN/image.png',
-    },
-    {
-      id: 'belgium',
-      name: 'Belgium',
-      image: 'https://i.postimg.cc/RCnWtWGK/image.png',
-    },
-    {
-      id: 'switzerland',
-      name: 'Switzerland',
-      image: 'https://i.postimg.cc/L6thyGcs/image.png',
-    },
-    {
-      id: 'france',
-      name: 'France',
-      image: 'https://i.postimg.cc/wvRjDr5g/image.png',
-    },
-    {
-      id: 'italy',
-      name: 'Italy',
-      image: 'https://i.postimg.cc/GmMLVRqb/image.png',
-    },
-    {
-      id: 'spain',
-      name: 'Spain',
-      image: 'https://i.postimg.cc/QMH8rzy1/image.png',
-    },
-  ],
-  'North America': [],
-  'South America': [],
+  title: 'Visit Our Showrooms',
+  description:
+    'Experience the AmaliHomes difference firsthand at one of our global showrooms. Discover premium furniture, expert design advice, and stylish inspirations to transform your space. Step in today',
+  data: {
+    Africa: [],
+    Europe: [
+      {
+        id: 'germany',
+        name: 'Germany',
+        image: 'https://i.postimg.cc/pTmpqrvN/image.png',
+      },
+      {
+        id: 'belgium',
+        name: 'Belgium',
+        image: 'https://i.postimg.cc/RCnWtWGK/image.png',
+      },
+      {
+        id: 'switzerland',
+        name: 'Switzerland',
+        image: 'https://i.postimg.cc/L6thyGcs/image.png',
+      },
+      {
+        id: 'france',
+        name: 'France',
+        image: 'https://i.postimg.cc/wvRjDr5g/image.png',
+      },
+      {
+        id: 'italy',
+        name: 'Italy',
+        image: 'https://i.postimg.cc/GmMLVRqb/image.png',
+      },
+      {
+        id: 'spain',
+        name: 'Spain',
+        image: 'https://i.postimg.cc/QMH8rzy1/image.png',
+      },
+    ],
+    'North America': [],
+    'South America': [],
+  },
 };
 export const statsSection = [
   {

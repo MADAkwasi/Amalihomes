@@ -6,7 +6,7 @@ import { ApplicationStore } from '../../../logic/stores';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { RouterModule } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
-import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { selectPageLoadingState, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { Button } from '../../../types/storyblok';
 
 @Component({
@@ -18,6 +18,7 @@ import { Button } from '../../../types/storyblok';
 export class HomeHeroSectionComponent {
   private readonly store = inject(Store<ApplicationStore>);
   protected readonly heroContent = this.store.selectSignal(selectSection('hero'));
+  protected readonly isLoading = this.store.selectSignal(selectPageLoadingState);
   protected heroImages = computed(() => this.heroContent()?.images ?? []);
 
   protected getButtonData(btnId: string): Button {

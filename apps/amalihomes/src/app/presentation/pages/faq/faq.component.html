@@ -1,9 +1,14 @@
+@let heroData = heroContent();
+
 <main class="flex flex-col justify-around gap-10">
+  @if(!isLoading() && heroData) {
   <lib-hero
-    title="Frequently Asked Questions"
-    description="Find answers to common questions about our products, orders, delivery, and more. If you need further assistance, feel free to contact our support team. We're here to help!"
-    imageUrl="/images/faqs-hero.png"
+    [title]="heroData.title"
+    [description]="heroData.description"
+    [imageUrl]="heroData?.image?.[0]?.image"
   ></lib-hero>
-  <app-tabs class="page-horizontal-padding" [tabs]="tabsData()"></app-tabs>
-  <lib-about-us bgImg="/images/bg-contact-us.jpg"></lib-about-us>
+  } @else {
+  <div class="w-full h-[528px]" appSkeleton></div>
+  }
+  <app-tabs class="page-horizontal-padding"></app-tabs>
 </main>

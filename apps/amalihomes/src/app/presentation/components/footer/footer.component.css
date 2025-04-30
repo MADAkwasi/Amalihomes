@@ -1,0 +1,9 @@
+input.ng-invalid.ng-touched {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+
+input:focus.ng-invalid.ng-touched {
+  outline-style: 1px solid #ef4444;
+  border: 0;
+}

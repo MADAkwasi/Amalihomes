@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { AccordionComponent } from '../accordion/accordion.component';
-import { FaqsData } from 'apps/amalihomes/src/app/logic/data/constants/faqs';
+import { Store } from '@ngrx/store';
+import { selectSection } from 'apps/amalihomes/src/app/logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-tabs',
@@ -11,7 +12,9 @@ import { FaqsData } from 'apps/amalihomes/src/app/logic/data/constants/faqs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsComponent {
-  public readonly tabs = input.required<FaqsData[] | undefined>();
+  private readonly store = inject(Store);
+  protected readonly tabsContent = this.store.selectSignal(selectSection('navigationTabs'));
+  protected readonly tabsData = computed(() => this.tabsContent()?.tabs);
   protected readonly activeTab = signal(0);
 
   protected onSelectTab(index: number) {

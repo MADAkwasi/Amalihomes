@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export class HeroComponent {
   public readonly title = input.required<string>();
   public readonly description = input.required<string>();
-  public readonly imageUrl = input.required<string>();
+  public readonly imageUrl = input.required<string | undefined>();
 }
