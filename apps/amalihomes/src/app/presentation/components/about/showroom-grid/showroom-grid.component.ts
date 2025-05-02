@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, effect, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabGroupComponent, TabItem } from 'apps/amalihomes/src/app/shared-ui/components/tab-group/tab-group.component';
+import { TabGroupComponent } from 'apps/amalihomes/src/app/shared-ui/components/tab-group/tab-group.component';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
 import { ImageComponent } from '@amalihomes/shared';
-import { showroomsData } from 'apps/amalihomes/src/app/logic/data/constants/about';
-import { ShowroomsData, Showroom } from 'apps/amalihomes/src/app/logic/interfaces/about';
+import { Store } from '@ngrx/store';
+import { PLATFORM_ID } from '@angular/core';
+import { selectSection } from 'apps/amalihomes/src/app/logic/stores/selectors/storyblok.selectors';
+import { Showroom } from 'apps/amalihomes/src/app/types/storyblok';
 
 @Component({
   selector: 'app-showroom-grid',
@@ -13,40 +15,65 @@ import { ShowroomsData, Showroom } from 'apps/amalihomes/src/app/logic/interface
   templateUrl: './showroom-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShowroomGridComponent implements OnInit {
-  public showroomsData = input<ShowroomsData>(showroomsData.data);
+export class ShowroomGridComponent {
+  private readonly store = inject(Store);
+  private readonly platformId = inject(PLATFORM_ID);
+  public readonly data = this.store.selectSignal(selectSection('show_room'));
   public initialRegion = input<string | null>('Europe');
-  public showroomsTitle = input<string>(showroomsData.title);
-  public showroomsDescription = input<string>(showroomsData.description);
   public regionChange = output<string>();
   public showroomSelected = output<Showroom>();
 
-  public regionTabs = computed<TabItem[]>(() => {
-    return Object.keys(this.showroomsData()).map((region) => ({
-      id: region,
-      label: region,
-      disabled: false,
+  public showroomsData = computed(() => {
+    const data = this.data();
+    if (!data?.regionTabs) return [];
+
+    return data.regionTabs.map((region) => ({
+      regionId: region._uid,
+      regionName: region.tabName,
+      showrooms: region.showroomItem.map((showroom) => ({
+        id: showroom._uid,
+        name: showroom.countryName,
+        image: showroom.image,
+      })),
     }));
   });
 
+  public regionTabs = computed(() => {
+    const data = this.data();
+    if (!data?.regionTabs) return [];
+
+    const tabs = data.regionTabs.map((region) => {
+      const tab = {
+        id: region._uid,
+        label: region.tabName,
+        disabled: false,
+      };
+      return tab;
+    });
+    return tabs;
+  });
+
   public currentShowrooms = computed(() => {
-    const data = this.showroomsData();
-    const region = this.selectedRegion();
-    return region && data[region] ? data[region] : [];
+    const selected = this.selectedRegion();
+    return this.showroomsData().find((r) => r.regionId === selected)?.showrooms ?? [];
   });
 
   private selectedRegionInternal = signal<string | null>(null);
   public selectedRegion = computed(() => this.selectedRegionInternal());
 
-  ngOnInit(): void {
-    const initialRegion = this.initialRegion();
-    const availableRegions = Object.keys(this.showroomsData());
-
-    if (initialRegion && availableRegions.includes(initialRegion)) {
-      this.selectedRegionInternal.set(initialRegion);
-    } else if (availableRegions.length > 0) {
-      this.selectedRegionInternal.set(availableRegions[0]);
-    }
+  constructor() {
+    effect(() => {
+      const availableRegions = this.regionTabs();
+      const initialRegion = this.initialRegion();
+      const exhibutorId = this.showroomsData().sort((a, b) => b.showrooms.length - a.showrooms.length)[0]?.regionId;
+      if (availableRegions.length > 0) {
+        if (initialRegion && availableRegions.map((region) => region.label).includes(initialRegion)) {
+          this.selectedRegionInternal.set(exhibutorId);
+        } else {
+          this.selectedRegionInternal.set(availableRegions[0].label);
+        }
+      }
+    });
   }
 
   public onRegionChange(regionId: string | null): void {

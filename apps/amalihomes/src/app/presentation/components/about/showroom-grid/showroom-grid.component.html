@@ -1,5 +1,11 @@
+@let content = data();
+
 <div class="w-full flex flex-col gap-8 py-[64px] md:px-[32px] items-center">
-  <app-responsive-heading class="text-center" [title]="showroomsTitle()" [description]="showroomsDescription()" />
+  <app-responsive-heading
+    class="text-center"
+    [title]="content?.heading ?? ''"
+    [description]="content?.description ?? ''"
+  />
 
   <div class="flex flex-col gap-6 w-full px-4 sm:px-0">
     <app-tab-group
@@ -8,7 +14,7 @@
       (tabChange)="onRegionChange($event)"
     />
 
-    <div class="flex flex-wrap gap-6 justify-center w-full">
+    <div class="flex flex-wrap gap-6 w-full">
       @for (showroom of currentShowrooms(); track showroom.id) {
       <div
         class="w-full sm:w-[calc(50%-12px)] md:w-[calc(50%-12px)] lg:w-[310px] relative rounded-lg overflow-hidden shadow-lg cursor-pointer transition-transform"
@@ -16,7 +22,11 @@
         (keydown.enter)="onShowroomClick(showroom)"
         tabindex="0"
       >
-        <lib-image [src]="showroom.image" [alt]="showroom.name" class="w-full h-auto object-cover aspect-[4/5]" />
+        <lib-image
+          [src]="showroom.image.filename"
+          [alt]="showroom.name"
+          class="w-full h-auto object-cover aspect-[4/5]"
+        />
         <div
           class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/10 via-black/0 to-transparent h-1/3 flex flex-col justify-end p-4"
         >
