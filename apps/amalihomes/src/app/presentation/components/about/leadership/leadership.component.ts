@@ -1,9 +1,10 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageComponent } from '@amalihomes/shared';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
-import { teamMembers } from 'apps/amalihomes/src/app/logic/data/constants/about';
-
+import { Store } from '@ngrx/store';
+import { PLATFORM_ID } from '@angular/core';
+import { selectSection } from 'apps/amalihomes/src/app/logic/stores/selectors/storyblok.selectors';
 @Component({
   selector: 'app-leadership',
   standalone: true,
@@ -12,7 +13,7 @@ import { teamMembers } from 'apps/amalihomes/src/app/logic/data/constants/about'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LeadershipComponent {
-  public leadershipList = input(teamMembers.data);
-  public title = input(teamMembers.title);
-  public description = input(teamMembers.description);
+  private readonly store = inject(Store);
+  private readonly platformId = inject(PLATFORM_ID);
+  protected readonly data = this.store.selectSignal(selectSection('leadership_team'));
 }

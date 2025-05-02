@@ -1,18 +1,48 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeadershipComponent } from './leadership.component';
-import { ImageComponent } from '@amalihomes/shared';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { By } from '@angular/platform-browser';
-import { teamMembers } from 'apps/amalihomes/src/app/logic/data/constants/about';
 
 describe('LeadershipComponent', () => {
   let component: LeadershipComponent;
   let fixture: ComponentFixture<LeadershipComponent>;
+  let store: MockStore;
+
+  const initialState = {
+    storyblokPage: {
+      content: {
+        body: [
+          {
+            component: 'leadership_team',
+            heading: 'Meet Our Leaders',
+            description: 'The team behind the vision',
+            team: [
+              {
+                _uid: '1',
+                name: 'Jane Doe',
+                role: 'CEO',
+                image: { filename: 'jane.jpg' },
+              },
+              {
+                _uid: '2',
+                name: 'John Smith',
+                role: 'CTO',
+                image: { filename: 'john.jpg' },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LeadershipComponent],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(LeadershipComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -22,18 +52,22 @@ describe('LeadershipComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have the correct title and description', () => {
-    expect(component.title()).toBe('Global Presence');
-    expect(component.description()).toContain('AmaliHomes has expanded globally');
+  it('should render heading and description', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.textContent).toContain('Meet Our Leaders');
+    expect(compiled.textContent).toContain('The team behind the vision');
   });
 
-  it('should render the correct number of leadership cards', () => {
-    const imageEls = fixture.debugElement.queryAll(By.directive(ImageComponent));
-    expect(imageEls.length).toBe(teamMembers.data.length);
-  });
-  it('should render the heading and description in the DOM', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.textContent).toContain('Global Presence');
-    expect(compiled.textContent).toContain('AmaliHomes has expanded globally');
+  it('should render all leaders', () => {
+    const leaderEls = fixture.debugElement.queryAll(By.css('[data-testid="leader-card"]'));
+    expect(leaderEls.length).toBe(2);
+
+    const firstCardText = leaderEls[0].nativeElement.textContent;
+    const secondCardText = leaderEls[1].nativeElement.textContent;
+
+    expect(firstCardText).toContain('Jane Doe');
+    expect(firstCardText).toContain('CEO');
+    expect(secondCardText).toContain('John Smith');
+    expect(secondCardText).toContain('CTO');
   });
 });
