@@ -1,0 +1,20 @@
+<app-chatbot-enquiry
+  [formType]="enquiryTypes.general"
+  (selectorValueChanged)="handleSelectorFieldValueChange($event)"
+  [selectorValue]="selected"
+>
+  <ng-container selector>
+    @for (question of filtedQuestions(); track question) {
+    <lib-button
+      type="tetiary"
+      buttonIdentifier="chatbot-general-{{ question }}-enquiry"
+      buttonStyles="!p-3 w-full !justify-start flex !flex-col !items-start !gap-0 !bg-white hover:!bg-primary-light"
+      class="block !p-0"
+      (buttonClick)="handleSelectedOrder(question)"
+    >
+      <span libText textType="text-small" class="block font-normal !text-sm">{{ question }}</span>
+    </lib-button>
+
+    }
+  </ng-container>
+</app-chatbot-enquiry>

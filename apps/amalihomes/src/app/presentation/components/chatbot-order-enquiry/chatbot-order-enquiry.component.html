@@ -1,0 +1,21 @@
+<app-chatbot-enquiry
+  [formType]="enquiryTypes.orders"
+  (selectorValueChanged)="handleSelectorFieldValueChange($event)"
+  [selectorValue]="selected"
+>
+  <ng-container selector>
+    @for (order of filtedOrders(); track order.orderId) {
+    <lib-button
+      type="tetiary"
+      buttonIdentifier="chatbot-order-{{ order.orderId }}-enquiry"
+      buttonStyles="!p-3 w-full !justify-start flex !flex-col !items-start !gap-0 !bg-white hover:!bg-primary-light"
+      class="block !p-0"
+      (buttonClick)="handleSelectedOrder(order)"
+    >
+      <span libText textType="text-small" class="block !font-semibold uppercase !text-sm">{{ order.orderId }}</span>
+      <span libText textType="text-small" class="block !text-gray-400 font-normal !text-sm">{{ order.cost }}</span>
+    </lib-button>
+
+    }
+  </ng-container>
+</app-chatbot-enquiry>

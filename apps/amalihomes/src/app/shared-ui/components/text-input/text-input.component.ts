@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { LucideAngularModule, CircleX } from 'lucide-angular';
@@ -12,6 +12,8 @@ import { LucideAngularModule, CircleX } from 'lucide-angular';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent {
+  public readonly handleFocus = output<FocusEvent>();
+  public readonly handleBlur = output<FocusEvent>();
   public readonly placeholder = input('');
   public readonly id = input('');
   public readonly type = input('text');
@@ -33,4 +35,11 @@ export class InputComponent {
     if (this.disabled()) return `is-disabled ${base} `;
     return this.error() ? `${base} with-error` : this.warning() ? `${base} with-warning` : base;
   });
+
+  protected onFocus(event: FocusEvent) {
+    this.handleFocus.emit(event);
+  }
+  protected onBlur(event: FocusEvent) {
+    this.handleBlur.emit(event);
+  }
 }

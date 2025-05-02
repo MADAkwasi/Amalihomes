@@ -27,20 +27,16 @@
             aria-checked="false"
             [ariaChecked]="setting.enabled"
             class="flex items-center gap-2 mb-2"
-            (click)="handleSettingChange($index)"
+            (click)="handleSettingChange(setting.key)"
             [attr.data-btn-id]="`cookie-setting-${setting.label}-btn`"
           >
             <span
               [ngClass]="{ 'bg-primary': setting.enabled }"
               class="w-5 h-5 rounded border border-primary flex flex-col items-center justify-center"
             >
-              <lucide-angular
-                *ngIf="setting.enabled"
-                aria-hidden="true"
-                [img]="icons.Check"
-                [size]="14"
-                class="text-white"
-              />
+              @if (setting.enabled) {
+              <lucide-angular aria-hidden="true" [img]="icons.Check" [size]="14" class="text-white" />
+              }
             </span>
             <span libText textType="text-normal">
               {{ setting.label }}
@@ -52,19 +48,15 @@
             aria-checked="false"
             [ariaChecked]="setting.enabled"
             class="flex items-center gap-2 mb-2"
-            (click)="handleSettingChange($index)"
+            (click)="handleSettingChange(setting.key)"
           >
             <span
               [ngClass]="{ 'bg-primary': setting.enabled }"
               class="w-5 h-5 rounded border border-primary flex flex-col items-center justify-center"
             >
-              <lucide-angular
-                *ngIf="setting.enabled"
-                aria-hidden="true"
-                [img]="icons.Check"
-                [size]="14"
-                class="text-white"
-              />
+              @if (setting.enabled) {
+              <lucide-angular aria-hidden="true" [img]="icons.Check" [size]="14" class="text-white" />
+              }
             </span>
             <span libText textType="text-normal">
               {{ setting.label }}
@@ -90,7 +82,7 @@
 
         <div class="w-full md:w-auto">
           <lib-button
-            (buttonClick)="handleRejectAll()"
+            (buttonClick)="handleCookieAcceptance(acceptanceActions.rejectAll)"
             buttonIdentifier="cookie-banner-reject-all-btn"
             type="secondary"
             buttonStyles="w-full"
@@ -107,7 +99,7 @@
     [buttonIdentifier]="'close-cookie-banner-btn'"
     buttonStyles="size-10 flex justify-center items-center flex-col !bg-transparent !p-0"
     class="w-full md:w-auto flex justify-end"
-    (buttonClick)="handleBannerClose()"
+    (buttonClick)="handleCookieAcceptance(acceptanceActions.closeBanner)"
   >
     <lucide-angular aria-hidden="true" [img]="icons.X" [size]="20" class="text-[#5E718D]" />
   </lib-button>

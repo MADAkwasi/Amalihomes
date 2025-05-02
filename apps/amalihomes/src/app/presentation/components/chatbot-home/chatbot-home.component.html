@@ -14,9 +14,10 @@
   @for (enquiry of enquiries; track enquiry.key) {
   <lib-button
     type="tetiary"
-    [title]="enquiry.label"
+    title="Go to {{ enquiry.label }}"
     buttonIdentifier="chatbot-enquiry-{{ enquiry.key }}-btn"
     buttonStyles="!flex !flex-row !items-center !justify-start !bg-white !rounded-2xl !p-3 w-full text-left"
+    (buttonClick)="navigateTo(enquiry.key)"
   >
     @switch (enquiry.key) { @case (enquiryTypes.product) {
     <div class="w-10 h-10 rounded-full bg-primary-light flex flex-col justify-center items-center" aria-hidden="true">
