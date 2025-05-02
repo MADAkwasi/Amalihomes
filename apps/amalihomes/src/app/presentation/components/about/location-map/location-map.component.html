@@ -1,8 +1,7 @@
+@let content = data();
+
 <div class="w-full text-center flex flex-col items-center gap-8">
-  <app-responsive-heading
-    title="Global Presence"
-    description="AmaliHomes has expanded globally, bringing exceptional craftsmanship and timeless designs to families around the world. Experience comfort, quality, and style—wherever you are"
-  />
+  <app-responsive-heading [title]="content?.heading ?? ''" [description]="content?.description ?? ''" />
   <div class="w-full md:h-[60vh] lg:h-[50vh] h-[60vh] max-h-[614px] overflow-hidden">
     <iframe
       class="w-full h-full"

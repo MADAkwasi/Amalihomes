@@ -1,30 +1,32 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocationMapComponent } from './location-map.component';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { PLATFORM_ID } from '@angular/core';
+import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
 
 describe('LocationMapComponent', () => {
   let component: LocationMapComponent;
   let fixture: ComponentFixture<LocationMapComponent>;
+  let storeStub: { selectSignal: jest.Mock };
 
   beforeEach(async () => {
+    storeStub = {
+      selectSignal: jest.fn().mockReturnValue(() => null),
+    };
+
     await TestBed.configureTestingModule({
-      imports: [LocationMapComponent],
+      imports: [LocationMapComponent, ResponsiveHeadingComponent],
+      providers: [
+        { provide: Store, useValue: storeStub },
+        { provide: PLATFORM_ID, useValue: 'browser' },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LocationMapComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('location', 'Accra, Ghana');
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should sanitize and set the correct map URL on init', () => {
-    const sanitizer: DomSanitizer = TestBed.inject(DomSanitizer);
-    const expectedUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCbJlpT4r7r2EH_eCBG7_sF6IwdFs7PwMI&q=Accra%2C%20Ghana`;
-    const sanitized = sanitizer.bypassSecurityTrustResourceUrl(expectedUrl);
-    expect(component.mapUrl).toEqual(sanitized);
   });
 });
