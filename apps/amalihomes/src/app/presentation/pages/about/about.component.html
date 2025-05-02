@@ -1,10 +1,10 @@
-@let heroContent = heroData(); @if(!isLoading()) {
+@if(!isLoading()) {
 <main class="">
-  @if(!isLoading() && heroContent) {
+  @if(!isLoading() && heroContent()) {
   <lib-hero
-    [title]="heroContent.title"
-    [description]="heroContent.description"
-    [imageUrl]="heroContent?.image?.[0]?.image"
+    [title]="heroContent()?.title ?? ''"
+    [description]="heroContent()?.description ?? ''"
+    [imageUrl]="heroContent()?.image?.[0]?.image"
   ></lib-hero>
   } @else {
   <div class="w-full h-[528px]" appSkeleton></div>

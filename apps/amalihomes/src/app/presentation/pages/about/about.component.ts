@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { StatisticsComponent } from '../../components/about/statistics/statistics.component';
 import { FeaturedComponent } from '../../components/about/featured/featured.component';
@@ -27,14 +27,18 @@ import { HeroComponent } from '../../../shared-ui/components/hero/hero.component
     HeroComponent,
   ],
   templateUrl: './about.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent implements OnInit {
-  public location = 'Amalitech, Ghana';
+  protected location = 'Amalitech, Ghana';
   private readonly store = inject(Store);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   protected readonly isLoading = this.store.selectSignal(selectPageLoadingState);
   protected readonly heroData = this.store.selectSignal(selectSection('hero'));
+  protected readonly heroContent = computed(() => {
+    return this.heroData();
+  });
 
   ngOnInit(): void {
     let langCode = '';
