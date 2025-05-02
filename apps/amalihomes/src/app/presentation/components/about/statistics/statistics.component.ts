@@ -1,7 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
-import { StatItem } from 'apps/amalihomes/src/app/logic/interfaces/about';
+import { Store } from '@ngrx/store';
+import { PLATFORM_ID } from '@angular/core';
+import { selectSection } from 'apps/amalihomes/src/app/logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-statistics',
@@ -10,11 +12,7 @@ import { StatItem } from 'apps/amalihomes/src/app/logic/interfaces/about';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatisticsComponent {
-  // this is just a mocked data, in the future we will get this data from storyblok
-  stats: StatItem[] = [
-    { value: '30+', label: 'Years of Excellence' },
-    { value: '15,000+', label: 'Clients' },
-    { value: '12', label: 'Countries' },
-    { value: '98%', label: 'Satisfied clients' },
-  ];
+  private readonly store = inject(Store);
+  private readonly platformId = inject(PLATFORM_ID);
+  public data = this.store.selectSignal(selectSection('aboutLandingSection'));
 }
