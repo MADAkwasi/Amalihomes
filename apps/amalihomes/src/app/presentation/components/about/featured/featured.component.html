@@ -1,8 +1,6 @@
-@let content = data(); @if (content) {
 <div class="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-stretch py-[64px] md:px-[32px]">
-  <!-- Left Side: Heading + Value Props -->
   <div class="w-full lg:w-1/2 flex flex-col gap-6 lg:gap-8">
-    <app-responsive-heading [title]="content?.title ?? ''" [description]="content?.description ?? ''" />
+    <app-responsive-heading [title]="data()?.title ?? ''" [description]="data()?.description ?? ''" />
 
     <div class="flex flex-wrap gap-4 justify-between">
       @for (item of data()?.items; track item._uid) {
@@ -16,14 +14,11 @@
       }
     </div>
   </div>
-
-  <!-- Right Side: Image -->
   <div class="w-full lg:w-1/2 flex justify-end">
     <div class="w-full lg:w-[32rem] h-full flex flex-col justify-stretch">
       <div class="h-full bg-muted rounded-xl overflow-hidden">
-        <lib-image alt="featured section" class="object-cover w-full h-full" [src]="content.image_url ?? ''" />
+        <lib-image alt="featured section" class="object-cover w-full h-full" [src]="data()?.image_url ?? ''" />
       </div>
     </div>
   </div>
 </div>
-}
