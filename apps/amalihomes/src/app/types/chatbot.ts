@@ -1,3 +1,5 @@
+import { FormControl } from '@angular/forms';
+
 export interface ChatBotSalesRep {
   name: string;
   image: string;
@@ -14,3 +16,33 @@ export enum ChatBotEnquiryType {
   orders = 'orders',
   general = 'general',
 }
+
+export enum EnquiryFormFieldsType {
+  Orders = 'orderId',
+  Question = 'question',
+  Email = 'email',
+  Subject = 'subject',
+  Message = 'message',
+}
+
+export type EnquiryPageData = {
+  title: string;
+  description: string;
+  thankyouMessage: string;
+  thankyouTitle: string;
+};
+export type EnquiryFormType = Record<EnquiryFormFieldsType, FormControl<string | null>>;
+
+export const orderEnquiryFormFields: EnquiryFormFieldsType[] = [
+  EnquiryFormFieldsType.Orders,
+  EnquiryFormFieldsType.Email,
+  EnquiryFormFieldsType.Subject,
+  EnquiryFormFieldsType.Message,
+];
+
+export const generalEnquiryFormFields: EnquiryFormFieldsType[] = [
+  EnquiryFormFieldsType.Question,
+  EnquiryFormFieldsType.Email,
+  EnquiryFormFieldsType.Subject,
+  EnquiryFormFieldsType.Message,
+];

@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('CookieBannerComponent', () => {
   let component: CookieBannerComponent;
   let fixture: ComponentFixture<CookieBannerComponent>;
+  (window as any).gtag = jest.fn();
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,12 +22,6 @@ describe('CookieBannerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should hide cookie banner', () => {
-    component['showBanner'] = true;
-    component['handleBannerClose']();
-    expect(component['showBanner']).toBe(false);
-  });
-
   it('should expand and show cookie settings list', () => {
     component['showBanner'] = true;
     component['settingsExpanded'] = false;
@@ -34,7 +29,13 @@ describe('CookieBannerComponent', () => {
     expect(component['settingsExpanded']).toBe(true);
   });
 
-  it('should save and hide cookie settings list', () => {
+  it('should hide cookie banner', () => {
+    component['showBanner'] = true;
+    component['handleBannerClose']();
+    expect(component['showBanner']).toBe(false);
+  });
+
+  it('should save and close cookie banner', () => {
     component['showBanner'] = true;
     component['settingsExpanded'] = true;
     component['handleSettingsToggle']();
@@ -43,9 +44,8 @@ describe('CookieBannerComponent', () => {
   });
 
   it('should toggle cookie setting checkbox', () => {
-    const index = 0;
-    const initialEnabled = component['availableSettings'][index].enabled;
-    component['handleSettingChange'](index);
-    expect(component['availableSettings'][index].enabled).toBe(!initialEnabled);
+    const initialEnabled = component['cookieSettings'].functionality;
+    component['handleSettingChange']('functionality');
+    expect(component['cookieSettings'].functionality).toBe(!initialEnabled);
   });
 });

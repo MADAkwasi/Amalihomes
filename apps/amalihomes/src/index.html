@@ -53,17 +53,32 @@
 
     <!-- Google Tag Manager -->
     <script>
-      !(function () {
-        const defaultConsent = {
-          event: 'consent',
-          consent_action: 'default',
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      function setDefaultConsent() {
+        gtag('consent', 'default', {
           ad_storage: 'denied',
           ad_user_data: 'denied',
           ad_personalization: 'denied',
           analytics_storage: 'denied',
-        };
-        window.dataLayer = window.dataLayer ? [...window.dataLayer, defaultConsent] : [defaultConsent];
-      })();
+          functionality_storage: 'denied',
+          security_storage: 'denied',
+        });
+      }
+
+      if (localStorage.getItem('user_consent_settings') === null) {
+        setDefaultConsent();
+      } else {
+        try {
+          const userConsent = JSON.parse(localStorage.getItem('user_consent_settings'));
+          gtag('consent', 'default', userConsent);
+        } catch (error) {
+          setDefaultConsent();
+          localStorage.removeItem('user_consent_settings');
+        }
+      }
     </script>
 
     <script>
