@@ -20,16 +20,4 @@ export class SaleRepComponent {
   protected readonly curLocaleSalesRep = computed(() =>
     this.salesRep()?.salesRep?.find(({ country }) => this.selectedLocale()?.country === country),
   );
-
-  constructor() {
-    effect(() => {
-      return this.store.dispatch(
-        StoryblokPageActions.loadPage({
-          slug: 'faqs',
-          language: this.selectedLocale()?.languageCode ?? 'en',
-          version: 'draft',
-        }),
-      );
-    });
-  }
 }
