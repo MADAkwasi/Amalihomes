@@ -1,17 +1,1 @@
-@switch (iconName()) { @case ('award') {
-<app-home-award-icon />
-} @case ('couch') {
-<app-home-couch-icon />
-} @case ('truck') {
-<app-home-truck-icon />
-} @case ('money-bag') {
-<app-home-money-bag-icon />
-} @case ('medal'){
-<app-featured-medal-icon />
-} @case ('badge') {
-<app-featured-badge-icon />
-} @case ('star-trophy') {
-<app-featured-trophy-icon />
-} @case ('recycle') {
-<app-featured-recycle-icon />
-} }
+<img alt="merit" [src]="icon()" />

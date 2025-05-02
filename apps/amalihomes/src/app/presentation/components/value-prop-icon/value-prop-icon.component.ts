@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { ValuePropIconName } from './constants';
 import {
   HomeAwardIconComponent,
   HomeCouchIconComponent,
@@ -29,5 +28,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ValuePropIconComponent {
-  public readonly iconName = input.required<ValuePropIconName>();
+  public readonly icon = input.required<string>();
 }
