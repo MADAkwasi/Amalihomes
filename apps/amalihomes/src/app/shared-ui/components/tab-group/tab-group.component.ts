@@ -1,12 +1,7 @@
-import { Component, input, signal, output, computed, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, signal, output, computed, ChangeDetectionStrategy, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabButtonComponent } from '../tab-button/tab-button.component';
-
-export interface TabItem {
-  label: string;
-  id: string;
-  disabled?: boolean;
-}
+import { TabItem } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-tab-group',
@@ -15,7 +10,7 @@ export interface TabItem {
   templateUrl: './tab-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TabGroupComponent implements OnInit {
+export class TabGroupComponent {
   public tabs = input<TabItem[]>([]);
   public selectedTabIdInput = input<string>();
 
@@ -29,9 +24,11 @@ export class TabGroupComponent implements OnInit {
     this.tabChange.emit(tabId);
   }
 
-  ngOnInit(): void {
-    if (this.selectedTabIdInput()) {
-      this.selectedTabIdInternal.set(this.selectedTabIdInput());
-    }
+  constructor() {
+    effect(() => {
+      if (this.selectedTabIdInput()) {
+        this.selectedTabIdInternal.set(this.selectedTabIdInput());
+      }
+    });
   }
 }
