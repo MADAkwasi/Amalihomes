@@ -14,10 +14,10 @@ export const selectPageError = createSelector(selectStoryblokPageState, (state) 
 
 export const selectLocale = createSelector(selectStoryblokPageState, (state) => state.locale);
 
-export const selectSelectedSlugAndVersion = createSelector(selectStoryblokPageState, (state: StoryblokPageState) => ({
+export const selectSelectedSlugAndVersion = createSelector(selectStoryblokPageState, (state) => ({
   slug: state.page,
   version: draft,
 }));
 
 export const selectSection = (section: string) =>
-  createSelector(selectStoryblokPageState, (state) => state.content?.body?.find((name) => name.component === section));
+  createSelector(selectPageContent, (state) => state?.body?.find((name) => name.component === section));

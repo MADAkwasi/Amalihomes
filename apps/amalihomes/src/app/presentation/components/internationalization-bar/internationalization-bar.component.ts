@@ -15,7 +15,7 @@ import { Globe, LucideAngularModule } from 'lucide-angular';
 import { InformationCircleIconComponent } from '../svg-icons';
 import { Locale } from '../../../types/storyblok';
 import { Store } from '@ngrx/store';
-import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
+import { selectLocale, selectSelectedSlugAndVersion } from '../../../logic/stores/selectors/storyblok.selectors';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { debounceTime } from 'rxjs/operators';
@@ -41,6 +41,7 @@ export class InternationalizationBarComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   public readonly locale = input.required<Locale[]>();
   protected readonly userLocale = this.store.selectSignal(selectLocale);
+  private readonly currentPage = this.store.selectSignal(selectSelectedSlugAndVersion);
   protected readonly localization = signal(localization);
   protected readonly countries = signal(countries);
   protected readonly languages = signal(languages);
@@ -112,9 +113,9 @@ export class InternationalizationBarComponent implements OnInit {
 
     this.store.dispatch(
       StoryblokPageActions.loadPage({
-        slug: 'home',
+        slug: this.currentPage().slug,
         language,
-        version: 'draft',
+        version: this.currentPage().version,
       }),
     );
   }

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ValuePropItemComponent } from './value-prop-item.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ValuePropIconName } from '../value-prop-icon/constants';
 
 describe('ValuePropItemComponent', () => {
   let component: ValuePropItemComponent;
@@ -17,7 +16,7 @@ describe('ValuePropItemComponent', () => {
     component = fixture.componentInstance;
     fixture.componentRef.setInput('meritDescription', 'Test Description');
     fixture.componentRef.setInput('meritTitle', 'Test Title');
-    fixture.componentRef.setInput('iconName', ValuePropIconName.Award);
+    fixture.componentRef.setInput('icon', 'https://example.com/icon.svg');
     fixture.detectChanges();
   });
 
