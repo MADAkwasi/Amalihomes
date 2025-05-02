@@ -1,13 +1,11 @@
-@let content = data();
-
 <div class="w-full flex flex-col gap-8 py-[64px] md:px-[32px] items-center">
   <app-responsive-heading
     class="text-center"
-    [title]="content?.heading ?? ''"
-    [description]="content?.description ?? ''"
+    [title]="content()?.heading ?? ''"
+    [description]="content()?.description ?? ''"
   />
   <div class="flex gap-6 justify-start flex-wrap w-full px-4 sm:px-0">
-    @for (leader of content?.team; track leader._uid) {
+    @for (leader of content()?.team; track leader._uid) {
     <div
       class="w-full sm:w-[calc(50%-12px)] md:w-[calc(50%-12px)] lg:w-[310px] relative rounded-lg overflow-hidden shadow-lg"
       data-testid="leader-card"
