@@ -14,5 +14,5 @@ import { selectSection } from 'apps/amalihomes/src/app/logic/stores/selectors/st
 export class StatisticsComponent {
   private readonly store = inject(Store);
   private readonly platformId = inject(PLATFORM_ID);
-  public data = this.store.selectSignal(selectSection('aboutLandingSection'));
+  public content = this.store.selectSignal(selectSection('aboutLandingSection'));
 }
