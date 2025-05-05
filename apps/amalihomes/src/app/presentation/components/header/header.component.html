@@ -1,11 +1,11 @@
-@let sectionData = data();
-<header *ngIf="sectionData">
-  <app-internationalization-bar [locale]="sectionData.locale"></app-internationalization-bar>
+@if (data()) {
+<header class="relative">
+  <app-internationalization-bar [locale]="data()!.locale"></app-internationalization-bar>
   <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding">
     <a routerLink="/" title="Home">
       <app-logo />
     </a>
-    <app-navlinks [navLinks]="sectionData.navLinks" class="hidden lg:flex"></app-navlinks>
+    <app-navlinks [navLinks]="data()!.navLinks" class="hidden lg:flex"></app-navlinks>
 
     <span class="flex items-center">
       <lib-button
@@ -26,9 +26,7 @@
       <app-user-icon />
 
       }@else {
-      <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
-        sectionData.buttonText
-      }}</lib-button>
+      <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{ data()?.buttonText }}</lib-button>
       }
 
       <lib-button
@@ -52,21 +50,21 @@
   <app-menu
     *ngIf="isMenuOpen()"
     [isAuthenticated]="isAuthenticated"
-    [navLinks]="sectionData.navLinks"
-    [placeholder]="sectionData.inputPlaceholder"
-    [authBtn]="sectionData.buttonText"
+    [navLinks]="data()!.navLinks"
+    [placeholder]="data()?.inputPlaceholder"
+    [authBtn]="data()?.buttonText"
   ></app-menu>
   <app-search-field
-    [searchPlaceholer]="sectionData.inputPlaceholder"
+    [searchPlaceholer]="data()?.inputPlaceholder"
     class="w-[100%] absolute"
     [class]="isMenuOpen() ? 'hidden lg:block' : ''"
     [style.zIndex]="isSearching() ? '3' : ''"
   ></app-search-field>
+  <app-cookie-banner class="absolute top-0 left-0 right-0 z-20 mt-[125px]" />
 </header>
-
+} @else {
 <!-- Displays loading skeletons while header data is fetched -->
 <div
-  *ngIf="!sectionData"
   class="flex justify-between items-center bg-white border-b border-b-gray-200 page-horizontal-padding pb-3 pt-[5rem] overflow-x-hidden"
 >
   <div appSkeleton class="w-24 h-7 rounded-md"></div>
@@ -79,3 +77,4 @@
   </div>
   <div appSkeleton class="w-24 h-11 rounded-md"></div>
 </div>
+}

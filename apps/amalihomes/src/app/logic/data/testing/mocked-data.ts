@@ -12,3 +12,27 @@ export const mockedTestImageData = [
   { id: '11', image: 'image11.jpg', name: 'Image 11' },
   { id: '12', image: 'image12.jpg', name: 'Image 12' },
 ];
+
+export const mockedStore = {
+  page: '',
+  isFetchingContent: false,
+  content: {
+    body: [
+      {
+        component: 'cookie_consent_banner',
+        cookie_settings: [{ component: 'cookie_settings', functionality: 'Functionality', analytics: 'Analytics' }],
+        banner_title: 'Cookie Banner Title',
+        cmp_partner_badge: 'CMP Partner Badge',
+        cmp_badge_alt_text: 'CMP Badge Alt Text',
+        banner_message: 'Banner Message',
+        list_title: 'List Title',
+        expand_btn_text: 'Expand Button Text',
+        expanded_btn_text: 'Expanded Button Text',
+        reject_all_btn_text: 'Reject All Button Text',
+        close_banner_label: 'Close Banner Label',
+      },
+    ],
+  },
+  locale: 'en',
+  error: null,
+};

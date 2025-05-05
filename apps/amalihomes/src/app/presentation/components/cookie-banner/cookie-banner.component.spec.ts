@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CookieBannerComponent } from './cookie-banner.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideMockStore } from '@ngrx/store/testing';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
+import { mockedStore } from '../../../logic/data/testing/mocked-data';
 
 describe('CookieBannerComponent', () => {
   let component: CookieBannerComponent;
@@ -11,6 +14,16 @@ describe('CookieBannerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CookieBannerComponent],
       schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        provideMockStore({
+          selectors: [
+            {
+              selector: selectStoryblokPageState,
+              value: mockedStore,
+            },
+          ],
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CookieBannerComponent);
@@ -44,8 +57,8 @@ describe('CookieBannerComponent', () => {
   });
 
   it('should toggle cookie setting checkbox', () => {
-    const initialEnabled = component['cookieSettings'].functionality;
+    const initialEnabled = component['cookieSettings']().functionality;
     component['handleSettingChange']('functionality');
-    expect(component['cookieSettings'].functionality).toBe(!initialEnabled);
+    expect(component['cookieSettings']().functionality).toBe(!initialEnabled);
   });
 });

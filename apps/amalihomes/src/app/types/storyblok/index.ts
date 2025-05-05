@@ -1,4 +1,5 @@
 import { ISbComponentType, ISbRichtext } from 'storyblok-js-client';
+import { CookieConsent } from '../cookies';
 
 export interface Section extends ISbComponentType<string> {
   title: string;
@@ -28,6 +29,20 @@ export interface Section extends ISbComponentType<string> {
   salesRep?: SalesRep[];
   contactForm?: StoryblokForm[];
   bgColor: string;
+
+  // Cookie Banner
+  cookie_settings: (Record<keyof CookieConsent, string> & { component: string })[];
+  banner_title: string;
+  cmp_partner_badge: string;
+  cmp_badge_alt_text: string;
+  banner_message: string;
+  list_title: string;
+  expand_btn_text: string;
+  expanded_btn_text: string;
+  reject_all_btn_text: string;
+  close_banner_label: string;
+
+  // About page
   aboutStatistics?: StatSection[];
   aboutFeatured?: Merits[];
   statistics?: StatItem[];

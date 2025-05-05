@@ -14,6 +14,7 @@ import { selectSection } from '../../../logic/stores/selectors/storyblok.selecto
 import { InternationalizationBarComponent } from '../internationalization-bar/internationalization-bar.component';
 import { UserIconComponent } from '../svg-icons/user-icon/userIcon.component';
 import { LogoComponent } from '../svg-icons/logo/logo.component';
+import { CookieBannerComponent } from '../cookie-banner/cookie-banner.component';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,7 @@ import { LogoComponent } from '../svg-icons/logo/logo.component';
     InternationalizationBarComponent,
     UserIconComponent,
     LogoComponent,
+    CookieBannerComponent,
   ],
   templateUrl: './header.component.html',
   standalone: true,

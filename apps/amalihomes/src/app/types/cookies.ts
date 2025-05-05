@@ -26,26 +26,10 @@ export interface CookieConsent {
   unclassified: boolean;
 }
 
-export const CookieConsentLabelKeys: (keyof CookieConsent)[] = [
-  'testStrict',
-  'performance',
-  'targeting',
-  'functionality',
-  'unclassified',
-];
-
 export enum CookieAcceptanceActions {
   rejectAll = 'reject_all',
   saveSettings = 'save_settings',
   closeBanner = 'close_banner',
-}
-
-export enum CookieConsentLabels {
-  targeting = 'Targeting',
-  performance = 'Performance',
-  functionality = 'Functionality',
-  unclassified = 'Unclassified',
-  testStrict = 'Test Strict',
 }
 
 declare global {
