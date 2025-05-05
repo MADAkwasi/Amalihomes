@@ -9,7 +9,7 @@
       <app-value-prop-item
         class="w-fit md:w-1/2 flex-shrink-0"
         [ngClass]="{ 'md:pr-6': $index % 2 === 0 }"
-        [iconName]="item.iconName"
+        [icon]="item.icon.filename"
         [meritDescription]="item.description"
         [meritTitle]="item.title"
       />
@@ -20,7 +20,7 @@
     <div class="w-full h-full flex flex-col justify-center items-center">
       <div class="bg-muted rounded-xl overflow-hidden">
         <lib-image
-          [src]="meritSectionImage()"
+          [src]="sectionData.image_url ?? ''"
           alt="{{ 'Merits section image' }}"
           class="object-cover home-merits-image"
         />

@@ -20,8 +20,19 @@ app.use(
   }),
 );
 
+if (!environment.PRODUCTION) {
+  const devBlockingRequests = ['/null'];
+
+  app.get(devBlockingRequests, (req, res) => res.status(404).end(`404 Not Found`));
+}
+
 // Handle all other request using angular router
-app.use(angularAppRouter);
+app.get('*', angularAppRouter);
+
+// Handle application errors errors
+app.use((err: any, req: any, res: any, next: any) => {
+  res.status(500).end();
+});
 
 // Start the server if this module is the main entry point.
 if (isMainModule(import.meta.url)) {

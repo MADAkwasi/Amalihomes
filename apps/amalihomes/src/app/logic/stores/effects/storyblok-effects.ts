@@ -31,7 +31,9 @@ export class StoryblokEffects {
             const langCode = this.selectedLocale()?.languageCode ?? language;
 
             return this.storyblokService.getStoryblokPage(slug, langCode, version).pipe(
-              map((story) => StoryblokPageActions.loadPageSuccess({ story: story.data.story })),
+              map((story) => {
+                return StoryblokPageActions.loadPageSuccess({ story: story.data.story });
+              }),
               catchError((error) => of(StoryblokPageActions.loadPageFailure({ error }))),
             );
           }),

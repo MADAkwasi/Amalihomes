@@ -1,11 +1,11 @@
 import { ISbComponentType, ISbRichtext } from 'storyblok-js-client';
-import { ValuePropIconName } from '../../presentation/components/value-prop-icon/constants';
 
 export interface Section extends ISbComponentType<string> {
   title: string;
   description: string;
   images?: StoryblokImage[];
   image: StoryblokImage[];
+  image_url?: string;
   buttonText?: string;
   buttons: Button[];
   items?: MeritItem[];
@@ -28,6 +28,116 @@ export interface Section extends ISbComponentType<string> {
   salesRep?: SalesRep[];
   contactForm?: StoryblokForm[];
   bgColor: string;
+  aboutStatistics?: StatSection[];
+  aboutFeatured?: Merits[];
+  statistics?: StatItem[];
+  merit_image?: string;
+  icon?: imageFile[];
+  leadership?: LeadershipTeam[];
+  heading?: string;
+  team?: TeamItem[];
+  regionTabs?: RegionTab[];
+  region?: string;
+  showroomItem: Showroom[];
+}
+
+export interface Showroom {
+  id: string;
+  name: string;
+  image: ShowroomImage;
+}
+
+export interface ShowroomImage {
+  id: number | null;
+  alt: string | null;
+  filename: string;
+}
+
+export interface ShowroomItem {
+  _uid: string;
+  countryName: string;
+  image: ShowroomImage;
+}
+
+export interface RegionTab {
+  _uid: string;
+  tabName: string;
+  showroomItem: ShowroomItem[];
+}
+
+export interface RegionsTab extends ISbComponentType<string> {
+  _uid: string;
+  tabName: string;
+  component: string;
+  showroomItem: Showroom[];
+  _editable?: string;
+}
+export interface StatItem extends ISbComponentType<string> {
+  _uid: string;
+  figure: string;
+  component: string;
+  statfield: string;
+  _editable?: string;
+}
+
+export interface StatSection extends ISbComponentType<string> {
+  _uid: string;
+  title: string;
+  description: string;
+  component: string;
+  statistics: StatItem[];
+  _editable?: string;
+}
+
+export interface imageFile extends ISbComponentType<string> {
+  id: number;
+  name: string;
+  filename: string;
+}
+
+export interface MeritsItem extends ISbComponentType<string> {
+  _uid: string;
+  title: string;
+  description: string;
+  component: string;
+  image: string;
+  _editable?: string;
+  icon: imageFile;
+}
+
+export interface Merits extends ISbComponentType<string> {
+  _uid: string;
+  title: string;
+  description: string;
+  component: string;
+  image: string;
+  _editable?: string;
+  items: MeritsItem[];
+}
+
+export interface GlobalPresence extends ISbComponentType<string> {
+  heading: string;
+  description: string;
+}
+
+export interface TeamItem extends ISbComponentType<string> {
+  _uid: string;
+  name: string;
+  role: string;
+  image: imageFile;
+}
+
+export interface LeadershipTeam extends ISbComponentType<string> {
+  _uid: string;
+  heading: string;
+  description: string;
+  team: TeamItem[];
+}
+
+export interface TabItem {
+  label: string;
+  id: string;
+  disabled?: boolean;
 }
 
 export interface Body extends ISbComponentType<string> {
@@ -41,7 +151,7 @@ export interface StoryblokImage extends ISbComponentType<string> {
 }
 
 export interface MeritItem extends ISbComponentType<string> {
-  iconName: ValuePropIconName;
+  icon: imageFile;
   title: string;
   description: string;
 }

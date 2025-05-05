@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TabsComponent } from '../../components/faq-page-components/tabs/tabs.component';
 import { HeroComponent } from '../../../shared-ui/components/hero/hero.component';
@@ -21,16 +21,8 @@ export class FaqComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   protected readonly heroContent = this.store.selectSignal(selectSection('hero'));
-  protected readonly contactContent = this.store.selectSignal(selectSection('contact'));
   protected readonly isLoading = this.store.selectSignal(selectPageLoadingState);
   private readonly platformId = inject(PLATFORM_ID);
-  protected readonly bgColor = computed(() => this.contactContent()?.bgColor?.trim() ?? null);
-  protected readonly bgImg = computed(() => this.contactContent()?.image?.[0]?.image ?? null);
-
-  protected readonly bgProps = computed(() => ({
-    bgColor: this.bgColor(),
-    bgImg: this.bgColor() ? null : this.bgImg(),
-  }));
 
   ngOnInit(): void {
     let langCode = '';
