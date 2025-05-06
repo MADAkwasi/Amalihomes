@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   inject,
   input,
@@ -17,12 +18,15 @@ import { errorMessages, validators } from './validator';
 import {
   ChatBotEnquiryType,
   EnquiryFormType,
-  EnquiryPageData,
   EnquiryFormFieldsType,
   orderEnquiryFormFields,
   generalEnquiryFormFields,
+  CMSChatbot,
+  ChatbotFormFields,
+  ChatbotFormFieldkeys,
 } from '../../../types/chatbot';
-import { mockedEnquiryFiledsData, mockedGeneralEnquiryPageData, mockedOrderEnquiryPageData } from './mocked-data';
+import { Store } from '@ngrx/store';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-chatbot-enquiry',
@@ -43,6 +47,8 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   public selectorValue = input('');
   public selectorValueChanged = output<string>();
   private readonly destroyRef = inject(DestroyRef);
+  private readonly store = inject(Store);
+  protected readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
   protected readonly icons = { CircleX, ChevronDown };
   protected readonly formFieldType = EnquiryFormFieldsType;
   private formFieldNames = [] as EnquiryFormFieldsType[];
@@ -50,8 +56,23 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   protected readonly selectorFieldNames = [EnquiryFormFieldsType.Orders, EnquiryFormFieldsType.Question];
   protected showSelector = false;
   protected isSubmited = false;
-  protected pageData: EnquiryPageData = mockedOrderEnquiryPageData; // TODO: Get from CMS
-  protected readonly formData = mockedEnquiryFiledsData; // TODO: Get from CMS
+  protected pageData = computed(() => {
+    if (this.formType() === ChatBotEnquiryType.orders) {
+      return this.chatbotData()?.order_enquiry[0].page_data[0];
+    } else if (this.formType() === ChatBotEnquiryType.general) {
+      return this.chatbotData()?.general_enquiry[0].page_data[0];
+    }
+    return;
+  });
+  protected readonly formData = computed(() => {
+    const formFeilds = this.chatbotData()?.form_fields[0];
+    if (!formFeilds) return;
+    const formdata = {} as ChatbotFormFields;
+    Object.keys(formFeilds).forEach((key) => {
+      formdata[key as ChatbotFormFieldkeys] = formFeilds[key as ChatbotFormFieldkeys][0];
+    });
+    return formdata;
+  });
   private readonly formBuilder = inject(FormBuilder);
   protected form!: FormGroup<EnquiryFormType>;
 
@@ -100,12 +121,10 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     if (this.formType() === ChatBotEnquiryType.orders) {
       this.buildForm(orderEnquiryFormFields);
       this.formInputFiledNames = orderEnquiryFormFields.filter((field) => field !== EnquiryFormFieldsType.Message);
-      this.pageData = mockedOrderEnquiryPageData;
       control = this.getControl(EnquiryFormFieldsType.Orders);
     } else if (this.formType() === ChatBotEnquiryType.general) {
       this.buildForm(generalEnquiryFormFields);
       this.formInputFiledNames = generalEnquiryFormFields.filter((field) => field !== EnquiryFormFieldsType.Message);
-      this.pageData = mockedGeneralEnquiryPageData;
       control = this.getControl(EnquiryFormFieldsType.Question);
     }
     if (control) {

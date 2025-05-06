@@ -13,6 +13,20 @@ export const mockedTestImageData = [
   { id: '12', image: 'image12.jpg', name: 'Image 12' },
 ];
 
+const mockedEnquiryPageData = {
+  title: 'Page Title',
+  description: 'Description',
+  thankyouMessage: 'Message',
+  thankyouTitle: 'Thank you',
+  submit_text: 'Submit',
+};
+
+const mockedEnquiryFieldData = {
+  label: 'Type of Enquiry',
+  placeholder: 'General Question',
+  type: 'text',
+};
+
 export const mockedStore = {
   page: '',
   isFetchingContent: false,
@@ -30,6 +44,30 @@ export const mockedStore = {
         expanded_btn_text: 'Expanded Button Text',
         reject_all_btn_text: 'Reject All Button Text',
         close_banner_label: 'Close Banner Label',
+      },
+      {
+        component: 'chatbot',
+        order_enquiry: [
+          {
+            orders: [],
+            page_data: [mockedEnquiryPageData],
+          },
+        ],
+        general_enquiry: [
+          {
+            questions: ['Question 1', 'Question 2'],
+            page_data: [mockedEnquiryPageData],
+          },
+        ],
+        form_fields: [
+          {
+            question: [mockedEnquiryFieldData],
+            orderId: [mockedEnquiryFieldData],
+            email: [mockedEnquiryFieldData],
+            subject: [mockedEnquiryFieldData],
+            message: [mockedEnquiryFieldData],
+          },
+        ],
       },
     ],
   },

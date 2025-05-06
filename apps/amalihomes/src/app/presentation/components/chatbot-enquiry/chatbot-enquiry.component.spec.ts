@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatbotEnquiryComponent } from './chatbot-enquiry.component';
-import { DestroyRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChatBotEnquiryType, EnquiryFormFieldsType } from '../../../types/chatbot';
-import { By } from '@angular/platform-browser';
+import { provideMockStore } from '@ngrx/store/testing';
+import { mockedStore } from '../../../logic/data/testing/mocked-data';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 
 describe('ChatbotEnquiryComponent', () => {
   let component: ChatbotEnquiryComponent;
@@ -13,6 +15,16 @@ describe('ChatbotEnquiryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ChatbotEnquiryComponent, ReactiveFormsModule],
       schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        provideMockStore({
+          selectors: [
+            {
+              selector: selectStoryblokPageState,
+              value: mockedStore,
+            },
+          ],
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatbotEnquiryComponent);
