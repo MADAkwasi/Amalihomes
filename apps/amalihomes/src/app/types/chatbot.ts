@@ -46,3 +46,21 @@ export const generalEnquiryFormFields: EnquiryFormFieldsType[] = [
   EnquiryFormFieldsType.Subject,
   EnquiryFormFieldsType.Message,
 ];
+
+export type TawkApi = {
+  showWidget: () => void;
+  hideWidget: () => void;
+  toggle: () => void;
+  maximize: () => void;
+  minimize: () => void;
+  onLoad?: () => void;
+  onChatEnded?: () => void;
+  onChatMinimized?: () => void;
+};
+
+declare global {
+  interface Window {
+    Tawk_API?: TawkApi;
+    Tawk_LoadStart?: Date;
+  }
+}
