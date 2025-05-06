@@ -6,6 +6,7 @@ import { CookieConsentService } from '../../../logic/services/cookie-consent/coo
 import { CookieConsent, CookieAcceptanceActions } from '../../../types/cookies';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { getActualDataFromStoryBlokStory } from '../../../logic/utils';
 
 @Component({
   selector: 'app-cookie-banner',
@@ -25,7 +26,7 @@ export class CookieBannerComponent {
   protected availableSettings = computed(() => {
     const labels = this.cookieData()?.cookie_settings.find((item) => item.component === 'cookie_settings');
     if (!labels) return [];
-    return Object.keys(this.getActualDataFromStoryBlokStory(labels)).map((key) => {
+    return Object.keys(getActualDataFromStoryBlokStory(labels)).map((key) => {
       const label = labels[key as keyof CookieConsent];
       const enabled = this.cookieSettings()[key as keyof CookieConsent];
       return { label, enabled, key: key as keyof CookieConsent };
@@ -65,15 +66,5 @@ export class CookieBannerComponent {
       ...settings,
       [key]: !settings[key],
     });
-  }
-
-  private unwantedStoryBlokFields = ['component', '_uid', '_editable'];
-  private getActualDataFromStoryBlokStory<T extends object>(data: T) {
-    return Object.keys(data)
-      .filter((key) => !this.unwantedStoryBlokFields.includes(key))
-      .reduce((acc, key) => {
-        acc[key as keyof T] = data[key as keyof T];
-        return acc;
-      }, {} as T);
   }
 }

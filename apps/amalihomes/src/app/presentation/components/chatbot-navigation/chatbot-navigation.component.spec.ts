@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatbotNavigationComponent } from './chatbot-navigation.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ChatBotSalesRep, ChatBotTabs } from '../../../types/chatbot';
+import { provideMockStore } from '@ngrx/store/testing';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
+import { mockedStore } from '../../../logic/data/testing/mocked-data';
 
 describe('ChatbotNavigationComponent', () => {
   let component: ChatbotNavigationComponent;
@@ -11,6 +14,16 @@ describe('ChatbotNavigationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ChatbotNavigationComponent],
       schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        provideMockStore({
+          selectors: [
+            {
+              selector: selectStoryblokPageState,
+              value: mockedStore,
+            },
+          ],
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatbotNavigationComponent);

@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent, InputComponent, TextDirective } from '@amalihomes/shared';
 import { LucideAngularModule, CircleX, ChevronDown } from 'lucide-angular';
-import { errorMessages, validators } from './validator';
+import { validators } from './validator';
 import {
   ChatBotEnquiryType,
   EnquiryFormType,
@@ -73,6 +73,7 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     });
     return formdata;
   });
+  private readonly formErrorMessages = computed(() => this.chatbotData()?.form_field_errors[0]);
   private readonly formBuilder = inject(FormBuilder);
   protected form!: FormGroup<EnquiryFormType>;
 
@@ -84,7 +85,7 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     const control = this.getControl(fieldName);
     if (!control || !control.errors) return '';
     const firstErrorKey = Object.keys(control.errors)[0];
-    return errorMessages[firstErrorKey] || 'Invalid field';
+    return this.formErrorMessages()?.[firstErrorKey] || 'Invalid field';
   }
 
   protected onSubmit() {

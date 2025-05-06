@@ -62,6 +62,10 @@ export interface ChatbotFormFields {
   message: ChatbotFormField;
 }
 
+export interface TextValue {
+  value: string;
+}
+
 export type ChatbotFormFieldkeys = keyof ChatbotFormFields;
 export interface CMSChatbot {
   order_enquiry: {
@@ -69,8 +73,18 @@ export interface CMSChatbot {
     page_data: EnquiryPageData[];
   }[];
   general_enquiry: {
-    questions: { value: string }[];
+    questions: TextValue[];
     page_data: EnquiryPageData[];
   }[];
   form_fields: Record<ChatbotFormFieldkeys, ChatbotFormField[]>[];
+  form_field_errors: Record<string, string>[];
+  home_page: {
+    back_btn_text: string;
+    exit_btn_text: string;
+    message_title: string;
+    avatar_alt_text: string;
+    message: string;
+    tabs: Record<ChatBotTabs, TextValue[]>[];
+    enquiries: Record<ChatBotEnquiryType, TextValue[]>[];
+  }[];
 }

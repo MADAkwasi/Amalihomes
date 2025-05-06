@@ -4,14 +4,14 @@
     alt="{{ salesRepresentative().name }}"
     class="w-[48px] h-[48px] !rounded-full !my-0 !py-0 mr-4 block"
   />
-  <h3 libText textType="heading3" class="mb-3 mt-2">Hi! I'm {{ salesRepresentative().name.trim().split(' ')[0] }},</h3>
-  <p libText textType="text-normal">
-    Your country rep. How can I make your experience better? Do you have a question about:
-  </p>
+  <h3 libText textType="heading3" class="mb-3 mt-2">
+    {{ chatbotHomeData()?.message_title }} {{ salesRepresentative().name.trim().split(' ')[0] }},
+  </h3>
+  <p libText textType="text-normal">{{ chatbotHomeData()?.message }}</p>
 </div>
 
 <div class="p-1 bg-[#F6F6F6] mb-10 rounded-2xl flex flex-col gap-2">
-  @for (enquiry of enquiries; track enquiry.key) {
+  @for (enquiry of enquiries(); track enquiry.key) {
   <lib-button
     type="tetiary"
     title="Go to {{ enquiry.label }}"
@@ -21,15 +21,15 @@
   >
     @switch (enquiry.key) { @case (enquiryTypes.product) {
     <div class="w-10 h-10 rounded-full bg-primary-light flex flex-col justify-center items-center" aria-hidden="true">
-      <img src="icons/armchair-icon.svg" alt="Armchair icon" />
+      <img aria-hidden="true" src="icons/armchair-icon.svg" alt="Armchair icon" />
     </div>
     } @case (enquiryTypes.orders) {
     <div class="w-10 h-10 rounded-full bg-primary-light flex flex-col justify-center items-center" aria-hidden="true">
-      <img src="icons/package-icon.svg" alt="Package icon" />
+      <img aria-hidden="true" src="icons/package-icon.svg" alt="Package icon" />
     </div>
     } @case (enquiryTypes.general) {
     <div class="w-10 h-10 rounded-full bg-primary-light flex flex-col justify-center items-center" aria-hidden="true">
-      <img src="icons/archive-icon.svg" alt="Archive icon" />
+      <img aria-hidden="true" src="icons/archive-icon.svg" alt="Archive icon" />
     </div>
     } }
     <span libText textType="heading6" class="block ml-3">{{ enquiry.label }}</span>

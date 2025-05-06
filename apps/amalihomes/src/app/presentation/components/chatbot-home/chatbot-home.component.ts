@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatBotEnquiryType, ChatBotSalesRep } from '../../../types/chatbot';
+import { ChatBotEnquiryType, ChatBotSalesRep, CMSChatbot } from '../../../types/chatbot';
 import { TextDirective, ButtonComponent, ImageComponent } from '@amalihomes/shared';
-import { mockedEnquiries } from './mocked-data';
+import { Store } from '@ngrx/store';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { getActualDataFromStoryBlokStory } from '../../../logic/utils';
 
 @Component({
   selector: 'app-chatbot-home',
@@ -14,9 +16,17 @@ export class ChatbotHomeComponent {
   public salesRepresentative = input.required<ChatBotSalesRep>();
   public tabNavigation = output<ChatBotEnquiryType>();
   protected readonly enquiryTypes = ChatBotEnquiryType;
-  protected readonly enquiries = Object.keys(mockedEnquiries).map(
-    (key) => ({ key: key as ChatBotEnquiryType, label: mockedEnquiries[key as ChatBotEnquiryType] } as const),
-  );
+  private readonly store = inject(Store);
+  private readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
+  protected readonly chatbotHomeData = computed(() => this.chatbotData()?.home_page[0]);
+  protected readonly enquiries = computed(() => {
+    const enquirydata = this.chatbotHomeData()?.enquiries[0];
+    if (!enquirydata) return [];
+    return Object.keys(getActualDataFromStoryBlokStory(enquirydata)).map((enquiry) => ({
+      label: enquirydata[enquiry as ChatBotEnquiryType][0].value,
+      key: enquiry as ChatBotEnquiryType,
+    }));
+  });
   protected navigateTo(enquiry: ChatBotEnquiryType): void {
     this.tabNavigation.emit(enquiry);
   }

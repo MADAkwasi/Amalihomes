@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatBotEnquiryType, ChatBotSalesRep, ChatBotTabs } from '../../../types/chatbot';
+import { ChatBotEnquiryType, ChatBotSalesRep, ChatBotTabs, CMSChatbot } from '../../../types/chatbot';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
 import { LucideAngularModule, X, ChevronLeft } from 'lucide-angular';
 import { ChatbotHomeIconComponent } from '../svg-icons/chatbot-home-icon/chatbot-home-icon.component';
 import { ChatbotChatIconComponent } from '../svg-icons/chatbot-chat-icon/chatbot-chat-icon.component';
 import { ChatbotQuestionIconComponent } from '../svg-icons/chatbot-question-icon/chatbot-question-icon.component';
 import { ChatbotHomeComponent } from '../chatbot-home/chatbot-home.component';
-import { mockedChatbotPages } from './mocked-data';
 import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-order-enquiry.component';
 import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatbot-general-enquiry.component';
+import { Store } from '@ngrx/store';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-chatbot-navigation',
@@ -35,9 +36,18 @@ export class ChatbotNavigationComponent {
   protected showBackButton = false;
   protected showBottomNavigation = true;
   protected readonly ChatBotTabTypes = ChatBotTabs;
-  protected tabs = Object.keys(mockedChatbotPages) as ChatBotTabs[];
+  private readonly store = inject(Store);
+  private readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
+  protected readonly chatbotHomeData = computed(() => this.chatbotData()?.home_page[0]);
+  protected tabLabels = computed(() => {
+    const tabsdata = this.chatbotHomeData()?.tabs[0];
+    if (!tabsdata) return;
+    const labels = {} as Record<ChatBotTabs, string>;
+    this.tabs.forEach((tab) => (labels[tab] = tabsdata[tab][0].value));
+    return labels;
+  });
+  protected tabs = [ChatBotTabs.home, ChatBotTabs.chat, ChatBotTabs.help];
   protected activeTab = ChatBotTabs.home;
-  protected tabLabels: Record<ChatBotTabs, string> = mockedChatbotPages;
 
   protected readonly homeTabEnquiryTypes = ChatBotEnquiryType;
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
