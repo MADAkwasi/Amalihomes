@@ -69,7 +69,7 @@ export interface CMSChatbot {
     page_data: EnquiryPageData[];
   }[];
   general_enquiry: {
-    questions: [];
+    questions: { value: string }[];
     page_data: EnquiryPageData[];
   }[];
   form_fields: Record<ChatbotFormFieldkeys, ChatbotFormField[]>[];
