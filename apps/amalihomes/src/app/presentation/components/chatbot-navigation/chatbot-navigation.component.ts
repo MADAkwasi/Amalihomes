@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, NgZone, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatBotEnquiryType, ChatBotSalesRep, ChatBotTabs } from '../../../types/chatbot';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
@@ -10,6 +10,7 @@ import { ChatbotHomeComponent } from '../chatbot-home/chatbot-home.component';
 import { mockedChatbotPages } from './mocked-data';
 import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-order-enquiry.component';
 import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatbot-general-enquiry.component';
+import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
 
 @Component({
   selector: 'app-chatbot-navigation',
@@ -28,31 +29,83 @@ import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatb
   templateUrl: './chatbot-navigation.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatbotNavigationComponent {
+export class ChatbotNavigationComponent implements OnInit {
   public salesRepresentative = input.required<ChatBotSalesRep>();
   protected readonly icons = { X, ChevronLeft };
-  protected expandChat = false;
+  protected expandChat = true;
   protected showBackButton = false;
   protected showBottomNavigation = true;
+  protected isTawkToOpen = false;
   protected readonly ChatBotTabTypes = ChatBotTabs;
   protected tabs = Object.keys(mockedChatbotPages) as ChatBotTabs[];
   protected activeTab = ChatBotTabs.home;
   protected tabLabels: Record<ChatBotTabs, string> = mockedChatbotPages;
-
   protected readonly homeTabEnquiryTypes = ChatBotEnquiryType;
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
-  protected navigateToHomeTabEnquiry(enquiry: ChatBotEnquiryType) {
-    this.navigatedHomeTabEnquiry = enquiry;
-    this.showBackButton = true;
-    this.showBottomNavigation = false;
+
+  constructor(private ngZone: NgZone, private tawkToService: TawkToService, private cdr: ChangeDetectorRef) {
+    this.tawkToService.onLoad().subscribe(() => {
+      this.tawkToService.hideTawkTo();
+      this.cdr.markForCheck();
+    });
+  }
+
+  ngOnInit() {
+    this.tawkToService.loadTawkTo();
+    this.tawkToService.onLoad().subscribe(() => {
+      this.tawkToService.hideTawkTo();
+      this.cdr.markForCheck();
+    });
+    this.setupTawkToListeners();
   }
 
   protected handleExpandChat() {
     this.expandChat = !this.expandChat;
+    if (!this.expandChat) this.resetInterface();
+    this.cdr.markForCheck();
   }
 
   protected navigateTo(tab: ChatBotTabs) {
-    this.selectTab(tab);
+    if (tab === ChatBotTabs.chat) {
+      this.handleChatTabSelection();
+    } else {
+      this.selectTab(tab);
+    }
+  }
+
+  private handleChatTabSelection() {
+    this.expandChat = false;
+    this.isTawkToOpen = true;
+    this.tawkToService.showTawkTo();
+    this.cdr.markForCheck();
+  }
+
+  private setupTawkToListeners() {
+    this.tawkToService.onChatEnded().subscribe(() => {
+      this.ngZone.run(() => {
+        this.tawkToService.hideTawkTo();
+        this.isTawkToOpen = false;
+        this.expandChat = true;
+        this.resetInterface();
+        this.cdr.markForCheck();
+      });
+    });
+
+    this.tawkToService.onChatMinimized().subscribe(() => {
+      this.ngZone.run(() => {
+        this.tawkToService.hideTawkTo();
+        this.isTawkToOpen = false;
+        this.expandChat = true;
+        this.cdr.markForCheck();
+      });
+    });
+  }
+
+  protected navigateToHomeTabEnquiry(enquiry: ChatBotEnquiryType) {
+    this.navigatedHomeTabEnquiry = enquiry;
+    this.showBackButton = true;
+    this.showBottomNavigation = false;
+    this.cdr.markForCheck();
   }
 
   protected selectTab(tab: ChatBotTabs) {
@@ -60,26 +113,39 @@ export class ChatbotNavigationComponent {
     this.activeTab = tab;
     this.showBackButton = tab !== ChatBotTabs.home;
     this.resetNestedTabPages();
-  }
-
-  protected isSelected(tab: ChatBotTabs) {
-    return this.activeTab === tab;
+    this.cdr.markForCheck();
   }
 
   protected handleBackButtonClick() {
     if (this.isSelected(ChatBotTabs.home)) {
-      if (this.navigatedHomeTabEnquiry) {
-        this.showBackButton = false;
-        this.showBottomNavigation = true;
-        this.navigatedHomeTabEnquiry = null;
-      }
+      this.resetHomeTabNavigation();
     } else {
-      // Handle other tab-specific navigations if any else go back to home tab
       this.selectTab(ChatBotTabs.home);
     }
+    this.cdr.markForCheck();
+  }
+
+  private resetHomeTabNavigation() {
+    if (this.navigatedHomeTabEnquiry) {
+      this.showBackButton = false;
+      this.showBottomNavigation = true;
+      this.navigatedHomeTabEnquiry = null;
+      this.cdr.markForCheck();
+    }
+  }
+
+  private resetInterface() {
+    this.activeTab = ChatBotTabs.home;
+    this.showBackButton = false;
+    this.showBottomNavigation = true;
+    this.resetNestedTabPages();
   }
 
   protected resetNestedTabPages() {
     this.navigatedHomeTabEnquiry = null;
+  }
+
+  protected isSelected(tab: ChatBotTabs) {
+    return this.activeTab === tab;
   }
 }
