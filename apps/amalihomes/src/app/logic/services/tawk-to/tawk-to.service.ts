@@ -42,7 +42,7 @@ export class TawkToService {
       this.tawkScript = this.renderer.createElement('script');
       if (this.tawkScript) {
         this.tawkScript.async = true;
-        this.tawkScript.src = `https://embed.tawk.to/${environment.TAWK_TO_KEY}/1ipu1u4dq`;
+        this.tawkScript.src = `https://embed.tawk.to/${environment.TAWK_API_KEY}/1ipu1u4dq`;
         this.tawkScript.charset = 'UTF-8';
         this.tawkScript.setAttribute('crossorigin', '*');
 
