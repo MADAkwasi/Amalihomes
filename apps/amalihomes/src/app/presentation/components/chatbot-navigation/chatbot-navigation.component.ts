@@ -59,7 +59,7 @@ export class ChatbotNavigationComponent implements OnInit {
   });
   protected tabs = [ChatBotTabs.home, ChatBotTabs.chat, ChatBotTabs.help];
   protected activeTab = ChatBotTabs.home;
-  protected tabLabels: Record<ChatBotTabs, string> = mockedChatbotPages;
+
   protected readonly homeTabEnquiryTypes = ChatBotEnquiryType;
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
 
