@@ -29,7 +29,7 @@ export const storyblokPageReducer = createReducer(
 
   on(StoryblokPageActions.loadPageSuccess, (state, { story }) => ({
     ...state,
-    page: story.name,
+    page: story.slug,
     content: story.content,
     isFetchingContent: false,
   })),

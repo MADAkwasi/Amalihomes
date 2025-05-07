@@ -1,14 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X, Check } from 'lucide-angular';
 import { ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { CookieConsentService } from '../../../logic/services/cookie-consent/cookie-consent.service';
-import {
-  CookieConsent,
-  CookieConsentLabelKeys,
-  CookieConsentLabels,
-  CookieAcceptanceActions,
-} from '../../../types/cookies';
+import { CookieConsent, CookieAcceptanceActions } from '../../../types/cookies';
+import { Store } from '@ngrx/store';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { getActualDataFromStoryBlokStory } from '../../../logic/utils';
 
 @Component({
   selector: 'app-cookie-banner',
@@ -16,32 +14,29 @@ import {
   templateUrl: './cookie-banner.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CookieBannerComponent implements OnInit {
+export class CookieBannerComponent {
   private readonly firstCookieSetting = viewChild<ElementRef>('firstCookieSetting');
-  private readonly document = inject(DOCUMENT);
   private readonly cookieService = inject(CookieConsentService);
+  private readonly store = inject(Store);
   protected readonly icons = { X, Check };
+  protected readonly cookieData = this.store.selectSignal(selectSection('cookie_consent_banner'));
   protected settingsExpanded = false;
   protected showBanner = !this.cookieService.hasConsent();
-  private cookieLabels = CookieConsentLabels;
-  private cookieSettings = this.cookieService.getCookieSettings();
-  protected availableSettings;
+  private cookieSettings = signal(this.cookieService.getCookieSettings());
+  protected availableSettings = computed(() => {
+    const labels = this.cookieData()?.cookie_settings.find((item) => item.component === 'cookie_settings');
+    if (!labels) return [];
+    return Object.keys(getActualDataFromStoryBlokStory(labels)).map((key) => {
+      const label = labels[key as keyof CookieConsent];
+      const enabled = this.cookieSettings()[key as keyof CookieConsent];
+      return { label, enabled, key: key as keyof CookieConsent };
+    });
+  });
   protected readonly acceptanceActions = CookieAcceptanceActions;
-
-  constructor() {
-    this.availableSettings = this.getTransformedCookieSettings();
-  }
-
-  ngOnInit(): void {
-    if (this.showBanner) {
-      this.document.body.style.overflow = 'hidden';
-    }
-  }
 
   private handleBannerClose() {
     this.showBanner = false;
     this.settingsExpanded = false;
-    this.document.body.style.overflow = 'auto';
   }
 
   protected handleSettingsToggle() {
@@ -60,21 +55,16 @@ export class CookieBannerComponent implements OnInit {
     if (action === this.acceptanceActions.rejectAll) {
       this.cookieService.updateConsent(null);
     } else if (action === this.acceptanceActions.saveSettings) {
-      this.cookieService.updateConsent(this.cookieSettings);
+      this.cookieService.updateConsent(this.cookieSettings());
     }
     this.handleBannerClose();
   }
 
   protected handleSettingChange(key: keyof CookieConsent) {
-    this.cookieSettings[key] = !this.cookieSettings[key];
-    this.availableSettings = this.getTransformedCookieSettings();
-  }
-
-  private getTransformedCookieSettings() {
-    return CookieConsentLabelKeys.map((key) => {
-      const label = this.cookieLabels[key];
-      const enabled = this.cookieSettings[key];
-      return { label, enabled, key };
+    const settings = this.cookieSettings();
+    this.cookieSettings.set({
+      ...settings,
+      [key]: !settings[key],
     });
   }
 }

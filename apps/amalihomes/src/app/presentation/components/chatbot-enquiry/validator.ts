@@ -7,11 +7,3 @@ export const validators = {
   message: [Validators.required, Validators.pattern(/[\S]+/)],
   question: [Validators.required, Validators.pattern(/[\S]+/)],
 };
-
-export const errorMessages: Record<string, string> = {
-  required: 'This field is required',
-  email: 'Please enter a valid email address',
-  minlength: 'The input is too short',
-  maxlength: 'The input is too long',
-  pattern: 'The format is invalid',
-};

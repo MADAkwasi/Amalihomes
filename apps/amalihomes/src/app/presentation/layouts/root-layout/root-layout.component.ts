@@ -1,7 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { CookieBannerComponent } from '../../components/cookie-banner/cookie-banner.component';
 import { ChatbotNavigationComponent } from '../../components/chatbot-navigation/chatbot-navigation.component';
 import { salesRepresentativeMock } from '../../components/chatbot-navigation/mocked-data';
 import { Store } from '@ngrx/store';
@@ -12,7 +11,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root-layout',
-  imports: [HeaderComponent, FooterComponent, CookieBannerComponent, ChatbotNavigationComponent, ContactUsComponent],
+  imports: [HeaderComponent, FooterComponent, ChatbotNavigationComponent, ContactUsComponent],
   templateUrl: './root-layout.component.html',
 })
 export class RootLayoutComponent {

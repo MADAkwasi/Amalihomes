@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatbotEnquiryComponent } from '../chatbot-enquiry/chatbot-enquiry.component';
 import { ButtonComponent, TextDirective } from '@amalihomes/shared';
-import { ChatBotEnquiryType } from '../../../types/chatbot';
-import { mockedQuestions } from './mocked-data';
+import { ChatBotEnquiryType, CMSChatbot } from '../../../types/chatbot';
+import { Store } from '@ngrx/store';
+import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 
 @Component({
   selector: 'app-chatbot-general-enquiry',
@@ -12,14 +13,19 @@ import { mockedQuestions } from './mocked-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatbotGeneralEnquiryComponent {
+  private readonly store = inject(Store);
+  protected readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
   protected enquiryTypes = ChatBotEnquiryType;
-  protected questions = mockedQuestions;
+  protected questions = computed(() => {
+    return this.chatbotData()?.general_enquiry[0].questions.map((question) => question.value);
+  });
   protected selected = '';
   private selectorFieldValue = signal('');
   protected filtedQuestions = computed(() => {
     const value = this.selectorFieldValue().trim().toLowerCase();
-    if (value.length < 1) return this.questions;
-    return this.questions.filter((question) => question.toLowerCase().includes(value));
+    const questions = this.questions() ?? [];
+    if (value.length < 1) return questions;
+    return questions.filter((question) => question.toLowerCase().includes(value));
   });
   protected handleSelectedOrder(selectedQuestion: string) {
     this.selected = selectedQuestion;

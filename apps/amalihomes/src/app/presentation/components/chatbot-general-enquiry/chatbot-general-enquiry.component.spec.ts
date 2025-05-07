@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatbotGeneralEnquiryComponent } from './chatbot-general-enquiry.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
+import { mockedStore } from '../../../logic/data/testing/mocked-data';
 
 describe('ChatbotGeneralEnquiryComponent', () => {
   let component: ChatbotGeneralEnquiryComponent;
@@ -8,6 +11,16 @@ describe('ChatbotGeneralEnquiryComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ChatbotGeneralEnquiryComponent],
+      providers: [
+        provideMockStore({
+          selectors: [
+            {
+              selector: selectStoryblokPageState,
+              value: mockedStore,
+            },
+          ],
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatbotGeneralEnquiryComponent);

@@ -110,7 +110,6 @@ export class InternationalizationBarComponent implements OnInit {
 
   private reloadPageWithCurrentLanguage(): void {
     const language = this.userLocale()?.languageCode ?? 'en';
-
     this.store.dispatch(
       StoryblokPageActions.loadPage({
         slug: this.currentPage().slug,
