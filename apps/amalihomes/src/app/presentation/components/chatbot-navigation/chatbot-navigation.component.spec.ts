@@ -48,15 +48,11 @@ describe('ChatbotNavigationComponent', () => {
   it('should navigate through the tabs', () => {
     component['navigateTo'](ChatBotTabs.home);
     expect(component['activeTab']).toBe(ChatBotTabs.home);
-    component['navigateTo'](ChatBotTabs.chat);
-    expect(component['activeTab']).toBe(ChatBotTabs.chat);
     component['navigateTo'](ChatBotTabs.help);
     expect(component['activeTab']).toBe(ChatBotTabs.help);
   });
 
   it('should return true for showBackButton when not on home tab and false when on home tab', () => {
-    component['navigateTo'](ChatBotTabs.chat);
-    expect(component['showBackButton']).toBe(true);
     component['navigateTo'](ChatBotTabs.home);
     expect(component['showBackButton']).toBe(false);
   });
@@ -64,8 +60,6 @@ describe('ChatbotNavigationComponent', () => {
   it('should return true for isSelected when a tab is active', () => {
     component['navigateTo'](ChatBotTabs.home);
     expect(component['isSelected'](ChatBotTabs.home)).toBe(true);
-    component['navigateTo'](ChatBotTabs.chat);
-    expect(component['isSelected'](ChatBotTabs.chat)).toBe(true);
     component['navigateTo'](ChatBotTabs.help);
     expect(component['isSelected'](ChatBotTabs.help)).toBe(true);
   });

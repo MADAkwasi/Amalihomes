@@ -94,3 +94,21 @@ export interface CMSChatbot {
     categories: { available_questions: string; title: string; _uid: string }[];
   }[];
 }
+
+export type TawkApi = {
+  showWidget: () => void;
+  hideWidget: () => void;
+  toggle: () => void;
+  maximize: () => void;
+  minimize: () => void;
+  onLoad?: () => void;
+  onChatEnded?: () => void;
+  onChatMinimized?: () => void;
+};
+
+declare global {
+  interface Window {
+    Tawk_API?: TawkApi;
+    Tawk_LoadStart?: Date;
+  }
+}
