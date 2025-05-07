@@ -10,6 +10,8 @@ import {
 } from '../../../logic/stores/selectors/storyblok.selectors';
 import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
+import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
+import { FaqMetaData } from './static-meta-data';
 
 @Component({
   selector: 'app-faq',
@@ -19,6 +21,7 @@ import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.ac
 })
 export class FaqComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly pageHeadTags = inject(MetaTagsService);
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   protected readonly heroContent = this.store.selectSignal(selectSection('hero'));
   protected readonly isLoading = this.store.selectSignal(selectPageLoadingState);
@@ -39,5 +42,7 @@ export class FaqComponent implements OnInit {
         version: 'draft',
       }),
     );
+
+    this.pageHeadTags.updateMetaData(FaqMetaData);
   }
 }
