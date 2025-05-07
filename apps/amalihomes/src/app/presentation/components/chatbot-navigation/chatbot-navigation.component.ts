@@ -20,6 +20,7 @@ import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-o
 import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatbot-general-enquiry.component';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { ChatbotFaqComponent } from '../chatbot-faq/chatbot-faq.component';
 import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
 
 @Component({
@@ -35,6 +36,7 @@ import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
     ChatbotHomeComponent,
     ChatbotOrderEnquiryComponent,
     ChatbotGeneralEnquiryComponent,
+    ChatbotFaqComponent,
   ],
   templateUrl: './chatbot-navigation.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -130,7 +132,7 @@ export class ChatbotNavigationComponent implements OnInit {
   protected selectTab(tab: ChatBotTabs) {
     if (this.activeTab === tab) return;
     this.activeTab = tab;
-    this.showBackButton = tab !== ChatBotTabs.home;
+    this.showBackButton = ![ChatBotTabs.home, ChatBotTabs.help].includes(tab);
     this.resetNestedTabPages();
     this.cdr.markForCheck();
   }

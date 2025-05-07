@@ -87,6 +87,12 @@ export interface CMSChatbot {
     tabs: Record<ChatBotTabs, TextValue[]>[];
     enquiries: Record<ChatBotEnquiryType, TextValue[]>[];
   }[];
+  faq_page: {
+    message_title: string;
+    message: string;
+    categories_tiltle: string;
+    categories: { available_questions: string; title: string; _uid: string }[];
+  }[];
 }
 
 export type TawkApi = {

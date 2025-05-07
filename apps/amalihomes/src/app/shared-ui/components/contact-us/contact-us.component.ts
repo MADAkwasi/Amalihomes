@@ -48,6 +48,7 @@ export class ContactUsComponent {
   protected readonly errorIcon = CircleX;
   protected readonly formContent = signal<StoryblokForm[]>([]);
   protected readonly errors = signal(errors);
+  protected readonly shouldShake = signal(false);
 
   constructor() {
     effect(() => this.formContent.set(this.contactUsContent()?.contactForm as StoryblokForm[]));
@@ -75,6 +76,10 @@ export class ContactUsComponent {
   }
 
   protected onSubmit() {
-    return;
+    if (this.contactForm.invalid) {
+      this.shouldShake.set(true);
+      setTimeout(() => this.shouldShake.set(false), 400);
+      return;
+    }
   }
 }

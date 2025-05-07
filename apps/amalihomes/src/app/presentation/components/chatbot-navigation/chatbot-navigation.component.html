@@ -63,11 +63,8 @@
       <app-chatbot-order-enquiry />
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.general) {
       <app-chatbot-general-enquiry />
-      } } @case (ChatBotTabTypes.chat) {
-      <!-- No custom chat; clicking chat tab opens Tawk.to widget -->
-      } @case (ChatBotTabTypes.help) {
-      <!-- Placeholder for help tab content -->
-      <div>Help Content</div>
+      } } @case (ChatBotTabTypes.chat) { } @case (ChatBotTabTypes.help) {
+      <app-chatbot-faq />
       } }
     </div>
 

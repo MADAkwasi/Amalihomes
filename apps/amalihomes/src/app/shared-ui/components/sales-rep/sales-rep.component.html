@@ -10,12 +10,17 @@
       <p>Country rep</p>
     </span>
   </span>
-  <span class="flex gap-4 items-center">
-    <app-phone-icon></app-phone-icon>
-    <p>{{ curLocaleSalesRep()?.phoneNumber }}</p>
-  </span>
-  <span class="flex gap-4 items-center">
-    <app-mail-icon></app-mail-icon>
-    <p>{{ curLocaleSalesRep()?.email }}</p>
-  </span>
+  <a href="tel:{{ curLocaleSalesRep()?.phoneNumber }}" target="_blank">
+    <span class="flex gap-4 items-center">
+      <app-phone-icon></app-phone-icon>
+      <p>{{ curLocaleSalesRep()?.phoneNumber }}</p>
+    </span>
+  </a>
+
+  <a href="mailto:{{ curLocaleSalesRep()?.email }}" target="_blank">
+    <span class="flex gap-4 items-center">
+      <app-mail-icon></app-mail-icon>
+      <p>{{ curLocaleSalesRep()?.email }}</p>
+    </span>
+  </a>
 </div>
