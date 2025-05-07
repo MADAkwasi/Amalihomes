@@ -41,10 +41,16 @@ module.exports = {
           '0%': { translateY: '50%' },
           '100%': { translateY: '0%' },
         },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '20%, 60%': { transform: 'translateX(-10px)' },
+          '40%, 80%': { transform: 'translateX(10px)' },
+        },
       },
       animation: {
         skeleton: 'loading 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         slideUp: 'slideUp 0.5s linear 0.1s',
+        shake: 'shake 0.4s ease-in-out',
       },
       colors: {
         border: 'hsl(var(--border))',

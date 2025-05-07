@@ -16,12 +16,15 @@
 
     @if(formContent()){
     <form
+      [class.animate-shake]="shouldShake()"
       class="w-full md:w-[70%] lg:w-[40%] flex flex-col gap-6 bg-white rounded-md px-8 py-10"
       (ngSubmit)="onSubmit()"
       [formGroup]="contactForm"
     >
       <h3 libText textType="heading3">{{ formContent()[0].heading }}</h3>
 
+      <!--This label is for input placeholder accessibility purposes-->
+      <label class="sr-only" for="name">Enter Full Name</label>
       <lib-text-input
         [placeholder]="formContent()[0].inputField[0].placeholder"
         [label]="formContent()[0].inputField[0].label"
@@ -32,6 +35,8 @@
         [errorMessage]="getErrorMessage(contactFormControls.name, 'name')"
       ></lib-text-input>
 
+      <!--This label is for input placeholder accessibility purposes-->
+      <label class="sr-only" for="email">Enter Email Address</label>
       <lib-text-input
         [placeholder]="formContent()[0].inputField[1].placeholder"
         [label]="formContent()[0].inputField[1].label"
@@ -46,6 +51,9 @@
         <label for="message" libText textType="text-medium" class="text-black font-semibold">{{
           formContent()[0].inputField[2].label
         }}</label>
+
+        <!--This label is for input placeholder accessibility purposes-->
+        <label class="sr-only" for="message">Kindly type your message</label>
         <textarea
           formControlName="message"
           [placeholder]="formContent()[0].inputField[2].placeholder"
@@ -70,6 +78,7 @@
       <lib-button
         buttonStyles="!w-[100%]"
         (buttonClick)="onSubmit()"
+        [state]="contactForm.untouched ? 'disabled' : 'default'"
         [buttonIdentifier]="formContent()[0].submitBtn[0].identifier"
         >{{ formContent()[0].submitBtn[0].buttonText }}</lib-button
       >
