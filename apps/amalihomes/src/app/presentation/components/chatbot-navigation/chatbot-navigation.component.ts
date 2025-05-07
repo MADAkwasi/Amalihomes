@@ -11,6 +11,7 @@ import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-o
 import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatbot-general-enquiry.component';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { ChatbotFaqComponent } from '../chatbot-faq/chatbot-faq.component';
 
 @Component({
   selector: 'app-chatbot-navigation',
@@ -25,6 +26,7 @@ import { selectSection } from '../../../logic/stores/selectors/storyblok.selecto
     ChatbotHomeComponent,
     ChatbotOrderEnquiryComponent,
     ChatbotGeneralEnquiryComponent,
+    ChatbotFaqComponent,
   ],
   templateUrl: './chatbot-navigation.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,7 +70,7 @@ export class ChatbotNavigationComponent {
   protected selectTab(tab: ChatBotTabs) {
     if (this.activeTab === tab) return;
     this.activeTab = tab;
-    this.showBackButton = tab !== ChatBotTabs.home;
+    this.showBackButton = ![ChatBotTabs.home, ChatBotTabs.help].includes(tab);
     this.resetNestedTabPages();
   }
 

@@ -100,6 +100,14 @@ export const mockedStore = {
             ],
           },
         ],
+        faq_page: [
+          {
+            message_title: 'message title',
+            message: 'message',
+            categories_tiltle: 'title',
+            categories: [{ available_questions: 'question', title: 'title', _uid: '' }],
+          },
+        ],
       },
     ],
   },

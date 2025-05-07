@@ -1,0 +1,29 @@
+<div class="mt-4 mb-8">
+  <h3 libText textType="heading3" class="mb-3 mt-2">
+    {{ chatbotFaqData()?.message_title }}
+  </h3>
+  <p libText textType="text-normal">{{ chatbotFaqData()?.message }}</p>
+</div>
+
+<ul
+  [attr.aria-label]="chatbotFaqData()?.categories_tiltle"
+  class="p-1 bg-[#F6F6F6] mb-10 rounded-2xl flex flex-col gap-2"
+>
+  @for (category of questionCategories(); track category._uid) {
+  <li class="list-none">
+    <lib-button
+      type="tetiary"
+      title="{{ category.title }}"
+      buttonIdentifier="chatbot-faq-{{ category._uid }}-btn"
+      buttonStyles="!flex !flex-row !items-center !justify-between !bg-white !rounded-2xl !p-3 w-full text-left"
+      (buttonClick)="navigateToFaqPage()"
+    >
+      <div>
+        <div libText textType="heading6" class="mb-2">{{ category.title }}</div>
+        <div libText textType="text-normal" class="!font-normal !text-sm">{{ category.available_questions }}</div>
+      </div>
+      <lucide-angular aria-hidden="true" [img]="icons.ChevronRight" [size]="20" class="text-primary" />
+    </lib-button>
+  </li>
+  }
+</ul>
