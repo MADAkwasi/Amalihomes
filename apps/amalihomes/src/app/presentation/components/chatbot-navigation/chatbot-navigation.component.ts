@@ -46,7 +46,6 @@ export class ChatbotNavigationComponent implements OnInit {
   constructor(private ngZone: NgZone, private tawkToService: TawkToService, private cdr: ChangeDetectorRef) {
     this.tawkToService.onLoad().subscribe(() => {
       this.tawkToService.hideTawkTo();
-      this.cdr.markForCheck();
     });
   }
 
@@ -87,7 +86,7 @@ export class ChatbotNavigationComponent implements OnInit {
         this.isTawkToOpen = false;
         this.expandChat = true;
         this.resetInterface();
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
     });
 
@@ -96,7 +95,7 @@ export class ChatbotNavigationComponent implements OnInit {
         this.tawkToService.hideTawkTo();
         this.isTawkToOpen = false;
         this.expandChat = true;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
     });
   }
