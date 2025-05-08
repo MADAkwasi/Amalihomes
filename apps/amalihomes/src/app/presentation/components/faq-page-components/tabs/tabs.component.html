@@ -1,5 +1,5 @@
 <div class="my-4">
-  <span class="flex gap-8 overflow-x-scroll scrollbar-hide">
+  <div class="flex gap-8 overflow-x-scroll scrollbar-hide">
     @for (tab of tabsData(); track $index) {
     <button
       class="px-4 py-2 cursor-pointer rounded-md hover:bg-muted duration-300 min-w-fit"
@@ -9,7 +9,7 @@
       {{ tab.title }}
     </button>
     }
-  </span>
+  </div>
 
   <div class="my-6">
     @if(typeof tabsData()?.[activeTab()]?.content === 'object'){

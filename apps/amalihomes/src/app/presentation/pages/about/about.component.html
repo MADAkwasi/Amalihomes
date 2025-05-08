@@ -2,19 +2,19 @@
 <main class="">
   @if(!isLoading() && heroContent()) {
   <lib-hero
-    [title]="heroContent()?.title ?? ''"
-    [description]="heroContent()?.description ?? ''"
+    [title]="heroContent()!.title"
+    [description]="heroContent()!.description"
     [imageUrl]="heroContent()?.image?.[0]?.image"
   ></lib-hero>
   } @else {
   <div class="w-full h-[528px]" appSkeleton></div>
   }
-  <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center max-w-[1450px]">
+  <div class="page-container py-12 flex flex-col items-center">
     <app-statistics class="w-full" />
     <app-featured class="w-full" />
   </div>
   <app-location-map class="w-full" [location]="location" />
-  <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center max-w-[1450px]">
+  <div class="page-container py-12 flex flex-col items-center">
     <app-leadership class="w-full" />
     <app-showroom-grid class="w-full" />
   </div>
