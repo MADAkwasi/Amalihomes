@@ -14,6 +14,8 @@ import {
 } from '../../../logic/stores/selectors/storyblok.selectors';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { HeroComponent } from '../../../shared-ui/components/hero/hero.component';
+import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
+import { AboutMetaData } from './static-meta-data';
 
 @Component({
   selector: 'app-about',
@@ -31,6 +33,7 @@ import { HeroComponent } from '../../../shared-ui/components/hero/hero.component
 })
 export class AboutComponent implements OnInit {
   protected location = 'Amalitech, Ghana';
+  private readonly pageHeadTags = inject(MetaTagsService);
   private readonly store = inject(Store);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
@@ -54,5 +57,6 @@ export class AboutComponent implements OnInit {
         version: 'draft',
       }),
     );
+    this.pageHeadTags.updateMetaData(AboutMetaData);
   }
 }

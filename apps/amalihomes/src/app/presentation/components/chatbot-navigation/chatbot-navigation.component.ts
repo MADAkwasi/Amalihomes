@@ -46,7 +46,7 @@ import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
 export class ChatbotNavigationComponent implements OnInit {
   public salesRepresentative = input.required<ChatBotSalesRep>();
   protected readonly icons = { X, ChevronLeft };
-  protected expandChat = true;
+  protected expandChat = false;
   protected showBackButton = false;
   protected showBottomNavigation = true;
   protected isTawkToOpen = false;
