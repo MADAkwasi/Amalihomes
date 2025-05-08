@@ -20,7 +20,7 @@ export class ChatbotGeneralEnquiryComponent {
     return this.chatbotData()?.general_enquiry[0].questions.map((question) => question.value);
   });
   protected selected = '';
-  private selectorFieldValue = signal('');
+  private readonly selectorFieldValue = signal('');
   protected filtedQuestions = computed(() => {
     const value = this.selectorFieldValue().trim().toLowerCase();
     const questions = this.questions() ?? [];

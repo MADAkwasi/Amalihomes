@@ -1,0 +1,28 @@
+<app-chatbot-enquiry
+  [formType]="enquiryTypes.product"
+  (selectorValueChanged)="handleSelectorFieldValueChange($event)"
+  [selectorValue]="selected()"
+>
+  <ng-container selector>
+    @for (product of filtedProducts(); track product._id) {
+    <lib-button
+      type="tetiary"
+      buttonIdentifier="chatbot-product-{{ product._id }}-enquiry"
+      buttonStyles="!p-3 w-full !justify-start flex !items-center !gap-4 !bg-white hover:!bg-primary-light"
+      class="block !p-0"
+      (buttonClick)="handleSelectedProduct(product)"
+    >
+      <span>
+        <img [src]="product.image" alt="display-image-for-product-{{ product.name }}" class="w-16 h-16 rounded-md" />
+      </span>
+      <div class="flex flex-col gap-1 text-left">
+        <p libText textType="text-small" class="!text-sm text-gray-500 !font-light">{{ product.name }}</p>
+        <p libText textType="text-small" class="!font-semibold text-black !text-sm">
+          {{ product.price | currency : 'USD' }}
+        </p>
+      </div>
+    </lib-button>
+
+    }
+  </ng-container>
+</app-chatbot-enquiry>

@@ -63,6 +63,8 @@
       <app-chatbot-order-enquiry />
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.general) {
       <app-chatbot-general-enquiry />
+      } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.product) {
+      <app-chatbot-product-enquiry />
       } } @case (ChatBotTabTypes.chat) { } @case (ChatBotTabTypes.help) {
       <app-chatbot-faq />
       } }

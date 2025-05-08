@@ -21,6 +21,7 @@ import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatb
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { ChatbotFaqComponent } from '../chatbot-faq/chatbot-faq.component';
+import { ChatbotProductEnquiryComponent } from '../chatbot-product-enquiry/chatbot-product-enquiry.component';
 import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
 
 @Component({
@@ -37,6 +38,7 @@ import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
     ChatbotOrderEnquiryComponent,
     ChatbotGeneralEnquiryComponent,
     ChatbotFaqComponent,
+    ChatbotProductEnquiryComponent,
   ],
   templateUrl: './chatbot-navigation.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
