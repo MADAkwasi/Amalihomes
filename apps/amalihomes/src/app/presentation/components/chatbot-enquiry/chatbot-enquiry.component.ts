@@ -24,6 +24,7 @@ import {
   CMSChatbot,
   ChatbotFormFields,
   ChatbotFormFieldkeys,
+  productEnquiryFormFields,
 } from '../../../types/chatbot';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
@@ -53,7 +54,11 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   protected readonly formFieldType = EnquiryFormFieldsType;
   private formFieldNames = [] as EnquiryFormFieldsType[];
   protected formInputFiledNames = [] as EnquiryFormFieldsType[];
-  protected readonly selectorFieldNames = [EnquiryFormFieldsType.Orders, EnquiryFormFieldsType.Question];
+  protected readonly selectorFieldNames = [
+    EnquiryFormFieldsType.Orders,
+    EnquiryFormFieldsType.Question,
+    EnquiryFormFieldsType.Products,
+  ];
   protected showSelector = false;
   protected isSubmited = false;
   protected pageData = computed(() => {
@@ -61,8 +66,10 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
       return this.chatbotData()?.order_enquiry[0].page_data[0];
     } else if (this.formType() === ChatBotEnquiryType.general) {
       return this.chatbotData()?.general_enquiry[0].page_data[0];
+    } else if (this.formType() === ChatBotEnquiryType.product) {
+      return this.chatbotData()?.product_enquiry[0].page_data[0];
     }
-    return;
+    return null;
   });
   protected readonly formData = computed(() => {
     const formFeilds = this.chatbotData()?.form_fields[0];
@@ -83,9 +90,9 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
 
   protected getErrorMessage(fieldName: EnquiryFormFieldsType): string {
     const control = this.getControl(fieldName);
-    if (!control || !control.errors) return '';
+    if (!control?.errors) return '';
     const firstErrorKey = Object.keys(control.errors)[0];
-    return this.formErrorMessages()?.[firstErrorKey] || 'Invalid field';
+    return this.formErrorMessages()?.[firstErrorKey] ?? 'Invalid field';
   }
 
   protected onSubmit() {
@@ -110,6 +117,8 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
         control = this.getControl(EnquiryFormFieldsType.Orders);
       } else if (this.formType() === ChatBotEnquiryType.general) {
         control = this.getControl(EnquiryFormFieldsType.Question);
+      } else if (this.formType() === ChatBotEnquiryType.product) {
+        control = this.getControl(EnquiryFormFieldsType.Products);
       }
       if (control) {
         control.patchValue(selectedChange.currentValue);
@@ -127,6 +136,10 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
       this.buildForm(generalEnquiryFormFields);
       this.formInputFiledNames = generalEnquiryFormFields.filter((field) => field !== EnquiryFormFieldsType.Message);
       control = this.getControl(EnquiryFormFieldsType.Question);
+    } else if (this.formType() === ChatBotEnquiryType.product) {
+      this.buildForm(productEnquiryFormFields);
+      this.formInputFiledNames = productEnquiryFormFields.filter((field) => field !== EnquiryFormFieldsType.Message);
+      control = this.getControl(EnquiryFormFieldsType.Products);
     }
     if (control) {
       const subscription = control.valueChanges.subscribe((value) => {

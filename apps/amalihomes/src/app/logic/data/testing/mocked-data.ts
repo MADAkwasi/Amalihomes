@@ -59,6 +59,12 @@ export const mockedStore = {
             page_data: [mockedEnquiryPageData],
           },
         ],
+        product_enquiry: [
+          {
+            questions: [],
+            page_data: [mockedEnquiryPageData],
+          },
+        ],
         form_fields: [
           {
             question: [mockedEnquiryFieldData],

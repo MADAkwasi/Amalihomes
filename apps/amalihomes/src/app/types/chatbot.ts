@@ -1,5 +1,41 @@
 import { FormControl } from '@angular/forms';
 
+interface Dimensions {
+  height: string;
+  width: string;
+  depth: string;
+}
+
+interface Review {
+  user: string;
+  comment: string;
+  rating: number;
+}
+
+interface ShippingInfo {
+  weight: number;
+  deliveryTime: string;
+}
+
+export interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  discount: number | null;
+  stock: number | null;
+  description: string;
+  dimensions: Dimensions;
+  material: string;
+  colors: string[];
+  image: string;
+  ratings: number;
+  reviews: Review[];
+  tags: string[];
+  shippingInfo: ShippingInfo;
+  warranty: string | null;
+  returnPolicy: string | null;
+}
+
 export interface ChatBotSalesRep {
   name: string;
   image: string;
@@ -20,6 +56,7 @@ export enum ChatBotEnquiryType {
 export enum EnquiryFormFieldsType {
   Orders = 'orderId',
   Question = 'question',
+  Products = 'product',
   Email = 'email',
   Subject = 'subject',
   Message = 'message',
@@ -48,6 +85,13 @@ export const generalEnquiryFormFields: EnquiryFormFieldsType[] = [
   EnquiryFormFieldsType.Message,
 ];
 
+export const productEnquiryFormFields: EnquiryFormFieldsType[] = [
+  EnquiryFormFieldsType.Products,
+  EnquiryFormFieldsType.Email,
+  EnquiryFormFieldsType.Subject,
+  EnquiryFormFieldsType.Message,
+];
+
 interface ChatbotFormField {
   label: string;
   placeholder: string;
@@ -55,6 +99,7 @@ interface ChatbotFormField {
 }
 
 export interface ChatbotFormFields {
+  product: ChatbotFormField;
   question: ChatbotFormField;
   orderId: ChatbotFormField;
   email: ChatbotFormField;
@@ -73,6 +118,10 @@ export interface CMSChatbot {
     page_data: EnquiryPageData[];
   }[];
   general_enquiry: {
+    questions: TextValue[];
+    page_data: EnquiryPageData[];
+  }[];
+  product_enquiry: {
     questions: TextValue[];
     page_data: EnquiryPageData[];
   }[];

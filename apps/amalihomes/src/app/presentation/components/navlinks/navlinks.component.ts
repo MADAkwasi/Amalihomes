@@ -5,10 +5,11 @@ import { Store } from '@ngrx/store';
 import { selectIsMenuOpen } from '../../../logic/stores/selectors/interactions.selector';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
 import { StoryblokNavLink } from '../../../types/storyblok';
+import { TextDirective } from '@amalihomes/shared';
 
 @Component({
   selector: 'app-navlinks',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TextDirective],
   templateUrl: './navlinks.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

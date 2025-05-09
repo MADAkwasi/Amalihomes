@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       screens: {
         xsm: '380px',
+        max: '1440px',
       },
       fontSize: {
         'dynamic-heading': [
@@ -31,7 +32,6 @@ module.exports = {
       gap: {
         extraLarge: '2.75rem' /* 44px */,
       },
-
       keyframes: {
         loading: {
           '40%': { opacity: 0.3 },

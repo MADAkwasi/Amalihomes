@@ -1,14 +1,12 @@
-@let heroData = heroContent();
-
-<main class="flex flex-col justify-around gap-10">
-  @if(!isLoading() && heroData) {
+<main class="flex flex-col gap-10">
+  @if(!isLoading() && heroContent()) {
   <lib-hero
-    [title]="heroData.title"
-    [description]="heroData.description"
-    [imageUrl]="heroData?.image?.[0]?.image"
+    [title]="heroContent()!.title"
+    [description]="heroContent()!.description"
+    [imageUrl]="heroContent()?.image?.[0]?.image"
   ></lib-hero>
   } @else {
   <div class="w-full h-[528px]" appSkeleton></div>
   }
-  <app-tabs class="page-horizontal-padding"></app-tabs>
+  <app-tabs class="page-container block w-full"></app-tabs>
 </main>
