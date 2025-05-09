@@ -17,7 +17,6 @@
 
     @if(formContent()){
     <form
-      [class.animate-shake]="shouldShake()"
       class="w-full md:w-[70%] lg:w-[40%] flex flex-col gap-6 bg-white rounded-md px-8 py-10"
       (ngSubmit)="onSubmit()"
       [formGroup]="contactForm"
@@ -73,12 +72,15 @@
       <lib-button
         buttonStyles="!w-[100%]"
         (buttonClick)="onSubmit()"
-        [state]="contactForm.untouched ? 'disabled' : 'default'"
+        [state]="contactForm.invalid ? 'disabled' : 'default'"
         [buttonIdentifier]="formContent()[0].submitBtn[0].identifier"
         >{{ formContent()[0].submitBtn[0].buttonText }}</lib-button
       >
     </form>
     }
   </div>
+  @if(isFormSubmitted()){
+  <lib-toast title="Message Sent" type="success" message="We will get back to you shortly"></lib-toast>
+  }
 </section>
 }

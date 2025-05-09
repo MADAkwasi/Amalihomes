@@ -20,6 +20,7 @@ import {
 import { StoryblokForm } from '../../../types/storyblok';
 import { errors } from '../../../logic/data/constants/errors';
 import { LanguageCode } from '../../../logic/data/constants/localization';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'lib-contact-us',
@@ -32,6 +33,7 @@ import { LanguageCode } from '../../../logic/data/constants/localization';
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,
+    ToastComponent,
   ],
   templateUrl: './contact-us.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,7 +50,7 @@ export class ContactUsComponent {
   protected readonly errorIcon = CircleX;
   protected readonly formContent = signal<StoryblokForm[]>([]);
   protected readonly errors = signal(errors);
-  protected readonly shouldShake = signal(false);
+  protected readonly isFormSubmitted = signal(false);
 
   constructor() {
     effect(() => this.formContent.set(this.contactUsContent()?.contactForm as StoryblokForm[]));
@@ -76,10 +78,11 @@ export class ContactUsComponent {
   }
 
   protected onSubmit() {
-    if (this.contactForm.invalid) {
-      this.shouldShake.set(true);
-      setTimeout(() => this.shouldShake.set(false), 400);
-      return;
-    }
+    this.isFormSubmitted.set(true);
+    this.contactForm.reset();
+
+    setTimeout(() => {
+      this.isFormSubmitted.set(false);
+    }, 5000);
   }
 }

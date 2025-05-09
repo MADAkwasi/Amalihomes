@@ -7,6 +7,9 @@
   margin-bottom: 16px;
   max-width: 350px;
   animation: slide-in 0.3s ease-out;
+  position: absolute;
+  right: 5px;
+  bottom: 0;
 }
 
 @keyframes slide-in {
