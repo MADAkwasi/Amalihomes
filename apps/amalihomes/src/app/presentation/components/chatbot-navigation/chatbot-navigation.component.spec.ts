@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChatbotNavigationComponent } from './chatbot-navigation.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ChatBotSalesRep, ChatBotTabs } from '../../../types/chatbot';
+import { ChatBotTabs } from '../../../types/chatbot';
 import { provideMockStore } from '@ngrx/store/testing';
 import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 import { mockedStore } from '../../../logic/data/testing/mocked-data';
@@ -28,10 +28,6 @@ describe('ChatbotNavigationComponent', () => {
 
     fixture = TestBed.createComponent(ChatbotNavigationComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('salesRepresentative', {
-      image: 'test-image.jpg',
-      name: 'Test Sales Rep',
-    } as ChatBotSalesRep);
     fixture.detectChanges();
   });
 

@@ -1,11 +1,11 @@
 <div class="mt-4 mb-28">
   <lib-image
-    [src]="salesRepresentative().image"
-    alt="{{ salesRepresentative().name }}"
+    [src]="salesRepresentative()?.profilePic?.[0]?.image??''"
+    alt="{{ salesRepName() }}"
     class="w-[48px] h-[48px] !rounded-full !my-0 !py-0 mr-4 block"
   />
   <h3 libText textType="heading3" class="mb-3 mt-2">
-    {{ chatbotHomeData()?.message_title }} {{ salesRepresentative().name.trim().split(' ')[0] }},
+    {{ chatbotHomeData()?.message_title }} {{ salesRepName().trim().split(' ')[0] }},
   </h3>
   <p libText textType="text-normal">{{ chatbotHomeData()?.message }}</p>
 </div>

@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './image.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImageComponent implements OnInit {
+export class ImageComponent implements OnInit, OnChanges {
   public readonly src = input('');
   public readonly alt = input('');
   public readonly class = input('');
@@ -23,5 +23,12 @@ export class ImageComponent implements OnInit {
 
   ngOnInit() {
     this.imgSrc = this.src();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const srcChange = changes['src'];
+    if (srcChange && !srcChange.firstChange) {
+      this.imgSrc = srcChange.currentValue;
+    }
   }
 }

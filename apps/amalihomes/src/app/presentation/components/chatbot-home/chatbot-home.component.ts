@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatBotEnquiryType, ChatBotSalesRep, CMSChatbot } from '../../../types/chatbot';
+import { ChatBotEnquiryType, CMSChatbot } from '../../../types/chatbot';
 import { TextDirective, ButtonComponent, ImageComponent } from '@amalihomes/shared';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { getActualDataFromStoryBlokStory } from '../../../logic/utils';
+import { SalesRep } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-chatbot-home',
@@ -13,7 +14,8 @@ import { getActualDataFromStoryBlokStory } from '../../../logic/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatbotHomeComponent {
-  public salesRepresentative = input.required<ChatBotSalesRep>();
+  public salesRepresentative = input.required<SalesRep | undefined>();
+  protected salesRepName = computed(() => this.salesRepresentative()?.name ?? '');
   public tabNavigation = output<ChatBotEnquiryType>();
   protected readonly enquiryTypes = ChatBotEnquiryType;
   private readonly store = inject(Store);

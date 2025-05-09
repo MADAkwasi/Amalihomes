@@ -2,7 +2,6 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ChatbotNavigationComponent } from '../../components/chatbot-navigation/chatbot-navigation.component';
-import { salesRepresentativeMock } from '../../components/chatbot-navigation/mocked-data';
 import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { ContactUsComponent } from '../../../shared-ui/components/contact-us/contact-us.component';
@@ -15,7 +14,6 @@ import { filter } from 'rxjs';
   templateUrl: './root-layout.component.html',
 })
 export class RootLayoutComponent {
-  protected mockedSalesRep = salesRepresentativeMock;
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly currentUrl = signal(this.router.url);

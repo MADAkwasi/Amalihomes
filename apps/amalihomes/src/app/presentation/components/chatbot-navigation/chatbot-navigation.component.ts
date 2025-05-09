@@ -1,15 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-  NgZone,
-  OnInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, NgZone, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatBotEnquiryType, ChatBotSalesRep, ChatBotTabs, CMSChatbot } from '../../../types/chatbot';
+import { ChatBotEnquiryType, ChatBotTabs, CMSChatbot } from '../../../types/chatbot';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
 import { LucideAngularModule, X, ChevronLeft } from 'lucide-angular';
 import { ChatbotHomeIconComponent } from '../svg-icons/chatbot-home-icon/chatbot-home-icon.component';
@@ -19,7 +10,7 @@ import { ChatbotHomeComponent } from '../chatbot-home/chatbot-home.component';
 import { ChatbotOrderEnquiryComponent } from '../chatbot-order-enquiry/chatbot-order-enquiry.component';
 import { ChatbotGeneralEnquiryComponent } from '../chatbot-general-enquiry/chatbot-general-enquiry.component';
 import { Store } from '@ngrx/store';
-import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { ChatbotFaqComponent } from '../chatbot-faq/chatbot-faq.component';
 import { ChatbotProductEnquiryComponent } from '../chatbot-product-enquiry/chatbot-product-enquiry.component';
 import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
@@ -44,7 +35,6 @@ import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatbotNavigationComponent implements OnInit {
-  public salesRepresentative = input.required<ChatBotSalesRep>();
   protected readonly icons = { X, ChevronLeft };
   protected expandChat = false;
   protected showBackButton = false;
@@ -52,6 +42,11 @@ export class ChatbotNavigationComponent implements OnInit {
   protected isTawkToOpen = false;
   protected readonly ChatBotTabTypes = ChatBotTabs;
   private readonly store = inject(Store);
+  private readonly selectedLocale = this.store.selectSignal(selectLocale);
+  private readonly salesContactDetails = this.store.selectSignal(selectSection('contact'));
+  protected readonly salesRepresentative = computed(() =>
+    this.salesContactDetails()?.salesRep?.find(({ country }) => this.selectedLocale()?.country === country),
+  );
   private readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
   protected readonly chatbotHomeData = computed(() => this.chatbotData()?.home_page[0]);
   protected tabLabels = computed(() => {

@@ -46,6 +46,16 @@ export const mockedStore = {
         close_banner_label: 'Close Banner Label',
       },
       {
+        component: 'contact',
+        salesRep: [
+          {
+            country: 'Country',
+            name: 'Name',
+            profilePic: [{ image: 'image.png' }],
+          },
+        ],
+      },
+      {
         component: 'chatbot',
         order_enquiry: [
           {

@@ -13,9 +13,9 @@
     class="absolute bottom-0 right-0 mb-5 md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
   >
     <lib-image
-      [src]="salesRepresentative().image"
-      alt="{{ salesRepresentative().name || '' }}"
-      class="w-[48px] h-[48px] !rounded-full"
+      [src]="salesRepresentative()?.profilePic?.[0]?.image??''"
+      alt="{{ salesRepresentative()?.name ?? '' }}"
+      class="w-[48px] h-[48px] !rounded-full !shadow-lg"
     />
   </lib-button>
   } @else {
