@@ -1,9 +1,9 @@
-@if(data()) {
+@if(footerData()) {
 <footer class="py-6 md:py-16 text-white flex flex-col gap-10 md:gap-20 page-horizontal-padding">
   <div class="flex lg:flex-row flex-col gap-6 justify-between items-start">
     <span class="w-[100%] lg:w-[40%] flex flex-col gap-2 text-center md:text-left">
-      <h4 class="font-medium text-lg">{{ data()?.subscriptionTitle }}</h4>
-      <p class="text-xs font-light">{{ data()?.subscriptionText }}</p>
+      <h4 class="font-medium text-lg">{{ footerData()?.subscriptionTitle }}</h4>
+      <p class="text-xs font-light">{{ footerData()?.subscriptionText }}</p>
     </span>
 
     <span class="w-[100%] lg:w-[32%] flex flex-col gap-2">
@@ -15,27 +15,27 @@
           #emailRef="ngModel"
           type="text"
           class="bg-transparent border-white border rounded-md w-[100%] md:w-[50%] lg:w-[85%] px-4 py-3 placeholder:text-white"
-          [placeholder]="data()?.inputPlaceholder"
+          [placeholder]="footerData()?.inputPlaceholder"
           required
         />
         <p *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-[10px] tracking-wider block lg:hidden">
-          {{ data()?.inputErrorText }}
+          {{ footerData()?.inputErrorText }}
         </p>
         <lib-button
           buttonStyles="!w-[100%] md:!w-[50%] lg:!w-[100%]"
           type="tetiary"
           (buttonClick)="onSubmit()"
           buttonIdentifier="subscription-button"
-          >{{ data()?.buttonText }}</lib-button
+          >{{ footerData()?.buttonText }}</lib-button
         >
       </form>
       <p *ngIf="emailRef.invalid && emailRef.touched" class="text-red-500 text-[10px] tracking-wider hidden lg:block">
-        {{ data()?.inputErrorText }}
+        {{ footerData()?.inputErrorText }}
       </p>
       <span class="flex text-xs font-thin gap-2 justify-center md:justify-start">
-        <p>{{ data()?.privacyAcceptanceText }}</p>
-        <a class="underline" [routerLink]="data()?.privacyLink?.[0]?.href?.url">{{
-          data()?.privacyLink?.[0]?.text
+        <p>{{ footerData()?.privacyAcceptanceText }}</p>
+        <a class="underline" [routerLink]="footerData()?.privacyLink?.[0]?.href?.url">{{
+          footerData()?.privacyLink?.[0]?.text
         }}</a>
       </span>
     </span>
@@ -51,10 +51,10 @@
     ></app-hyperlinks>
     }
     <span class="flex flex-col gap-6 text-center md:text-left">
-      <h4 class="font-semibold text-md">{{ data()?.contactHeading }}</h4>
+      <h4 class="font-semibold text-md">{{ footerData()?.contactHeading }}</h4>
       <ul class="text-sm font-light flex flex-col gap-4">
-        <li>{{ data()?.contactPhoneNumber }}</li>
-        <li>{{ data()?.contactEmail }}</li>
+        <li>{{ footerData()?.contactPhoneNumber }}</li>
+        <li>{{ footerData()?.contactEmail }}</li>
       </ul>
     </span>
   </div>
@@ -64,7 +64,7 @@
 
     <span class="flex flex-col gap-4 lg:flex-row justify-between items-center">
       <span>
-        <p>{{ data()?.legalRights }}</p>
+        <p>{{ footerData()?.legalRights }}</p>
       </span>
 
       <ul class="flex gap-4 md:hidden">
