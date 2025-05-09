@@ -12,4 +12,5 @@ export class ValuePropItemComponent {
   public readonly meritDescription = input.required<string>();
   public readonly meritTitle = input.required<string>();
   public readonly icon = input.required<string>();
+  public readonly alt = input<string | null>(null);
 }

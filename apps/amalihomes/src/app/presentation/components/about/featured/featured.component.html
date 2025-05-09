@@ -5,11 +5,13 @@
     <div class="flex flex-wrap">
       @for (item of data()?.items; track item._uid) {
       <app-value-prop-item
+        data-testid="merit-item"
         class="w-fit md:w-1/2 flex-shrink-0"
         [ngClass]="{ 'md:pr-6': $index % 2 === 0 }"
         [icon]="item.icon.filename"
         [meritDescription]="item.description"
         [meritTitle]="item.title"
+        [alt]="item.icon.name"
       />
       }
     </div>
