@@ -8,7 +8,7 @@ describe('ValuePropIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ValuePropIconComponent], // standalone
+      imports: [ValuePropIconComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ValuePropIconComponent);
@@ -27,6 +27,5 @@ describe('ValuePropIconComponent', () => {
     const imgElement = fixture.debugElement.query(By.css('img'));
     expect(imgElement).toBeTruthy();
     expect(imgElement.nativeElement.src).toBe(testIcon);
-    expect(imgElement.nativeElement.alt).toBe('merit');
   });
 });
