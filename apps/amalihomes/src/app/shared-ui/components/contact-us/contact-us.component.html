@@ -1,3 +1,4 @@
+@if(contactUsContent()){
 <section
   [ngStyle]="bgColor() ? { 'background-color': bgColor() } : { 'background-image': 'url(' + bgImg() + ')' }"
   class="w-full min-h-[810px] bg-center bg-cover"
@@ -22,8 +23,6 @@
       [formGroup]="contactForm"
     >
       <h3 libText textType="heading3">{{ formContent()[0].heading }}</h3>
-
-      <!--This label is for input placeholder accessibility purposes-->
       <label class="sr-only" for="name">Enter Full Name</label>
       <lib-text-input
         [placeholder]="formContent()[0].inputField[0].placeholder"
@@ -34,8 +33,6 @@
         "
         [errorMessage]="getErrorMessage(contactFormControls.name, 'name')"
       ></lib-text-input>
-
-      <!--This label is for input placeholder accessibility purposes-->
       <label class="sr-only" for="email">Enter Email Address</label>
       <lib-text-input
         [placeholder]="formContent()[0].inputField[1].placeholder"
@@ -51,8 +48,6 @@
         <label for="message" libText textType="text-medium" class="text-black font-semibold">{{
           formContent()[0].inputField[2].label
         }}</label>
-
-        <!--This label is for input placeholder accessibility purposes-->
         <label class="sr-only" for="message">Kindly type your message</label>
         <textarea
           formControlName="message"
@@ -86,3 +81,4 @@
     }
   </div>
 </section>
+}

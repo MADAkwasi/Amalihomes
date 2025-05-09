@@ -36,9 +36,9 @@ import { YoutubeIconComponent } from '../svg-icons/youtube-icon/youtube-icon.com
 })
 export class FooterComponent {
   private readonly store = inject(Store);
-  protected readonly data = this.store.selectSignal(selectSection('footer'));
+  protected readonly footerData = this.store.selectSignal(selectSection('footer'));
   protected readonly groupedLinks = computed(() => {
-    return this.data()?.linksSection ?? [];
+    return this.footerData()?.linksSection ?? [];
   });
 
   protected email!: string;
