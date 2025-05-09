@@ -54,6 +54,8 @@ export interface Section extends ISbComponentType<string> {
   regionTabs?: RegionTab[];
   region?: string;
   showroomItem: Showroom[];
+  norooms?: string;
+  image_alt_text?: string;
 }
 
 export interface Showroom {
@@ -63,6 +65,7 @@ export interface Showroom {
 }
 
 export interface ShowroomImage {
+  name: string;
   id: number | null;
   alt: string | null;
   filename: string;
