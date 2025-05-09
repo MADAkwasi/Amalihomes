@@ -1,6 +1,6 @@
 <app-chatbot-enquiry
   [formType]="enquiryTypes.product"
-  (selectorValueChanged)="handleSelectorFieldValueChange($event)"
+  (selectorValueChanged)="selectorFieldValue.set($event)"
   [selectorValue]="selected()"
 >
   <ng-container selector>
@@ -10,7 +10,7 @@
       buttonIdentifier="chatbot-product-{{ product._id }}-enquiry"
       buttonStyles="!p-3 w-full !justify-start flex !items-center !gap-4 !bg-white hover:!bg-primary-light"
       class="block !p-0"
-      (buttonClick)="handleSelectedProduct(product)"
+      (buttonClick)="selected.set(product.name)"
     >
       <span>
         <img [src]="product.image" alt="display-image-for-product-{{ product.name }}" class="w-16 h-16 rounded-md" />

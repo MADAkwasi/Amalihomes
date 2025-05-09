@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ChatbotEnquiryComponent } from '../chatbot-enquiry/chatbot-enquiry.component';
 import { ButtonComponent } from '../../../shared-ui/components/button/button.component';
-import { ChatBotEnquiryType, Product } from '../../../types/chatbot';
+import { ChatBotEnquiryType } from '../../../types/chatbot';
 import { Store } from '@ngrx/store';
 import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selector';
 
@@ -23,10 +23,4 @@ export class ChatbotProductEnquiryComponent {
     if (value.length < 1) return this.products();
     return this.products().filter((product) => product.name.toLowerCase().includes(value));
   });
-  protected handleSelectorFieldValueChange(value: string) {
-    this.selectorFieldValue.set(value);
-  }
-  protected handleSelectedProduct(selectedProduct: Product) {
-    this.selected.set(selectedProduct.name);
-  }
 }

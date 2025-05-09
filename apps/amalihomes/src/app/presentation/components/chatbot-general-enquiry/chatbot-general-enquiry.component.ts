@@ -19,18 +19,12 @@ export class ChatbotGeneralEnquiryComponent {
   protected questions = computed(() => {
     return this.chatbotData()?.general_enquiry[0].questions.map((question) => question.value);
   });
-  protected selected = '';
-  private readonly selectorFieldValue = signal('');
+  protected selected = signal('');
+  protected readonly selectorFieldValue = signal('');
   protected filtedQuestions = computed(() => {
     const value = this.selectorFieldValue().trim().toLowerCase();
     const questions = this.questions() ?? [];
     if (value.length < 1) return questions;
     return questions.filter((question) => question.toLowerCase().includes(value));
   });
-  protected handleSelectedOrder(selectedQuestion: string) {
-    this.selected = selectedQuestion;
-  }
-  protected handleSelectorFieldValueChange(value: string) {
-    this.selectorFieldValue.set(value);
-  }
 }
