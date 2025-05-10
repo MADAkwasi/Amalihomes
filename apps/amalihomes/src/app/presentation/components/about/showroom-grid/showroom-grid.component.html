@@ -1,4 +1,4 @@
-<div class="w-full flex flex-col gap-8 py-[64px] md:px-[32px] items-center">
+<div class="w-full flex flex-col gap-8 py-[64px] items-center">
   <app-responsive-heading
     class="text-center"
     [title]="data()?.heading ?? ''"
@@ -12,17 +12,17 @@
       (tabChange)="onRegionChange($event)"
     />
 
-    <div class="flex flex-wrap gap-6 w-full">
+    <div class="flex flex-wrap gap-4 w-full">
       @for (showroom of currentShowrooms(); track showroom.id) {
       <div
-        class="w-full sm:w-[calc(50%-12px)] md:w-[calc(50%-12px)] lg:w-[310px] relative rounded-lg overflow-hidden shadow-lg cursor-pointer transition-transform"
+        class="w-full sm:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] relative rounded-lg overflow-hidden shadow-lg cursor-pointer transition-transform"
         (click)="onShowroomClick(showroom)"
         (keydown.enter)="onShowroomClick(showroom)"
         tabindex="0"
       >
         <lib-image
           [src]="showroom.image.filename"
-          [alt]="showroom.name"
+          [alt]="showroom.image.name"
           class="w-full h-auto object-cover aspect-[4/5]"
         />
         <div
@@ -32,7 +32,7 @@
         </div>
       </div>
       } @if (currentShowrooms().length === 0) {
-      <div class="col-span-full text-center py-8 text-gray-500 italic">No showrooms available for this region.</div>
+      <div class="col-span-full text-center py-8 text-gray-500 italic">{{ data()?.norooms }}</div>
       }
     </div>
   </div>

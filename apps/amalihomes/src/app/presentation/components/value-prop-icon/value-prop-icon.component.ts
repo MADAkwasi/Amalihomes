@@ -9,4 +9,5 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ValuePropIconComponent {
   public readonly icon = input.required<string>();
+  public readonly alt = input<string | null>(null);
 }

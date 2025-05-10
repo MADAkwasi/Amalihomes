@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, effect, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ResponsiveHeadingComponent } from '../responsive-heading/responsive-heading.component';
 import { ValuePropItemComponent } from '../../value-prop-item/value-prop-item.component';
