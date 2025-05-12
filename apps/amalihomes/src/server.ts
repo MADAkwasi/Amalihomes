@@ -15,7 +15,7 @@ const app = express();
 app.use(
   express.static(browserDistFolder, {
     maxAge: environment.PRODUCTION ? '1d' : 0,
-    index: false,
+    index: true,
     redirect: false,
   }),
 );
