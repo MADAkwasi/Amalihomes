@@ -1,7 +1,9 @@
 @if (data()) {
 <header class="relative">
   <app-internationalization-bar [locale]="data()!.locale"></app-internationalization-bar>
-  <nav class="flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding">
+  <nav
+    class="bg-white flex justify-between items-center text-xs py-[0.8rem] border-b-border border-b page-horizontal-padding"
+  >
     <a routerLink="/" title="Home">
       <app-logo />
     </a>

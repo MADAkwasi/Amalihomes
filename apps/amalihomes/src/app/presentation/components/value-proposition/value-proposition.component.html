@@ -2,7 +2,7 @@
 <section *ngIf="sectionData" class="w-full flex justify-between gap-4">
   <div class="lg:max-w-[52.13rem] w-full">
     <h2 class="max-w-[700px] mb-3" libText textType="heading2">{{ sectionData.title }}</h2>
-    <p class="py-0 max-w-[520px] mb-7" libText textType="text-large">{{ sectionData.description }}</p>
+    <p class="py-0 max-w-[520px] mb-7" libText textType="text-medium">{{ sectionData.description }}</p>
 
     <div class="flex flex-wrap">
       @for (item of sectionData.items; track item._uid) {
