@@ -1,34 +1,32 @@
-import { Meta, StoryObj } from '@storybook/angular';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 import { LeadershipComponent } from './leadership.component';
-import { teamMembers } from 'apps/amalihomes/src/app/logic/data/constants/about';
+import { provideMockStore } from '@ngrx/store/testing';
+import { mockedStore } from 'apps/amalihomes/src/app/logic/data/testing/mocked-data';
+
+const leadershipData = mockedStore.content.body.find((item) => item.component === 'leadership_team');
 
 const meta: Meta<LeadershipComponent> = {
   title: 'Leadership',
   component: LeadershipComponent,
   tags: ['autodocs'],
-  argTypes: {
-    leadershipList: {
-      control: 'object',
-      description: 'Array of leaders to display',
-    },
-    title: {
-      control: 'text',
-      description: 'Title of the leadership section',
-    },
-    description: {
-      control: 'text',
-      description: 'Description of the leadership section',
-    },
-  },
+  decorators: [
+    moduleMetadata({
+      providers: [
+        provideMockStore({
+          initialState: {
+            storyblokPage: {
+              content: {
+                body: [leadershipData],
+              },
+            },
+          },
+        }),
+      ],
+    }),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<LeadershipComponent>;
 
-export const Default: Story = {
-  args: {
-    leadershipList: teamMembers.data,
-    title: 'Global Presence',
-    description: 'Meet our leadership team, who are dedicated to driving our mission and vision forward.',
-  },
-};
+export const Default: Story = {};

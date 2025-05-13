@@ -1,12 +1,12 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
-import { LocationMapComponent } from './location-map.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { mockedStore } from 'apps/amalihomes/src/app/logic/data/testing/mocked-data';
+import { StatisticsComponent } from './statistics.component';
 
-const mapData = mockedStore.content.body.find((item) => item.component === 'global_presence');
-const meta: Meta<LocationMapComponent> = {
-  title: 'Location Map',
-  component: LocationMapComponent,
+const mapData = mockedStore.content.body.find((item) => item.component === 'aboutLandingSection');
+const meta: Meta<StatisticsComponent> = {
+  title: 'Statistics',
+  component: StatisticsComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
@@ -26,6 +26,6 @@ const meta: Meta<LocationMapComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<LocationMapComponent>;
+type Story = StoryObj<StatisticsComponent>;
 
 export const Default: Story = {};
