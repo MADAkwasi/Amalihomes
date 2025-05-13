@@ -3,6 +3,8 @@ import { ChatbotProductEnquiryComponent } from './chatbot-product-enquiry.compon
 import { provideMockStore } from '@ngrx/store/testing';
 import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 import { mockedStore } from '../../../logic/data/testing/mocked-data';
+import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selector';
+import { dummyData } from '../../../logic/stores/mocked-data';
 
 describe('ChatbotProductEnquiryComponent', () => {
   let component: ChatbotProductEnquiryComponent;
@@ -18,6 +20,7 @@ describe('ChatbotProductEnquiryComponent', () => {
               selector: selectStoryblokPageState,
               value: mockedStore,
             },
+            { selector: selectProducts, value: dummyData },
           ],
         }),
       ],

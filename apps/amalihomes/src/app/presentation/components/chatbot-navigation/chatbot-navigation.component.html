@@ -52,7 +52,7 @@
       </button>
     </div>
 
-    <div class="px-4 w-full md:w-[361px]">
+    <div class="px-4 w-full md:w-[361px] h-[100rem]">
       <!-- Content Container Space -->
       @switch (activeTab) { @case (ChatBotTabTypes.home) { @if(navigatedHomeTabEnquiry === null) {
       <app-chatbot-home
@@ -64,7 +64,7 @@
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.general) {
       <app-chatbot-general-enquiry />
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.product) {
-      <app-chatbot-product-enquiry />
+      <app-chatbot-product-enquiry (return)="handleBackButtonClick()" />
       } } @case (ChatBotTabTypes.chat) { } @case (ChatBotTabTypes.help) {
       <app-chatbot-faq />
       } }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
 import { SaleRepComponent } from '../sales-rep/sales-rep.component';
 import { TextDirective } from '../../directives/text/text.directive';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -21,6 +21,7 @@ import { StoryblokForm } from '../../../types/storyblok';
 import { errors } from '../../../logic/data/constants/errors';
 import { LanguageCode } from '../../../logic/data/constants/localization';
 import { ToastComponent } from '../toast/toast.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'lib-contact-us',
@@ -51,17 +52,22 @@ export class ContactUsComponent {
   protected readonly formContent = signal<StoryblokForm[]>([]);
   protected readonly errors = signal(errors);
   protected readonly isFormSubmitted = signal(false);
-
-  constructor() {
-    effect(() => this.formContent.set(this.contactUsContent()?.contactForm as StoryblokForm[]));
-  }
-
   protected readonly contactFormControls = {
     name: new FormControl('', [Validators.required, customNameValidator]),
     email: new FormControl('', [Validators.required, customEmailValidator]),
     message: new FormControl('', [Validators.required, customMessageValidator]),
   };
   protected contactForm = this.fb.group(this.contactFormControls);
+  readonly formValues = toSignal(this.contactForm.valueChanges, { initialValue: this.contactForm.value });
+
+  protected readonly allFieldsNotFilled = computed(() => {
+    const formValues = this.formValues();
+    return !formValues.name?.trim() || !formValues.email?.trim() || !formValues.message?.trim();
+  });
+
+  constructor() {
+    effect(() => this.formContent.set(this.contactUsContent()?.contactForm as StoryblokForm[]));
+  }
 
   protected getErrorMessage(control: FormControl, fieldName?: string): string {
     if (!control?.errors) return '';
@@ -79,8 +85,14 @@ export class ContactUsComponent {
 
   protected onSubmit() {
     this.isFormSubmitted.set(true);
-    this.contactForm.reset();
+    if (this.contactForm.invalid) {
+      setTimeout(() => {
+        this.isFormSubmitted.set(false);
+      }, 500);
+      return;
+    }
 
+    this.contactForm.reset();
     setTimeout(() => {
       this.isFormSubmitted.set(false);
     }, 5000);

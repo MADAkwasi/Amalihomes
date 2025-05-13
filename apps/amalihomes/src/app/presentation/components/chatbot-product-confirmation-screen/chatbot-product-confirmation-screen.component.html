@@ -1,0 +1,43 @@
+<div class="flex flex-col justify-between h-full py-5">
+  <div class="flex flex-col gap-2">
+    <h3 libText textType="heading3" class="!text-2xl">Product Enquiry</h3>
+    <p libText textType="text-small">Make enquiries on the selected product?</p>
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <div class="flex gap-4 items-center">
+      <img
+        [src]="selectedProduct()?.image"
+        alt="display-image-for-{{ selectedProduct()?.name }}"
+        class="w-16 h-16 rounded-md"
+      />
+
+      <div class="flex flex-col gap-1">
+        <h4>{{ selectedProduct()?.name }}</h4>
+        <p libText textType="text-normal" class="!font-bold text-black">
+          {{ selectedProduct()?.price | currency : 'USD' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <lib-button
+        type="primary"
+        buttonIdentifier="chatbot-product-confirmation-screen-enquiry-btn"
+        [title]="'Yes, Make enquiry'"
+        (buttonClick)="confirm.emit(true)"
+        buttonStyles="!p-3 !w-full !justify-center"
+        >Yes</lib-button
+      >
+
+      <lib-button
+        type="secondary"
+        buttonIdentifier="chatbot-product-confirmation-screen-cancel-btn"
+        [title]="'Cancel'"
+        (buttonClick)="handleReturn.emit()"
+        buttonStyles="!p-3 !w-full !justify-center"
+        >No</lib-button
+      >
+    </div>
+  </div>
+</div>

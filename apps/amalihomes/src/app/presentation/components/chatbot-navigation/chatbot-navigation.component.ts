@@ -62,13 +62,17 @@ export class ChatbotNavigationComponent implements OnInit {
   protected readonly homeTabEnquiryTypes = ChatBotEnquiryType;
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
 
-  constructor(private ngZone: NgZone, private tawkToService: TawkToService, private cdr: ChangeDetectorRef) {
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly tawkToService: TawkToService,
+    private readonly cdr: ChangeDetectorRef,
+  ) {
     this.tawkToService.onLoad().subscribe(() => {
       this.tawkToService.hideTawkTo();
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.tawkToService.loadTawkTo();
     this.tawkToService.onLoad().subscribe(() => {
       this.tawkToService.hideTawkTo();
