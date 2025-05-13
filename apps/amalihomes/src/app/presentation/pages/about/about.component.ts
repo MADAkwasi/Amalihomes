@@ -32,7 +32,6 @@ import { AboutMetaData } from './static-meta-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent implements OnInit {
-  protected location = 'Amalitech, Ghana';
   private readonly pageHeadTags = inject(MetaTagsService);
   private readonly store = inject(Store);
   private readonly platformId = inject(PLATFORM_ID);
