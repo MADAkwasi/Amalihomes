@@ -100,7 +100,6 @@ export class LocationMapComponent implements OnInit {
   }
 
   private setMapUrl(office: Office) {
-    console.log(this.googleMapsApiKey);
     const url = `https://www.google.com/maps/embed/v1/place?key=${this.googleMapsApiKey}&q=${encodeURIComponent(
       office.address,
     )}`;
