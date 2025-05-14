@@ -73,15 +73,31 @@ export class LocationMapComponent implements OnInit {
     ).office;
   }
 
-  private calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const R = 6371;
-    const dLat = this.toRad(lat2 - lat1);
-    const dLon = this.toRad(lon2 - lon1);
+  private calculateDistance(
+    userLatitude: number,
+    userLongitude: number,
+    officeLatitude: number,
+    officeLongitude: number,
+  ): number {
+    const earthRadiusInKm = 6371;
+
+    const deltaLatitude = this.toRadians(officeLatitude - userLatitude);
+    const deltaLongitude = this.toRadians(officeLongitude - userLongitude);
+
     const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+      Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) +
+      Math.cos(this.toRadians(userLatitude)) *
+        Math.cos(this.toRadians(officeLatitude)) *
+        Math.sin(deltaLongitude / 2) *
+        Math.sin(deltaLongitude / 2);
+
+    const centralAngle = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return earthRadiusInKm * centralAngle;
+  }
+
+  private toRadians(degrees: number): number {
+    return (degrees * Math.PI) / 180;
   }
 
   private toRad(value: number): number {
