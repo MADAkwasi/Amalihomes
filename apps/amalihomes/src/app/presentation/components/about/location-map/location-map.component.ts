@@ -84,15 +84,14 @@ export class LocationMapComponent implements OnInit {
     const deltaLatitude = this.toRadians(officeLatitude - userLatitude);
     const deltaLongitude = this.toRadians(officeLongitude - userLongitude);
 
-    const a =
+    const haversineOfCentralAngle =
       Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) +
       Math.cos(this.toRadians(userLatitude)) *
         Math.cos(this.toRadians(officeLatitude)) *
         Math.sin(deltaLongitude / 2) *
         Math.sin(deltaLongitude / 2);
 
-    const centralAngle = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
+    const centralAngle = 2 * Math.atan2(Math.sqrt(haversineOfCentralAngle), Math.sqrt(1 - haversineOfCentralAngle));
     return earthRadiusInKm * centralAngle;
   }
 
@@ -100,11 +99,8 @@ export class LocationMapComponent implements OnInit {
     return (degrees * Math.PI) / 180;
   }
 
-  private toRad(value: number): number {
-    return (value * Math.PI) / 180;
-  }
-
   private setMapUrl(office: Office) {
+    console.log(this.googleMapsApiKey);
     const url = `https://www.google.com/maps/embed/v1/place?key=${this.googleMapsApiKey}&q=${encodeURIComponent(
       office.address,
     )}`;
