@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, NgZone, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatBotEnquiryType, ChatBotTabs, CMSChatbot } from '../../../types/chatbot';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { ChatbotFaqComponent } from '../chatbot-faq/chatbot-faq.component';
 import { ChatbotProductEnquiryComponent } from '../chatbot-product-enquiry/chatbot-product-enquiry.component';
-import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
+import { TawkChatComponent } from '../tawk-chat/tawk-chat.component';
 
 @Component({
   selector: 'app-chatbot-navigation',
@@ -30,11 +30,12 @@ import { TawkToService } from '../../../logic/services/tawk-to/tawk-to.service';
     ChatbotGeneralEnquiryComponent,
     ChatbotFaqComponent,
     ChatbotProductEnquiryComponent,
+    TawkChatComponent,
   ],
   templateUrl: './chatbot-navigation.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatbotNavigationComponent implements OnInit {
+export class ChatbotNavigationComponent {
   protected readonly icons = { X, ChevronLeft };
   protected expandChat = false;
   protected showBackButton = false;
@@ -62,89 +63,32 @@ export class ChatbotNavigationComponent implements OnInit {
   protected readonly homeTabEnquiryTypes = ChatBotEnquiryType;
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
 
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly tawkToService: TawkToService,
-    private readonly cdr: ChangeDetectorRef,
-  ) {
-    this.tawkToService.onLoad().subscribe(() => {
-      this.tawkToService.hideTawkTo();
-    });
-  }
-
-  ngOnInit(): void {
-    this.tawkToService.loadTawkTo();
-    this.tawkToService.onLoad().subscribe(() => {
-      this.tawkToService.hideTawkTo();
-      this.cdr.markForCheck();
-    });
-    this.setupTawkToListeners();
-  }
-
   protected handleExpandChat() {
     this.expandChat = !this.expandChat;
     if (!this.expandChat) this.resetInterface();
-    this.cdr.markForCheck();
   }
 
   protected navigateTo(tab: ChatBotTabs) {
-    if (tab === ChatBotTabs.chat) {
-      this.handleChatTabSelection();
-    } else {
-      this.selectTab(tab);
-    }
-  }
-
-  private handleChatTabSelection() {
-    this.expandChat = false;
-    this.isTawkToOpen = true;
-    this.tawkToService.showTawkTo();
-    this.cdr.markForCheck();
-  }
-
-  private setupTawkToListeners() {
-    this.tawkToService.onChatEnded().subscribe(() => {
-      this.ngZone.run(() => {
-        this.tawkToService.hideTawkTo();
-        this.isTawkToOpen = false;
-        this.expandChat = true;
-        this.resetInterface();
-        this.cdr.detectChanges();
-      });
-    });
-
-    this.tawkToService.onChatMinimized().subscribe(() => {
-      this.ngZone.run(() => {
-        this.tawkToService.hideTawkTo();
-        this.isTawkToOpen = false;
-        this.expandChat = true;
-        this.cdr.detectChanges();
-      });
-    });
+    this.selectTab(tab);
   }
 
   protected navigateToHomeTabEnquiry(enquiry: ChatBotEnquiryType) {
     this.navigatedHomeTabEnquiry = enquiry;
     this.showBackButton = true;
     this.showBottomNavigation = false;
-    this.cdr.markForCheck();
   }
 
   protected selectTab(tab: ChatBotTabs) {
     if (this.activeTab === tab) return;
     this.activeTab = tab;
     this.showBackButton = ![ChatBotTabs.home, ChatBotTabs.help].includes(tab);
+    this.showBottomNavigation = tab !== ChatBotTabs.chat;
     this.resetNestedTabPages();
-    this.cdr.markForCheck();
   }
 
   protected handleBackButtonClick() {
-    if (this.isSelected(ChatBotTabs.home)) {
-      this.resetHomeTabNavigation();
-    } else {
-      this.selectTab(ChatBotTabs.home);
-    }
-    this.cdr.markForCheck();
+    this.selectTab(ChatBotTabs.home);
+    this.resetHomeTabNavigation();
   }
 
   private resetHomeTabNavigation() {
@@ -152,7 +96,6 @@ export class ChatbotNavigationComponent implements OnInit {
       this.showBackButton = false;
       this.showBottomNavigation = true;
       this.navigatedHomeTabEnquiry = null;
-      this.cdr.markForCheck();
     }
   }
 

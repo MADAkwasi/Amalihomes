@@ -1,4 +1,3 @@
-@if (!isTawkToOpen) {
 <div
   [ngClass]="{ 'h-full': expandChat, 'top-auto': !expandChat }"
   class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 scrollbar-hide md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
@@ -20,7 +19,7 @@
   </lib-button>
   } @else {
   <div
-    class="animate-slideUp relative scrollbar-hide bg-white shadow-xl overflow-auto w-full h-full md:max-w-[393px] md:max-h-[552px] md:min-h-[552px] md:h-3/4 md:rounded-3xl md:mb-5 flex flexed flex-col justify-between"
+    class="animate-slideUp relative scrollbar-hide bg-white shadow-xl overflow-auto w-full h-full md:max-w-[393px] md:max-h-[552px] md:min-h-[552px] md:h-3/4 md:rounded-3xl md:mb-5 flex flex-col"
   >
     <!--Header-->
     <div class="sticky z-10 top-0 w-full px-4 bg-white pt-4 pb-1 flex justify-between items-center">
@@ -52,9 +51,11 @@
       </button>
     </div>
 
-    <div class="px-4 w-full md:w-[361px] h-[100rem]">
-      <!-- Content Container Space -->
-      @switch (activeTab) { @case (ChatBotTabTypes.home) { @if(navigatedHomeTabEnquiry === null) {
+    <div
+      class="flex-grow w-full md:w-[361px] h-[100rem] flex flex-col"
+      [ngClass]="{ 'px-4': activeTab !== ChatBotTabTypes.chat }"
+    >
+      @switch (activeTab) { @case (ChatBotTabTypes.home) { @if (navigatedHomeTabEnquiry === null) {
       <app-chatbot-home
         (tabNavigation)="navigateToHomeTabEnquiry($event)"
         [salesRepresentative]="salesRepresentative()"
@@ -65,13 +66,17 @@
       <app-chatbot-general-enquiry />
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.product) {
       <app-chatbot-product-enquiry (return)="handleBackButtonClick()" />
-      } } @case (ChatBotTabTypes.chat) { } @case (ChatBotTabTypes.help) {
+      } } @case (ChatBotTabTypes.chat) {
+      <div class="flex-grow h-full">
+        <app-tawk-chat />
+      </div>
+      } @case (ChatBotTabTypes.help) {
       <app-chatbot-faq />
       } }
     </div>
 
     <!--Bottom Navigation-->
-    @if (showBottomNavigation) {
+    @if (showBottomNavigation && activeTab !== ChatBotTabTypes.chat) {
     <div class="sticky bottom-0 bg-white w-full px-4 pb-4">
       <div class="bg-primary-light h-14 flex items-center justify-around rounded-2xl">
         @for (tab of tabs; track tab) {
@@ -97,10 +102,7 @@
         }
       </div>
     </div>
-    } @else {
-    <div></div>
     }
   </div>
   }
 </div>
-}
