@@ -6,7 +6,7 @@
       "path": "/*.*",
       "target": {
         "kind": "Static",
-        "cacheControl": "public, max-age=1, immutable"
+        "cacheControl": "public, max-age=2"
       },
       "fallback": {
         "kind": "Compute",
@@ -24,7 +24,7 @@
   "computeResources": [
     {
       "name": "default",
-      "runtime": "nodejs22.x",
+      "runtime": "nodejs18.x",
       "entrypoint": "server.mjs"
     }
   ]

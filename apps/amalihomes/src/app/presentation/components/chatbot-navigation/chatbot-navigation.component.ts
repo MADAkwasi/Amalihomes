@@ -63,6 +63,25 @@ export class ChatbotNavigationComponent {
   protected readonly homeTabEnquiryTypes = ChatBotEnquiryType;
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
 
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly tawkToService: TawkToService,
+    private readonly cdr: ChangeDetectorRef,
+  ) {
+    this.tawkToService.onLoad().subscribe(() => {
+      this.tawkToService.hideTawkTo();
+    });
+  }
+
+  ngOnInit(): void {
+    this.tawkToService.loadTawkTo();
+    this.tawkToService.onLoad().subscribe(() => {
+      this.tawkToService.hideTawkTo();
+      this.cdr.markForCheck();
+    });
+    this.setupTawkToListeners();
+  }
+
   protected handleExpandChat() {
     this.expandChat = !this.expandChat;
     if (!this.expandChat) this.resetInterface();

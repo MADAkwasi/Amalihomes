@@ -51,7 +51,10 @@
       </button>
     </div>
 
-    <div class="flex-grow w-full md:w-[361px] flex flex-col" [ngClass]="{ 'px-4': activeTab !== ChatBotTabTypes.chat }">
+    <div
+      class="flex-grow w-full md:w-[361px] h-[100rem] flex flex-col"
+      [ngClass]="{ 'px-4': activeTab !== ChatBotTabTypes.chat }"
+    >
       @switch (activeTab) { @case (ChatBotTabTypes.home) { @if (navigatedHomeTabEnquiry === null) {
       <app-chatbot-home
         (tabNavigation)="navigateToHomeTabEnquiry($event)"
@@ -62,7 +65,7 @@
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.general) {
       <app-chatbot-general-enquiry />
       } @else if (navigatedHomeTabEnquiry === homeTabEnquiryTypes.product) {
-      <app-chatbot-product-enquiry />
+      <app-chatbot-product-enquiry (return)="handleBackButtonClick()" />
       } } @case (ChatBotTabTypes.chat) {
       <div class="flex-grow h-full">
         <app-tawk-chat />

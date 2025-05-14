@@ -1,7 +1,14 @@
+@if(selectedProduct() && !isProductConfirmed()){
+<app-chatbot-product-confirmation-screen
+  [selectedProduct]="selectedProduct()"
+  (confirm)="isProductConfirmed.set($event)"
+  (handleReturn)="return.emit()"
+/>
+}@else {
 <app-chatbot-enquiry
   [formType]="enquiryTypes.product"
   (selectorValueChanged)="selectorFieldValue.set($event)"
-  [selectorValue]="selected()"
+  [selectorValue]="selectedProduct() ? selectedProductName() : selected()"
 >
   <ng-container selector>
     @for (product of filtedProducts(); track product._id) {
@@ -26,3 +33,4 @@
     }
   </ng-container>
 </app-chatbot-enquiry>
+}
