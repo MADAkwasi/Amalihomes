@@ -5,7 +5,7 @@ import { AuthResponse } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  signUp(fullName: string, email: string, password: string): Observable<AuthResponse> {
+  public signUp(fullName: string, email: string, password: string): Observable<AuthResponse> {
     const promise = supabase.auth.signUp({
       email,
       password,
@@ -18,7 +18,7 @@ export class AuthService {
     return from(promise);
   }
 
-  signIn(email: string, password: string): Observable<AuthResponse> {
+  public signIn(email: string, password: string): Observable<AuthResponse> {
     const promise = supabase.auth.signInWithPassword({
       email,
       password,
