@@ -1,6 +1,6 @@
 <div
   [ngClass]="{ 'h-full': expandChat, 'top-auto': !expandChat }"
-  class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 scrollbar-hide md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
+  class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 hide-scrollbar md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
 >
   @if(!expandChat){
   <lib-button
@@ -19,7 +19,7 @@
   </lib-button>
   } @else {
   <div
-    class="animate-slideUp relative scrollbar-hide bg-white shadow-xl overflow-auto w-full h-full md:max-w-[393px] md:max-h-[552px] md:min-h-[552px] md:h-3/4 md:rounded-3xl md:mb-5 flex flex-col"
+    class="animate-slideUp relative hide-scrollbar border border-gray-100 bg-white shadow-xl overflow-auto w-full h-full md:max-w-[393px] md:max-h-[580px] lg:max-h-[75svh] md:min-h-[404px] md:rounded-3xl md:mb-5 flex flex-col"
   >
     <!--Header-->
     <div class="sticky z-10 top-0 w-full px-4 bg-white pt-4 pb-1 flex justify-between items-center">

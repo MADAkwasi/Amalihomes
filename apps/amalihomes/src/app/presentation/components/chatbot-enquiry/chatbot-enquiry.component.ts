@@ -8,6 +8,7 @@ import {
   OnChanges,
   OnInit,
   output,
+  signal,
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -59,7 +60,7 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     EnquiryFormFieldsType.Question,
     EnquiryFormFieldsType.Products,
   ];
-  protected showSelector = false;
+  protected showSelector = signal(false);
   protected isSubmited = false;
   protected pageData = computed(() => {
     if (this.formType() === ChatBotEnquiryType.orders) {
@@ -95,10 +96,21 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     return this.formErrorMessages()?.[firstErrorKey] ?? 'Invalid field';
   }
 
+  protected submissionErrors = {} as Record<EnquiryFormFieldsType, boolean>;
+  protected fieldFocused = {} as Record<EnquiryFormFieldsType, boolean>;
+
   protected onSubmit() {
-    const errorExists = !!this.formFieldNames.find(
-      (fieldName) => this.isErrored(fieldName) || this.getControl(fieldName)?.invalid,
-    );
+    let errorExists = false;
+    this.formFieldNames.forEach((fieldName) => {
+      const control = this.getControl(fieldName);
+      if (!control.touched) {
+        this.submissionErrors[fieldName] = true;
+      }
+      this.submissionErrors[fieldName] = !control.touched;
+      if (!control.touched || control.invalid) {
+        errorExists = true;
+      }
+    });
     if (errorExists) return;
     this.isSubmited = true;
   }
@@ -109,8 +121,13 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     return control.invalid && (control.dirty || control.touched);
   }
 
+  protected showErrorMessage(fieldName: EnquiryFormFieldsType): boolean {
+    return !this.fieldFocused[fieldName] && (this.submissionErrors[fieldName] || this.isErrored(fieldName));
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     const selectedChange = changes['selectorValue'];
+
     if (selectedChange && !selectedChange.firstChange) {
       let control;
       if (this.formType() === ChatBotEnquiryType.orders) {
@@ -120,6 +137,7 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
       } else if (this.formType() === ChatBotEnquiryType.product) {
         control = this.getControl(EnquiryFormFieldsType.Products);
       }
+
       if (control) {
         control.patchValue(selectedChange.currentValue);
       }
@@ -161,14 +179,20 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   }
 
   protected selectorFieldFocus(fieldName: EnquiryFormFieldsType) {
-    if (!this.selectorFieldNames.includes(fieldName)) return;
-    this.showSelector = true;
+    this.submissionErrors[fieldName] = false;
+    this.fieldFocused[fieldName] = true;
+    if (this.selectorFieldNames.includes(fieldName)) {
+      this.showSelector.set(true);
+    }
   }
   protected selectorFieldBlur(fieldName: EnquiryFormFieldsType) {
-    if (!this.selectorFieldNames.includes(fieldName)) return;
-    // Allow for click events on the button
-    setTimeout(() => {
-      this.showSelector = false;
-    }, 50);
+    this.fieldFocused[fieldName] = false;
+    if (this.showSelector()) {
+      // Allow for click events on the button
+      const timed = setTimeout(() => {
+        this.showSelector.set(false);
+      }, 230);
+      this.destroyRef.onDestroy(() => clearTimeout(timed));
+    }
   }
 }
