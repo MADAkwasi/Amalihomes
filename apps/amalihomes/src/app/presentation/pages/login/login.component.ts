@@ -31,14 +31,14 @@ import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
     LucideAngularModule,
     LogoComponent,
   ],
-  templateUrl: './signup.component.html',
+  templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
-  private readonly cdRef = inject(ChangeDetectorRef);
+  private readonly chnageDetectionReference = inject(ChangeDetectorRef);
 
   protected readonly icons = { EyeOff, Eye };
   protected readonly fieldNames = Object.values(LoginFormFieldsType);
@@ -77,7 +77,7 @@ export class SignInComponent implements OnInit {
 
   togglePasswordVisibility(field: 'password') {
     this.passwordVisibility[field] = !this.passwordVisibility[field];
-    this.cdRef.markForCheck();
+    this.chnageDetectionReference.markForCheck();
   }
 
   isPasswordVisible(field: 'password'): boolean {
@@ -109,10 +109,9 @@ export class SignInComponent implements OnInit {
     this.authService.signIn(email, password).subscribe({
       next: ({ data, error }) => {
         if (error) {
-          alert(error.message);
-          console.error(error);
+          // Handle error here
         } else {
-          console.log(data);
+          // Handle successful login here
         }
       },
     });
