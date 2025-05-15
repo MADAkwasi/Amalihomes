@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ChatbotNavigationComponent } from '../../components/chatbot-navigation/chatbot-navigation.component';
@@ -12,6 +12,7 @@ import { filter } from 'rxjs';
   selector: 'app-root-layout',
   imports: [HeaderComponent, FooterComponent, ChatbotNavigationComponent, ContactUsComponent],
   templateUrl: './root-layout.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RootLayoutComponent {
   private readonly store = inject(Store);
@@ -25,7 +26,7 @@ export class RootLayoutComponent {
     bgImg: this.bgColor() ? null : this.bgImg(),
   }));
   protected readonly isHomePage = computed(() => this.currentUrl() === '/');
-  protected readonly isSignUpPage = computed(() => this.currentUrl() === '/signup');
+  protected readonly isAuthRoute = computed(() => this.currentUrl() === '/signup' || this.currentUrl() === '/login');
 
   constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
