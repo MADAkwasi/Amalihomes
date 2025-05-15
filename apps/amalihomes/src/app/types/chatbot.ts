@@ -17,6 +17,12 @@ interface ShippingInfo {
   deliveryTime: string;
 }
 
+interface Color {
+  name: string;
+  hex: string;
+  image: string;
+}
+
 export interface Product {
   _id: string;
   name: string;
@@ -26,7 +32,7 @@ export interface Product {
   description: string;
   dimensions: Dimensions;
   material: string;
-  colors: string[];
+  colors: Color[];
   image: string;
   ratings: number;
   reviews: Review[];

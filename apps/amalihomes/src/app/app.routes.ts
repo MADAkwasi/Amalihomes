@@ -23,6 +23,13 @@ export const appRoutes: Route[] = [
     path: 'faqs',
     loadComponent: () => import('./presentation/pages/faq/faq.component').then((Default) => Default.FaqComponent),
   },
+  {
+    path: 'shop/product/:productId',
+    loadComponent: () =>
+      import('./presentation/pages/product-details/product-details.component').then(
+        (Default) => Default.ProductDetailsComponent,
+      ),
+  },
   // {
   //   path: 'news',
   //   loadComponent: () => import('./presentation/pages/news/news.component').then((Default) => Default.NewsComponent),

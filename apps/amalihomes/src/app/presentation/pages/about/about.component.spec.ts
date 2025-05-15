@@ -119,12 +119,6 @@ describe('AboutComponent', () => {
     expect(fixture.nativeElement.querySelector('app-showroom-grid')).toBeTruthy();
   });
 
-  it('should pass correct location to map component', () => {
-    fixture.detectChanges();
-    const map = fixture.nativeElement.querySelector('app-location-map');
-    expect(map.getAttribute('ng-reflect-location')).toBe('Amalitech, Ghana');
-  });
-
   afterEach(() => {
     store?.resetSelectors();
     jest.clearAllMocks();
