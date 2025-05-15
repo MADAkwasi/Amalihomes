@@ -25,7 +25,7 @@ export class RootLayoutComponent {
     bgImg: this.bgColor() ? null : this.bgImg(),
   }));
   protected readonly isHomePage = computed(() => this.currentUrl() === '/');
-  protected readonly isAuth = computed(() => this.currentUrl() === '/signup' || this.currentUrl() === '/login');
+  protected readonly isAuthRoute = computed(() => this.currentUrl() === '/signup' || this.currentUrl() === '/login');
 
   constructor() {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
