@@ -1,11 +1,15 @@
-@if(!isAuthRoute()){
+@if (!isAuthRoute()) {
 <app-header class="sticky z-10 top-0"></app-header>
 }
 <div class="relative">
   <ng-content></ng-content>
   <app-chatbot-navigation />
-  @if(!isHomePage()){
+
+  @if (!isHomePage() && !isAuthRoute()) {
   <lib-contact-us [bgColor]="bgProps().bgColor" [bgImg]="bgProps().bgImg"></lib-contact-us>
   }
 </div>
+
+@if (!isAuthRoute()) {
 <app-footer class="bg-footer block"></app-footer>
+}
