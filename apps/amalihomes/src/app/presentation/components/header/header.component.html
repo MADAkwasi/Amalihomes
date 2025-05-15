@@ -28,7 +28,11 @@
       <app-user-icon />
 
       }@else {
-      <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{ data()?.buttonText }}</lib-button>
+      <a routerLink="/login">
+        <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
+          data()?.buttonText
+        }}</lib-button>
+      </a>
       }
 
       <lib-button
@@ -65,7 +69,6 @@
   <app-cookie-banner class="absolute top-0 left-0 right-0 z-20 mt-[125px]" />
 </header>
 } @else {
-<!-- Displays loading skeletons while header data is fetched -->
 <div
   class="flex justify-between items-center bg-white border-b border-b-gray-200 page-horizontal-padding pb-3 pt-[5rem] overflow-x-hidden"
 >
