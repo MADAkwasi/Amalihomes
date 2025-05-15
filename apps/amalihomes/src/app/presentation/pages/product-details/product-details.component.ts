@@ -1,19 +1,38 @@
-import { Component, computed, effect, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
 import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { Store } from '@ngrx/store';
 import { selectProductById } from '../../../logic/stores/selectors/dummy-data.selector';
 import { ChevronRight, LucideAngularModule, Minus, Plus } from 'lucide-angular';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Localization } from '../../../logic/data/constants/localization';
 import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { Product } from '../../../types/chatbot';
+import { RatingsComponent } from '../../components/ratings/ratings.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, ButtonComponent, CurrencyPipe, TextDirective, LucideAngularModule, RouterModule],
+  imports: [
+    CommonModule,
+    ButtonComponent,
+    CurrencyPipe,
+    TextDirective,
+    LucideAngularModule,
+    RouterLink,
+    RatingsComponent,
+  ],
   templateUrl: './product-details.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailsComponent implements OnInit {
   private readonly store = inject(Store);

@@ -12,8 +12,8 @@ export class ImageComponent implements OnInit, OnChanges {
   public readonly src = input('');
   public readonly alt = input('');
   public readonly class = input('');
-  public readonly width = input(200);
-  public readonly height = input(400);
+  public readonly width = input();
+  public readonly height = input();
 
   public imgSrc: string = this.src();
 

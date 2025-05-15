@@ -1,6 +1,4 @@
-<div
-  [class]="isSearching() ? 'show-search-field px-4 lg-px-8 xl:px-16 py-2' : 'relative -translate-y-20 -z-10 opacity-0'"
->
+<div [class]="isSearching() ? 'show-search-field px-4 lg-px-8 xl:px-16 py-2' : 'relative -translate-y-20 -z-10 hidden'">
   <lib-text-input [leftIcon]="true" [placeholder]="placeholder" containerStyles="w-full">
     <div leftIcon>
       <lucide-icon [img]="searchIcon" [size]="24" [strokeWidth]="2"></lucide-icon>

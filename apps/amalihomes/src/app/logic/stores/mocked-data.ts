@@ -1,4 +1,6 @@
-export const dummyData = [
+import { Product } from '../../types/chatbot';
+
+export const dummyData: Product[] = [
   {
     _id: 'a7ecc543-61ae-455e-9d6c-bc5f2eae217e',
     name: 'Foldable Dining Set',
@@ -8,7 +10,10 @@ export const dummyData = [
     description:
       'Space-saving dining set perfect for small apartments with smooth folding mechanism and sturdy construction.',
     dimensions: { height: '53cm', width: '85cm', depth: '72cm' },
+    size: 'medium',
     material: 'wood',
+    category: 'Dining',
+    status: ['top seller'],
     colors: [
       {
         name: 'Cherry',
@@ -41,7 +46,10 @@ export const dummyData = [
     stock: 9,
     description: 'Customizable shelving unit with modular design to fit any space and book collection.',
     dimensions: { height: '185cm', width: '113cm', depth: '26cm' },
+    size: 'large',
     material: 'metal',
+    category: 'Office Furniture',
+    status: ['new arrival'],
     colors: [
       {
         name: 'Green',
@@ -74,7 +82,10 @@ export const dummyData = [
     stock: 17,
     description: 'Lightweight and durable plastic shelving unit ideal for garages or utility rooms.',
     dimensions: { height: '88cm', width: '54cm', depth: '76cm' },
+    size: 'medium',
     material: 'plastic',
+    category: 'Office Furniture',
+    status: [],
     colors: [
       {
         name: 'Pine',
@@ -105,7 +116,10 @@ export const dummyData = [
     stock: null,
     description: 'Sleek mobile filing system with smooth-rolling casters and secure document storage.',
     dimensions: { height: '95cm', width: '42cm', depth: '30cm' },
+    size: 'small',
     material: 'metal',
+    category: 'Office Furniture',
+    status: ['new arrival'],
     colors: [
       {
         name: 'Maroon',
@@ -132,7 +146,10 @@ export const dummyData = [
     stock: null,
     description: 'Modern bookshelf with asymmetrical design that adds artistic flair to any room.',
     dimensions: { height: '69cm', width: '58cm', depth: '61cm' },
+    size: 'medium',
     material: 'wood',
+    category: 'Living Room',
+    status: ['top seller'],
     colors: [
       {
         name: 'Turquoise',
@@ -180,7 +197,10 @@ export const dummyData = [
     stock: 20,
     description: 'Weather-resistant outdoor seating with comfortable slatted design and powder-coated frame.',
     dimensions: { height: '45cm', width: '120cm', depth: '40cm' },
+    size: 'medium',
     material: 'plastic',
+    category: 'Outdoor',
+    status: ['top seller'],
     colors: [
       {
         name: 'Ash',
@@ -224,7 +244,10 @@ export const dummyData = [
     stock: 19,
     description: 'Versatile upholstered ottoman with hidden storage compartment and tufted top.',
     dimensions: { height: '46cm', width: '70cm', depth: '60cm' },
+    size: 'small',
     material: 'fabric',
+    category: 'Living Room',
+    status: ['new arrival'],
     colors: [
       {
         name: 'Rose Gold',
@@ -276,7 +299,10 @@ export const dummyData = [
     stock: 18,
     description: 'Complete outdoor dining experience with built-in fire pit and comfortable seating.',
     dimensions: { height: '75cm', width: '150cm', depth: '150cm' },
+    size: 'large',
     material: 'metal',
+    category: 'Outdoor',
+    status: ['top seller'],
     colors: [
       {
         name: 'Brown',
@@ -315,7 +341,10 @@ export const dummyData = [
     stock: null,
     description: 'Plush velvet sofa with deep seating and elegant tapered legs for a luxurious look.',
     dimensions: { height: '85cm', width: '210cm', depth: '95cm' },
+    size: 'large',
     material: 'wood',
+    category: 'Living Room',
+    status: ['new arrival', 'top seller'],
     colors: [
       {
         name: 'Forest Green',
@@ -366,7 +395,10 @@ export const dummyData = [
     stock: 15,
     description: 'Ergonomic workspace solution with cable management and sturdy tempered glass top.',
     dimensions: { height: '75cm', width: '120cm', depth: '60cm' },
+    size: 'medium',
     material: 'glass',
+    category: 'Office Furniture',
+    status: [],
     colors: [
       {
         name: 'Navy Blue',
@@ -402,13 +434,12 @@ export const dummyData = [
     description:
       'Indulgent comfort wrapped in luxurious velvet. This plush 3-seater features deep cushioning and sleek lines for a refined look that transforms any living space into a relaxing haven.',
     dimensions: { height: '85cm', width: '210cm', depth: '90cm' },
+    size: 'large',
     material: 'velvet & hardwood',
+    category: 'Living Room',
+    status: ['new arrival'],
     colors: [
-      {
-        name: 'Teal',
-        hex: '#439792',
-        image: '/images/luxe-velvet-teal.jpg',
-      },
+      { name: 'Teal', hex: '#439792', image: '/images/luxe-velvet-teal.jpg' },
       { name: 'Rust Orange', hex: '#bf4b1c', image: '/images/luxe-velvet-orange.jpg' },
       { name: 'Caramel Brown', hex: '#c18f5b', image: '/images/luxe-velvet-brown.jpg' },
       { name: 'Light Blue', hex: '#abc3e9', image: '/images/luxe-velvet-light-blue.jpg' },
@@ -430,7 +461,7 @@ export const dummyData = [
       },
       {
         user: 'Amira El-Sayed',
-        comment: 'Fabric is smooth and doesn’t trap pet hair. A great plus for pet owners.',
+        comment: "Fabric is smooth and doesn't trap pet hair. A great plus for pet owners.",
         rating: 4.2,
       },
       {
@@ -474,6 +505,396 @@ export const dummyData = [
     warranty: '2 years',
     returnPolicy: '45-day return',
   },
+  {
+    _id: '3a8b9c7d-6e5f-4a3b-9c8d-7e6f5a4b3c2d',
+    name: 'Modern Platform Bed',
+    price: 799.99,
+    discount: 15,
+    stock: 12,
+    description:
+      'Sleek low-profile platform bed with built-in storage drawers and upholstered headboard. Designed for contemporary bedrooms with clean lines.',
+    dimensions: { height: '60cm', width: '180cm', depth: '200cm' },
+    size: 'large',
+    material: 'fabric upholstery with wooden frame',
+    category: 'Bedroom',
+    status: ['new arrival'],
+    colors: [
+      { name: 'Charcoal', hex: '#36454F', image: 'https://i.ebayimg.com/images/g/W18AAOSw-dllvwb3/s-l1200.jpg' },
+      {
+        name: 'Ivory',
+        hex: '#FFFFF0',
+        image:
+          'https://i5.walmartimages.com/seo/Elegant-Stylish-Gray-Faux-Leather-Upholstered-King-Size-Platform-Bed-Frame-LED-Lighting-Sturdy-Wood-Slat-Support-Easy-Assemble-No-Box-Spring-Needed-F_a879c924-c693-44b7-a103-54c375758782.1b7f439389c32064bddf9ccf0a3251cd.jpeg',
+      },
+      {
+        name: 'Navy',
+        hex: '#000080',
+        image: 'https://i.pinimg.com/736x/ea/0c/a5/ea0ca54bb69f4238f2a014c1db1f841b.jpg',
+      },
+    ],
+    image: 'https://i.ebayimg.com/images/g/W18AAOSw-dllvwb3/s-l1200.jpg',
+    ratings: 4.6,
+    reviews: [
+      {
+        user: 'Emma Rodriguez',
+        comment: 'Incredibly sturdy and the storage drawers are a game-changer!',
+        rating: 5,
+      },
+      {
+        user: 'Lucas Chen',
+        comment: 'Assembly took 2 hours but the instructions were clear. Very comfortable.',
+        rating: 4,
+      },
+    ],
+    tags: ['bedroom', 'storage', 'platform', 'modern'],
+    shippingInfo: { weight: 95.5, deliveryTime: '7-10 days' },
+    warranty: '2 years',
+    returnPolicy: '30-day return',
+  },
+  {
+    _id: '4b3c2d1e-9f8a-7b6c-5d4e-3f2a1b0c9d8e',
+    name: 'Executive Office Chair',
+    price: 499.95,
+    discount: null,
+    stock: 7,
+    description:
+      'Ergonomic high-back leather chair with adjustable lumbar support, tilt mechanism, and breathable mesh back.',
+    dimensions: { height: '120cm', width: '70cm', depth: '65cm' },
+    size: 'medium',
+    material: 'genuine leather',
+    category: 'Office Furniture',
+    status: ['top seller'],
+    colors: [
+      {
+        name: 'Black',
+        hex: '#000000',
+        image: 'https://melcom.com/media/catalog/product/cache/d0e1b0d5c74d14bfa9f7dd43ec52d082/1/4/149359a.jpg',
+      },
+      {
+        name: 'Chestnut',
+        hex: '#954535',
+        image:
+          'https://media-cldnry.s-nbcnews.com/image/upload/newscms/2024_34/3660043/lifeform2390ultimateexecutive-tribecamerlot-3a220830-669e-42c9-b326-7de1eb377637-700x700-66c79ab57986d.jpg',
+      },
+    ],
+    image: 'https://melcom.com/media/catalog/product/cache/d0e1b0d5c74d14bfa9f7dd43ec52d082/1/4/149359a.jpg',
+    ratings: 4.8,
+    reviews: [
+      {
+        user: 'David Kim',
+        comment: 'Worth every penny for back support during long work hours.',
+        rating: 5,
+      },
+      {
+        user: 'Sophia Martinez',
+        comment: 'The leather smells amazing and the adjustments are perfect.',
+        rating: 5,
+      },
+    ],
+    tags: ['office', 'ergonomic', 'chair', 'executive'],
+    shippingInfo: { weight: 32.8, deliveryTime: '5-7 days' },
+    warranty: '5 years',
+    returnPolicy: '60-day return',
+  },
+  {
+    _id: '5c4d3e2f-1a0b-9c8d-7e6f-5a4b3c2d1e0f',
+    name: 'Rustic Dining Table',
+    price: 1299.0,
+    discount: 20,
+    stock: 5,
+    description: 'Handcrafted solid oak table with live edge details and industrial metal legs. Seats 8 comfortably.',
+    dimensions: { height: '75cm', width: '240cm', depth: '100cm' },
+    size: 'large',
+    material: 'reclaimed oak',
+    category: 'Dining',
+    status: ['new arrival', 'top seller'],
+    colors: [
+      {
+        name: 'Natural Oak',
+        hex: '#D2B48C',
+        image:
+          'https://woodlandcreekfurniture.com/media/catalog/product/cache/1044726d93dd0fc5b52ac7ed430bb624/t/i/timber-haven-rustic-barnwood-dining-table-11.jpg',
+      },
+      {
+        name: 'Walnut Stain',
+        hex: '#5C4033',
+        image:
+          'https://logfurnitureplace.com/media/catalog/product/cache/1044726d93dd0fc5b52ac7ed430bb624/r/u/rustic-farmstead-gathering-dining-table-dt00402-13.jpg',
+      },
+    ],
+    image:
+      'https://woodlandcreekfurniture.com/media/catalog/product/cache/1044726d93dd0fc5b52ac7ed430bb624/t/i/timber-haven-rustic-barnwood-dining-table-11.jpg',
+    ratings: 4.9,
+    reviews: [
+      {
+        user: 'Olivia Thompson',
+        comment: 'Stunning craftsmanship. The live edge is a conversation starter!',
+        rating: 5,
+      },
+    ],
+    tags: ['dining', 'rustic', 'handcrafted', 'farmhouse'],
+    shippingInfo: { weight: 150.2, deliveryTime: '14-21 days' },
+    warranty: 'Lifetime',
+    returnPolicy: '30-day return',
+  },
+  {
+    _id: '6d5e4f3a-2b1c-0d9e-8f7a-6b5c4d3e2f1a',
+    name: 'Outdoor Lounge Set',
+    price: 1599.5,
+    discount: 25,
+    stock: 3,
+    description:
+      'Weather-resistant wicker patio set with thick cushions and tempered glass coffee table. Includes 2 armchairs and 1 loveseat.',
+    dimensions: { height: '85cm', width: '300cm', depth: '180cm' },
+    size: 'large',
+    material: 'synthetic wicker',
+    category: 'Outdoor',
+    status: ['top seller'],
+    colors: [
+      {
+        name: 'Taupe',
+        hex: '#483C32',
+        image: 'https://www.wickerfurnituredirect.com.au/assets/full/WFD-Majeston-black.jpg?20231029150707',
+      },
+      {
+        name: 'Slate',
+        hex: '#708090',
+        image: 'https://www.wickerfurnituredirect.com.au/assets/images/cushion/white-majeston-grey.jpg',
+      },
+    ],
+    image: 'https://www.wickerfurnituredirect.com.au/assets/full/WFD-Majeston-black.jpg?20231029150707',
+    ratings: 4.7,
+    reviews: [
+      {
+        user: 'Michael Johnson',
+        comment: 'Survived a whole winter outside with no damage. Cushions stay dry!',
+        rating: 5,
+      },
+      {
+        user: 'Aisha Williams',
+        comment: "Super comfortable and the color hasn't faded after 6 months in sun.",
+        rating: 4,
+      },
+    ],
+    tags: ['patio', 'weatherproof', 'lounge', 'outdoor'],
+    shippingInfo: { weight: 210.0, deliveryTime: '10-15 days' },
+    warranty: '3 years',
+    returnPolicy: '90-day return',
+  },
+  {
+    _id: '7e6f5a4b-3c2d-1e0f-9a8b-7c6d5e4f3a2b',
+    name: 'Minimalist Nightstand',
+    price: 249.99,
+    discount: null,
+    stock: 18,
+    description:
+      'Sleek floating nightstand with hidden storage compartment and wireless charging pad built into the top surface.',
+    dimensions: { height: '50cm', width: '40cm', depth: '35cm' },
+    size: 'small',
+    material: 'MDF with matte laminate',
+    category: 'Bedroom',
+    status: [],
+    colors: [
+      {
+        name: 'White',
+        hex: '#FFFFFF',
+        image: 'https://m.media-amazon.com/images/I/61aGChtf3oL._AC_UF894,1000_QL80_.jpg',
+      },
+      { name: 'Black', hex: '#000000', image: 'https://m.media-amazon.com/images/I/61w31Rxsn7L.jpg' },
+    ],
+    image: 'https://m.media-amazon.com/images/I/61aGChtf3oL._AC_UF894,1000_QL80_.jpg',
+    ratings: 4.4,
+    reviews: [
+      {
+        user: 'Ethan Brown',
+        comment: 'The wireless charging is brilliant! Fits my phone perfectly.',
+        rating: 5,
+      },
+      {
+        user: 'Isabella Lee',
+        comment: 'Modern look but the storage is smaller than expected.',
+        rating: 3,
+      },
+    ],
+    tags: ['bedroom', 'nightstand', 'charging', 'modern'],
+    shippingInfo: { weight: 15.3, deliveryTime: '3-5 days' },
+    warranty: '1 year',
+    returnPolicy: '30-day return',
+  },
+  {
+    _id: '8f7a6b5c-4d3e-2f1a-0b9c-8d7e6f5a4b3c',
+    name: 'Industrial Bookshelf',
+    price: 649.0,
+    discount: 10,
+    stock: 9,
+    description:
+      'Steel-framed open shelving unit with reclaimed wood shelves. Adjustable shelf heights with visible rivet details.',
+    dimensions: { height: '180cm', width: '120cm', depth: '40cm' },
+    size: 'large',
+    material: 'steel and reclaimed pine',
+    category: 'Living Room',
+    status: ['new arrival'],
+    colors: [
+      {
+        name: 'Blackened Steel',
+        hex: '#1A1A1A',
+        image:
+          'https://i5.walmartimages.com/asr/cde443fa-3c7c-4056-94ce-35c43312ece6.2f1385fe40cb3b21793dd13695006f7c.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+      },
+      {
+        name: 'Raw Steel',
+        hex: '#71797E',
+        image: 'https://m.media-amazon.com/images/I/81flDumgBGS._AC_UF894,1000_QL80_.jpg',
+      },
+    ],
+    image:
+      'https://i5.walmartimages.com/asr/cde443fa-3c7c-4056-94ce-35c43312ece6.2f1385fe40cb3b21793dd13695006f7c.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+    ratings: 4.5,
+    reviews: [
+      {
+        user: 'Noah Garcia',
+        comment: 'Perfect industrial aesthetic. Holds all my books securely.',
+        rating: 5,
+      },
+      {
+        user: 'Sophie Wilson',
+        comment: 'Heavier than expected but incredibly sturdy.',
+        rating: 4,
+      },
+    ],
+    tags: ['bookshelf', 'industrial', 'adjustable', 'living-room'],
+    shippingInfo: { weight: 85.7, deliveryTime: '7-12 days' },
+    warranty: '5 years',
+    returnPolicy: '30-day return',
+  },
+  {
+    _id: '9a8b7c6d-5e4f-3a2b-1c0d-9e8f7a6b5c4d',
+    name: 'Convertible Sofa Bed',
+    price: 1199.0,
+    discount: 30,
+    stock: 6,
+    description:
+      'Space-saving 3-seater that converts to queen bed in seconds. Features high-density foam and pocket coil hybrid mattress.',
+    dimensions: { height: '90cm', width: '210cm', depth: '95cm' },
+    size: 'large',
+    material: 'performance fabric',
+    category: 'Living Room',
+    status: ['top seller'],
+    colors: [
+      {
+        name: 'Graphite',
+        hex: '#383838',
+        image:
+          'https://i5.walmartimages.com/seo/3-1-Convertible-Sleeper-Sofa-Bed-53-Modern-Convertible-Sofa-Bed-2-Detachable-Arm-Pockets-Velvet-Pull-Couch-Pull-Bed-Living-Room-Furniture-Black_0bf1700c-c974-4fe0-aab0-8b449b8636bf.716caeaf94e2651779019ec3b807edb0.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+      },
+      { name: 'Oatmeal', hex: '#EDE6D6', image: 'https://i.ebayimg.com/images/g/JwsAAOSw1Dpkv6HH/s-l1200.jpg' },
+    ],
+    image:
+      'https://i5.walmartimages.com/seo/3-1-Convertible-Sleeper-Sofa-Bed-53-Modern-Convertible-Sofa-Bed-2-Detachable-Arm-Pockets-Velvet-Pull-Couch-Pull-Bed-Living-Room-Furniture-Black_0bf1700c-c974-4fe0-aab0-8b449b8636bf.716caeaf94e2651779019ec3b807edb0.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+    ratings: 4.3,
+    reviews: [
+      {
+        user: 'Liam Anderson',
+        comment: 'Game-changer for my studio apartment. Comfortable as both sofa and bed.',
+        rating: 5,
+      },
+      {
+        user: 'Ava Martinez',
+        comment: 'Conversion mechanism is smooth but the mattress could be thicker.',
+        rating: 4,
+      },
+    ],
+    tags: ['sofa', 'convertible', 'space-saving', 'apartment'],
+    shippingInfo: { weight: 110.5, deliveryTime: '10-14 days' },
+    warranty: '3 years',
+    returnPolicy: '60-day return',
+  },
+  {
+    _id: '0b9c8d7e-6f5a-4b3c-2d1e-0f9a8b7c6d5e',
+    name: 'Glass Display Cabinet',
+    price: 899.95,
+    discount: null,
+    stock: 4,
+    description:
+      'Museum-quality display case with tempered glass panels, LED lighting, and lockable doors. Perfect for collectibles.',
+    dimensions: { height: '200cm', width: '100cm', depth: '45cm' },
+    size: 'large',
+    material: 'glass and steel',
+    category: 'Living Room',
+    status: [],
+    colors: [
+      {
+        name: 'Chrome',
+        hex: '#E8E8E8',
+        image: 'https://theshopfittingshop.co.uk/wp-content/uploads/2023/01/Cabinet.webp',
+      },
+      {
+        name: 'Black',
+        hex: '#000000',
+        image: '/https://theshopfittingshop.co.uk/wp-content/uploads/2019/04/R1585.jpg',
+      },
+    ],
+    image: 'https://theshopfittingshop.co.uk/wp-content/uploads/2023/01/Cabinet.webp',
+    ratings: 4.9,
+    reviews: [
+      {
+        user: 'Mia Thompson',
+        comment: 'The LED lighting makes my collectibles look incredible!',
+        rating: 5,
+      },
+      {
+        user: 'James Wilson',
+        comment: 'Assembly was complex but the instructions were thorough.',
+        rating: 4,
+      },
+    ],
+    tags: ['display', 'cabinet', 'lighting', 'collectibles'],
+    shippingInfo: { weight: 95.0, deliveryTime: '14-21 days' },
+    warranty: '2 years',
+    returnPolicy: '30-day return',
+  },
+  {
+    _id: '1c0d9e8f-7a6b-5c4d-3e2f-1a0b9c8d7e6f',
+    name: 'Adjustable Standing Desk',
+    price: 749.0,
+    discount: 15,
+    stock: 11,
+    description:
+      'Electric height-adjustable desk with programmable memory settings, built-in USB ports, and eco-friendly bamboo top.',
+    dimensions: { height: '72-122cm', width: '150cm', depth: '75cm' },
+    size: 'medium',
+    material: 'bamboo and steel',
+    category: 'Office Furniture',
+    status: ['new arrival'],
+    colors: [
+      {
+        name: 'Natural Bamboo',
+        hex: '#E3C9A0',
+        image:
+          'https://www.vari.com/dw/image/v2/BDFT_PRD/on/demandware.static/-/Sites-vari-master-catalog/default/dwaf64947c/images/large/FD-ESD6030/400803-reclaimed-wood/vari-electric-standing_400803_reclaimedwood_wfh_s.jpg?sw=800&sh=800',
+      },
+      { name: 'Carbon Black', hex: '#333333', image: 'https://theomnidesk.com/cdn/shop/files/Black5.png?v=1739340470' },
+    ],
+    image:
+      'https://www.vari.com/dw/image/v2/BDFT_PRD/on/demandware.static/-/Sites-vari-master-catalog/default/dwaf64947c/images/large/FD-ESD6030/400803-reclaimed-wood/vari-electric-standing_400803_reclaimedwood_wfh_s.jpg?sw=800&sh=800',
+    ratings: 4.7,
+    reviews: [
+      {
+        user: 'Benjamin Lee',
+        comment: 'Life-changing for my back pain. The silent motor is amazing.',
+        rating: 5,
+      },
+      {
+        user: 'Charlotte Kim',
+        comment: 'The bamboo surface is beautiful and easy to clean.',
+        rating: 5,
+      },
+    ],
+    tags: ['desk', 'adjustable', 'ergonomic', 'standing'],
+    shippingInfo: { weight: 68.9, deliveryTime: '7-10 days' },
+    warranty: '10 years',
+    returnPolicy: '60-day return',
+  },
 ];
 
-export type ApplicationImageDataType = typeof ImageData;
+export type ApplicationImageDataType = (typeof dummyData)[0];

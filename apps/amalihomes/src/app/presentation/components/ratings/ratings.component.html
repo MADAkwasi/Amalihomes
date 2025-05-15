@@ -1,0 +1,20 @@
+<div class="flex gap-1 items-center">
+  @for(star of ratingsStars(); track $index) {
+  <img
+    [src]="star ? '/icons/star.svg' : '/icons/half-star.svg'"
+    alt="rating-star"
+    [height]="starSize()"
+    [width]="starSize()"
+  />
+  } @if(spaced()){
+  <ul class="flex gap-6">
+    <li libText textType="text-small" class="!text-xs">({{ ratings() }} stars)</li>
+    <li class="list-disc !text-xs" libText textType="text-small">{{ reviews().length }} reviews</li>
+  </ul>
+  }@else {
+  <ul class="flex gap-1">
+    <li libText textType="text-small" class="!text-xs">{{ ratings() }}</li>
+    <li class="!text-xs" libText textType="text-small">({{ reviews().length }} reviews)</li>
+  </ul>
+  }
+</div>

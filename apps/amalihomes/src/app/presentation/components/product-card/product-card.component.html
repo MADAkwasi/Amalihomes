@@ -1,0 +1,32 @@
+<div class="mb-6 w-full" [class.w-full]="width()" [style.width]="width()">
+  <a routerLink="/shop/product/{{ product()._id }}" class="w-full flex flex-col gap-4 items-center">
+    <img [src]="product().image" alt="display-image-for-product-{{ product().name }}" class="w-full h-44 rounded-md" />
+    <div class="flex flex-col gap-1 text-left w-full">
+      <p libText textType="text-medium" class="!text-black">{{ product().name }}</p>
+
+      @if(isOnSlider()){
+      <div class="flex gap-2 font-bold text-black">
+        @if (product().discount) {
+        <p class="line-through">{{ product().price | currency : 'USD' }}</p>
+        <p>{{ calculateDiscountedPrice(product().price, product().discount) | currency : 'USD' }}</p>
+        }@else {
+        <p>{{ product().price | currency : 'USD' }}</p>
+        }
+      </div>
+      <app-ratings [reviews]="product().reviews" [ratings]="product().ratings" [starSize]="12" [spaced]="false" />
+      }@else {
+
+      <app-ratings [reviews]="product().reviews" [ratings]="product().ratings" [starSize]="12" [spaced]="false" />
+
+      <div class="flex gap-2 font-bold text-black">
+        @if (product().discount) {
+        <p class="line-through">{{ product().price | currency : 'USD' }}</p>
+        <p>{{ calculateDiscountedPrice(product().price, product().discount) | currency : 'USD' }}</p>
+        }@else {
+        <p>{{ product().price | currency : 'USD' }}</p>
+        }
+      </div>
+      }
+    </div>
+  </a>
+</div>

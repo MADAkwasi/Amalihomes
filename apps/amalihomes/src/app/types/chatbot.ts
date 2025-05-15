@@ -1,27 +1,30 @@
 import { FormControl } from '@angular/forms';
 
-interface Dimensions {
+export interface Dimensions {
   height: string;
   width: string;
   depth: string;
 }
 
-interface Review {
+export interface Review {
   user: string;
   comment: string;
   rating: number;
 }
 
-interface ShippingInfo {
+export interface ShippingInfo {
   weight: number;
   deliveryTime: string;
 }
 
-interface Color {
+export interface Color {
   name: string;
   hex: string;
   image: string;
 }
+
+export type Size = 'small' | 'medium' | 'large';
+export type Label = 'top seller' | 'new arrival';
 
 export interface Product {
   _id: string;
@@ -31,6 +34,9 @@ export interface Product {
   stock: number | null;
   description: string;
   dimensions: Dimensions;
+  size: Size;
+  category: string;
+  status: Label[];
   material: string;
   colors: Color[];
   image: string;

@@ -17,6 +17,10 @@ export const appRoutes: Route[] = [
       import('./presentation/pages/login/login.component').then((Default) => Default.SignInComponent),
   },
   {
+    path: 'shop',
+    loadComponent: () => import('./presentation/pages/shop/shop.component').then((Default) => Default.ShopComponent),
+  },
+  {
     path: 'about',
     loadComponent: () => import('./presentation/pages/about/about.component').then((Default) => Default.AboutComponent),
   },

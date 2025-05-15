@@ -6,10 +6,9 @@ import {
   inject,
   input,
   PLATFORM_ID,
-  QueryList,
   signal,
   viewChild,
-  ViewChildren,
+  viewChildren,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ButtonComponent, ImageComponent, TextDirective } from '@amalihomes/shared';
@@ -29,9 +28,11 @@ const CARDS_GAP_DISTANCE = 16;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SliderComponent implements AfterViewInit {
-  @ViewChildren('cardElements') private readonly cardElements!: QueryList<ElementRef>;
+  private readonly cardElements = viewChildren<ElementRef>('cardElements');
   public readonly sliderImages = input<StoryblokImage[]>();
   public readonly categoryType = input<'products' | 'arrivals'>();
+  public readonly height = input<number>(400);
+  public readonly width = input<number>(400);
   public readonly title = input<string>();
   private readonly cardsContainerRef = viewChild<ElementRef<HTMLDivElement>>('cardsContainer');
   protected readonly icons = { ArrowLeft, ArrowRight };
@@ -71,7 +72,7 @@ export class SliderComponent implements AfterViewInit {
       { root: this.cardsContainerRef()?.nativeElement, threshold: 0.5 },
     );
 
-    const cardsArray = this.cardElements.toArray();
+    const cardsArray = [...this.cardElements()];
     const lastCard = cardsArray[cardsArray.length - 1]?.nativeElement;
     if (lastCard) {
       observer.observe(lastCard);

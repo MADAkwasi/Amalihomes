@@ -6,7 +6,7 @@
   </ul>
   <div class="py-12 flex lg:flex-row flex-col items-center justify-between gap-12">
     <div class="w-full lg:w-[50%] flex md:flex-row flex-col gap-8 items-start">
-      <div class="w-[80%] h-[400px] rounded-lg overflow-hidden">
+      <div class="w-[100%] md:w-[80%] h-[400px] rounded-lg overflow-hidden">
         <img
           [src]="product()?.colors?.[selectedColor()]?.image"
           alt="display-image-for-{{ product()?.name }}"
@@ -16,7 +16,7 @@
       <div class="flex w-full md:w-auto md:flex-col gap-3 lg:gap-6 overflow-x-scroll md:overflow-hidden">
         @for(color of product()?.colors; track $index) {
         <button
-          class="h-20 min-w-20 rounded-lg"
+          class="h-20 w-28 rounded-lg"
           [class.hidden]="selectedColor() === $index"
           (click)="selectedColor.set($index)"
         >
@@ -35,16 +35,7 @@
         <div class="flex flex-col gap-2">
           <h1 libText textType="heading2">{{ product()?.name }}</h1>
           <h3 libText textType="heading4">{{ product()?.price | currency : 'USD' }}</h3>
-          <div class="flex gap-2 items-center">
-            @for(star of ratingsStars(); track $index) {
-            <img [src]="star ? '/icons/star.svg' : '/icons/half-star.svg'" alt="rating-star" class="w-6 h-6" />
-            }
-            <ul class="flex gap-6">
-              <li libText textType="text-small" class="!text-xs">({{ product()?.ratings }} stars)</li>
-              <li class="list-disc !text-xs" libText textType="text-small">{{ product()?.reviews?.length }} reviews</li>
-            </ul>
-          </div>
-
+          <app-ratings [reviews]="product()?.reviews ?? []" [ratings]="product()?.ratings ?? 0" />
           <p>{{ product()?.description }}</p>
         </div>
 

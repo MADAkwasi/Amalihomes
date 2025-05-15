@@ -1,0 +1,90 @@
+<div class="flex flex-col gap-4 mt-4">
+  <div class="flex flex-col gap-2">
+    <div class="flex justify-between items-center">
+      <h4 class="font-bold text-[#262626]">{{ title() }}</h4>
+      <lib-button
+        type="tetiary"
+        buttonIdentifier="filters-categories-toggle-btn"
+        [title]="isOpen() ? 'Hide Options' : 'Show Options'"
+        (buttonClick)="onToggle()"
+        [class]="isOpen() ? 'rotate-180 duration-300' : 'duration-300'"
+        buttonStyles="!p-0 !w-auto !justify-center !text-primary "
+      >
+        <lucide-icon [img]="icons.ChevronDown" [size]="20" color="black" />
+      </lib-button>
+    </div>
+
+    @if(isOpen()) { @if(type() !== 'range'){
+
+    <ul class="flex flex-col gap-2">
+      @for (option of filteringOptions(); track $index) {
+      <li class="flex items-center gap-2">
+        @if (type() ==='checks') {
+        <label class="flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            class="peer hidden"
+            [value]="option.value"
+            (change)="handleFilterChange($event)"
+            [checked]="selectedCategories().includes(option.value)"
+          />
+          <div
+            class="w-5 h-5 rounded border border-gray-400 peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center transition-colors"
+          >
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <span class="text-sm text-gray-700 px-2">{{ option.name }}</span>
+        </label>
+        } @if (type() ==='radio') {
+        <label class="flex items-center cursor-pointer">
+          <input
+            type="radio"
+            name="sort"
+            class="peer hidden"
+            [value]="option.value"
+            (change)="handleFilterChange($event)"
+            [checked]="selectedCategories().includes(option.value)"
+          />
+          <div
+            class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center peer-checked:border-primary transition-colors"
+          >
+            <div
+              class="w-2.5 h-2.5 rounded-full bg-primary border-primary scale-0 peer-checked:scale-100 transition-transform"
+            ></div>
+          </div>
+          <span class="text-sm text-gray-700 px-2">{{ option.name }}</span>
+        </label>
+        }
+      </li>
+      }
+    </ul>
+    }@else {
+    <div class="relative w-full h-1 bg-gray-200 rounded my-4" #sliderContainer>
+      <div
+        class="absolute h-full bg-primary rounded"
+        [ngStyle]="{ left: progressLeft() + '%', width: progressWidth() + '%' }"
+      ></div>
+
+      <div class="relative w-full h-full">
+        <div
+          class="absolute top-1/2 w-5 h-5 bg-primary rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md"
+          [ngStyle]="{ left: leftHandlePosition() + '%' }"
+        ></div>
+
+        <div
+          class="absolute top-1/2 w-5 h-5 bg-primary rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md"
+          [ngStyle]="{ left: rightHandlePosition() + '%' }"
+        ></div>
+      </div>
+    </div>
+
+    <div class="flex justify-between" id="slider-labels">
+      <span class="text-sm text-gray-600">$0</span>
+      <span class="text-sm text-gray-600">+$2,500</span>
+      <span class="text-sm text-gray-600">$5,000+</span>
+    </div>
+    } }
+  </div>
+</div>

@@ -33,7 +33,15 @@
       <lib-image
         [src]="item.image"
         alt="{{item.name||`Product item`}}"
-        [class]="categoryType() === 'arrivals' ? 'home-arrivals-image' : 'home-products-image'"
+        [height]="height()"
+        [width]="width()"
+        [class]="
+          categoryType() === 'arrivals'
+            ? 'home-arrivals-image'
+            : categoryType() === 'products'
+            ? 'home-products-image'
+            : ''
+        "
       />
 
       <div class="absolute inset-0 group-hover:bg-black/25 transition-all duration-300"></div>
