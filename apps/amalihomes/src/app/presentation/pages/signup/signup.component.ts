@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
-  private readonly cdRef = inject(ChangeDetectorRef);
+  private readonly chnageDetectionReference = inject(ChangeDetectorRef);
 
   protected readonly icons = { EyeOff, Eye };
   protected readonly fieldNames = Object.values(SignupFormFieldsType);
@@ -97,12 +97,12 @@ export class SignupComponent implements OnInit {
     rePassword: false,
   };
 
-  togglePasswordVisibility(field: 'password' | 'rePassword') {
+  protected togglePasswordVisibility(field: 'password' | 'rePassword') {
     this.passwordVisibility[field] = !this.passwordVisibility[field];
-    this.cdRef.markForCheck();
+    this.chnageDetectionReference.markForCheck();
   }
 
-  isPasswordVisible(field: 'password' | 'rePassword'): boolean {
+  protected isPasswordVisible(field: 'password' | 'rePassword'): boolean {
     return this.passwordVisibility[field];
   }
 
@@ -132,9 +132,9 @@ export class SignupComponent implements OnInit {
     this.authService.signUp(fullName, email, password).subscribe({
       next: ({ data, error }) => {
         if (error) {
-          alert(error.message);
+          // Handle error
         } else {
-          console.log(data);
+          // Handle successful signup
         }
       },
     });
