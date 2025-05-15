@@ -1,0 +1,84 @@
+<div class="flex h-screen font-sans">
+  <div class="flex-1 flex flex-col justify-center p-4">
+    <div class="flex flex-col items-center">
+      <app-logo />
+      <h2 class="lg:text-[62px] md:text-[40px] text-[32px] font-bold mt-2 text-black">Create an Account.</h2>
+      <p class="text-gray-600 mb-5 text-[18px]">Join us to enjoy personalized features.</p>
+    </div>
+    <form (ngSubmit)="onSubmit()" class="mx-auto max-w-[545px] w-full flex flex-col gap-[16px]">
+      @for(field of fieldNames; track field) {
+      <lib-text-input
+        [type]="
+          field === 'password' || field === 'rePassword' ? (isPasswordVisible(field) ? 'text' : 'password') : 'text'
+        "
+        [placeholder]="formData()?.[field]?.placeholder ?? ''"
+        [label]="formData()?.[field]?.label ?? ''"
+        [control]="getControl(field)"
+        [error]="isErrored(field)"
+        [errorMessage]="getErrorMessage(field)"
+        containerStyles="!text-[16px]"
+        inputStyles="!text-[18px] w-full "
+        [rightIcon]="field === 'password' || field === 'rePassword'"
+      >
+        <lucide-angular
+          *ngIf="field === 'password' || field === 'rePassword'"
+          [size]="22"
+          [img]="isPasswordVisible(field) ? icons.EyeOff : icons.Eye"
+          class="text-icon cursor-pointer"
+          rightIcon
+          (click)="togglePasswordVisibility(field)"
+        />
+      </lib-text-input>
+
+      }
+      <div class="flex flex-col gap-1">
+        <label class="flex items-start gap-2 text-sm text-gray-700 cursor-pointer select-none">
+          <input type="checkbox" [formControl]="getControl('terms')" class="peer sr-only" id="terms" />
+          <div
+            class="h-5 w-5 rounded border border-gray-400 flex items-center justify-center peer-checked:border-orange-600 peer-checked:bg-orange-600 transition duration-200"
+          >
+            <svg
+              *ngIf="getControl('terms').value"
+              class="w-3 h-3 text-white"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          <span class="leading-5 text-base">
+            I have read and agree to the
+            <a href="#" class="text-orange-600 underline cursor-pointer hover:text-orange-700">Terms & Conditions</a>
+            and
+            <a href="#" class="text-orange-600 underline cursor-pointer hover:text-orange-700">Privacy Policy</a>.
+          </span>
+        </label>
+
+        @if(isErrored('terms')) {
+        <span class="text-red-500 text-sm">{{ getErrorMessage('terms') }}</span>
+        }
+      </div>
+
+      <lib-button
+        type="primary"
+        buttonType="submit"
+        buttonStyles="!w-full !px-0 !py-4 rounded-[4px] !text-base !font-bold"
+        buttonIdentifier="signup-button"
+      >
+        Create an account
+      </lib-button>
+
+      <p class="text-center text-base">
+        Already have an account?
+        <a routerLink="/login" class="text-orange-500 underline cursor-pointer">Login</a>
+      </p>
+    </form>
+  </div>
+  <div
+    class="hidden lg:block flex-1 bg-cover bg-center"
+    style="background-image: url('https://i.postimg.cc/TY3vqVhv/Frame-625332.png')"
+  ></div>
+</div>

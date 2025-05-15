@@ -6,6 +6,11 @@ export const appRoutes: Route[] = [
     path: '',
     component: HomeComponent,
   },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('./presentation/pages/signup/signup.component').then((Default) => Default.SignupComponent),
+  },
   // {
   //   path: 'shop',
   //   loadComponent: () => import('./presentation/pages/shop/shop.component').then((Default) => Default.ShopComponent),
