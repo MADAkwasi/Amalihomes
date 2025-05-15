@@ -7,17 +7,20 @@ import {
   DestroyRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LoginFormFieldsType } from '../../../types/auth';
 import { signupValidators } from '../../../logic/utils/validators/auth';
 import { AuthService } from '../../../logic/services/firebase/auth.service';
 import { Eye, EyeOff } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
-import { InputComponent, ButtonComponent } from '@amalihomes/shared';
+import { InputComponent, ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { LucideAngularModule } from 'lucide-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginFormErrorKey } from '../../../types/auth';
 import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
+import { RouterLink } from '@angular/router';
+import { LogInMetaData } from './static-meta-data';
+import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 
 @Component({
   selector: 'app-signup',
@@ -30,12 +33,14 @@ import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
     ButtonComponent,
     LucideAngularModule,
     LogoComponent,
+    RouterLink,
+    TextDirective,
   ],
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent implements OnInit {
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly pageHeadTags = inject(MetaTagsService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly chnageDetectionReference = inject(ChangeDetectorRef);
@@ -69,6 +74,7 @@ export class SignInComponent implements OnInit {
       [LoginFormFieldsType.Email]: new FormControl('', signupValidators.email),
       [LoginFormFieldsType.Password]: new FormControl('', signupValidators.password),
     });
+    this.pageHeadTags.updateMetaData(LogInMetaData);
   }
   protected passwordVisibility: Record<string, boolean> = {
     password: false,
