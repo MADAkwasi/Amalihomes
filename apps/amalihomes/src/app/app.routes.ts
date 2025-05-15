@@ -16,10 +16,6 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./presentation/pages/login/login.component').then((Default) => Default.SignInComponent),
   },
-  // {
-  //   path: 'shop',
-  //   loadComponent: () => import('./presentation/pages/shop/shop.component').then((Default) => Default.ShopComponent),
-  // },
   {
     path: 'about',
     loadComponent: () => import('./presentation/pages/about/about.component').then((Default) => Default.AboutComponent),
@@ -35,10 +31,7 @@ export const appRoutes: Route[] = [
         (Default) => Default.ProductDetailsComponent,
       ),
   },
-  // {
-  //   path: 'news',
-  //   loadComponent: () => import('./presentation/pages/news/news.component').then((Default) => Default.NewsComponent),
-  // },
+
   {
     path: '**',
     loadComponent: () =>
@@ -46,9 +39,4 @@ export const appRoutes: Route[] = [
         (Default) => Default.UnderConstructionComponent,
       ),
   },
-  // {
-  //   path: '**',
-  //   loadComponent: () =>
-  //     import('./presentation/components/not-found/not-found.component').then((Default) => Default.NotFoundComponent),
-  // },
 ];
