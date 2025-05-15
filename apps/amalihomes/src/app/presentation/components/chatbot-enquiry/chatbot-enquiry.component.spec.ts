@@ -46,9 +46,13 @@ describe('ChatbotEnquiryComponent', () => {
 
   it('should set isSubmited to true on submit if form is valid', () => {
     component['isSubmited'] = false;
+    component['getControl'](EnquiryFormFieldsType.Orders).markAsTouched();
     component['getControl'](EnquiryFormFieldsType.Orders).setValue('#ORD1234');
+    component['getControl'](EnquiryFormFieldsType.Email).markAsTouched();
     component['getControl'](EnquiryFormFieldsType.Email).setValue('test@email.com');
+    component['getControl'](EnquiryFormFieldsType.Subject).markAsTouched();
     component['getControl'](EnquiryFormFieldsType.Subject).setValue('Test Subject');
+    component['getControl'](EnquiryFormFieldsType.Message).markAsTouched();
     component['getControl'](EnquiryFormFieldsType.Message).setValue('Test Message');
     component['onSubmit']();
     expect(component['isSubmited']).toBe(true);
@@ -64,8 +68,8 @@ describe('ChatbotEnquiryComponent', () => {
   it('should set showSelector to true on selectorFieldFocus', () => {
     fixture.componentRef.setInput('formType', ChatBotEnquiryType.orders);
     fixture.detectChanges();
-    component['showSelector'] = false;
+    component['showSelector'].set(false);
     component['selectorFieldFocus'](EnquiryFormFieldsType.Orders);
-    expect(component['showSelector']).toBe(true);
+    expect(component['showSelector']()).toBe(true);
   });
 });

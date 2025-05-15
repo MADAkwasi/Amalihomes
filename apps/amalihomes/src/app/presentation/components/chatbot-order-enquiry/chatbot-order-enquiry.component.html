@@ -1,6 +1,6 @@
 <app-chatbot-enquiry
   [formType]="enquiryTypes.orders"
-  (selectorValueChanged)="selectorFieldValue.set($event)"
+  (selectorValueChanged)="selectorFieldValue.set($event); selected.set($event)"
   [selectorValue]="selected()"
 >
   <ng-container selector>

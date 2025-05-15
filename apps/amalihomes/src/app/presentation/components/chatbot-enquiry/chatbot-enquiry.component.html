@@ -8,8 +8,8 @@
       [placeholder]="formData()?.[fieldname]?.placeholder ?? ''"
       [label]="formData()?.[fieldname]?.label??''"
       [control]="getControl(fieldname)"
-      [error]="isErrored(fieldname)"
-      [errorMessage]="getErrorMessage(fieldname)"
+      [error]="showErrorMessage(fieldname)"
+      [errorMessage]="!fieldFocused[fieldname] ? getErrorMessage(fieldname) : ''"
       containerStyles="!text-[15px]"
       inputStyles="!text-sm"
       [rightIcon]="selectorFieldNames.includes(fieldname)"
@@ -18,9 +18,9 @@
     >
       <lucide-angular [size]="22" [img]="icons.ChevronDown" class="text-icon" rightIcon />
     </lib-text-input>
-    } @if (showSelector) {
+    } @if (showSelector()) {
     <div
-      class="absolute scrollbar-hide bg-white rounded shadow-gray-200 shadow-lg top-20 left-0 right-0 w-full max-h-[300px] overflow-y-auto"
+      class="absolute hide-scrollbar bg-white rounded shadow-gray-200 shadow-lg top-20 left-0 right-0 w-full max-h-[300px] overflow-y-auto"
     >
       <ng-content select="[selector]" />
     </div>
@@ -35,25 +35,31 @@
       formControlName="message"
       placeholder="{{ formData()?.message?.placeholder ?? '' }}"
       rows="5"
-      class="border-2 px-4 py-3 border-border rounded-md active:outline-none focus:outline-none text-sm"
+      class="border-[1.5px] px-4 py-3 border-border rounded-md active:outline-none focus:outline-none text-sm"
       [ngClass]="{
-            'border-red-500': isErrored(formFieldType.Message),
-            'border-gray-200': !isErrored(formFieldType.Message),
-          }"
+        'border-red-500': showErrorMessage(formFieldType.Message),
+        'border-gray-200': !showErrorMessage(formFieldType.Message)
+      }"
+      (focus)="selectorFieldFocus(formFieldType.Message)"
+      (blur)="selectorFieldBlur(formFieldType.Message)"
     ></textarea>
-    @if (isErrored(formFieldType.Message)) {
+    @if (showErrorMessage(formFieldType.Message)) {
     <span class="flex gap-2 items-center">
       <lucide-icon [img]="icons.CircleX" [size]="15" color="rgb(239 68 68)"></lucide-icon>
-      <p libText textType="text-small" class="text-red-500">
+      <p libText textType="text-normal" class="text-[#e22420] !text-[16px]">
         {{ getErrorMessage(formFieldType.Message) }}
       </p>
     </span>
     }
   </span>
 
-  <lib-button buttonStyles="!w-[100%]" (buttonClick)="onSubmit()" buttonIdentifier="contact-us-submit-button">{{
-    pageData()?.submit_text
-  }}</lib-button>
+  <lib-button
+    class="block sticky bottom-0 pb-5 pt-1 bg-white"
+    buttonStyles="!w-[100%]"
+    (buttonClick)="onSubmit()"
+    buttonIdentifier="contact-us-submit-button"
+    >{{ pageData()?.submit_text }}</lib-button
+  >
 </form>
 } @else {
 <div class="mx-4">
