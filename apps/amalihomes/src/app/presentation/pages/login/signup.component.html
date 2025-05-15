@@ -1,0 +1,56 @@
+<div class="flex h-screen font-sans">
+  <div class="flex-1 flex flex-col justify-center p-4">
+    <div class="flex flex-col items-center">
+      <app-logo />
+      <div class="mt-6 flex flex-col items-center">
+        <h2 class="lg:text-[62px] md:text-[40px] text-[32px] font-bold mt-2 text-black">Login</h2>
+        <p class="text-gray-600 mb-5 text-[18px]">Welcome back! Please enter your details to continue.</p>
+      </div>
+    </div>
+    <form (ngSubmit)="onSubmit()" class="mx-auto max-w-[545px] w-full flex flex-col gap-[16px]">
+      @for(field of fieldNames; track field) {
+      <lib-text-input
+        [type]="field === 'password' ? (isPasswordVisible(field) ? 'text' : 'password') : 'text'"
+        [placeholder]="formData()?.[field]?.placeholder ?? ''"
+        [label]="formData()?.[field]?.label ?? ''"
+        [control]="getControl(field)"
+        [error]="isErrored(field)"
+        [errorMessage]="getErrorMessage(field)"
+        containerStyles="!text-[16px]"
+        inputStyles="!text-[18px] w-full "
+        [rightIcon]="field === 'password'"
+      >
+        <lucide-angular
+          *ngIf="field === 'password'"
+          [size]="22"
+          [img]="isPasswordVisible(field) ? icons.EyeOff : icons.Eye"
+          class="text-icon cursor-pointer"
+          rightIcon
+          (click)="togglePasswordVisibility(field)"
+        />
+      </lib-text-input>
+
+      }
+      <p class="text-base">
+        <a routerLink="/" class="text-orange-500 underline cursor-pointer">Forgot Password?</a>
+      </p>
+      <lib-button
+        type="primary"
+        buttonType="submit"
+        buttonStyles="!w-full !px-0 !py-4 mt-6 rounded-[4px] !text-base !font-bold"
+        buttonIdentifier="signup-button"
+      >
+        Login
+      </lib-button>
+
+      <p class="text-center text-base">
+        Don't have an account yet?
+        <a routerLink="/signup" class="text-orange-500 underline cursor-pointer">Create an account</a>
+      </p>
+    </form>
+  </div>
+  <div
+    class="hidden lg:block flex-1 bg-cover bg-center"
+    style="background-image: url('https://i.postimg.cc/TY3vqVhv/Frame-625332.png')"
+  ></div>
+</div>
