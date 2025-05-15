@@ -18,6 +18,10 @@ import { LucideAngularModule } from 'lucide-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormErrorKey } from '../../../types/auth';
 import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
+import { TextDirective } from '@amalihomes/shared';
+import { RouterLink } from '@angular/router';
+import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
+import { SignUpMetaData } from './static-meta-data';
 
 @Component({
   selector: 'app-signup',
@@ -30,12 +34,14 @@ import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
     ButtonComponent,
     LucideAngularModule,
     LogoComponent,
+    TextDirective,
+    RouterLink,
   ],
   templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnInit {
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly pageHeadTags = inject(MetaTagsService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly chnageDetectionReference = inject(ChangeDetectorRef);
@@ -91,6 +97,7 @@ export class SignupComponent implements OnInit {
       [SignupFormFieldsType.RePassword]: new FormControl('', signupValidators.password),
       terms: new FormControl(false, Validators.requiredTrue),
     });
+    this.pageHeadTags.updateMetaData(SignUpMetaData);
   }
   protected passwordVisibility: Record<string, boolean> = {
     password: false,
