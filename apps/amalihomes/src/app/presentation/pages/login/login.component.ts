@@ -75,12 +75,12 @@ export class SignInComponent implements OnInit {
     rePassword: false,
   };
 
-  togglePasswordVisibility(field: 'password') {
+  protected togglePasswordVisibility(field: 'password') {
     this.passwordVisibility[field] = !this.passwordVisibility[field];
     this.chnageDetectionReference.markForCheck();
   }
 
-  isPasswordVisible(field: 'password'): boolean {
+  protected isPasswordVisible(field: 'password'): boolean {
     return this.passwordVisibility[field];
   }
 
