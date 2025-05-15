@@ -36,7 +36,7 @@ import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
 })
 export class SignupComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly cdRef = inject(ChangeDetectorRef);
 
@@ -84,7 +84,7 @@ export class SignupComponent implements OnInit {
   }));
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       [SignupFormFieldsType.FullName]: new FormControl('', signupValidators.fullName),
       [SignupFormFieldsType.Email]: new FormControl('', signupValidators.email),
       [SignupFormFieldsType.Password]: new FormControl('', signupValidators.password),
@@ -134,7 +134,7 @@ export class SignupComponent implements OnInit {
         if (error) {
           alert(error.message);
         } else {
-          alert('Signup successful! Please check your email for verification.');
+          console.log(data);
         }
       },
     });
