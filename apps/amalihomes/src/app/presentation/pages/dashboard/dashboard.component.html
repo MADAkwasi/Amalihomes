@@ -1,0 +1,14 @@
+<div class="flex">
+  <div>
+    <app-dashboard-navaigation-panel
+      (expandEvent)="expanded.set($event)"
+      class="block min-h-svh inset-0 right-auto z-10 fixed"
+    />
+  </div>
+  <div class="w-full min-h-screen bg-muted transition-all duration-100 {{ expanded() ? 'pl-60' : 'pl-20' }}">
+    <app-dashboard-header class="block w-full sticky top-0 z-[5]" />
+    <main class="relative px-10 2xl:px-16 pt-8 2xl:pt-12">
+      <ng-content select="[content]" />
+    </main>
+  </div>
+</div>
