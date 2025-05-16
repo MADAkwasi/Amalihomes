@@ -35,7 +35,11 @@ export const appRoutes: Route[] = [
         (Default) => Default.ProductDetailsComponent,
       ),
   },
-
+  {
+    path: 'dashboard/:tab',
+    loadComponent: () =>
+      import('./presentation/pages/dashboard/dashboard.component').then((Default) => Default.DashboardComponent),
+  },
   {
     path: '**',
     loadComponent: () =>

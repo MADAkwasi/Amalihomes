@@ -1,0 +1,108 @@
+<aside
+  class="min-h-svh bg-white border-r border-gray-200 flex flex-col transition-all duration-100"
+  [ngClass]="
+    expanded()
+      ? {
+          'w-60': true,
+          'px-3': true
+        }
+      : {
+          'w-20': true,
+          'px-2.5': true
+        }
+  "
+>
+  <nav
+    class="flex-1 pt-6 space-y-1"
+    [ngClass]="{
+      'px-2': !expanded()
+    }"
+  >
+    <div class="flex items-center pt-1 pb-6 {{ expanded() ? 'justify-between' : 'justify-center' }}">
+      @if (expanded()) {
+      <app-logo />
+      }
+      <button
+        aria-label="Expand"
+        [attr.aria-label]="expanded() ? 'Use Icon tabs view' : 'Use expanded view'"
+        class="cursor-pointer block transition-all duration-200"
+        (click)="toggleExpand()"
+        [ngClass]="{
+          'rotate-180': !expanded()
+        }"
+      >
+        <img aria-hidden="true" src="icons/sidebar.svg" alt="Sidebar icon" />
+      </button>
+    </div>
+
+    @for (tab of mainTabs; track tab) {
+    <a
+      routerLink="/dashboard/{{ tab.toLowerCase() }}"
+      libText
+      textType="text-normal"
+      class="flex items-center px-3 py-2 gap-2 hover:bg-muted rounded-md group"
+      [attr.aria-label]="tab"
+      [ngClass]="
+        selectedTab() === tab
+          ? {
+              '!text-primary': true,
+              '!bg-primary-light': true,
+              'font-bold': true
+            }
+          : {}
+      "
+      (click)="selectionEvent.emit(tab)"
+    >
+      @if (tab === tabsType.Messages) {
+      <app-message-icon
+        class="block"
+        [selected]="selectedTab() === tabsType.Messages"
+        [ngClass]="{
+          'scale-125': !expanded(),
+          'ml-0.5': !expanded()
+        }"
+      />
+      } @else {
+      <lucide-angular
+        [img]="icons[tab]"
+        [size]="expanded() ? 18 : 22"
+        class="{{ selectedTab() === tab ? 'text-primary' : 'text-[#5d5d5d]' }}"
+      />
+      } @if (expanded()) {
+      <span>{{ tab }}</span>
+      }
+    </a>
+    }
+  </nav>
+
+  <div class="p-4 border-t border-gray-200 space-y-1">
+    @for (tab of subTabs; track tab) {
+    <a
+      routerLink="/dashboard/{{ tab.toLowerCase() }}"
+      libText
+      textType="text-normal"
+      class="flex items-center px-3 py-2 gap-2 hover:bg-muted rounded-md group"
+      [attr.aria-label]="tab"
+      [ngClass]="
+        selectedTab() === tab
+          ? {
+              '!text-primary': true,
+              '!bg-primary-light': true,
+              'font-bold': true
+            }
+          : {}
+      "
+      (click)="selectionEvent.emit(tab)"
+    >
+      <lucide-angular
+        [img]="icons[tab]"
+        [size]="expanded() ? 18 : 22"
+        class="{{ selectedTab() === tab ? 'text-primary' : 'text-[#5d5d5d]' }}"
+      />
+      @if (expanded()) {
+      <span>{{ tab }}</span>
+      }
+    </a>
+    }
+  </div>
+</aside>

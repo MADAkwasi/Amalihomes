@@ -13,6 +13,7 @@ import { ExhibitionSlidersComponent } from '../../components/exhibition-sliders/
 import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
+import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
 
 @Component({
   selector: 'app-shop',
@@ -25,6 +26,7 @@ import { selectLocale } from '../../../logic/stores/selectors/storyblok.selector
     ButtonComponent,
     LucideAngularModule,
     ExhibitionSlidersComponent,
+    RootLayoutComponent,
   ],
   templateUrl: './shop.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

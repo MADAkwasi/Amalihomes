@@ -1,24 +1,26 @@
-@if(heroContent()) {
-<main class="">
-  @if(!isLoading() && heroContent()) {
-  <lib-hero
-    [title]="heroContent()!.title"
-    [description]="heroContent()!.description"
-    [imageUrl]="heroContent()?.image?.[0]?.image"
-  ></lib-hero>
+<app-root-layout>
+  @if(heroContent()) {
+  <main class="">
+    @if(!isLoading() && heroContent()) {
+    <lib-hero
+      [title]="heroContent()!.title"
+      [description]="heroContent()!.description"
+      [imageUrl]="heroContent()?.image?.[0]?.image"
+    ></lib-hero>
+    } @else {
+    <div class="w-full h-[528px]" appSkeleton></div>
+    }
+    <div class="page-container py-12 flex flex-col items-center">
+      <app-statistics class="w-full" />
+      <app-featured class="w-full" />
+    </div>
+    <app-location-map class="w-full" />
+    <div class="page-container py-12 flex flex-col items-center">
+      <app-leadership class="w-full" />
+      <app-showroom-grid class="w-full" />
+    </div>
+  </main>
   } @else {
   <div class="w-full h-[528px]" appSkeleton></div>
   }
-  <div class="page-container py-12 flex flex-col items-center">
-    <app-statistics class="w-full" />
-    <app-featured class="w-full" />
-  </div>
-  <app-location-map class="w-full" />
-  <div class="page-container py-12 flex flex-col items-center">
-    <app-leadership class="w-full" />
-    <app-showroom-grid class="w-full" />
-  </div>
-</main>
-} @else {
-<div class="w-full h-[528px]" appSkeleton></div>
-}
+</app-root-layout>

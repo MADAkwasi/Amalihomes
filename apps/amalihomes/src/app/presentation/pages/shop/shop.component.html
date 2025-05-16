@@ -1,99 +1,101 @@
-<main class="page-container flex flex-col justify-around gap-12 py-8">
-  <app-slider title="Product Categories" [sliderImages]="productCategories()" [height]="300" [width]="300" />
+<app-root-layout>
+  <main class="page-container flex flex-col justify-around gap-12 py-8">
+    <app-slider title="Product Categories" [sliderImages]="productCategories()" [height]="300" [width]="300" />
 
-  <lib-button
-    type="tetiary"
-    buttonIdentifier="shop-categories-toggle-btn"
-    title="Show Filters"
-    (buttonClick)="onToggleFilterMenu()"
-    buttonStyles="!p-0 !w-auto !justify-center !text-primary"
-    class="lg:hidden"
-  >
-    <lucide-icon [img]="icons.SlidersHorizontal" [size]="20" color="#ea690c" />
-    <p>All filters</p>
-  </lib-button>
-
-  <div
-    class="-top-32 left-0 right-0 bottom-0 absolute z-20 bg-[#3d3d3d4d] w-full h-[100vh]"
-    [class.hidden]="!isFilterMenuOpen()"
-  ></div>
-  <section class="flex justify-between">
-    <div
-      class="fixed inset-0 lg:inset-auto md:right-0 md:left-auto z-50 lg:z-0 lg:static lg:flex flex-col w-full md:w-[60%] bg-white lg:w-[15%] px-8 py-5 lg:p-0 overflow-y-scroll lg:overflow-y-visible max-h-screen lg:max-h-max scrollbar-hide"
-      [class.hidden]="!isFilterMenuOpen()"
+    <lib-button
+      type="tetiary"
+      buttonIdentifier="shop-categories-toggle-btn"
+      title="Show Filters"
+      (buttonClick)="onToggleFilterMenu()"
+      buttonStyles="!p-0 !w-auto !justify-center !text-primary"
+      class="lg:hidden"
     >
-      <lib-button
-        type="tetiary"
-        title="Close Menu"
-        buttonIdentifier="close-filter-menu-btn"
-        (buttonClick)="onToggleFilterMenu()"
-        buttonStyles="!p-0 !w-auto !justify-center !mb-4"
-        class="lg:hidden"
-        ><lucide-icon [img]="icons.X" [size]="20" color="#262626"
-      /></lib-button>
-      <div class="flex justify-between items-center w-full mb-2">
-        <h4 libText textType="heading3" class="font-bold text-[#262626]">Filtering</h4>
+      <lucide-icon [img]="icons.SlidersHorizontal" [size]="20" color="#ea690c" />
+      <p>All filters</p>
+    </lib-button>
+
+    <div
+      class="-top-32 left-0 right-0 bottom-0 absolute z-20 bg-[#3d3d3d4d] w-full h-[100vh]"
+      [class.hidden]="!isFilterMenuOpen()"
+    ></div>
+    <section class="flex justify-between">
+      <div
+        class="fixed inset-0 lg:inset-auto md:right-0 md:left-auto z-50 lg:z-0 lg:static lg:flex flex-col w-full md:w-[60%] bg-white lg:w-[15%] px-8 py-5 lg:p-0 overflow-y-scroll lg:overflow-y-visible max-h-screen lg:max-h-max scrollbar-hide"
+        [class.hidden]="!isFilterMenuOpen()"
+      >
         <lib-button
           type="tetiary"
-          buttonIdentifier="filters-categories-toggle-btn"
-          [title]="isFiltersOpen() ? 'Hide Options' : 'Show Options'"
-          (buttonClick)="onToggleFilters()"
-          [class]="isFiltersOpen() ? 'rotate-180 duration-300' : 'duration-300'"
-          buttonStyles="!p-0 !w-auto !justify-center !text-primary "
+          title="Close Menu"
+          buttonIdentifier="close-filter-menu-btn"
+          (buttonClick)="onToggleFilterMenu()"
+          buttonStyles="!p-0 !w-auto !justify-center !mb-4"
+          class="lg:hidden"
+          ><lucide-icon [img]="icons.X" [size]="20" color="#262626"
+        /></lib-button>
+        <div class="flex justify-between items-center w-full mb-2">
+          <h4 libText textType="heading3" class="font-bold text-[#262626]">Filtering</h4>
+          <lib-button
+            type="tetiary"
+            buttonIdentifier="filters-categories-toggle-btn"
+            [title]="isFiltersOpen() ? 'Hide Options' : 'Show Options'"
+            (buttonClick)="onToggleFilters()"
+            [class]="isFiltersOpen() ? 'rotate-180 duration-300' : 'duration-300'"
+            buttonStyles="!p-0 !w-auto !justify-center !text-primary "
+          >
+            <lucide-icon [img]="icons.ChevronDown" [size]="20" color="#262626" />
+          </lib-button>
+        </div>
+        <hr class="w-full" />
+        @if(isFiltersOpen()) {
+        <app-filters class="w-full" title="Categories" [filteringOptions]="catergoriesFilter()" type="checks" />
+        <app-filters class="w-full" title="Size & dimensions" [filteringOptions]="sizes()" type="checks" />
+        <app-filters class="w-full" title="Availability" [filteringOptions]="availability()" type="checks" />
+        <app-filters class="w-full" title="Styles & Design" [filteringOptions]="styles()" type="checks" />
+        <app-filters class="w-full" title="Pricing" type="range" />
+        <app-filters class="w-full" title="Sorting" [filteringOptions]="sortingOptions()" type="radio" />
+        }
+
+        <lib-button
+          type="primary"
+          buttonIdentifier="apply-filters-btn"
+          title="Apply Selected Filters"
+          (buttonClick)="onApplyFilters()"
+          buttonStyles="w-full mt-8"
+          >Apply</lib-button
         >
-          <lucide-icon [img]="icons.ChevronDown" [size]="20" color="#262626" />
-        </lib-button>
+
+        <lib-button
+          type="secondary"
+          buttonIdentifier="filters-clear-btn"
+          title="Clear Selected Filters"
+          (buttonClick)="onClearFilters()"
+          buttonStyles="w-full my-4"
+          >Clear Filter</lib-button
+        >
       </div>
-      <hr class="w-full" />
-      @if(isFiltersOpen()) {
-      <app-filters class="w-full" title="Categories" [filteringOptions]="catergoriesFilter()" type="checks" />
-      <app-filters class="w-full" title="Size & dimensions" [filteringOptions]="sizes()" type="checks" />
-      <app-filters class="w-full" title="Availability" [filteringOptions]="availability()" type="checks" />
-      <app-filters class="w-full" title="Styles & Design" [filteringOptions]="styles()" type="checks" />
-      <app-filters class="w-full" title="Pricing" type="range" />
-      <app-filters class="w-full" title="Sorting" [filteringOptions]="sortingOptions()" type="radio" />
-      }
 
-      <lib-button
-        type="primary"
-        buttonIdentifier="apply-filters-btn"
-        title="Apply Selected Filters"
-        (buttonClick)="onApplyFilters()"
-        buttonStyles="w-full mt-8"
-        >Apply</lib-button
-      >
+      <div class="flex flex-col gap-8 w-full lg:w-[80%]">
+        <app-exhibition-sliders
+          title="New Arrivals"
+          [products]="newArrivals()"
+          description="Shop now for exclusive discounts on stylish furniture—before the deals are gone"
+          class="relative"
+        />
+        <app-exhibition-sliders
+          title="Top Sellers"
+          [products]="topSellers()"
+          description="Shop now for exclusive discounts on stylish furniture—before the deals are gone"
+          class="relative"
+        />
+      </div>
+    </section>
 
-      <lib-button
-        type="secondary"
-        buttonIdentifier="filters-clear-btn"
-        title="Clear Selected Filters"
-        (buttonClick)="onClearFilters()"
-        buttonStyles="w-full my-4"
-        >Clear Filter</lib-button
-      >
-    </div>
-
-    <div class="flex flex-col gap-8 w-full lg:w-[80%]">
-      <app-exhibition-sliders
-        title="New Arrivals"
-        [products]="newArrivals()"
-        description="Shop now for exclusive discounts on stylish furniture—before the deals are gone"
-        class="relative"
-      />
-      <app-exhibition-sliders
-        title="Top Sellers"
-        [products]="topSellers()"
-        description="Shop now for exclusive discounts on stylish furniture—before the deals are gone"
-        class="relative"
-      />
-    </div>
-  </section>
-
-  <app-exhibition-sliders
-    title="Flash Sales"
-    [products]="discountedProducts()"
-    description="Shop now for exclusive discounts on stylish furniture—before the deals are gone"
-    class="relative"
-    [length]="8"
-  />
-</main>
+    <app-exhibition-sliders
+      title="Flash Sales"
+      [products]="discountedProducts()"
+      description="Shop now for exclusive discounts on stylish furniture—before the deals are gone"
+      class="relative"
+      [length]="8"
+    />
+  </main>
+</app-root-layout>
