@@ -1,5 +1,4 @@
 import { Component, signal, inject, effect, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InteractionsService } from '../../../logic/services/interactions/interactions.service';
 import { LocalizationService } from '../../../logic/services/localization/localization.service';
@@ -15,7 +14,6 @@ import { selectLocale } from '../../../logic/stores/selectors/storyblok.selector
 })
 export class UnderConstructionComponent {
   private readonly store = inject(Store);
-  private readonly router = inject(Router);
   private readonly interactionsService = inject(InteractionsService);
   private readonly localizationService = inject(LocalizationService);
   private readonly selectedLocale = this.store.selectSignal(selectLocale);

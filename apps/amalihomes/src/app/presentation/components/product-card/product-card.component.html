@@ -1,4 +1,14 @@
-<div class="mb-6 w-full" [class.w-full]="width()" [style.width]="width()">
+<div class="mb-6 w-full relative" [class.w-full]="width()" [style.width]="width()">
+  @if(!hideTags()){ @if(product().discount && displayDiscount()){
+  <div class="absolute right-2 top-2 bg-primary text-white py-1 px-6 rounded-md text-sm">
+    -{{ product().discount }}%
+  </div>
+  }@else{
+  <div class="absolute right-2 top-2 bg-primary h-12 w-12 rounded-full flex justify-center items-center">
+    <img src="/icons/cart.svg" alt="cart-icon" />
+  </div>
+  } }
+
   <a routerLink="/shop/product/{{ product()._id }}" class="w-full flex flex-col gap-4 items-center">
     <img [src]="product().image" alt="display-image-for-product-{{ product().name }}" class="w-full h-44 rounded-md" />
     <div class="flex flex-col gap-1 text-left w-full">

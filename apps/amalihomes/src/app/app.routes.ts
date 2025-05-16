@@ -18,7 +18,22 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'shop',
-    loadComponent: () => import('./presentation/pages/shop/shop.component').then((Default) => Default.ShopComponent),
+    loadComponent: () =>
+      import('./presentation/layouts/shop-layout/shop-layout.component').then((Default) => Default.ShopLayoutComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./presentation/pages/shop/shop.component').then((Default) => Default.ShopComponent),
+      },
+      {
+        path: 'new-arrivals',
+        loadComponent: () =>
+          import('./presentation/pages/new-arrivals/new-arrivals.component').then(
+            (Default) => Default.NewArrivalsComponent,
+          ),
+      },
+    ],
   },
   {
     path: 'about',
