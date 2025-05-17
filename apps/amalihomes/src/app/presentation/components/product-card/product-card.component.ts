@@ -12,8 +12,10 @@ import { RatingsComponent } from '../ratings/ratings.component';
 })
 export class ProductCardComponent {
   public readonly product = input.required<Product>();
+  public readonly hideTags = input<boolean>(false);
   public readonly width = input<string>();
   public readonly isOnSlider = input<boolean>(false);
+  public readonly displayDiscount = input<boolean>(false);
 
   protected calculateDiscountedPrice(price: number, discountPercentage: Product['discount']): number {
     if (discountPercentage === null) return price;

@@ -4,18 +4,12 @@
     <p class="text-sm md:text-base">{{ description() }}</p>
   </div>
 
-  <lib-button
-    type="tetiary"
-    title="View all"
-    buttonIdentifier="exhibition-sliders-toggle-btn"
-    (buttonClick)="onViewAll()"
-    buttonStyles="!p-0 !w-auto !text-primary !justify-center"
-    class="absolute right-0 top-0 md:static"
-    >View all</lib-button
-  >
+  @if(routable()){
+  <a [routerLink]="url()" class="absolute right-0 top-0 md:static text-primary"> View all </a>
+  }
 </div>
 
-<div class="absolute top-[45%] left-0 flex items-center justify-between w-full -translate-y-[50%]">
+<div class="absolute top-[45%] left-0 flex items-center justify-between w-full -translate-y-[50%] z-10">
   <lib-button
     type="tetiary"
     buttonIdentifier="exhibition-sliders-left-arrow"
@@ -34,6 +28,12 @@
 
 <div class="flex gap-4 overflow-x-scroll scrollbar-hide">
   @for(product of sliderProducts(); track $index) {
-  <app-product-card [product]="product" [width]="'220px'" [isOnSlider]="true" />
+  <app-product-card
+    [product]="product"
+    [width]="'220px'"
+    [isOnSlider]="true"
+    [displayDiscount]="showDiscount()"
+    [hideTags]="hideTags()"
+  />
   }
 </div>
