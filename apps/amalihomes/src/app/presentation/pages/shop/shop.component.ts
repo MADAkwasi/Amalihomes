@@ -5,11 +5,10 @@ import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selec
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { ExhibitionSlidersComponent } from '../../components/exhibition-sliders/exhibition-sliders.component';
-import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
 
 @Component({
   selector: 'app-shop',
-  imports: [CommonModule, RouterModule, LucideAngularModule, ExhibitionSlidersComponent, RootLayoutComponent],
+  imports: [CommonModule, RouterModule, LucideAngularModule, ExhibitionSlidersComponent],
   templateUrl: './shop.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
