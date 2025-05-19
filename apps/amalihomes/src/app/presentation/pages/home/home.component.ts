@@ -12,11 +12,19 @@ import { StoryblokImage } from '../../../types/storyblok';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { HomeMetaData } from './static-mata-data';
 import { Localization } from '../../../logic/data/constants/localization';
+import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HomeHeroSectionComponent, ValuePropositionComponent, HomeFlashSaleComponent, SliderComponent],
+  imports: [
+    CommonModule,
+    HomeHeroSectionComponent,
+    ValuePropositionComponent,
+    HomeFlashSaleComponent,
+    SliderComponent,
+    RootLayoutComponent,
+  ],
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

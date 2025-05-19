@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from '../../../../shared-ui/components/text-input/text-input.component';
 import { LucideAngularModule, Search, Bell, User } from 'lucide-angular';
-import { ButtonComponent } from '../../../../shared-ui/components/button/button.component';
-import { TextDirective } from '@amalihomes/shared';
+import { TextDirective, ButtonComponent, InputComponent } from '@amalihomes/shared';
 
 @Component({
   selector: 'app-dashboard-header',

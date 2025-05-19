@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogoComponent } from '../../svg-icons/logo/logo.component';
 import { LucideAngularModule, Settings, LogOut, Gift, FileText, MessageCircle } from 'lucide-angular';
-import { DashboardNavigationMainTabs, DashboardNavigationSubTabs, DashboardNavigationTabs } from './data';
+import { DashboardNavigationMainTabs, DashboardNavigationSubTabs, DashboardNavigationTabs } from '../data';
 import { MessageIconComponent } from '../../svg-icons/message-icon/message-icon.component';
 import { LucideIconData } from 'lucide-angular/icons/types';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
 
 @Component({
@@ -15,7 +15,9 @@ import { TextDirective } from '@amalihomes/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavaigationPanelComponent {
+  protected readonly router = inject(Router);
   public expandEvent = output<boolean>();
+  public selectionEvent = output<DashboardNavigationTabs>();
   protected readonly tabsType = DashboardNavigationTabs;
   protected readonly icons: Record<DashboardNavigationTabs, LucideIconData> = {
     [this.tabsType.Settings]: Settings,
@@ -24,7 +26,7 @@ export class NavaigationPanelComponent {
     [this.tabsType.Reports]: FileText,
     [this.tabsType.Messages]: MessageCircle,
   };
-  protected selectedTab = signal(this.tabsType.Messages);
+  public selectedTab = input.required<DashboardNavigationTabs>();
   protected mainTabs = DashboardNavigationMainTabs;
   protected subTabs = DashboardNavigationSubTabs;
   protected expanded = signal(true);

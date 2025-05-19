@@ -37,7 +37,7 @@
 
     @for (tab of mainTabs; track tab) {
     <a
-      routerLink="/dashboard"
+      routerLink="/dashboard/{{ tab.toLowerCase() }}"
       libText
       textType="text-normal"
       class="flex items-center px-3 py-2 gap-2 hover:bg-muted rounded-md group"
@@ -51,7 +51,7 @@
             }
           : {}
       "
-      (click)="selectedTab.set(tab)"
+      (click)="selectionEvent.emit(tab)"
     >
       @if (tab === tabsType.Messages) {
       <app-message-icon
@@ -78,7 +78,7 @@
   <div class="p-4 border-t border-gray-200 space-y-1">
     @for (tab of subTabs; track tab) {
     <a
-      routerLink="/dashboard"
+      routerLink="/dashboard/{{ tab.toLowerCase() }}"
       libText
       textType="text-normal"
       class="flex items-center px-3 py-2 gap-2 hover:bg-muted rounded-md group"
@@ -92,7 +92,7 @@
             }
           : {}
       "
-      (click)="selectedTab.set(tab)"
+      (click)="selectionEvent.emit(tab)"
     >
       <lucide-angular
         [img]="icons[tab]"

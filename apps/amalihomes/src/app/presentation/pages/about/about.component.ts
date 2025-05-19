@@ -16,6 +16,7 @@ import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.ac
 import { HeroComponent } from '../../../shared-ui/components/hero/hero.component';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { AboutMetaData } from './static-meta-data';
+import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
 
 @Component({
   selector: 'app-about',
@@ -27,6 +28,7 @@ import { AboutMetaData } from './static-meta-data';
     LeadershipComponent,
     ShowroomGridComponent,
     HeroComponent,
+    RootLayoutComponent,
   ],
   templateUrl: './about.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

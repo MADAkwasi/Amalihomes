@@ -13,6 +13,7 @@ import { productCategories } from '../../../logic/data/constants/categories';
 import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { ExhibitionSlidersComponent } from '../../components/exhibition-sliders/exhibition-sliders.component';
+import { RootLayoutComponent } from '../root-layout/root-layout.component';
 
 @Component({
   selector: 'app-shop-layout',
@@ -24,6 +25,7 @@ import { ExhibitionSlidersComponent } from '../../components/exhibition-sliders/
     FiltersComponent,
     ExhibitionSlidersComponent,
     RouterModule,
+    RootLayoutComponent,
   ],
   templateUrl: './shop-layout.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -12,10 +12,11 @@ import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { FaqMetaData } from './static-meta-data';
+import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
 
 @Component({
   selector: 'app-faq',
-  imports: [CommonModule, TabsComponent, HeroComponent],
+  imports: [CommonModule, TabsComponent, HeroComponent, RootLayoutComponent],
   templateUrl: './faq.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

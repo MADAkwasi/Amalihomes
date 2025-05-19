@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavaigationPanelComponent } from './navaigation-panel.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DashboardNavigationTabs } from './data';
+import { DashboardNavigationTabs } from '../data';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -31,6 +31,7 @@ describe('NavaigationPanelComponent', () => {
 
     fixture = TestBed.createComponent(NavaigationPanelComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('selectedTab', DashboardNavigationTabs.Messages);
     fixture.detectChanges();
   });
 

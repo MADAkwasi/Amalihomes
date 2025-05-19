@@ -19,6 +19,7 @@ import { selectLocale } from '../../../logic/stores/selectors/storyblok.selector
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { Product } from '../../../types/chatbot';
 import { RatingsComponent } from '../../components/ratings/ratings.component';
+import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
 
 @Component({
   selector: 'app-product-details',
@@ -30,6 +31,7 @@ import { RatingsComponent } from '../../components/ratings/ratings.component';
     LucideAngularModule,
     RouterLink,
     RatingsComponent,
+    RootLayoutComponent,
   ],
   templateUrl: './product-details.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

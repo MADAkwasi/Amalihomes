@@ -1,104 +1,106 @@
-<main class="page-container flex flex-col gap-2 py-4">
-  <ul class="flex gap-2 items-center">
-    <li><a routerLink="/shop">Shop</a></li>
-    <lucide-icon [img]="icons.ChevronRight" [size]="16" />
-    <li><p class="font-bold text-black">Product preview</p></li>
-  </ul>
-  <div class="py-12 flex lg:flex-row flex-col items-center justify-between gap-12">
-    <div class="w-full lg:w-[50%] flex md:flex-row flex-col gap-8 items-start">
-      <div class="w-[100%] md:w-[80%] h-[400px] rounded-lg overflow-hidden">
-        <img
-          [src]="product()?.colors?.[selectedColor()]?.image"
-          alt="display-image-for-{{ product()?.name }}"
-          class="rounded-lg w-full h-full object-fill"
-        />
-      </div>
-      <div
-        class="flex w-full md:w-auto md:flex-col gap-4 lg:gap-6 overflow-x-auto md:overflow-hidden whitespace-nowrap hide-scrollbar"
-      >
-        @for(color of product()?.colors; track $index) {
-        <lib-button
-          type="tetiary"
-          title="{{ color.name }} color variant"
-          buttonIdentifier="{{ color.name }}-color-variant-btn"
-          buttonStyles="!h-fit !w-fit !p-0 !rounded-lg !inline-block"
-          class="!shrink-0"
-          [class.hidden]="selectedColor() === $index"
-          (click)="selectedColor.set($index)"
-        >
+<app-root-layout>
+  <main class="page-container flex flex-col gap-2 py-4">
+    <ul class="flex gap-2 items-center">
+      <li><a routerLink="/shop">Shop</a></li>
+      <lucide-icon [img]="icons.ChevronRight" [size]="16" />
+      <li><p class="font-bold text-black">Product preview</p></li>
+    </ul>
+    <div class="py-12 flex lg:flex-row flex-col items-center justify-between gap-12">
+      <div class="w-full lg:w-[50%] flex md:flex-row flex-col gap-8 items-start">
+        <div class="w-[100%] md:w-[80%] h-[400px] rounded-lg overflow-hidden">
           <img
-            [src]="color.image"
-            alt="display-image-for-{{ product()?.name }}-color-{{ color }}"
-            class="h-20 w-24 rounded-lg"
+            [src]="product()?.colors?.[selectedColor()]?.image"
+            alt="display-image-for-{{ product()?.name }}"
+            class="rounded-lg w-full h-full object-fill"
           />
-        </lib-button>
-        }
-      </div>
-    </div>
-
-    <div class="w-full lg:w-[40%] flex flex-col self-start">
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-2">
-          <h1 libText textType="heading2">{{ product()?.name }}</h1>
-          <h3 libText textType="heading4">{{ product()?.price | currency : 'USD' }}</h3>
-          <app-ratings [reviews]="product()?.reviews ?? []" [ratings]="product()?.ratings ?? 0" />
-          <p>{{ product()?.description }}</p>
         </div>
+        <div
+          class="flex w-full md:w-auto md:flex-col gap-4 lg:gap-6 overflow-x-auto md:overflow-hidden whitespace-nowrap hide-scrollbar"
+        >
+          @for(color of product()?.colors; track $index) {
+          <lib-button
+            type="tetiary"
+            title="{{ color.name }} color variant"
+            buttonIdentifier="{{ color.name }}-color-variant-btn"
+            buttonStyles="!h-fit !w-fit !p-0 !rounded-lg !inline-block"
+            class="!shrink-0"
+            [class.hidden]="selectedColor() === $index"
+            (click)="selectedColor.set($index)"
+          >
+            <img
+              [src]="color.image"
+              alt="display-image-for-{{ product()?.name }}-color-{{ color }}"
+              class="h-20 w-24 rounded-lg"
+            />
+          </lib-button>
+          }
+        </div>
+      </div>
 
+      <div class="w-full lg:w-[40%] flex flex-col self-start">
         <div class="flex flex-col gap-4">
           <div class="flex flex-col gap-2">
-            <h4 class="font-bold text-black">Available Colors:</h4>
-            <ul class="flex gap-2">
-              @for(color of product()?.colors; track $index) {
-              <li>
-                <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
-                <button
-                  class="h-10 w-10 rounded-full cursor-pointer duration-300"
-                  [ngClass]="{ 'border border-primary': color.hex === '#FFFFFF',
+            <h1 libText textType="heading2">{{ product()?.name }}</h1>
+            <h3 libText textType="heading4">{{ product()?.price | currency : 'USD' }}</h3>
+            <app-ratings [reviews]="product()?.reviews ?? []" [ratings]="product()?.ratings ?? 0" />
+            <p>{{ product()?.description }}</p>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+              <h4 class="font-bold text-black">Available Colors:</h4>
+              <ul class="flex gap-2">
+                @for(color of product()?.colors; track $index) {
+                <li>
+                  <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
+                  <button
+                    class="h-10 w-10 rounded-full cursor-pointer duration-300"
+                    [ngClass]="{ 'border border-primary': color.hex === '#FFFFFF',
                   'border-2 border-transparent hover:border-primary hover:scale-110 ': selectedColor() !== $index,
                     'border-[3px] border-black': selectedColor() === $index,
                    }"
-                  [style.backgroundColor]="color.hex"
-                  (click)="selectedColor.set($index)"
-                ></button>
-              </li>
-              }
-            </ul>
-          </div>
+                    [style.backgroundColor]="color.hex"
+                    (click)="selectedColor.set($index)"
+                  ></button>
+                </li>
+                }
+              </ul>
+            </div>
 
-          <div class="flex flex-col gap-2">
-            <h4 class="font-bold text-black">Quantity:</h4>
-            <div class="flex items-center border border-border py-1 rounded-md w-fit">
-              <lib-button
-                buttonIdentifier="reduce-quantity-btn"
-                type="tetiary"
-                buttonStyles="!w-fit"
-                (buttonClick)="handleQuantityChange('minus')"
-                [state]="quantity() === 1 ? 'disabled' : 'default'"
-                title="Decrease quantity button"
-              >
-                <lucide-icon [img]="icons.Minus" [size]="18" />
-              </lib-button>
-              <p class="font-bold">{{ quantity() }}</p>
-              <lib-button
-                buttonIdentifier="add-quantity-btn"
-                type="tetiary"
-                (buttonClick)="handleQuantityChange('add')"
-                title="Increase quantity button"
-              >
-                <lucide-icon [img]="icons.Plus" [size]="18" />
-              </lib-button>
+            <div class="flex flex-col gap-2">
+              <h4 class="font-bold text-black">Quantity:</h4>
+              <div class="flex items-center border border-border py-1 rounded-md w-fit">
+                <lib-button
+                  buttonIdentifier="reduce-quantity-btn"
+                  type="tetiary"
+                  buttonStyles="!w-fit"
+                  (buttonClick)="handleQuantityChange('minus')"
+                  [state]="quantity() === 1 ? 'disabled' : 'default'"
+                  title="Decrease quantity button"
+                >
+                  <lucide-icon [img]="icons.Minus" [size]="18" />
+                </lib-button>
+                <p class="font-bold">{{ quantity() }}</p>
+                <lib-button
+                  buttonIdentifier="add-quantity-btn"
+                  type="tetiary"
+                  (buttonClick)="handleQuantityChange('add')"
+                  title="Increase quantity button"
+                >
+                  <lucide-icon [img]="icons.Plus" [size]="18" />
+                </lib-button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="flex gap-4 mt-8">
-        <lib-button buttonIdentifier="order-now-btn" title="Order button">Order Now</lib-button>
-        <lib-button buttonIdentifier="add-to-cart-btn" title="Add product to cart button" type="secondary"
-          >Add to Cart</lib-button
-        >
+        <div class="flex gap-4 mt-8">
+          <lib-button buttonIdentifier="order-now-btn" title="Order button">Order Now</lib-button>
+          <lib-button buttonIdentifier="add-to-cart-btn" title="Add product to cart button" type="secondary"
+            >Add to Cart</lib-button
+          >
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</app-root-layout>

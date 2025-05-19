@@ -1,12 +1,14 @@
-<main class="flex flex-col gap-10">
-  @if(!isLoading() && heroContent()) {
-  <lib-hero
-    [title]="heroContent()!.title"
-    [description]="heroContent()!.description"
-    [imageUrl]="heroContent()?.image?.[0]?.image"
-  ></lib-hero>
-  } @else {
-  <div class="w-full h-[528px]" appSkeleton></div>
-  }
-  <app-tabs class="page-container block w-full"></app-tabs>
-</main>
+<app-root-layout>
+  <main class="flex flex-col gap-10">
+    @if(!isLoading() && heroContent()) {
+    <lib-hero
+      [title]="heroContent()!.title"
+      [description]="heroContent()!.description"
+      [imageUrl]="heroContent()?.image?.[0]?.image"
+    ></lib-hero>
+    } @else {
+    <div class="w-full h-[528px]" appSkeleton></div>
+    }
+    <app-tabs class="page-container block w-full"></app-tabs>
+  </main>
+</app-root-layout>

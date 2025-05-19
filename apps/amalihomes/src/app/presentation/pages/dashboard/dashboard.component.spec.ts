@@ -16,6 +16,7 @@ describe('DashboardComponent', () => {
           useValue: {
             params: of({}),
             queryParams: of({}),
+            url: of([{ path: 'dashboard' }, { path: 'messages' }]),
             snapshot: {
               paramMap: new Map(),
               queryParamMap: new Map(),
