@@ -21,7 +21,7 @@
         <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
       </lib-button>
 
-      @if(user()){
+      @if(!!authenticatedUser().user){
       <lib-button type="tetiary" buttonStyles="!w-fit !px-4" buttonIdentifier="shopping-cart-button">
         <lucide-icon [img]="cartIcon" [size]="18"></lucide-icon>
       </lib-button>
@@ -57,7 +57,7 @@
 
   <app-menu
     *ngIf="isMenuOpen()"
-    [isAuthenticated]="user()"
+    [isAuthenticated]="!!authenticatedUser().user"
     [navLinks]="data()!.navLinks"
     [placeholder]="data()?.inputPlaceholder"
     [authBtn]="data()?.buttonText"
