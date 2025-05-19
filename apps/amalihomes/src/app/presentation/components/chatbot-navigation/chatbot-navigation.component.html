@@ -1,8 +1,9 @@
 <div
-  [ngClass]="{ 'h-full': expandChat, 'top-auto': !expandChat }"
-  class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 hide-scrollbar md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0"
+  class="fixed inset-0 md:h-auto md:top-auto md:left-auto z-20 hide-scrollbar md:pr-4 lg:pr-8 xl:pr-12 2xl:pr-20 !pl-0 pr-0 {{
+    expandChat() ? 'h-full' : 'top-auto'
+  }} "
 >
-  @if(!expandChat){
+  @if(!expandChat()){
   <lib-button
     buttonIdentifier="chatbot-start-btn"
     type="tetiary"
@@ -71,7 +72,7 @@
         <app-tawk-chat />
       </div>
       } @case (ChatBotTabTypes.help) {
-      <app-chatbot-faq />
+      <app-chatbot-faq (closeWidgetEvent)="expandChat.set(false)" />
       } }
     </div>
 

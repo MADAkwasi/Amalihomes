@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { LucideAngularModule, ChevronRight } from 'lucide-angular';
@@ -15,16 +15,17 @@ import { Router } from '@angular/router';
 })
 export class ChatbotFaqComponent {
   protected readonly icons = { ChevronRight };
+  public closeWidgetEvent = output();
   private readonly router = inject(Router);
   private readonly store = inject(Store);
   private readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
-
   protected readonly chatbotFaqData = computed(() => this.chatbotData()?.faq_page[0]);
   protected readonly questionCategories = computed(() => {
     return this.chatbotFaqData()?.categories ?? [];
   });
 
   protected navigateToFaqPage() {
+    this.closeWidgetEvent.emit();
     this.router.navigate(['/faqs']);
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatBotEnquiryType, ChatBotTabs, CMSChatbot } from '../../../types/chatbot';
 import { ButtonComponent, ImageComponent } from '@amalihomes/shared';
@@ -37,7 +37,7 @@ import { TawkChatComponent } from '../tawk-chat/tawk-chat.component';
 })
 export class ChatbotNavigationComponent {
   protected readonly icons = { X, ChevronLeft };
-  protected expandChat = false;
+  protected expandChat = signal(false);
   protected showBackButton = false;
   protected showBottomNavigation = true;
   protected isTawkToOpen = false;
@@ -64,8 +64,8 @@ export class ChatbotNavigationComponent {
   protected navigatedHomeTabEnquiry: ChatBotEnquiryType | null = null;
 
   protected handleExpandChat() {
-    this.expandChat = !this.expandChat;
-    if (!this.expandChat) this.resetInterface();
+    this.expandChat.set(!this.expandChat());
+    if (!this.expandChat()) this.resetInterface();
   }
 
   protected navigateTo(tab: ChatBotTabs) {
