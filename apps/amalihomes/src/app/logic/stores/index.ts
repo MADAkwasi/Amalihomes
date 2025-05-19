@@ -2,6 +2,7 @@ import { dummyData } from './mocked-data';
 import { storyblokPageReducer, StoryblokPageState } from './reducers/storyblok.reducers.';
 import { applicationDummyDataReducers } from './reducers/image-data';
 import { interactionsReducer, InteractionsState } from './reducers/interactions.reducer';
+import { authReducer } from './reducers/auth.reducer';
 
 export interface ApplicationStore {
   dummyData: typeof dummyData; //reducer for dummy data. to be remove in the future
@@ -15,4 +16,5 @@ export const applicationReducer = {
   dummyData: applicationDummyDataReducers,
   interactions: interactionsReducer,
   storyblokPage: storyblokPageReducer,
+  auth: authReducer,
 };
