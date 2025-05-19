@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  inject,
-  computed,
-  DestroyRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject, computed, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignupFormFieldsType } from '../../../types/auth';
+import { SignupFormFieldsType, User } from '../../../types/auth';
 import { signupValidators } from '../../../logic/utils/validators/auth';
 import { AuthService } from '../../../logic/services/firebase/auth.service';
 import { Eye, EyeOff } from 'lucide-angular';
@@ -22,6 +14,9 @@ import { TextDirective } from '@amalihomes/shared';
 import { RouterLink } from '@angular/router';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { SignUpMetaData } from './static-meta-data';
+import { Store } from '@ngrx/store';
+import { signupSuccess } from '../../../logic/stores/actions/auth.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -45,6 +40,9 @@ export class SignupComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly chnageDetectionReference = inject(ChangeDetectorRef);
+  protected isLoading = false;
+  private store = inject(Store);
+  private readonly router = inject(Router);
 
   protected readonly icons = { EyeOff, Eye };
   protected readonly fieldNames = Object.values(SignupFormFieldsType);
@@ -132,6 +130,7 @@ export class SignupComponent implements OnInit {
   }
 
   protected onSubmit() {
+    this.isLoading = true;
     this.isSubmitted = true;
     if (this.form.invalid) return;
 
@@ -139,9 +138,12 @@ export class SignupComponent implements OnInit {
     this.authService.signUp(fullName, email, password).subscribe({
       next: ({ data, error }) => {
         if (error) {
-          // Handle error
-        } else {
-          // Handle successful signup
+          // handle error
+          this.isLoading = false;
+        } else if (data && data.user) {
+          this.store.dispatch(signupSuccess({ user: data.user.user_metadata as User }));
+          this.router.navigate(['/']);
+          this.isLoading = false;
         }
       },
     });

@@ -13,3 +13,11 @@ export enum LoginFormFieldsType {
 export type FormErrorKey = 'required' | 'email' | 'minlength' | 'unmatched' | 'termsRequired';
 
 export type LoginFormErrorKey = 'required' | 'email' | 'minlength';
+
+export type User = {
+  email: string;
+  email_verified: boolean;
+  full_name: string;
+  phone_verified?: boolean;
+  sub: string;
+};

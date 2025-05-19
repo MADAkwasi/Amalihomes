@@ -64,6 +64,7 @@
 
       <lib-button
         type="primary"
+        [state]="isLoading ? 'disabled' : 'default'"
         buttonType="submit"
         buttonStyles="!w-full !px-0 !py-4 rounded-[4px] !text-base !font-bold"
         buttonIdentifier="signup-button"
