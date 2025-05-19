@@ -34,6 +34,13 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'flash-sales',
+        loadComponent: () =>
+          import('./presentation/pages/flash-sales/flash-sales.component').then(
+            (Default) => Default.FlashSalesComponent,
+          ),
+      },
+      {
         path: 'top-sellers',
         loadComponent: () =>
           import('./presentation/pages/top-sellers/top-sellers.component').then(
