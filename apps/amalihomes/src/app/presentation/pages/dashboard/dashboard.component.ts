@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavaigationPanelComponent } from '../../components/dashboard/navaigation-panel/navaigation-panel.component';
 import { DashboardHeaderComponent } from '../../components/dashboard/dashboard-header/dashboard-header.component';
 import { DashboardNavigationTabs } from '../../components/dashboard/data';
 import { DashboardMessagesComponent } from './dashboard-messages/dashboard-messages.component';
 import { DashboardPromotionsComponent } from './dashboard-promotions/dashboard-promotions.component';
-import { ActivatedRoute } from '@angular/router';
+import { PlatformDetectorService } from '../../../logic/services/platform-detector/platform-detector.service';
+import { getInitialTab } from './util';
+import { ButtonComponent, SelectInputComponent, TextDirective } from '@amalihomes/shared';
+import { DashboardMessagePriorityOptions, mockedSalesePersonnels } from './data';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,24 +18,25 @@ import { ActivatedRoute } from '@angular/router';
     DashboardHeaderComponent,
     DashboardMessagesComponent,
     DashboardPromotionsComponent,
+    SelectInputComponent,
+    TextDirective,
+    ButtonComponent,
   ],
   templateUrl: './dashboard.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  private activatedRoute = inject(ActivatedRoute);
-  private destroyRef = inject(DestroyRef);
+  private platform = inject(PlatformDetectorService);
   protected tabsType = DashboardNavigationTabs;
   protected selectedTab = signal(this.tabsType.Messages);
   protected expanded = signal(true);
+  protected showForwardDialog = signal(false);
+  protected readonly priorityOptions = DashboardMessagePriorityOptions;
+  protected readonly salesPesonnelOptions = mockedSalesePersonnels;
 
   constructor() {
-    const subscription = this.activatedRoute.url.subscribe((urlSegments) => {
-      // The activated route is in the form /dashboard/:tab hence, `urlSegments[1]` exists.
-      let tab = urlSegments[1].path as DashboardNavigationTabs;
-      tab = `${tab.charAt(0).toUpperCase()}${tab.slice(1).toLowerCase()}` as DashboardNavigationTabs;
-      this.selectedTab.set(tab);
-    });
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+    if (this.platform.isPlatformBrowser()) {
+      this.selectedTab.set(getInitialTab({ index: 1, mustMatch: ['dashboard'] }) as DashboardNavigationTabs);
+    }
   }
 }

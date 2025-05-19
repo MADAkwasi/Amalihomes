@@ -51,7 +51,36 @@ export const appRoutes: Route[] = [
       ),
   },
   {
-    path: 'dashboard/:tab',
+    path: 'dashboard',
+    children: [
+      {
+        path: '',
+        redirectTo: 'messages/all',
+        pathMatch: 'full',
+      },
+      {
+        path: 'messages',
+        children: [
+          {
+            path: '',
+            redirectTo: 'all',
+            pathMatch: 'full',
+          },
+          {
+            path: ':tab',
+            loadComponent: () =>
+              import('./presentation/pages/dashboard/dashboard.component').then(
+                (Default) => Default.DashboardComponent,
+              ),
+          },
+        ],
+      },
+      {
+        path: ':tab',
+        loadComponent: () =>
+          import('./presentation/pages/dashboard/dashboard.component').then((Default) => Default.DashboardComponent),
+      },
+    ],
     loadComponent: () =>
       import('./presentation/pages/dashboard/dashboard.component').then((Default) => Default.DashboardComponent),
   },
