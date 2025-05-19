@@ -20,6 +20,8 @@ import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.ac
 import { Product } from '../../../types/chatbot';
 import { RatingsComponent } from '../../components/ratings/ratings.component';
 import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
+import { ProductDetailsMetaData } from './static-meta-data';
+import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 
 @Component({
   selector: 'app-product-details',
@@ -40,6 +42,7 @@ export class ProductDetailsComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly route = inject(ActivatedRoute);
+  private readonly pageHeadTags = inject(MetaTagsService);
   protected readonly productId = signal('');
   protected readonly selectedColor = signal(0);
   protected readonly product = signal<Product | undefined>(undefined);
@@ -55,6 +58,14 @@ export class ProductDetailsComponent implements OnInit {
     effect(() => {
       const id = this.productId();
       this.product.set(this.store.selectSignal(selectProductById(id))());
+
+      this.pageHeadTags.updateMetaData(
+        ProductDetailsMetaData({
+          id: this.productId(),
+          name: this.product()?.name ?? '',
+          description: this.product()?.description ?? '',
+        }),
+      );
     });
   }
 
