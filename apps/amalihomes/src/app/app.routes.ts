@@ -33,6 +33,13 @@ export const appRoutes: Route[] = [
             (Default) => Default.NewArrivalsComponent,
           ),
       },
+      {
+        path: 'top-sellers',
+        loadComponent: () =>
+          import('./presentation/pages/top-sellers/top-sellers.component').then(
+            (Default) => Default.TopSellersComponent,
+          ),
+      },
     ],
   },
   {
