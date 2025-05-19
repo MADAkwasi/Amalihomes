@@ -11,7 +11,7 @@
     Prev
   </lib-button>
 
-  <ul class="flex gap-4 items-center">
+  <ul class="flex gap-2 items-center">
     @for(page of pages(); track $index){
     <lib-button
       [type]="currentPage() === page ? 'primary' : 'tetiary'"

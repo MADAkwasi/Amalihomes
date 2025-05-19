@@ -23,6 +23,11 @@ export interface Color {
   image: string;
 }
 
+export enum ProductStatus {
+  NewArrival = 'new arrival',
+  TopSeller = 'top seller',
+}
+
 export type Size = 'small' | 'medium' | 'large';
 export type Label = 'top seller' | 'new arrival';
 

@@ -1,20 +1,55 @@
-<div class="flex">
-  <div>
-    <app-dashboard-navaigation-panel
-      (expandEvent)="expanded.set($event)"
-      (selectionEvent)="selectedTab.set($event)"
-      class="block min-h-svh inset-0 right-auto z-10 fixed"
-      [selectedTab]="selectedTab()"
-    />
-  </div>
-  <div class="w-full min-h-screen bg-muted transition-all duration-100 {{ expanded() ? 'pl-60' : 'pl-20' }}">
+<div class="flex bg-muted">
+  <div class="w-full min-h-screen h-full  transition-all duration-100 {{ expanded() ? 'pl-60' : 'pl-20' }}">
     <app-dashboard-header class="block w-full sticky top-0 z-[5]" />
-    <main class="relative px-10 2xl:px-16 pt-8 2xl:pt-12">
+    <div>
+      <app-dashboard-navaigation-panel
+        (expandEvent)="expanded.set($event)"
+        (selectionEvent)="selectedTab.set($event)"
+        class="block min-h-svh inset-0 right-auto z-10 fixed"
+        [selectedTab]="selectedTab()"
+      />
+    </div>
+    <main
+      class="relativ px-6 2xl:px-10 pt-6 2xl:pt-8 h-ful overflow-y-auto hide-scrollbar mb-8 fixed right-0 bottom-0 top-[75px] {{
+        expanded() ? 'left-60' : 'left-20'
+      }}"
+    >
       @switch (selectedTab()) { @case (tabsType.Messages) {
-      <app-dashboard-messages-page />
+      <app-dashboard-messages-page (forwardDialogEvent)="showForwardDialog.set(true)" />
       } @case (tabsType.Promotions) {
       <app-dashboard-promotions-page />
       } }
     </main>
+
+    @if (showForwardDialog()) {
+    <button
+      (click)="showForwardDialog.set(false)"
+      aria-label="Close Forward Dialog"
+      class="inset-0 bg-black/40 fixed z-10 cursor-default"
+    ></button>
+    <div class="bg-white inset-0 m-auto fixed z-10 w-[29.814rem] h-[24rem] rounded p-4">
+      <div libText textType="heading3" class="mb-8">Forwarding Message</div>
+
+      <div class="mb-4">
+        <div libText textType="heading5" class="mb-2">Department</div>
+        <lib-select-input [placeholder]="'Select Personnel'" [options]="salesPesonnelOptions" />
+      </div>
+
+      <div class="mb-4">
+        <div libText textType="heading5" class="mb-2">Priority</div>
+        <lib-select-input [placeholder]="'Select Message Priority'" [options]="priorityOptions" />
+      </div>
+
+      <div class="mt-10">
+        <lib-button
+          type="primary"
+          buttonIdentifier="dashboard-meassage-more-options-forward-dialog-btn"
+          buttonStyles="!w-full"
+        >
+          Forward Message
+        </lib-button>
+      </div>
+    </div>
+    }
   </div>
 </div>

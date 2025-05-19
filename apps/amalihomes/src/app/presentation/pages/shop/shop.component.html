@@ -1,3 +1,4 @@
+@if(!searchQuery()){
 <app-exhibition-sliders
   title="New Arrivals"
   [products]="newArrivals()"
@@ -12,3 +13,6 @@
   class="relative"
   url="/shop/top-sellers"
 />
+}@else{
+<app-search-results />
+}

@@ -3,7 +3,7 @@ import { SliderComponent } from '../../components/slider/slider.component';
 import { ButtonComponent } from '@amalihomes/shared';
 import { ChevronDown, ChevronRight, LucideAngularModule, SlidersHorizontal, X } from 'lucide-angular';
 import { FiltersComponent } from '../../components/filters/filters.component';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectLocale } from '../../../logic/stores/selectors/storyblok.selectors';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -36,6 +36,8 @@ export class ShopLayoutComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   private readonly document = inject(DOCUMENT);
+  private readonly route = inject(ActivatedRoute);
+  protected readonly searchQuery = computed(() => this.route.snapshot.queryParamMap.get('search'));
   protected readonly productsData = this.store.selectSignal(selectProducts);
   protected readonly isFilterMenuOpen = signal(false);
   protected readonly isFiltersOpen = signal(true);

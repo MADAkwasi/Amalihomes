@@ -30,11 +30,11 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server,
   },
   {
-    path: 'dashboard/:tab',
+    path: 'dashboard',
     renderMode: RenderMode.Client,
   },
   {
     path: '**',
-    renderMode: RenderMode.Server,
+    renderMode: RenderMode.Client,
   },
 ];

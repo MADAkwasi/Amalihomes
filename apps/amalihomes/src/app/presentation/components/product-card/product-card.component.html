@@ -23,10 +23,10 @@
         <p>{{ product().price | currency : 'USD' }}</p>
         }
       </div>
-      <app-ratings [reviews]="product().reviews" [ratings]="product().ratings" [starSize]="12" [spaced]="false" />
+      <app-ratings [reviews]="product().reviews" [ratings]="product().ratings" [starSize]="11" [spaced]="false" />
       }@else {
 
-      <app-ratings [reviews]="product().reviews" [ratings]="product().ratings" [starSize]="12" [spaced]="false" />
+      <app-ratings [reviews]="product().reviews" [ratings]="product().ratings" [starSize]="11" [spaced]="false" />
 
       <div class="flex gap-2 font-bold text-black">
         @if (product().discount) {

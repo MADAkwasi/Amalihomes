@@ -25,6 +25,7 @@
       [readonly]="disabled()"
       (focus)="onFocus($event)"
       (blur)="onBlur($event)"
+      (keydown.enter)="onEnter()"
     />
 
     @if(rightIcon()) {

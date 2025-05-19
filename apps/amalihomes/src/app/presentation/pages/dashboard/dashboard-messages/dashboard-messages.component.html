@@ -1,1 +1,172 @@
-<h1>Welcome to Messages Pages</h1>
+<div class="flex-1 overflow-y-auto hide-scrollbar px-3 pb-3 bg-white relative rounded-md h-full">
+  <div class="max-w-7xl mx-auto relative overflow-y-hidden h-full">
+    <div class="sticky top-0 z-10 bg-white pt-3">
+      <div class="flex items-center justify-between mb-1">
+        <h1 libText textType="heading4" class="!text-gray-600">Messages</h1>
+        <div class="relative">
+          <button
+            class="bg-muted px-4 py-1 rounded-md border border-gray-300 flex gap-3 items-center text-gray-700"
+            aria-label="Filter messages"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <span>Filter</span>
+            <lucide-angular [img]="icons.ChevronDown" [size]="22" class="text-gray-700" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Message Tabs -->
+      <nav class="flex border-b border-gray-200" aria-label="Message categories">
+        @for (tab of messageTabs; track tab) {
+        <lib-button
+          type="tetiary"
+          buttonIdentifier="sales-rep-{{ tab }}-message-tab"
+          buttonStyles="!rounded-none !text-sm !bg-transparent !border-none focus:!border-none !min-w-[120px] {{
+            selectedTab() === tab ? '!font-semibold !text-primary' : '!font-normal !text-gray-500 hover:!text-gray-700'
+          }} !transition-all !duration-300"
+          class="!border-b-2 block transition-all duration-300 {{
+            selectedTab() === tab ? '!border-b-primary' : '!border-b-transparent'
+          }}"
+          (buttonClick)="selectedTab.set(tab); router.navigate(['dashboard', 'messages', tab.toLowerCase()])"
+        >
+          {{ tab }}
+        </lib-button>
+        }
+      </nav>
+    </div>
+
+    @if (allMessages[selectedTab()]) { @if (allMessages[selectedTab()].length < 1) {
+    <!-- Empty State Message -->
+    <div class="flex flex-col items-center justify-center py-16 px-4 text-center mt-[6%]">
+      <div class="mb-4">
+        <img class="block" src="icons/no-data.svg" alt="No data available to show" />
+      </div>
+      <p libText textType="text-normal" class="mb-1">No messages yet</p>
+    </div>
+    } @else {
+    <div class="flex mt-10 relative h-full">
+      <!-- Messages -->
+      <div class="max-w-[25rem] w-full hide-scrollbar overflow-y-auto relative">
+        <div class="flex-1 max-w-[23.7rem] sticky top-0 w-full pb-1 mb-3 bg-white z-10">
+          <div class="relative">
+            <lib-text-input [leftIcon]="true" [placeholder]="'Search here'" inputStyles="!w-full md:!max-w-md">
+              <div leftIcon>
+                <lucide-angular [img]="icons.Search" [size]="24" [strokeWidth]="2"></lucide-angular>
+              </div>
+            </lib-text-input>
+          </div>
+        </div>
+        <div class="max-w-[23.7rem] relative h-full">
+          @for (message of allMessages[selectedTab()]; track message.id) {
+          <button
+            class="block w-full max-w-[25rem] cursor-pointer px-3 py-2.5 hover:bg-muted/60 transition-all duration-300 rounded-sm"
+            (click)="selectedMessage.set(message)"
+            [ngClass]="{ 'bg-muted hover:!bg-muted': selectedMessage()?.id === message.id }"
+          >
+            <span class="flex justify-between gap-2 mb-2">
+              <span>
+                <span class="block w-10 h-10 rounded-full bg-primary-light">
+                  <!-- Profile image -->
+                </span>
+              </span>
+              <span class="block w-full">
+                <span class="flex justify-between items-center">
+                  <span libText textType="heading6" class="block mb-1 text-left !text-sm">{{ message.username }}</span>
+                  <span libText textType="text-small" class="block">
+                    {{ parseDate(message.date) }}
+                  </span>
+                </span>
+
+                <span libText textType="heading6" class="block text-left !text-sm">{{ message.subject }}</span>
+              </span>
+            </span>
+            <span libText textType="text-small" class="truncate block">{{ message.message }}</span>
+          </button>
+          }
+        </div>
+      </div>
+
+      <!-- Viewed Message  -->
+      <div class="pl-4 w-full h-full overflow-y-scroll hide-scrollbar relative">
+        @if (selectedMessage()) {
+        <div class="px-2 border-b border-b-gray-100">
+          <div class="flex justify-between items-center relative">
+            <span libText textType="heading4">{{ selectedMessage()?.subject }}</span>
+            <lib-button
+              type="tetiary"
+              title="View More Options"
+              [buttonIdentifier]="'dashboard-meassage-more-options-btn'"
+              buttonStyles="size-10 !bg-transparent flex justify-center items-center flex-col !bg-transparent !p-2"
+              (buttonClick)="showMoreOptions.set(!showMoreOptions())"
+              class="hover:bg-muted/30 rounded-md"
+            >
+              <lucide-angular aria-hidden="true" [img]="icons.MoreVertical" [size]="20" class="text-icon" />
+            </lib-button>
+
+            @if (showMoreOptions()) {
+            <button
+              (click)="showMoreOptions.set(false)"
+              aria-label="Close More Options Dialog"
+              class="fixed inset-0 z-10 cursor-default"
+            ></button>
+            <div class="p-4 w-52 shadow-lg bg-white absolute mt-2 right-3 top-8 rounded-lg z-10">
+              <lib-button
+                type="tetiary"
+                [buttonIdentifier]="'dashboard-meassage-more-options-forward-btn'"
+                buttonStyles="!w-full !justify-start !bg-transparent !py-2 !px-3 hover:!bg-muted/70"
+                class="rounded-md"
+                (buttonClick)="forwardDialogEvent.emit(); showMoreOptions.set(false)"
+              >
+                <span libText textType="text-normal" class="!font-normal">Forward</span>
+              </lib-button>
+              <lib-button
+                type="tetiary"
+                [buttonIdentifier]="'dashboard-meassage-more-options-delete-btn'"
+                buttonStyles="!w-full !justify-start !bg-transparent !py-2 !px-3 hover:!bg-muted/70"
+                class="rounded-md"
+              >
+                <span libText textType="text-normal" class="!font-normal">Delete</span>
+              </lib-button>
+            </div>
+            }
+          </div>
+
+          <div class="flex justify-between gap-2 mb-2">
+            <span>
+              <span class="block w-10 h-10 rounded-full bg-primary-light">
+                <!-- Profile image -->
+              </span>
+            </span>
+            <div class="w-full">
+              <div libText textType="heading6" class="!text-sm">
+                {{ selectedMessage()!.username }}
+              </div>
+              <div libText textType="heading6" class="flex items-center gap-2 text-left !text-sm">
+                <span>
+                  {{ parseDate(selectedMessage()!.date) }}
+                </span>
+                <span class="px-3 py-1 rounded-full bg-muted !text-black capitalize">{{
+                  selectedMessage()!.status
+                }}</span>
+                <span
+                  class="px-3 py-1 rounded-full capitalize"
+                  [ngClass]="{
+                    'bg-[#FEF2F2] text-[#E22420]': selectedMessage()!.priority === 'high'
+                  }"
+                  >{{ selectedMessage()!.priority }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p libText textType="text-normal" class="p-2">
+          {{ selectedMessage()!.message }}
+        </p>
+        }
+      </div>
+    </div>
+    } }
+  </div>
+</div>

@@ -55,7 +55,7 @@
                   <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
                   <button
                     class="h-10 w-10 rounded-full cursor-pointer duration-300"
-                    [ngClass]="{ 'border border-primary': color.hex === '#FFFFFF',
+                    [ngClass]="{ 'border border-primary': color.name.toLowerCase() === 'white',
                   'border-2 border-transparent hover:border-primary hover:scale-110 ': selectedColor() !== $index,
                     'border-[3px] border-black': selectedColor() === $index,
                    }"

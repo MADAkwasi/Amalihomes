@@ -1,12 +1,11 @@
 import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { RootLayoutComponent } from './presentation/layouts/root-layout/root-layout.component';
 import { filter } from 'rxjs';
 import { InteractionsService } from './logic/services/interactions/interactions.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  imports: [RouterModule, RootLayoutComponent],
+  imports: [RouterModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
 })

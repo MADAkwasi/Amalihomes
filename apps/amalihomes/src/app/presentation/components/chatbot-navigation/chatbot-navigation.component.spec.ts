@@ -36,9 +36,9 @@ describe('ChatbotNavigationComponent', () => {
   });
 
   it('should toggle expandChat when handleExpandChat is called', () => {
-    component['expandChat'] = false;
+    component['expandChat'].set(false);
     component['handleExpandChat']();
-    expect(component['expandChat']).toBe(true);
+    expect(component['expandChat']()).toBe(true);
   });
 
   it('should navigate through the tabs', () => {

@@ -33,6 +33,20 @@ export const appRoutes: Route[] = [
             (Default) => Default.NewArrivalsComponent,
           ),
       },
+      {
+        path: 'flash-sales',
+        loadComponent: () =>
+          import('./presentation/pages/flash-sales/flash-sales.component').then(
+            (Default) => Default.FlashSalesComponent,
+          ),
+      },
+      {
+        path: 'top-sellers',
+        loadComponent: () =>
+          import('./presentation/pages/top-sellers/top-sellers.component').then(
+            (Default) => Default.TopSellersComponent,
+          ),
+      },
     ],
   },
   {
@@ -51,7 +65,36 @@ export const appRoutes: Route[] = [
       ),
   },
   {
-    path: 'dashboard/:tab',
+    path: 'dashboard',
+    children: [
+      {
+        path: '',
+        redirectTo: 'messages/all',
+        pathMatch: 'full',
+      },
+      {
+        path: 'messages',
+        children: [
+          {
+            path: '',
+            redirectTo: 'all',
+            pathMatch: 'full',
+          },
+          {
+            path: ':tab',
+            loadComponent: () =>
+              import('./presentation/pages/dashboard/dashboard.component').then(
+                (Default) => Default.DashboardComponent,
+              ),
+          },
+        ],
+      },
+      {
+        path: ':tab',
+        loadComponent: () =>
+          import('./presentation/pages/dashboard/dashboard.component').then((Default) => Default.DashboardComponent),
+      },
+    ],
     loadComponent: () =>
       import('./presentation/pages/dashboard/dashboard.component').then((Default) => Default.DashboardComponent),
   },

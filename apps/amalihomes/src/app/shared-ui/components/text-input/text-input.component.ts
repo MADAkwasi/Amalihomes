@@ -14,6 +14,7 @@ import { LucideAngularModule, CircleX } from 'lucide-angular';
 export class InputComponent {
   public readonly handleFocus = output<FocusEvent>();
   public readonly handleBlur = output<FocusEvent>();
+  public readonly handleEnter = output();
   public readonly placeholder = input('');
   public readonly id = input('');
   public readonly type = input('text');
@@ -41,5 +42,9 @@ export class InputComponent {
   }
   protected onBlur(event: FocusEvent) {
     this.handleBlur.emit(event);
+  }
+
+  protected onEnter() {
+    this.handleEnter.emit();
   }
 }

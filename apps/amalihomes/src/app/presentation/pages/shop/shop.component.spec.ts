@@ -5,7 +5,7 @@ import { ShopPageTestData } from '../../../logic/stores/testing/shop-page';
 import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selector';
 import { dummyData } from '../../../logic/stores/mocked-data';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
 
 describe('ShopComponent', () => {
@@ -55,6 +55,7 @@ describe('ShopComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
+            queryParamMap: of(convertToParamMap({ search: 'table' })),
             params: of({}),
             queryParams: of({}),
           },
