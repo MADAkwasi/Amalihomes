@@ -25,7 +25,7 @@
       </nav>
     </div>
 
-    @if (allMessages[selectedTab()]) { @if (allMessages[selectedTab()].length < 1) {
+    @if (tabMessages()[selectedTab()]) { @if (selectedTabMessagesLength() < 1) {
     <!-- Empty State Message -->
     <div class="flex flex-col items-center justify-center py-16 px-4 text-center mt-[6%]">
       <div class="mb-4">
@@ -39,7 +39,12 @@
       <div class="max-w-[25rem] w-full hide-scrollbar overflow-y-auto relative">
         <div class="flex-1 max-w-[23.7rem] sticky top-0 w-full pb-1 mb-3 bg-white z-10">
           <div class="relative">
-            <lib-text-input [leftIcon]="true" [placeholder]="'Search here'" inputStyles="!w-full md:!max-w-md">
+            <lib-text-input
+              [control]="searchControl"
+              [leftIcon]="true"
+              [placeholder]="'Search here'"
+              inputStyles="!w-full md:!max-w-md"
+            >
               <div leftIcon>
                 <lucide-angular [img]="icons.Search" [size]="24" [strokeWidth]="2"></lucide-angular>
               </div>
@@ -47,7 +52,7 @@
           </div>
         </div>
         <div class="max-w-[23.7rem] relative h-full">
-          @for (message of allMessages[selectedTab()]; track message.id) {
+          @for (message of tabMessages()[selectedTab()]; track message.id) {
           <button
             class="block w-full max-w-[25rem] cursor-pointer px-3 py-2.5 hover:bg-muted/60 transition-all duration-300 rounded-sm"
             (click)="selectedMessage.set(message)"
@@ -72,6 +77,14 @@
             </span>
             <span libText textType="text-small" class="truncate block">{{ message.message }}</span>
           </button>
+          } @empty {
+          <!-- Empty State Message -->
+          <div class="flex flex-col items-center justify-center py-16 px-4 text-center">
+            <div class="mb-2">
+              <img class="block scale-50" src="icons/no-data.svg" alt="No data available to show" />
+            </div>
+            <p libText textType="text-normal" class="mb-1">No message mathes your search</p>
+          </div>
           }
         </div>
       </div>

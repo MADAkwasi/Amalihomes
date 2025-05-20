@@ -20,7 +20,7 @@ export interface DashboardMessage {
   date: number;
   subject: string;
   message: string;
-  status: 'received';
+  status: DashboardMessageTab;
   priority: 'high' | 'low' | 'moderate';
 }
 
@@ -29,17 +29,11 @@ const message: DashboardMessage = {
   id: '1',
   message: "Hi, I wanted to check the status of my order. It's been a week since I placed it.",
   priority: 'high',
-  status: 'received',
+  status: DashboardMessageTab.All,
   username: 'John Doe',
   subject: 'Order #ORD-2023-1001 Inquiry',
 };
 
-export const AllMessages: Record<DashboardMessageTab, DashboardMessage[]> = {
-  [DashboardMessageTab.All]: new Array(8).fill(message).map((m, i) => {
-    return { ...m, id: `${i}`, username: `${m.username} ${i}` };
-  }),
-  [DashboardMessageTab.Read]: [],
-  [DashboardMessageTab.Unread]: [],
-  [DashboardMessageTab.Forwarded]: [],
-  [DashboardMessageTab.Trash]: [],
-};
+export const AllMessages: DashboardMessage[] = new Array(8).fill(message).map((m, i) => {
+  return { ...m, id: `${i}`, username: `${m.username} ${i}` };
+});
