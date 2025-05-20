@@ -3,17 +3,6 @@
     <div class="sticky top-0 z-10 bg-white pt-3">
       <div class="flex items-center justify-between mb-1">
         <h1 libText textType="heading4" class="!text-gray-600">Messages</h1>
-        <div class="relative">
-          <button
-            class="bg-muted px-4 py-1 rounded-md border border-gray-300 flex gap-3 items-center text-gray-700"
-            aria-label="Filter messages"
-            aria-expanded="false"
-            aria-haspopup="true"
-          >
-            <span>Filter</span>
-            <lucide-angular [img]="icons.ChevronDown" [size]="22" class="text-gray-700" />
-          </button>
-        </div>
       </div>
 
       <!-- Message Tabs -->
@@ -146,16 +135,6 @@
                 <span>
                   {{ parseDate(selectedMessage()!.date) }}
                 </span>
-                <span class="px-3 py-1 rounded-full bg-muted !text-black capitalize">{{
-                  selectedMessage()!.status
-                }}</span>
-                <span
-                  class="px-3 py-1 rounded-full capitalize"
-                  [ngClass]="{
-                    'bg-[#FEF2F2] text-[#E22420]': selectedMessage()!.priority === 'high'
-                  }"
-                  >{{ selectedMessage()!.priority }}</span
-                >
               </div>
             </div>
           </div>
