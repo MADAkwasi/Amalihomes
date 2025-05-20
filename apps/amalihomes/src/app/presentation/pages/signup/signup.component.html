@@ -5,6 +5,9 @@
       <h1 class="max-w-[43.75rem]" libText textType="heading1">Create an Account.</h1>
       <p class="text-gray-600 mb-5 text-[18px]">Join us to enjoy personalized features.</p>
     </div>
+    @if(!!errorMessage){
+    <p class="text-red-600 font-bold p-6 text-center">{{ errorMessage }}</p>
+    }
     <form (ngSubmit)="onSubmit()" class="mx-auto max-w-[545px] w-full flex flex-col gap-[16px]">
       @for(field of fieldNames; track field) {
       <lib-text-input
