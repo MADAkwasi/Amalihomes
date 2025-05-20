@@ -1,10 +1,10 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { ApplicationStore } from '../../../logic/stores';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { RouterModule } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
+import { ApplicationStore } from '../../../logic/interfaces/app';
 
 @Component({
   selector: 'app-home-flash-sale',
