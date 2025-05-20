@@ -4,7 +4,7 @@
   "
   class="flex flex-col items-center justify-end w-full h-[528px] bg-cover bg-center text-white pb-28"
 >
-  <div class="text-center flex flex-col gap-6 w-[80%] lg:w-[60%]">
+  <div [id]="hashFocusedTabId()" class="text-center flex flex-col gap-6 w-[80%] lg:w-[60%]">
     <h1 class="text-3xl font-semibold md:text-6xl md:font-bold">{{ title() }}</h1>
     <p class="md:text-lg">{{ description() }}</p>
   </div>

@@ -330,7 +330,7 @@ export const mockedStore = {
             message_title: 'message title',
             message: 'message',
             categories_tiltle: 'title',
-            categories: [{ available_questions: 'question', title: 'title', _uid: '' }],
+            categories: [{ available_questions: 'question', enquiry_type: 'support', title: 'title', _uid: '' }],
           },
         ],
       },

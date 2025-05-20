@@ -3,8 +3,8 @@
     @for (tab of tabsData(); track $index) {
     <button
       class="px-4 py-2 cursor-pointer rounded-md hover:bg-muted duration-300 min-w-fit"
-      [ngClass]="{ 'active-tab hover:bg-primary-light': activeTab() === $index }"
-      (click)="onSelectTab($index)"
+      [ngClass]="{ 'active-tab hover:bg-primary-light': activeTab() === tab.enquiryType }"
+      (click)="activeTab.set(tab.enquiryType)"
     >
       {{ tab.title }}
     </button>
@@ -12,10 +12,10 @@
   </div>
 
   <div class="my-6">
-    @if(typeof tabsData()?.[activeTab()]?.content === 'object'){
-    <app-accordion [accordionData]="tabsData()?.[activeTab()]?.content"></app-accordion>
+    @if(typeof activeTabData()?.content === 'object'){
+    <app-accordion [accordionData]="activeTabData()?.content"></app-accordion>
     }@else {
-    <p>{{tabsData()?.[activeTab()]?.content}}</p>
+    <p>{{ activeTabData()?.content }}</p>
     }
   </div>
 </div>

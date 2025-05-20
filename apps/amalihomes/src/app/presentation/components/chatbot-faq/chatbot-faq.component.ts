@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { CMSChatbot } from '../../../types/chatbot';
 import { Router } from '@angular/router';
+import { FaqEnquiryTabTypes } from '../../../types/storyblok';
 
 @Component({
   selector: 'app-chatbot-faq',
@@ -23,9 +24,8 @@ export class ChatbotFaqComponent {
   protected readonly questionCategories = computed(() => {
     return this.chatbotFaqData()?.categories ?? [];
   });
-
-  protected navigateToFaqPage() {
+  protected navigateToFaqPage(enquiryType: FaqEnquiryTabTypes) {
     this.closeWidgetEvent.emit();
-    this.router.navigate(['/faqs']);
+    this.router.navigate(['/faqs'], { fragment: `faq-tab-${enquiryType ?? 'orders'}` });
   }
 }

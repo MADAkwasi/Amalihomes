@@ -1,4 +1,5 @@
 import { FormControl } from '@angular/forms';
+import { FaqEnquiryTabTypes } from './storyblok';
 
 export interface Dimensions {
   height: string;
@@ -157,7 +158,7 @@ export interface CMSChatbot {
     message_title: string;
     message: string;
     categories_tiltle: string;
-    categories: { available_questions: string; title: string; _uid: string }[];
+    categories: { available_questions: string; title: string; enquiry_type: FaqEnquiryTabTypes; _uid: string }[];
   }[];
 }
 

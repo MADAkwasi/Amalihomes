@@ -3,6 +3,8 @@ import { FaqComponent } from './faq.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
 import { FaqsPageTestData } from '../../../logic/stores/testing/faqs-page';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('FaqComponent', () => {
   let component: FaqComponent;
@@ -15,6 +17,15 @@ describe('FaqComponent', () => {
         provideMockStore({
           selectors: [{ selector: selectStoryblokPageState, value: FaqsPageTestData.content }],
         }),
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            url: of([{ path: 'faqs' }]),
+            snapshot: {
+              fragment: null,
+            },
+          },
+        },
       ],
     }).compileComponents();
 
