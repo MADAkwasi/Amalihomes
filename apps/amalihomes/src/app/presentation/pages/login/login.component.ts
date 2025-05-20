@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject, computed, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { LoginFormFieldsType, User } from '../../../types/auth';
+import { LoginFormFieldsType, User, LoginFormErrorKey } from '../../../types/auth';
 import { signupValidators } from '../../../logic/utils/validators/auth';
 import { AuthService } from '../../../logic/services/firebase/auth.service';
 import { Eye, EyeOff } from 'lucide-angular';
@@ -8,14 +8,12 @@ import { CommonModule } from '@angular/common';
 import { InputComponent, ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { LucideAngularModule } from 'lucide-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { LoginFormErrorKey } from '../../../types/auth';
 import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { LogInMetaData } from './static-meta-data';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { Store } from '@ngrx/store';
 import { loginSuccess } from '../../../logic/stores/actions/auth.actions';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -38,15 +36,16 @@ export class SignInComponent implements OnInit {
   private readonly pageHeadTags = inject(MetaTagsService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
-  private readonly chnageDetectionReference = inject(ChangeDetectorRef);
-  protected isLoading = false;
-  private store = inject(Store);
+  private readonly changeDetectionRef = inject(ChangeDetectorRef);
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
 
+  protected isLoading = false;
+  protected isSubmitted = false;
+  protected errorMessage = '';
   protected readonly icons = { EyeOff, Eye };
   protected readonly fieldNames = Object.values(LoginFormFieldsType);
   protected form!: FormGroup;
-  protected isSubmitted = false;
 
   protected readonly formData = computed(() => ({
     email: {
@@ -67,6 +66,10 @@ export class SignInComponent implements OnInit {
     },
   }));
 
+  protected passwordVisibility: Record<string, boolean> = {
+    password: false,
+  };
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       [LoginFormFieldsType.Email]: new FormControl('', signupValidators.email),
@@ -74,14 +77,10 @@ export class SignInComponent implements OnInit {
     });
     this.pageHeadTags.updateMetaData(LogInMetaData);
   }
-  protected passwordVisibility: Record<string, boolean> = {
-    password: false,
-    rePassword: false,
-  };
 
   protected togglePasswordVisibility(field: 'password') {
     this.passwordVisibility[field] = !this.passwordVisibility[field];
-    this.chnageDetectionReference.markForCheck();
+    this.changeDetectionRef.markForCheck();
   }
 
   protected isPasswordVisible(field: 'password'): boolean {
@@ -107,20 +106,32 @@ export class SignInComponent implements OnInit {
   }
 
   protected onSubmit() {
-    this.isLoading = true;
     this.isSubmitted = true;
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.isLoading = false;
+      return;
+    }
+
+    this.isLoading = true;
     const { email, password } = this.form.value;
+
     this.authService.signIn(email, password).subscribe({
       next: ({ data, error }) => {
         if (error) {
-          // handle error
+          this.errorMessage = error?.message || 'Login failed. Please try again.';
           this.isLoading = false;
-        } else if (data && data.user) {
+          this.changeDetectionRef.markForCheck();
+        } else if (data?.user) {
           this.store.dispatch(loginSuccess({ user: data.user.user_metadata as User }));
           this.router.navigate(['/']);
           this.isLoading = false;
         }
+      },
+      error: (err) => {
+        console.error('Unexpected login error:', err);
+        this.errorMessage = 'Unexpected error occurred';
+        this.isLoading = false;
+        this.changeDetectionRef.markForCheck();
       },
     });
   }
