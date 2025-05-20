@@ -7,6 +7,9 @@
         <p class="text-gray-600 mb-5 text-[18px]">Welcome back! Please enter your details to continue.</p>
       </div>
     </div>
+    @if(!!errorMessage){
+    <p class="text-red-600 font-bold p-6 text-center">{{ errorMessage }}</p>
+    }
     <form (ngSubmit)="onSubmit()" class="mx-auto max-w-[545px] w-full flex flex-col gap-[16px]">
       @for(field of fieldNames; track field) {
       <lib-text-input
@@ -37,6 +40,7 @@
       </p>
       <lib-button
         type="primary"
+        [state]="isLoading ? 'disabled' : 'default'"
         buttonType="submit"
         buttonStyles="!w-full !px-0 !py-4 mt-6 rounded-[4px] !text-base !font-bold"
         buttonIdentifier="signup-button"

@@ -2,12 +2,12 @@ import { Component, inject, ChangeDetectionStrategy, computed } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Store } from '@ngrx/store';
-import { ApplicationStore } from '../../../logic/stores';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { RouterModule } from '@angular/router';
 import { TextDirective } from '@amalihomes/shared';
 import { selectPageLoadingState, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { Button } from '../../../types/storyblok';
+import { ApplicationStore } from '../../../logic/interfaces/app';
 
 @Component({
   selector: 'app-home-hero-section',

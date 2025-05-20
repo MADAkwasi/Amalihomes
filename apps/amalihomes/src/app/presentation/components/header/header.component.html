@@ -21,12 +21,14 @@
         <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
       </lib-button>
 
-      @if(isAuthenticated){
+      @if(!!authenticatedUser().user){
       <lib-button type="tetiary" buttonStyles="!w-fit !px-4" buttonIdentifier="shopping-cart-button">
         <lucide-icon [img]="cartIcon" [size]="18"></lucide-icon>
       </lib-button>
-      <app-user-icon />
 
+      <a routerLink="/account/overview" title="Account">
+        <app-user-icon />
+      </a>
       }@else {
       <a routerLink="/login">
         <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
@@ -55,7 +57,7 @@
 
   <app-menu
     *ngIf="isMenuOpen()"
-    [isAuthenticated]="isAuthenticated"
+    [isAuthenticated]="!!authenticatedUser().user"
     [navLinks]="data()!.navLinks"
     [placeholder]="data()?.inputPlaceholder"
     [authBtn]="data()?.buttonText"

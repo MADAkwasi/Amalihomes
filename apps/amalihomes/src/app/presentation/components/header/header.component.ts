@@ -15,6 +15,7 @@ import { InternationalizationBarComponent } from '../internationalization-bar/in
 import { UserIconComponent } from '../svg-icons/user-icon/userIcon.component';
 import { LogoComponent } from '../svg-icons/logo/logo.component';
 import { CookieBannerComponent } from '../cookie-banner/cookie-banner.component';
+import { selectUserAuthenticationState } from '../../../logic/stores/selectors/auth.selector';
 
 @Component({
   selector: 'app-header',
@@ -48,6 +49,7 @@ export class HeaderComponent {
   protected cdRef = inject(ChangeDetectorRef);
 
   protected readonly data = this.store.selectSignal(selectSection('header'));
+  protected authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
 
   protected onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
