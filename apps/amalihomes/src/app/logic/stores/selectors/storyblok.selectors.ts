@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
-import { StoryblokPageState } from '../reducers/storyblok.reducers.';
 import { ISbStoryParams } from 'storyblok-js-client';
 import { Body, Section } from '../../../types/storyblok';
+import { StoryblokPageState } from '../../../types/store';
 
 const draft: ISbStoryParams['version'] = 'draft';
 

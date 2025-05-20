@@ -206,8 +206,11 @@ export interface Button extends ISbComponentType<string> {
   identifier: string;
 }
 
+export type FaqEnquiryTabTypes = 'orders' | 'shipping' | 'returns' | 'support';
+
 export interface StoryblokTab extends ISbComponentType<string> {
   title: string;
+  enquiryType: FaqEnquiryTabTypes;
   content: StoryblokAccordion[];
 }
 

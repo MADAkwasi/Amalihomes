@@ -16,7 +16,7 @@
       title="{{ category.title }}"
       buttonIdentifier="chatbot-faq-{{ category._uid }}-btn"
       buttonStyles="!flex !flex-row !items-center !justify-between !bg-white !rounded-2xl !p-3 w-full text-left"
-      (buttonClick)="navigateToFaqPage()"
+      (buttonClick)="navigateToFaqPage(category.enquiry_type)"
     >
       <div>
         <div libText textType="heading6" class="mb-2">{{ category.title }}</div>

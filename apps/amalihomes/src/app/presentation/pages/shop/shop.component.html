@@ -1,4 +1,8 @@
-@if(!searchQuery()){
+@if(searchQuery()){
+<app-search-results />
+}@else if(filterQuery()){
+<app-filtered-products />
+}@else{
 <app-exhibition-sliders
   title="New Arrivals"
   [products]="newArrivals()"
@@ -13,6 +17,4 @@
   class="relative"
   url="/shop/top-sellers"
 />
-}@else{
-<app-search-results />
 }

@@ -1,6 +1,6 @@
 <h3 libText textType="heading3" class="absolute top-0 left-0 !text-2xl">
-  Top Sellers
-  <span libText textType="text-small" class="!font-light ml-2 !text-sm">{{ topSellers().length }} items</span>
+  Top Sellers {{ filterQuery() && '(filtered results)' }}
+  <span libText textType="text-small" class="!font-light ml-2 !text-sm">{{ displayProducts().length }} items</span>
 </h3>
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-5">
   @for(product of pageProducts(); track product._id){
@@ -8,7 +8,7 @@
   }
 </div>
 <app-pagination
-  [products]="topSellers()"
+  [products]="displayProducts()"
   [productsPerPage]="productsPerPage()"
   class="lg:absolute left-[50%] -translate-x-[50%] bottom-0"
 />

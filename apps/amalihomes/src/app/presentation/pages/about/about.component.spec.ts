@@ -10,6 +10,8 @@ import { FeaturedComponent } from '../../components/about/featured/featured.comp
 import { LocationMapComponent } from '../../components/about/location-map/location-map.component';
 import { LeadershipComponent } from '../../components/about/leadership/leadership.component';
 import { ShowroomGridComponent } from '../../components/about/showroom-grid/showroom-grid.component';
+import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -29,6 +31,15 @@ describe('AboutComponent', () => {
         ShowroomGridComponent,
       ],
       providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            url: of([{ path: 'about' }]),
+            snapshot: {
+              fragment: null,
+            },
+          },
+        },
         provideMockStore({
           initialState: {
             storyblokPage: {

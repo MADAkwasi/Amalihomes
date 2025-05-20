@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { dummyData } from '../mocked-data';
 import { ProductStatus } from '../../../types/chatbot';
+import { applyFilters } from '../../utils/helpers/product-manipulation';
 
 export const selectProducts = createFeatureSelector<typeof dummyData>('dummyData');
 
@@ -23,3 +24,10 @@ export const selectTopSellers = createSelector(selectProducts, (state: typeof du
 export const selectFlashSales = createSelector(selectProducts, (state: typeof dummyData) =>
   state.filter((product) => product.discount),
 );
+
+export const selectFiltered = (filters: {
+  category?: string[];
+  size?: string[];
+  availability?: string[];
+  styles?: string[];
+}) => createSelector(selectProducts, (products) => applyFilters(products, filters));

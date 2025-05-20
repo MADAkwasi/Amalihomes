@@ -1,4 +1,4 @@
-import { createActionGroup, emptyProps } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const interactionsActions = createActionGroup({
   source: 'Interactions',
@@ -7,5 +7,6 @@ export const interactionsActions = createActionGroup({
     closeMenu: emptyProps(),
     openSearchField: emptyProps(),
     closeSearchField: emptyProps(),
+    updateFilterValues: props<{ filterBy: string; keyword: string; checked: boolean }>(),
   },
 });

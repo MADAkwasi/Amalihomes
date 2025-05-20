@@ -1,8 +1,10 @@
+@if(numOfPages()!==1){
+
 <div class="flex gap-2 items-center justify-center">
   <lib-button
     type="tetiary"
     title="Previous Page"
-    [buttonStyles]="currentPage() === 1 ? '!text-[#feddaa] !cursor-not-allowed' : '!text-primary'"
+    [buttonStyles]="currentPage() === 1 ? '!text-[#feddaa] !cursor-not-allowed !w-0 !mr-2' : '!w-0 !mr-2 !text-primary'"
     buttonIdentifier="prev-navigation-page-btn"
     (buttonClick)="onChangePage('prev')"
     [state]="currentPage() === 1 ? 'disabled' : 'default'"
@@ -15,7 +17,7 @@
     @for(page of pages(); track $index){
     <lib-button
       [type]="currentPage() === page ? 'primary' : 'tetiary'"
-      buttonStyles="!w-0 !px-6 py-1 !font-light"
+      buttonStyles="!w-0 !px-5 !py-2 !font-light"
       title="Move to Page {{ page }}"
       (buttonClick)="onChangePage(undefined, page)"
       buttonIdentifier="page-{{ page }}-navigation-btn"
@@ -27,7 +29,9 @@
   <lib-button
     type="tetiary"
     title="Next Page"
-    [buttonStyles]="currentPage() === numOfPages() ? '!text-[#feddaa] !cursor-not-allowed' : '!text-primary'"
+    [buttonStyles]="
+      currentPage() === numOfPages() ? '!text-[#feddaa] !cursor-not-allowed !w-0 !ml-2' : '!text-primary !w-0 !ml-2'
+    "
     buttonIdentifier="next-navigation-page-btn"
     (buttonClick)="onChangePage('next')"
     [state]="currentPage() === numOfPages() ? 'disabled' : 'default'"
@@ -40,3 +44,5 @@
     />
   </lib-button>
 </div>
+
+}

@@ -4,9 +4,9 @@ export interface Filter {
 }
 
 export const categories = [
-  { name: 'Office funiture', value: 'officeFuniture' },
-  { name: 'Dinning', value: 'dinning' },
-  { name: 'Living room', value: 'livingRoom' },
+  { name: 'Office funiture', value: 'office furniture' },
+  { name: 'Dinning', value: 'dining' },
+  { name: 'Living room', value: 'living room' },
   { name: 'Bedroom', value: 'bedroom' },
   { name: 'Outdoor', value: 'outdoor' },
 ];
@@ -18,8 +18,8 @@ export const sizes = [
 ];
 
 export const availability = [
-  { name: 'In stock', value: 'inStock' },
-  { name: 'Pre-order', value: 'preOrder' },
+  { name: 'In stock', value: 'in stock' },
+  { name: 'Pre-order', value: 'pre-order' },
 ];
 
 export const styles = [

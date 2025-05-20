@@ -1,5 +1,5 @@
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { applicationReducer } from './logic/stores';
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withInMemoryScrolling({ anchorScrolling: 'enabled' })),
     provideStore<ApplicationStore>(applicationReducer),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideEffects([StoryblokEffects]),

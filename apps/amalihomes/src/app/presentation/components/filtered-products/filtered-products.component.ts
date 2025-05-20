@@ -1,32 +1,29 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Store } from '@ngrx/store';
-import { selectNewArrivals } from '../../../logic/stores/selectors/dummy-data.selector';
-import { ProductCardComponent } from '../../components/product-card/product-card.component';
-import { TextDirective } from '@amalihomes/shared';
-import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ResponsivePaginationService } from '../../../logic/services/pagination/responsive-pagination.service';
-import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
-import { NewArrivalsMetaData } from './static-meta-data';
-import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selector';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
+import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import { TextDirective } from '@amalihomes/shared';
+import { ProductCardComponent } from '../product-card/product-card.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
-  selector: 'app-new-arrivals',
-  imports: [CommonModule, ProductCardComponent, TextDirective, PaginationComponent],
-  templateUrl: './new-arrivals.component.html',
+  selector: 'app-filtered-products',
+  imports: [CommonModule, TextDirective, ProductCardComponent, PaginationComponent],
+  templateUrl: './filtered-products.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewArrivalsComponent implements OnInit {
+export class FilteredProductsComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly route = inject(ActivatedRoute);
   private readonly responsivePagination = inject(ResponsivePaginationService);
-  private readonly pageHeadTags = inject(MetaTagsService);
   public readonly productsPerPage = this.responsivePagination.getPerPage();
-  private readonly newArrivals = this.store.selectSignal(selectNewArrivals);
-  protected readonly displayProducts = signal(this.newArrivals());
+  protected readonly products = this.store.selectSignal(selectProducts);
+  protected readonly filteredProducts = signal(this.products());
   protected readonly currentPage = signal(1);
   protected readonly filterQuery = toSignal(
     this.route.queryParamMap.pipe(
@@ -42,7 +39,7 @@ export class NewArrivalsComponent implements OnInit {
   protected readonly pageProducts = computed(() => {
     const start = (this.currentPage() - 1) * this.productsPerPage();
     const end = this.currentPage() * this.productsPerPage();
-    return this.displayProducts().slice(start, end);
+    return this.filteredProducts().slice(start, end);
   });
 
   constructor() {
@@ -64,9 +61,7 @@ export class NewArrivalsComponent implements OnInit {
       const availability = this.parseQueryParam(params['availability']);
       const styles = this.parseQueryParam(params['styles']);
 
-      this.displayProducts.set(applyFilters(this.newArrivals(), { category, size, availability, styles }));
+      this.filteredProducts.set(applyFilters(this.products(), { category, size, availability, styles }));
     });
-
-    this.pageHeadTags.updateMetaData(NewArrivalsMetaData);
   }
 }

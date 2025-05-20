@@ -1,15 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { StoryblokPageActions } from '../actions/storyblok.actions';
-import { Body } from '../../../types/storyblok';
-import { localization, Localization } from '../../data/constants/localization';
-
-export interface StoryblokPageState {
-  page: string;
-  isFetchingContent: boolean;
-  content: Body | null;
-  locale: Localization | null;
-  error: unknown;
-}
+import { localization } from '../../data/constants/localization';
+import { StoryblokPageState } from '../../../types/store';
 
 const initialStoryblokPageState: StoryblokPageState = {
   page: '',

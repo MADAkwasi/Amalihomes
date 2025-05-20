@@ -37,6 +37,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 142.61, deliveryTime: '7-13 days' },
     warranty: null,
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: 'd8098e99-e200-400a-bc05-11f1d9102991',
@@ -73,6 +74,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 166.79, deliveryTime: '9-12 days' },
     warranty: null,
     returnPolicy: null,
+    style: 'Industrial',
   },
   {
     _id: '29e0211c-6dbb-413c-b322-ab51d707842d',
@@ -107,6 +109,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 43.58, deliveryTime: '3-6 days' },
     warranty: null,
     returnPolicy: null,
+    style: 'Industrial',
   },
   {
     _id: '69e2014d-44a2-488a-92ac-ea8af0999197',
@@ -137,6 +140,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 143.0, deliveryTime: '4-13 days' },
     warranty: '3 years',
     returnPolicy: null,
+    style: 'Industrial',
   },
   {
     _id: 'acc9311f-f98a-48e3-994e-5d27f06bc8ff',
@@ -188,6 +192,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 146.35, deliveryTime: '2-14 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: 'ccc18f50-9dec-43c5-8b8f-f1d125f22c97',
@@ -235,6 +240,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 69.35, deliveryTime: '4-8 days' },
     warranty: null,
     returnPolicy: null,
+    style: 'Modern',
   },
   {
     _id: '08ed90d8-d938-4c56-b18a-dc09364a8223',
@@ -290,6 +296,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 194.81, deliveryTime: '12-14 days' },
     warranty: null,
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '421711c0-f53f-452a-b332-72358069b7a3',
@@ -332,6 +339,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 47.89, deliveryTime: '5-12 days' },
     warranty: null,
     returnPolicy: null,
+    style: 'Traditional',
   },
   {
     _id: '585c4aaa-e0e2-4939-a8b4-c0915eb0e610',
@@ -386,6 +394,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 89.36, deliveryTime: '2-12 days' },
     warranty: null,
     returnPolicy: null,
+    style: 'Traditional',
   },
   {
     _id: '24589f8e-a68d-47a7-9fe1-99309528facc',
@@ -424,6 +433,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 149.44, deliveryTime: '7-8 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '6cbd6721-1c79-4208-91cf-65286fa4faaf',
@@ -504,6 +514,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 92.3, deliveryTime: '5-6 days' },
     warranty: '2 years',
     returnPolicy: '45-day return',
+    style: 'Traditional',
   },
   {
     _id: '3a8b9c7d-6e5f-4a3b-9c8d-7e6f5a4b3c2d',
@@ -550,6 +561,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 95.5, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '4b3c2d1e-9f8a-7b6c-5d4e-3f2a1b0c9d8e',
@@ -595,6 +607,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 32.8, deliveryTime: '5-7 days' },
     warranty: '5 years',
     returnPolicy: '60-day return',
+    style: 'Modern',
   },
   {
     _id: '5c4d3e2f-1a0b-9c8d-7e6f-5a4b3c2d1e0f',
@@ -636,6 +649,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 150.2, deliveryTime: '14-21 days' },
     warranty: 'Lifetime',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '6d5e4f3a-2b1c-0d9e-8f7a-6b5c4d3e2f1a',
@@ -680,6 +694,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 210.0, deliveryTime: '10-15 days' },
     warranty: '3 years',
     returnPolicy: '90-day return',
+    style: 'Bohemian',
   },
   {
     _id: '7e6f5a4b-3c2d-1e0f-9a8b-7c6d5e4f3a2b',
@@ -720,6 +735,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 15.3, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Scandinavian',
   },
   {
     _id: '8f7a6b5c-4d3e-2f1a-0b9c-8d7e6f5a4b3c',
@@ -766,6 +782,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 85.7, deliveryTime: '7-12 days' },
     warranty: '5 years',
     returnPolicy: '30-day return',
+    style: 'Industrial',
   },
   {
     _id: '9a8b7c6d-5e4f-3a2b-1c0d-9e8f7a6b5c4d',
@@ -808,6 +825,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 110.5, deliveryTime: '10-14 days' },
     warranty: '3 years',
     returnPolicy: '60-day return',
+    style: 'Modern',
   },
   {
     _id: '0b9c8d7e-6f5a-4b3c-2d1e-0f9a8b7c6d5e',
@@ -852,6 +870,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 95.0, deliveryTime: '14-21 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '1c0d9e8f-7a6b-5c4d-3e2f-1a0b9c8d7e6f',
@@ -894,6 +913,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 68.9, deliveryTime: '7-10 days' },
     warranty: '10 years',
     returnPolicy: '60-day return',
+    style: 'Modern',
   },
   {
     _id: '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p',
@@ -934,6 +954,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 25.5, deliveryTime: '5-7 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q',
@@ -974,6 +995,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 18.7, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r',
@@ -1015,6 +1037,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 150.2, deliveryTime: '10-14 days' },
     warranty: '3 years',
     returnPolicy: '60-day return',
+    style: 'Modern',
   },
   {
     _id: '4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s',
@@ -1053,6 +1076,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 12.8, deliveryTime: '4-6 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Industrial',
   },
   {
     _id: '5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t',
@@ -1094,6 +1118,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 32.5, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Scandinavian',
   },
   {
     _id: '6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u',
@@ -1128,6 +1153,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 15.2, deliveryTime: '5-7 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Industrial',
   },
   {
     _id: '7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v',
@@ -1162,6 +1188,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 65.3, deliveryTime: '10-14 days' },
     warranty: '5 years',
     returnPolicy: '60-day return',
+    style: 'Traditional',
   },
   {
     _id: '8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w',
@@ -1203,6 +1230,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 28.7, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x',
@@ -1242,6 +1270,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 42.3, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y',
@@ -1253,7 +1282,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '80cm', width: '60cm', depth: '25cm' },
     size: 'medium',
     material: 'bamboo',
-    category: 'Storage',
+    category: 'Bedroom',
     status: [],
     colors: [
       {
@@ -1275,6 +1304,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 8.5, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Scandinavian',
   },
   {
     _id: '1k2l3m4n-5o6p-7q8r-9s0t-1u2v3w4x5y6z',
@@ -1316,6 +1346,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 28.9, deliveryTime: '10-14 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Bohemian',
   },
   {
     _id: '2l3m4n5o-6p7q-8r9s-0t1u-2v3w4x5y6z7a',
@@ -1327,7 +1358,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '60-75cm', width: '90cm', depth: '50cm' },
     size: 'small',
     material: 'MDF & plastic',
-    category: 'Kids',
+    category: 'Bedroom',
     status: ['new arrival'],
     colors: [
       {
@@ -1356,6 +1387,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 22.4, deliveryTime: '5-7 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '3m4n5o6p-7q8r-9s0t-1u2v-3w4x5y6z7a8b',
@@ -1395,6 +1427,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 85.7, deliveryTime: '14-21 days' },
     warranty: '3 years',
     returnPolicy: '60-day return',
+    style: 'Scandinavian',
   },
   {
     _id: '4n5o6p7q-8r9s-0t1u-2v3w-4x5y6z7a8b9c',
@@ -1406,7 +1439,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '30cm', width: '80cm', depth: '15cm' },
     size: 'small',
     material: 'oak & brass',
-    category: 'Storage',
+    category: 'Bedroom',
     status: [],
     colors: [
       {
@@ -1428,6 +1461,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 5.2, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Scandinavian',
   },
   {
     _id: '5o6p7q8r-9s0t-1u2v-3w4x-5y6z7a8b9c0d',
@@ -1467,6 +1501,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 18.9, deliveryTime: '5-7 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '6p7q8r9s-0t1u-2v3w-4x5y-6z7a8b9c0d1e',
@@ -1505,6 +1540,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 15.8, deliveryTime: '5-7 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '7q8r9s0t-1u2v-3w4x-5y6z-7a8b9c0d1e2f',
@@ -1532,7 +1568,8 @@ export const dummyData: Product[] = [
           'https://i5.walmartimages.com/seo/WestinTrends-Wordford-Velvet-Dining-Chairs-Set-4-Modern-Wingback-Upholstered-Button-Tufted-Kitchen-Room-Solid-Wood-Legs-Pull-Ring-Pink_0a56b9fb-11c2-4b72-b762-3cefa03f8c99.354786ed91c1c6677d58abe12a281b8a.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
       },
     ],
-    image: '/images/velvet-chair-green.jpg',
+    image:
+      'https://i5.walmartimages.com/seo/WestinTrends-Wordford-Velvet-Dining-Chairs-Set-4-Modern-Wingback-Upholstered-Button-Tufted-Kitchen-Room-Solid-Wood-Legs-Pull-Ring-Green_7f3d1dd6-9fa1-4670-83aa-e3c3c4c9d248.b0e41b751ea3df7887aef9105a5165d1.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
     ratings: 4.6,
     reviews: [
       {
@@ -1545,6 +1582,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 24.7, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '8r9s0t1u-2v3w-4x5y-6z7a-8b9c0d1e2f3g',
@@ -1556,7 +1594,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '50cm', width: '30cm', depth: '20cm' },
     size: 'small',
     material: 'metal',
-    category: 'Lighting',
+    category: 'Living Room',
     status: ['new arrival'],
     colors: [
       {
@@ -1584,6 +1622,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 6.8, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Industrial',
   },
   {
     _id: '9s0t1u2v-3w4x-5y6z-7a8b-9c0d1e2f3g4h',
@@ -1595,7 +1634,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '40cm', width: '50cm', depth: '30cm' },
     size: 'medium',
     material: 'wicker & leather',
-    category: 'Storage',
+    category: 'Bedroom',
     status: [],
     colors: [
       {
@@ -1619,6 +1658,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 3.5, deliveryTime: '3-5 days' },
     warranty: null,
     returnPolicy: '30-day return',
+    style: 'Bohemian',
   },
   {
     _id: '0t1u2v3w-4x5y-6z7a-8b9c-0d1e2f3g4h5i',
@@ -1657,6 +1697,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 45.8, deliveryTime: '10-14 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '1u2v3w4x-5y6z-7a8b-9c0d-1e2f3g4h5i6j',
@@ -1687,6 +1728,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 2.3, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '2v3w4x5y-6z7a-8b9c-0d1e-2f3g4h5i6j7k',
@@ -1698,7 +1740,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '15cm', width: '60cm', depth: '20cm' },
     size: 'medium',
     material: 'solid wood',
-    category: 'Storage',
+    category: 'Living Room',
     status: [],
     colors: [
       { name: 'White', hex: '#FFFFFF', image: 'https://i.ebayimg.com/images/g/DPAAAOSwP6pk80T6/s-l400.png' },
@@ -1722,6 +1764,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 12.5, deliveryTime: '5-7 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Scandinavian',
   },
   {
     _id: '3w4x5y6z-7a8b-9c0d-1e2f-3g4h5i6j7k8l',
@@ -1756,6 +1799,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 28.7, deliveryTime: '7-10 days' },
     warranty: '3 years',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '4x5y6z7a-8b9c-0d1e-2f3g-4h5i6j7k8l9m',
@@ -1767,7 +1811,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '80cm', width: '80cm', depth: '15cm' },
     size: 'medium',
     material: 'wood & glass',
-    category: 'Decor',
+    category: 'Bedroom',
     status: ['new arrival'],
     colors: [
       { name: 'Walnut', hex: '#5C4033', image: 'https://cb2.scene7.com/is/image/CB2/PerchRndMrrrWShlf36SHF18' },
@@ -1790,6 +1834,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 15.8, deliveryTime: '5-7 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '5y6z7a8b-9c0d-1e2f-3g4h-5i6j7k8l9m0n',
@@ -1831,6 +1876,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 120.5, deliveryTime: '14-21 days' },
     warranty: '2 years',
     returnPolicy: '60-day return',
+    style: 'Bohemian',
   },
   {
     _id: '6z7a8b9c-0d1e-2f3g-4h5i-6j7k8l9m0n1o',
@@ -1872,6 +1918,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 22.6, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Traditional',
   },
   {
     _id: '7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p',
@@ -1883,7 +1930,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '180cm', width: '150cm', depth: '210cm' },
     size: 'large',
     material: 'solid wood',
-    category: 'Kids',
+    category: 'Bedroom',
     status: ['new arrival'],
     colors: [
       { name: 'White', hex: '#FFFFFF', image: 'https://m.media-amazon.com/images/I/61SAO9cs+dL._AC_SL1000_.jpg' },
@@ -1906,6 +1953,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 95.7, deliveryTime: '14-21 days' },
     warranty: '3 years',
     returnPolicy: '60-day return',
+    style: 'Modern',
   },
   {
     _id: '8b9c0d1e-2f3g-4h5i-6j7k-8l9m0n1o2p3q',
@@ -1946,6 +1994,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 35.8, deliveryTime: '7-10 days' },
     warranty: '2 years',
     returnPolicy: '30-day return',
+    style: 'Modern',
   },
   {
     _id: '9c0d1e2f-3g4h-5i6j-7k8l-9m0n1o2p3q4r',
@@ -1985,6 +2034,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 110.5, deliveryTime: '14-21 days' },
     warranty: '5 years',
     returnPolicy: '60-day return',
+    style: 'Traditional',
   },
   {
     _id: '0d1e2f3g-4h5i-6j7k-8l9m-0n1o2p3q4r5s',
@@ -2020,6 +2070,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 45.8, deliveryTime: '7-10 days' },
     warranty: '10 years',
     returnPolicy: '100-night trial',
+    style: 'Modern',
   },
   {
     _id: '1e2f3g4h-5i6j-7k8l-9m0n-1o2p3q4r5s6t',
@@ -2031,7 +2082,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '60cm', width: '25cm', depth: '25cm' },
     size: 'small',
     material: 'ceramic & linen',
-    category: 'Lighting',
+    category: 'Living Room',
     status: [],
     colors: [
       {
@@ -2059,6 +2110,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 5.7, deliveryTime: '3-5 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Bohemian',
   },
   {
     _id: '2f3g4h5i-6j7k-8l9m-0n1o-2p3q4r5s6t7u',
@@ -2070,7 +2122,7 @@ export const dummyData: Product[] = [
     dimensions: { height: '15cm', width: '80cm', depth: '30cm' },
     size: 'small',
     material: 'steel',
-    category: 'Storage',
+    category: 'Outdoor',
     status: [],
     colors: [
       {
@@ -2092,6 +2144,7 @@ export const dummyData: Product[] = [
     shippingInfo: { weight: 8.5, deliveryTime: '5-7 days' },
     warranty: '1 year',
     returnPolicy: '30-day return',
+    style: 'Industrial',
   },
 ];
 
