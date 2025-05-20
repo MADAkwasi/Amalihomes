@@ -146,8 +146,8 @@ export class SignupComponent implements OnInit {
       next: ({ data, error }) => {
         this.isLoading = false;
         if (error) {
-          console.error('Signup error:', error);
           this.errorMessage = error.message || this.errorMessage;
+          this.changeDetectorRef.markForCheck();
         } else if (data?.user) {
           this.store.dispatch(signupSuccess({ user: data.user.user_metadata as User }));
           this.router.navigate(['/']);
