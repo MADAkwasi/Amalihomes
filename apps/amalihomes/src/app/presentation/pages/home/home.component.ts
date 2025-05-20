@@ -4,7 +4,6 @@ import { HomeHeroSectionComponent } from '../../components/home-hero-section/hom
 import { ValuePropositionComponent } from '../../components/value-proposition/value-proposition.component';
 import { HomeFlashSaleComponent } from '../../components/home-flash-sale/home-flash-sale.component';
 import { Store } from '@ngrx/store';
-import { ApplicationStore } from '../../../logic/stores';
 import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { SliderComponent } from '../../components/slider/slider.component';
@@ -13,6 +12,7 @@ import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.ser
 import { HomeMetaData } from './static-mata-data';
 import { Localization } from '../../../logic/data/constants/localization';
 import { RootLayoutComponent } from '../../layouts/root-layout/root-layout.component';
+import { ApplicationStore } from '../../../logic/interfaces/app';
 
 @Component({
   selector: 'app-home',
