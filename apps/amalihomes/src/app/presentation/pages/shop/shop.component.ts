@@ -10,10 +10,18 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { ShopMetaData } from './static-meta-data';
+import { FilteredProductsComponent } from '../../components/filtered-products/filtered-products.component';
 
 @Component({
   selector: 'app-shop',
-  imports: [CommonModule, RouterModule, LucideAngularModule, ExhibitionSlidersComponent, SearchResultsComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    LucideAngularModule,
+    ExhibitionSlidersComponent,
+    SearchResultsComponent,
+    FilteredProductsComponent,
+  ],
   templateUrl: './shop.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -25,6 +33,17 @@ export class ShopComponent implements OnInit {
   protected readonly searchQuery = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('search'))), {
     initialValue: null,
   });
+  protected readonly filterQuery = toSignal(
+    this.route.queryParamMap.pipe(
+      map(
+        (params) =>
+          params.get('categories') ?? params.get('size') ?? params.get('availability') ?? params.get('styles'),
+      ),
+    ),
+    {
+      initialValue: null,
+    },
+  );
   protected readonly newArrivals = computed(() =>
     this.productsData().filter((product) => product.status.includes('new arrival')),
   );

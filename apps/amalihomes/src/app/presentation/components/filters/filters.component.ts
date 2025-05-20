@@ -2,11 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   HostListener,
   inject,
   input,
-  PLATFORM_ID,
   signal,
   viewChild,
 } from '@angular/core';
@@ -14,6 +14,8 @@ import { CommonModule } from '@angular/common';
 import { ChevronDown, LucideAngularModule } from 'lucide-angular';
 import { ButtonComponent } from '@amalihomes/shared';
 import { Filter } from '../../../logic/data/constants/filters';
+import { Store } from '@ngrx/store';
+import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
 
 @Component({
   selector: 'app-filters',
@@ -22,7 +24,7 @@ import { Filter } from '../../../logic/data/constants/filters';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersComponent implements AfterViewInit {
-  private readonly platformId = inject(PLATFORM_ID);
+  private readonly store = inject(Store);
   public readonly filteringOptions = input<Filter[]>();
   public readonly title = input<string>();
   public readonly type = input<'checks' | 'radio' | 'range'>('checks');
@@ -34,6 +36,7 @@ export class FiltersComponent implements AfterViewInit {
   protected readonly rightHandlePosition = signal(100);
   protected readonly progressLeft = signal(0);
   protected readonly progressWidth = signal(100);
+  protected readonly filterGroup = computed(() => this.title()?.split(' ')[0].toLowerCase() ?? '');
 
   protected readonly isDragging = signal(false);
   protected readonly currentHandle = signal<'left' | 'right' | null>(null);
@@ -103,7 +106,11 @@ export class FiltersComponent implements AfterViewInit {
     this.isOpen.update((prev) => !prev);
   }
 
-  protected handleFilterChange(event: Event) {
-    return;
+  protected handleFilterChange(event: Event, filterBy: string) {
+    const filteredValue = event.target as HTMLInputElement;
+    const keyword = filteredValue.value;
+    const checked = filteredValue.checked;
+
+    this.store.dispatch(interactionsActions.updateFilterValues({ filterBy, keyword, checked }));
   }
 }

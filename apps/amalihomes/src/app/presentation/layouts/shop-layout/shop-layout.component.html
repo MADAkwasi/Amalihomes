@@ -5,7 +5,9 @@
       <li><a routerLink="/shop">Shop</a></li>
       <lucide-icon [img]="icons.ChevronRight" [size]="16" />
       <li>
-        <p class="font-bold text-black capitalize">{{ searchQuery() ? 'Search results' : activeRoute() }}</p>
+        <p class="font-bold text-black capitalize">
+          {{ searchQuery() ? 'Search results' : activeRoute() }}
+        </p>
       </li>
     </ul>
     } @else{

@@ -14,6 +14,7 @@ import { Localization } from '../../../logic/data/constants/localization';
 import { StoryblokPageActions } from '../../../logic/stores/actions/storyblok.actions';
 import { ExhibitionSlidersComponent } from '../../components/exhibition-sliders/exhibition-sliders.component';
 import { RootLayoutComponent } from '../root-layout/root-layout.component';
+import { selectFilterationKeywords } from '../../../logic/stores/selectors/interactions.selector';
 
 @Component({
   selector: 'app-shop-layout',
@@ -37,6 +38,7 @@ export class ShopLayoutComponent implements OnInit {
   private readonly selectedLanguage = this.store.selectSignal(selectLocale);
   private readonly document = inject(DOCUMENT);
   private readonly route = inject(ActivatedRoute);
+  private readonly filterKeywords = this.store.selectSignal(selectFilterationKeywords);
   protected readonly searchQuery = computed(() => this.route.snapshot.queryParamMap.get('search'));
   protected readonly productsData = this.store.selectSignal(selectProducts);
   protected readonly isFilterMenuOpen = signal(false);
@@ -98,7 +100,32 @@ export class ShopLayoutComponent implements OnInit {
     return;
   }
 
+  protected formatString(word: string) {
+    return word.split(' ').join('-');
+  }
+
   protected onApplyFilters() {
-    return;
+    const filters = this.filterKeywords();
+    const queryParams: Record<string, string> = {};
+    const filterKeys = ['categories', 'size', 'availability', 'styles'];
+
+    for (const key of filterKeys) {
+      const values = filters.find((f) => f.filterBy === key)?.value ?? [];
+      if (values.length > 0) queryParams[key] = values.map((v) => this.formatString(v)).join(',');
+    }
+
+    const currentParams = { ...this.route.snapshot.queryParams };
+    filterKeys.forEach((key) => delete currentParams[key]);
+
+    const currentPath = this.router.url.split('?')[0];
+
+    this.router.navigate([currentPath], {
+      queryParams: {
+        ...currentParams,
+        ...queryParams,
+      },
+    });
+
+    this.isFilterMenuOpen.set(false);
   }
 }

@@ -9,6 +9,9 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
 import { TextDirective } from '@amalihomes/shared';
 import { SearchResultsMetaData } from './static-meta-data';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
+import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-search-results',
@@ -24,14 +27,26 @@ export class SearchResultsComponent implements OnInit {
   protected readonly productsPerPage = this.responsivePagination.getPerPage();
   protected readonly currentPage = signal(1);
   protected readonly searchedKeyword = signal('');
-  protected readonly productsData = computed(() => {
+  private readonly productsData = computed(() => {
     const searchedProducts = this.store.selectSignal(selectSearchResults(this.searchedKeyword()));
     return searchedProducts();
   });
+  protected readonly filterQuery = toSignal(
+    this.route.queryParamMap.pipe(
+      map(
+        (params) =>
+          params.get('categories') ?? params.get('size') ?? params.get('availability') ?? params.get('styles'),
+      ),
+    ),
+    {
+      initialValue: null,
+    },
+  );
+  protected readonly displayProducts = signal(this.productsData());
   protected readonly pageProducts = computed(() => {
     const start = (this.currentPage() - 1) * this.productsPerPage();
     const end = this.currentPage() * this.productsPerPage();
-    return this.productsData().slice(start, end);
+    return this.displayProducts().slice(start, end);
   });
 
   constructor() {
@@ -44,7 +59,21 @@ export class SearchResultsComponent implements OnInit {
     });
   }
 
+  protected parseQueryParam(param: string | undefined): string[] | undefined {
+    if (!param) return undefined;
+    return param.split(',').map((v) => v.replace(/-/g, ' '));
+  }
+
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      const category = this.parseQueryParam(params['categories']);
+      const size = this.parseQueryParam(params['size']);
+      const availability = this.parseQueryParam(params['availability']);
+      const styles = this.parseQueryParam(params['styles']);
+
+      this.displayProducts.set(applyFilters(this.productsData(), { category, size, availability, styles }));
+    });
+
     this.pageHeadTags.updateMetaData(SearchResultsMetaData(this.searchedKeyword()));
   }
 }

@@ -52,6 +52,7 @@ export interface Product {
   shippingInfo: ShippingInfo;
   warranty: string | null;
   returnPolicy: string | null;
+  style: string;
 }
 
 export interface ChatBotSalesRep {

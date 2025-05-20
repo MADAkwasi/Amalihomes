@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { InteractionsState } from '../reducers/interactions.reducer';
+import { InteractionsState } from '../../../types/store';
 
 export const selectInteractionState = createFeatureSelector<InteractionsState>('interactions');
 
@@ -8,3 +8,5 @@ export const selectIsSearching = createSelector(
   selectInteractionState,
   (state: InteractionsState) => state.isSearching,
 );
+
+export const selectFilterationKeywords = createSelector(selectInteractionState, (state) => state.filterValues);
