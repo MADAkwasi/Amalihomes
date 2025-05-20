@@ -1,22 +1,19 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject, computed, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignupFormFieldsType, User } from '../../../types/auth';
+import { FormBuilder, FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { SignupFormFieldsType, User, FormErrorKey } from '../../../types/auth';
 import { signupValidators } from '../../../logic/utils/validators/auth';
 import { AuthService } from '../../../logic/services/firebase/auth.service';
 import { Eye, EyeOff } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
-import { InputComponent, ButtonComponent } from '@amalihomes/shared';
+import { InputComponent, ButtonComponent, TextDirective } from '@amalihomes/shared';
 import { LucideAngularModule } from 'lucide-angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FormErrorKey } from '../../../types/auth';
 import { LogoComponent } from '../../components/svg-icons/logo/logo.component';
-import { TextDirective } from '@amalihomes/shared';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { SignUpMetaData } from './static-meta-data';
 import { Store } from '@ngrx/store';
 import { signupSuccess } from '../../../logic/stores/actions/auth.actions';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -39,15 +36,16 @@ export class SignupComponent implements OnInit {
   private readonly pageHeadTags = inject(MetaTagsService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
-  private readonly chnageDetectionReference = inject(ChangeDetectorRef);
-  protected isLoading = false;
-  private store = inject(Store);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
 
+  protected isLoading = false;
+  protected isSubmitted = false;
+  protected errorMessage = '';
   protected readonly icons = { EyeOff, Eye };
   protected readonly fieldNames = Object.values(SignupFormFieldsType);
   protected form!: FormGroup;
-  protected isSubmitted = false;
 
   protected readonly formData = computed(() => ({
     fullName: {
@@ -87,24 +85,30 @@ export class SignupComponent implements OnInit {
     },
   }));
 
-  ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      [SignupFormFieldsType.FullName]: new FormControl('', signupValidators.fullName),
-      [SignupFormFieldsType.Email]: new FormControl('', signupValidators.email),
-      [SignupFormFieldsType.Password]: new FormControl('', signupValidators.password),
-      [SignupFormFieldsType.RePassword]: new FormControl('', signupValidators.password),
-      terms: new FormControl(false, Validators.requiredTrue),
-    });
-    this.pageHeadTags.updateMetaData(SignUpMetaData);
-  }
   protected passwordVisibility: Record<string, boolean> = {
     password: false,
     rePassword: false,
   };
 
+  ngOnInit(): void {
+    this.form = this.formBuilder.group(
+      {
+        [SignupFormFieldsType.FullName]: new FormControl('', signupValidators.fullName),
+        [SignupFormFieldsType.Email]: new FormControl('', signupValidators.email),
+        [SignupFormFieldsType.Password]: new FormControl('', signupValidators.password),
+        [SignupFormFieldsType.RePassword]: new FormControl('', [Validators.required]),
+        terms: new FormControl(false, Validators.requiredTrue),
+      },
+      {
+        validators: this.passwordsMatchValidator(),
+      },
+    );
+    this.pageHeadTags.updateMetaData(SignUpMetaData);
+  }
+
   protected togglePasswordVisibility(field: 'password' | 'rePassword') {
     this.passwordVisibility[field] = !this.passwordVisibility[field];
-    this.chnageDetectionReference.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 
   protected isPasswordVisible(field: 'password' | 'rePassword'): boolean {
@@ -117,7 +121,7 @@ export class SignupComponent implements OnInit {
 
   protected getErrorMessage(field: SignupFormFieldsType | 'terms'): string {
     const control = this.getControl(field);
-    if (!control.errors) return '';
+    if (!control || !control.errors) return '';
 
     const firstKey = Object.keys(control.errors)[0] as FormErrorKey;
     const fieldConfig = this.formData()?.[field];
@@ -130,22 +134,37 @@ export class SignupComponent implements OnInit {
   }
 
   protected onSubmit() {
-    this.isLoading = true;
     this.isSubmitted = true;
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      return;
+    }
 
+    this.isLoading = true;
     const { fullName, email, password } = this.form.value;
+
     this.authService.signUp(fullName, email, password).subscribe({
       next: ({ data, error }) => {
+        this.isLoading = false;
         if (error) {
-          // handle error
-          this.isLoading = false;
-        } else if (data && data.user) {
+          console.error('Signup error:', error);
+          this.errorMessage = error.message || this.errorMessage;
+        } else if (data?.user) {
           this.store.dispatch(signupSuccess({ user: data.user.user_metadata as User }));
           this.router.navigate(['/']);
-          this.isLoading = false;
         }
       },
     });
+  }
+
+  private passwordsMatchValidator(): ValidatorFn {
+    return (group: AbstractControl): { unmatched?: boolean } | null => {
+      const password = group.get(SignupFormFieldsType.Password)?.value;
+      const rePassword = group.get(SignupFormFieldsType.RePassword)?.value;
+      if (password !== rePassword) {
+        group.get(SignupFormFieldsType.RePassword)?.setErrors({ unmatched: true });
+        return { unmatched: true };
+      }
+      return null;
+    };
   }
 }
