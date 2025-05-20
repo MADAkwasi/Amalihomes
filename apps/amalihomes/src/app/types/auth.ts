@@ -10,6 +10,10 @@ export enum LoginFormFieldsType {
   Password = 'password',
 }
 
+export type AuthState = {
+  user: User | null;
+};
+
 export type FormErrorKey = 'required' | 'email' | 'minlength' | 'unmatched' | 'termsRequired';
 
 export type LoginFormErrorKey = 'required' | 'email' | 'minlength';
