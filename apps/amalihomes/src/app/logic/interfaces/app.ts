@@ -1,7 +1,7 @@
 import { dummyData } from '../stores/mocked-data';
 import { StoryblokPageState } from '../stores/reducers/storyblok.reducers.';
 import { InteractionsState } from '../stores/reducers/interactions.reducer';
-import { AuthState } from '../stores/reducers/auth.reducer';
+import { AuthState } from '../../types/auth';
 
 export interface ApplicationStore {
   dummyData: typeof dummyData;
