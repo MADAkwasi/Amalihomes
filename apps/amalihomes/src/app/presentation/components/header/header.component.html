@@ -60,13 +60,14 @@
               <span class="ml-2 text-gray-600 font-normal text-base px-4"> {{ item.label }} </span>
             </li>
             }
-            <button>
+            <button type="button" (click)="onLogoutClick()" (keydown.enter)="onLogoutClick()" class="w-full">
               <li class="cursor-pointer flex items-center" tabindex="0" role="button">
                 <span class="ml-2 text-gray-600 font-normal text-base px-4"> Logout </span>
               </li>
             </button>
           </div>
         </div>
+        <app-logout-modal (confirmed)="confirmLogout()" />
       </div>
       } }@else {
       <a routerLink="/login">
