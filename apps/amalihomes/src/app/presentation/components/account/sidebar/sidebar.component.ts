@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, viewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { SidebarIconComponent } from '../sidebar-icon/sidebar-icon.component';
@@ -14,13 +14,14 @@ import { logout } from 'apps/amalihomes/src/app/logic/stores/actions/auth.action
   standalone: true,
   imports: [CommonModule, RouterModule, SidebarIconComponent, LogoutIconComponent, LogoutModalComponent],
   templateUrl: './sidebar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
   private activeRoute = 'overview';
   protected readonly menuItems = menuItems;
   private readonly store = inject(Store);
 
-  @ViewChild(LogoutModalComponent) logoutModal!: LogoutModalComponent;
+  private readonly logoutModal = viewChild(LogoutModalComponent);
 
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
@@ -39,7 +40,7 @@ export class SidebarComponent implements OnInit {
   }
 
   protected onLogoutClicked(): void {
-    this.logoutModal.open();
+    this.logoutModal()?.open();
   }
 
   protected isSelected(route: string): boolean {
@@ -47,7 +48,7 @@ export class SidebarComponent implements OnInit {
   }
 
   protected onLogoutClick(): void {
-    this.logoutModal.open();
+    this.logoutModal()?.open();
   }
 
   protected confirmLogout(): void {
