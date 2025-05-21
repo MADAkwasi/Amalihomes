@@ -2,7 +2,7 @@ import { Component, inject, signal, ChangeDetectionStrategy, ChangeDetectorRef }
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { SearchFieldComponent } from '../search-field/search-field.component';
-import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NavlinksComponent } from '../navlinks/navlinks.component';
 import { MenuComponent } from '../menu/menu.component';
 import { Store } from '@ngrx/store';
@@ -52,7 +52,7 @@ export class HeaderComponent {
   protected isProfileOpen = signal(false);
   protected readonly data = this.store.selectSignal(selectSection('header'));
   protected authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router) {}
 
   protected onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
