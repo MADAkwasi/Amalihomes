@@ -1,4 +1,4 @@
-import { Component, inject, signal, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { SearchFieldComponent } from '../search-field/search-field.component';
@@ -17,6 +17,9 @@ import { LogoComponent } from '../svg-icons/logo/logo.component';
 import { CookieBannerComponent } from '../cookie-banner/cookie-banner.component';
 import { selectUserAuthenticationState } from '../../../logic/stores/selectors/auth.selector';
 import { headerMenuItems } from '../../../logic/data/account';
+import { LogoutModalComponent } from '../logout-modal/logout-modal.component';
+import { AuthService } from '../../../logic/services/firebase/auth.service';
+import { logout } from '../../../logic/stores/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -33,6 +36,7 @@ import { headerMenuItems } from '../../../logic/data/account';
     UserIconComponent,
     LogoComponent,
     CookieBannerComponent,
+    LogoutModalComponent,
   ],
   templateUrl: './header.component.html',
   standalone: true,
@@ -52,10 +56,14 @@ export class HeaderComponent {
   protected isProfileOpen = signal(false);
   protected readonly data = this.store.selectSignal(selectSection('header'));
   protected authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
+  private readonly authService = inject(AuthService);
+
   private router: Router;
   constructor(router: Router) {
     this.router = router;
   }
+
+  @ViewChild(LogoutModalComponent) logoutModal!: LogoutModalComponent;
 
   protected onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
@@ -72,5 +80,16 @@ export class HeaderComponent {
   protected onMenuToggle() {
     if (this.isMenuOpen()) this.store.dispatch(interactionsActions.closeMenu());
     else this.store.dispatch(interactionsActions.openMenu());
+  }
+
+  protected onLogoutClick(): void {
+    this.logoutModal.open();
+  }
+
+  protected confirmLogout(): void {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/']);
+      this.store.dispatch(logout());
+    });
   }
 }
