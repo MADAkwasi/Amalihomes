@@ -14,8 +14,8 @@
       @for(field of fieldNames; track field) {
       <lib-text-input
         [type]="field === 'password' ? (isPasswordVisible(field) ? 'text' : 'password') : 'text'"
-        [placeholder]="formData()?.[field]?.placeholder ?? ''"
-        [label]="formData()?.[field]?.label ?? ''"
+        [placeholder]="formData()[field].placeholder"
+        [label]="formData()[field].label"
         [control]="getControl(field)"
         [error]="isErrored(field)"
         [errorMessage]="getErrorMessage(field)"

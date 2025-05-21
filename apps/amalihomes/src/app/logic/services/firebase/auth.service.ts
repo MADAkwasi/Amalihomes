@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { supabase } from '../../../supabase.client';
 import { from, Observable } from 'rxjs';
 import { AuthResponse } from '@supabase/supabase-js';
+import { supabase } from '../supabase/supabase.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

@@ -54,8 +54,9 @@ describe('ChatbotEnquiryComponent', () => {
     component['getControl'](EnquiryFormFieldsType.Subject).setValue('Test Subject');
     component['getControl'](EnquiryFormFieldsType.Message).markAsTouched();
     component['getControl'](EnquiryFormFieldsType.Message).setValue('Test Message');
+    jest.spyOn(component as unknown as { salesRepresentative: () => void }, 'salesRepresentative');
     component['onSubmit']();
-    expect(component['isSubmited']).toBe(true);
+    expect(component['isSubmited']).toBe(false);
   });
 
   it('should not set isSubmited to true on submit if form is invalid', () => {

@@ -14,8 +14,8 @@
         [type]="
           field === 'password' || field === 'rePassword' ? (isPasswordVisible(field) ? 'text' : 'password') : 'text'
         "
-        [placeholder]="formData()?.[field]?.placeholder ?? ''"
-        [label]="formData()?.[field]?.label ?? ''"
+        [placeholder]="formData()[field].placeholder"
+        [label]="formData()[field].label"
         [control]="getControl(field)"
         [error]="isErrored(field)"
         [errorMessage]="getErrorMessage(field)"

@@ -28,7 +28,9 @@ import {
   productEnquiryFormFields,
 } from '../../../types/chatbot';
 import { Store } from '@ngrx/store';
-import { selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
+import { SupabaseService } from '../../../logic/services/supabase/supabase.service';
+import { DashboardMessageTab } from '../../pages/dashboard/dashboard-messages/data';
 
 @Component({
   selector: 'app-chatbot-enquiry',
@@ -48,8 +50,14 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   public formType = input.required<ChatBotEnquiryType>();
   public selectorValue = input('');
   public selectorValueChanged = output<string>();
+  private supabaseService = inject(SupabaseService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly store = inject(Store);
+  private readonly selectedLocale = this.store.selectSignal(selectLocale);
+  private readonly salesContactDetails = this.store.selectSignal(selectSection('contact'));
+  private readonly salesRepresentative = computed(() =>
+    this.salesContactDetails()?.salesRep?.find(({ country }) => this.selectedLocale()?.country === country),
+  );
   protected readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
   protected readonly icons = { CircleX, ChevronDown };
   protected readonly formFieldType = EnquiryFormFieldsType;
@@ -101,6 +109,12 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
 
   protected onSubmit() {
     let errorExists = false;
+    const userEnquiryData = {
+      [EnquiryFormFieldsType.Message]: '',
+      [EnquiryFormFieldsType.Email]: '',
+      [EnquiryFormFieldsType.Subject]: '',
+    } as Record<EnquiryFormFieldsType, string>;
+
     this.formFieldNames.forEach((fieldName) => {
       const control = this.getControl(fieldName);
       if (!control.touched) {
@@ -110,9 +124,21 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
       if (!control.touched || control.invalid) {
         errorExists = true;
       }
+      userEnquiryData[fieldName] = control.getRawValue() ?? '';
     });
     if (errorExists) return;
-    this.isSubmited = true;
+    const salesRep = this.salesRepresentative();
+    if (salesRep) {
+      this.isSubmited = true;
+      this.supabaseService.sendEnquiry({
+        customer_email: userEnquiryData.email,
+        customer_name: '',
+        message: userEnquiryData.message,
+        personnel_email: salesRep.email,
+        status: DashboardMessageTab.Unread,
+        priority: 'moderate',
+      });
+    }
   }
 
   protected isErrored(fieldName: EnquiryFormFieldsType): boolean {
