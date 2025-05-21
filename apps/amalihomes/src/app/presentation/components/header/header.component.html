@@ -26,10 +26,49 @@
         <lucide-icon [img]="cartIcon" [size]="18"></lucide-icon>
       </lib-button>
 
-      <a routerLink="/account/overview" title="Account">
+      <button type="button" (click)="toggleProfile()" class="relative">
         <app-user-icon />
-      </a>
-      }@else {
+      </button>
+
+      @if (isProfileOpen()) {
+      <div
+        class="absolute w-[218px] top-[123px] right-[20px] z-50 flex items-center gap-2 shadow-sm bg-white border border-gray-200 rounded-md"
+      >
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2 p-4">
+            <a routerLink="/account/overview" title="Account">
+              <app-user-icon />
+            </a>
+            <div class="flex flex-col justify-between">
+              <span class="text-sm font-semibold text-gray-900">
+                {{ authenticatedUser().user?.full_name }}
+              </span>
+              <span class="text-sm text-gray-500">
+                {{ authenticatedUser().user?.email }}
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-4 justify-around py-4">
+            @for (item of menuItems; track item.route){
+            <li
+              class="cursor-pointer flex items-center"
+              (click)="navigate(item.route)"
+              (keydown.enter)="navigate(item.route)"
+              tabindex="0"
+              role="button"
+            >
+              <span class="ml-2 text-gray-600 font-normal text-base px-4"> {{ item.label }} </span>
+            </li>
+            }
+            <button>
+              <li class="cursor-pointer flex items-center" tabindex="0" role="button">
+                <span class="ml-2 text-gray-600 font-normal text-base px-4"> Logout </span>
+              </li>
+            </button>
+          </div>
+        </div>
+      </div>
+      } }@else {
       <a routerLink="/login">
         <lib-button class="!w-fit hidden lg:!block" buttonIdentifier="login-button">{{
           data()?.buttonText
