@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { supabase } from '../../../supabase.client';
 import { from, Observable } from 'rxjs';
-import { AuthResponse } from '@supabase/supabase-js';
+import { AuthResponse, AuthError } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -23,6 +23,11 @@ export class AuthService {
       email,
       password,
     });
+    return from(promise);
+  }
+
+  public logout(): Observable<{ error: AuthError | null }> {
+    const promise = supabase.auth.signOut();
     return from(promise);
   }
 }
