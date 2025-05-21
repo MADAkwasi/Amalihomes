@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { TextDirective } from '@amalihomes/shared';
@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
   selector: 'app-header',
   imports: [CommonModule, BreadcrumbComponent, TextDirective],
   templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   private store = inject(Store);
