@@ -14,7 +14,7 @@ import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.ser
 import { SignUpMetaData } from './static-meta-data';
 import { Store } from '@ngrx/store';
 import { signupSuccess, activeProfile } from '../../../logic/stores/actions/auth.actions';
-import { supabase } from '../../../supabase.client';
+import { supabase } from '../../../logic/services/supabase/supabase.service';
 
 @Component({
   selector: 'app-signup',
