@@ -42,7 +42,7 @@
             <lib-text-input
               [control]="searchControl"
               [leftIcon]="true"
-              [placeholder]="'Search here'"
+              [placeholder]="'Search messages'"
               inputStyles="!w-full md:!max-w-md"
             >
               <div leftIcon>
@@ -55,7 +55,7 @@
           @for (message of tabMessages()[selectedTab()]; track message.id) {
           <button
             class="block w-full max-w-[25rem] cursor-pointer px-3 py-2.5 hover:bg-muted/60 transition-all duration-300 rounded-sm"
-            (click)="selectedMessage.set(message)"
+            (click)="readMessage(message)"
             [ngClass]="{ 'bg-muted hover:!bg-muted': selectedMessage()?.id === message.id }"
           >
             <span class="flex justify-between gap-2 mb-2">
@@ -127,6 +127,7 @@
                 [buttonIdentifier]="'dashboard-meassage-more-options-delete-btn'"
                 buttonStyles="!w-full !justify-start !bg-transparent !py-2 !px-3 hover:!bg-muted/70"
                 class="rounded-md"
+                (buttonClick)="deleteSelectedMessage()"
               >
                 <span libText textType="text-normal" class="!font-normal">Delete</span>
               </lib-button>

@@ -3,6 +3,8 @@ import { DashboardMessagesComponent } from './dashboard-messages.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { PlatformDetectorService } from 'apps/amalihomes/src/app/logic/services/platform-detector/platform-detector.service';
+import { provideMockStore } from '@ngrx/store/testing';
+import { selectUserAuthenticationState } from 'apps/amalihomes/src/app/logic/stores/selectors/auth.selector';
 
 describe('DashboardMessagesComponent', () => {
   let component: DashboardMessagesComponent;
@@ -17,6 +19,9 @@ describe('DashboardMessagesComponent', () => {
       providers: [
         { provide: Router, useValue: routerSpy },
         { provide: PlatformDetectorService, useValue: platformDetectorServiceMock },
+        provideMockStore({
+          selectors: [{ selector: selectUserAuthenticationState, value: {} }],
+        }),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

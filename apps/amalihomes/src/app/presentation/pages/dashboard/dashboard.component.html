@@ -27,17 +27,29 @@
       aria-label="Close Forward Dialog"
       class="inset-0 bg-black/40 fixed z-10 cursor-default"
     ></button>
-    <div class="bg-white inset-0 m-auto fixed z-10 w-[29.814rem] h-[24rem] rounded p-4">
+    <form
+      (ngSubmit)="onForwardMessage()"
+      [formGroup]="forwardingForm"
+      class="bg-white inset-0 m-auto fixed z-10 w-[29.814rem] h-[24rem] rounded p-4"
+    >
       <div libText textType="heading3" class="mb-8">Forwarding Message</div>
 
       <div class="mb-4">
         <div libText textType="heading5" class="mb-2">Department</div>
-        <lib-select-input [placeholder]="'Select Personnel'" [options]="salesPesonnelOptions" />
+        <lib-select-input
+          [control]="getControl('department')"
+          [placeholder]="'Select Personnel'"
+          [options]="salesPesonnelOptions"
+        />
       </div>
 
       <div class="mb-4">
         <div libText textType="heading5" class="mb-2">Priority</div>
-        <lib-select-input [placeholder]="'Select Message Priority'" [options]="priorityOptions" />
+        <lib-select-input
+          [control]="getControl('priority')"
+          [placeholder]="'Select Message Priority'"
+          [options]="priorityOptions"
+        />
       </div>
 
       <div class="mt-10">
@@ -45,11 +57,12 @@
           type="primary"
           buttonIdentifier="dashboard-meassage-more-options-forward-dialog-btn"
           buttonStyles="!w-full"
+          buttonType="submit"
         >
           Forward Message
         </lib-button>
       </div>
-    </div>
+    </form>
     }
   </div>
 </div>

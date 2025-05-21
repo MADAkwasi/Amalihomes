@@ -137,10 +137,12 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
     if (salesRep) {
       this.isSubmited = true;
       this.supabaseService.sendEnquiry({
+        date: Date.now(),
         customer_email: userEnquiryData.email,
         customer_name: '',
         message: userEnquiryData.message,
         personnel_email: salesRep.email,
+        subject: userEnquiryData.subject,
         status: DashboardMessageTab.Unread,
         priority: 'moderate',
       });
