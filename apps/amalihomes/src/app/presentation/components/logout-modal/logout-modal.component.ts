@@ -9,15 +9,15 @@ import { Component, signal, output, ChangeDetectionStrategy } from '@angular/cor
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoutModalComponent {
-  public show = signal(false);
+  protected showModal = signal(false);
   public readonly confirmed = output<void>();
 
   public open() {
-    this.show.set(true);
+    this.showModal.set(true);
   }
 
   public close() {
-    this.show.set(false);
+    this.showModal.set(false);
   }
 
   public confirmLogout() {
