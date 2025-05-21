@@ -13,7 +13,8 @@ import { RouterLink, Router } from '@angular/router';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { SignUpMetaData } from './static-meta-data';
 import { Store } from '@ngrx/store';
-import { signupSuccess } from '../../../logic/stores/actions/auth.actions';
+import { signupSuccess, activeProfile } from '../../../logic/stores/actions/auth.actions';
+import { supabase } from '../../../supabase.client';
 
 @Component({
   selector: 'app-signup',
@@ -133,7 +134,7 @@ export class SignupComponent implements OnInit {
     return control.invalid && (control.dirty || control.touched || this.isSubmitted);
   }
 
-  protected onSubmit() {
+  protected async onSubmit() {
     this.isSubmitted = true;
     if (this.form.invalid) {
       return;
@@ -143,15 +144,43 @@ export class SignupComponent implements OnInit {
     const { fullName, email, password } = this.form.value;
 
     this.authService.signUp(fullName, email, password).subscribe({
-      next: ({ data, error }) => {
+      next: async ({ data, error }) => {
         this.isLoading = false;
+
         if (error) {
-          this.errorMessage = error.message || this.errorMessage;
+          this.errorMessage = error.message || 'Signup failed. Please try again.';
           this.changeDetectorRef.markForCheck();
-        } else if (data?.user) {
-          this.store.dispatch(signupSuccess({ user: data.user.user_metadata as User }));
-          this.router.navigate(['/']);
+          return;
         }
+
+        if (data?.user) {
+          const user = data.user.user_metadata as User;
+
+          this.store.dispatch(signupSuccess({ user }));
+          try {
+            const { data: profile, error: profileError } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', user.sub)
+              .limit(1)
+              .single();
+
+            if (profileError) {
+              this.errorMessage = 'Error fetching profile. Please try again.';
+            } else {
+              this.store.dispatch(activeProfile({ user: profile }));
+            }
+          } catch (e) {
+            this.errorMessage = 'Error fetching profile. Please try again. ' + e;
+          }
+          this.router.navigate(['/']);
+          this.changeDetectorRef.markForCheck();
+        }
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = 'Unexpected signup error. Please try again.';
+        this.changeDetectorRef.markForCheck();
       },
     });
   }
