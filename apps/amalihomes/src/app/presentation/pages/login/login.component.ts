@@ -13,7 +13,8 @@ import { RouterLink, Router } from '@angular/router';
 import { LogInMetaData } from './static-meta-data';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { Store } from '@ngrx/store';
-import { loginSuccess } from '../../../logic/stores/actions/auth.actions';
+import { activeProfile, loginSuccess } from '../../../logic/stores/actions/auth.actions';
+import { supabase } from '../../../supabase.client';
 
 @Component({
   selector: 'app-signup',
@@ -116,20 +117,38 @@ export class SignInComponent implements OnInit {
     const { email, password } = this.form.value;
 
     this.authService.signIn(email, password).subscribe({
-      next: ({ data, error }) => {
+      next: async ({ data, error }) => {
         if (error) {
           this.errorMessage = error?.message || 'Login failed. Please try again.';
           this.isLoading = false;
           this.changeDetectionRef.markForCheck();
         } else if (data?.user) {
-          this.store.dispatch(loginSuccess({ user: data.user.user_metadata as User }));
+          const user = data.user.user_metadata as User;
+          this.store.dispatch(loginSuccess({ user }));
+
+          try {
+            const { data: profile, error: profileError } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', user.sub)
+              .limit(1)
+              .single();
+
+            if (profileError) {
+              this.errorMessage = 'Error fetching profile. Please try again.';
+            } else {
+              this.store.dispatch(activeProfile({ user: profile }));
+            }
+          } catch (e) {
+            this.errorMessage = 'Error fetching profile. Please try again.' + e;
+          }
           this.router.navigate(['/']);
           this.isLoading = false;
+          this.changeDetectionRef.markForCheck();
         }
       },
-      error: (err) => {
-        console.error('Unexpected login error:', err);
-        this.errorMessage = 'Unexpected error occurred';
+      error: () => {
+        this.errorMessage = 'Invalid credentials. Please try again.';
         this.isLoading = false;
         this.changeDetectionRef.markForCheck();
       },
