@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {
   OverviewIconComponent,
   UserComponent,
@@ -22,6 +22,7 @@ import { CommonModule } from '@angular/common';
     AccountSettingsIconComponent,
   ],
   templateUrl: './sidebar-icon.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarIconComponent {
   public selected = input(false);
