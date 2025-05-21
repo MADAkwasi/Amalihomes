@@ -26,11 +26,14 @@ import {
   ChatbotFormFields,
   ChatbotFormFieldkeys,
   productEnquiryFormFields,
+  Product,
 } from '../../../types/chatbot';
 import { Store } from '@ngrx/store';
 import { selectLocale, selectSection } from '../../../logic/stores/selectors/storyblok.selectors';
 import { SupabaseService } from '../../../logic/services/supabase/supabase.service';
 import { DashboardMessageTab } from '../../pages/dashboard/dashboard-messages/data';
+import { selectProductById } from '../../../logic/stores/selectors/dummy-data.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatbot-enquiry',
@@ -58,7 +61,10 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   private readonly salesRepresentative = computed(() =>
     this.salesContactDetails()?.salesRep?.find(({ country }) => this.selectedLocale()?.country === country),
   );
+  private readonly router = inject(Router);
   protected readonly chatbotData = this.store.selectSignal(selectSection<CMSChatbot>('chatbot'));
+  private readonly selectedProduct = signal<Product | null>(null);
+  protected readonly selectedProductName = signal('');
   protected readonly icons = { CircleX, ChevronDown };
   protected readonly formFieldType = EnquiryFormFieldsType;
   private formFieldNames = [] as EnquiryFormFieldsType[];
@@ -195,11 +201,23 @@ export class ChatbotEnquiryComponent implements OnInit, OnChanges {
   }
 
   private buildForm(formFieldNames: EnquiryFormFieldsType[]) {
+    const paths = this.router.url.split('/');
+    const idIndex = paths.indexOf('product') + 1;
+    const productId = paths[idIndex];
+
+    this.selectedProduct.set(this.store.selectSignal(selectProductById(productId))() ?? null);
+    this.selectedProductName.set(this.selectedProduct()?.name ?? '');
+
     this.formFieldNames = formFieldNames;
     this.form = this.formBuilder.group(
       this.formFieldNames.reduce((controls, field) => {
-        controls[field] = new FormControl('', validators[field]);
-        return controls;
+        if (this.selectedProduct() && field === 'product') {
+          controls[field] = new FormControl(this.selectedProductName(), validators[field]);
+          return controls;
+        } else {
+          controls[field] = new FormControl('', validators[field]);
+          return controls;
+        }
       }, {} as EnquiryFormType),
     );
   }

@@ -6,6 +6,8 @@ import { ChatBotEnquiryType, EnquiryFormFieldsType } from '../../../types/chatbo
 import { provideMockStore } from '@ngrx/store/testing';
 import { mockedStore } from '../../../logic/data/testing/mocked-data';
 import { selectStoryblokPageState } from '../../../logic/stores/selectors/storyblok.selectors';
+import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selector';
+import { dummyData } from '../../../logic/stores/mocked-data';
 
 describe('ChatbotEnquiryComponent', () => {
   let component: ChatbotEnquiryComponent;
@@ -22,6 +24,7 @@ describe('ChatbotEnquiryComponent', () => {
               selector: selectStoryblokPageState,
               value: mockedStore,
             },
+            { selector: selectProducts, value: dummyData },
           ],
         }),
       ],

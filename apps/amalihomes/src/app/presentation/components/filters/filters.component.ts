@@ -16,6 +16,7 @@ import { ButtonComponent } from '@amalihomes/shared';
 import { Filter } from '../../../logic/data/constants/filters';
 import { Store } from '@ngrx/store';
 import { interactionsActions } from '../../../logic/stores/actions/interactions.action';
+import { selectFilterationKeywords } from '../../../logic/stores/selectors/interactions.selector';
 
 @Component({
   selector: 'app-filters',
@@ -25,6 +26,7 @@ import { interactionsActions } from '../../../logic/stores/actions/interactions.
 })
 export class FiltersComponent implements AfterViewInit {
   private readonly store = inject(Store);
+  private readonly filterValues = this.store.selectSignal(selectFilterationKeywords);
   public readonly filteringOptions = input<Filter[]>();
   public readonly title = input<string>();
   public readonly type = input<'checks' | 'radio' | 'range'>('checks');
@@ -36,70 +38,83 @@ export class FiltersComponent implements AfterViewInit {
   protected readonly rightHandlePosition = signal(100);
   protected readonly progressLeft = signal(0);
   protected readonly progressWidth = signal(100);
-  protected readonly filterGroup = computed(() => this.title()?.split(' ')[0].toLowerCase() ?? '');
+  protected readonly filterGroup = computed(() => {
+    if (this.title() === 'Sorting') return 'sort';
+    else return this.title()?.split(' ')[0].toLowerCase() ?? '';
+  });
 
   protected readonly isDragging = signal(false);
   protected readonly currentHandle = signal<'left' | 'right' | null>(null);
+  private readonly maxPrice = 5000;
+
+  private calculatePrice(position: number): number {
+    return (position / 100) * 5000;
+  }
 
   ngAfterViewInit(): void {
     this.updateProgressBar();
+  }
+
+  protected selectedSort(): string | null {
+    const sortFilter = this.filterValues().find((f) => f.filterBy === 'sort');
+    return sortFilter?.value[0] ?? null;
   }
 
   protected startDrag(event: MouseEvent, handle: 'left' | 'right'): void {
     event.preventDefault();
     this.isDragging.set(true);
     this.currentHandle.set(handle);
+    this.onDrag(event);
   }
 
-  @HostListener('document:drag', ['$event'])
+  @HostListener('document:mousemove', ['$event'])
   protected onDrag(event: MouseEvent): void {
-    if (!this.isDragging || !this.currentHandle || !this.sliderContainer) return;
+    if (!this.isDragging() || !this.currentHandle() || !this.sliderContainer) return;
 
     const rect = this.sliderContainer()?.nativeElement.getBoundingClientRect();
-    let position = (event.clientX - rect.left) / rect.width;
+    let position = ((event.clientX - rect.left) / rect.width) * 100;
 
-    position = Math.max(0, Math.min(1, position));
+    position = Math.max(0, Math.min(100, position));
 
     if (this.currentHandle() === 'left') {
-      this.leftHandlePosition.set(position * 100);
+      position = Math.min(position, this.rightHandlePosition() - 1);
+      this.leftHandlePosition.set(position);
     } else {
-      this.rightHandlePosition.set(position * 100);
+      position = Math.max(position, this.leftHandlePosition() + 1);
+      this.rightHandlePosition.set(position);
     }
 
     this.updateProgressBar();
   }
 
-  @HostListener('document:drop')
-  protected onDrop(): void {
-    this.isDragging.set(false);
-    this.currentHandle.set(null);
-  }
-
+  @HostListener('document:mouseup')
   protected stopDrag(): void {
     this.isDragging.set(false);
     this.currentHandle.set(null);
   }
 
   protected updateProgressBar(): void {
-    const start = Math.min(this.leftHandlePosition(), this.rightHandlePosition());
-    const end = Math.max(this.leftHandlePosition(), this.rightHandlePosition());
+    const left = Math.min(this.leftHandlePosition(), this.rightHandlePosition());
+    const right = Math.max(this.leftHandlePosition(), this.rightHandlePosition());
 
-    this.progressLeft.set(start);
-    this.progressWidth.set(end - start);
+    this.progressLeft.set(left);
+    this.progressWidth.set(right - left);
   }
 
   protected getMinPrice(): number {
-    const minPosition = Math.min(this.leftHandlePosition(), this.rightHandlePosition());
-    return this.calculatePrice(minPosition);
+    return Math.round((this.leftHandlePosition() / 100) * this.maxPrice);
   }
 
   protected getMaxPrice(): number {
-    const maxPosition = Math.max(this.leftHandlePosition(), this.rightHandlePosition());
-    return this.calculatePrice(maxPosition);
+    return Math.round((this.rightHandlePosition() / 100) * this.maxPrice);
   }
 
-  private calculatePrice(position: number): number {
-    return (position / 100) * 5000;
+  protected getFormattedMinPrice(): string {
+    return this.getMinPrice().toLocaleString();
+  }
+
+  protected getFormattedMaxPrice(): string {
+    return this.getMaxPrice().toLocaleString();
   }
 
   protected onToggle() {
@@ -107,10 +122,13 @@ export class FiltersComponent implements AfterViewInit {
   }
 
   protected handleFilterChange(event: Event, filterBy: string) {
-    const filteredValue = event.target as HTMLInputElement;
-    const keyword = filteredValue.value;
-    const checked = filteredValue.checked;
+    const inputValue = event.target as HTMLInputElement;
+    const keyword = inputValue.value;
+    const checked = inputValue.checked;
+    const inputType = inputValue.type;
 
-    this.store.dispatch(interactionsActions.updateFilterValues({ filterBy, keyword, checked }));
+    if (inputType === 'radio')
+      this.store.dispatch(interactionsActions.updateFilterValues({ filterBy, keyword, checked: true, action: 'sort' }));
+    else this.store.dispatch(interactionsActions.updateFilterValues({ filterBy, keyword, checked, action: 'filter' }));
   }
 }

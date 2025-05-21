@@ -31,8 +31,8 @@ export const styles = [
 ];
 
 export const sortingOptions = [
-  { name: 'Newest Arrivals', value: 'newestArrivals' },
-  { name: 'Price: Low to High', value: 'priceLowToHigh' },
-  { name: 'Price: High to Low', value: 'priceHighToLow' },
+  { name: 'Newest Arrivals', value: 'newest-arrivals' },
+  { name: 'Price: Low to High', value: 'low-to-high' },
+  { name: 'Price: High to Low', value: 'high-to-low' },
   { name: 'A to Z', value: 'ascending' },
 ];

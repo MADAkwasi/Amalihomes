@@ -31,27 +31,40 @@ export const interactionsReducer = createReducer(
     isSearching: false,
   })),
 
-  on(interactionsActions.updateFilterValues, (state, { filterBy, keyword, checked }) => {
-    const existingFilter = state.filterValues.find((f) => f.filterBy === filterBy);
+  on(interactionsActions.updateFilterValues, (state, { filterBy, keyword, checked, action }) => {
+    const isSort = action === 'sort';
 
-    let updatedFilterValues;
+    if (isSort) {
+      const otherFilters = state.filterValues.filter((f) => f.filterBy !== filterBy);
+      return {
+        ...state,
+        filterValues: [...otherFilters, { filterBy, value: [keyword] }],
+      };
+    }
 
-    if (existingFilter) {
-      let updatedValues: string[];
+    const existing = state.filterValues.find((f) => f.filterBy === filterBy);
 
-      if (checked)
-        updatedValues = existingFilter.value.includes(keyword)
-          ? existingFilter.value
-          : [...existingFilter.value, keyword];
-      else updatedValues = existingFilter.value.filter((k) => k !== keyword);
+    if (!existing) {
+      return checked
+        ? {
+            ...state,
+            filterValues: [...state.filterValues, { filterBy, value: [keyword] }],
+          }
+        : state;
+    }
 
-      if (updatedValues.length === 0) updatedFilterValues = state.filterValues.filter((f) => f.filterBy !== filterBy);
-      else
-        updatedFilterValues = state.filterValues.map((f) =>
-          f.filterBy === filterBy ? { ...f, value: updatedValues } : f,
-        );
-    } else if (checked) updatedFilterValues = [...state.filterValues, { filterBy, value: [keyword] }];
-    else updatedFilterValues = state.filterValues;
+    let updatedValues: string[] = [];
+
+    if (checked) {
+      updatedValues = existing.value.includes(keyword) ? existing.value : [...existing.value, keyword];
+    } else {
+      updatedValues = existing.value.filter((v) => v !== keyword);
+    }
+
+    const updatedFilterValues =
+      updatedValues.length === 0
+        ? state.filterValues.filter((f) => f.filterBy !== filterBy)
+        : state.filterValues.map((f) => (f.filterBy === filterBy ? { ...f, value: updatedValues } : f));
 
     return {
       ...state,

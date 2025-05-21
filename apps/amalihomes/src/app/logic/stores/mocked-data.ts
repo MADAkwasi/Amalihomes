@@ -4,6 +4,7 @@ export const dummyData: Product[] = [
   {
     _id: 'a7ecc543-61ae-455e-9d6c-bc5f2eae217e',
     name: 'Foldable Dining Set',
+    arrivalDate: '2024-01-15',
     price: 291.77,
     discount: null,
     stock: 14,
@@ -42,6 +43,7 @@ export const dummyData: Product[] = [
   {
     _id: 'd8098e99-e200-400a-bc05-11f1d9102991',
     name: 'Adjustable Bookshelf',
+    arrivalDate: '2024-03-22',
     price: 618.48,
     discount: 29,
     stock: 9,
@@ -79,6 +81,7 @@ export const dummyData: Product[] = [
   {
     _id: '29e0211c-6dbb-413c-b322-ab51d707842d',
     name: 'Plastic Storage Shelf',
+    arrivalDate: '2023-11-10',
     price: 471.79,
     discount: null,
     stock: 17,
@@ -114,6 +117,7 @@ export const dummyData: Product[] = [
   {
     _id: '69e2014d-44a2-488a-92ac-ea8af0999197',
     name: 'Rolling Filing Cabinet',
+    arrivalDate: '2024-04-05',
     price: 672.14,
     discount: null,
     stock: null,
@@ -145,6 +149,7 @@ export const dummyData: Product[] = [
   {
     _id: 'acc9311f-f98a-48e3-994e-5d27f06bc8ff',
     name: 'Contemporary Bookshelf',
+    arrivalDate: '2023-12-18',
     price: 812.54,
     discount: 18,
     stock: null,
@@ -197,6 +202,7 @@ export const dummyData: Product[] = [
   {
     _id: 'ccc18f50-9dec-43c5-8b8f-f1d125f22c97',
     name: 'Waterproof Patio Bench',
+    arrivalDate: '2024-02-28',
     price: 83.75,
     discount: null,
     stock: 20,
@@ -245,6 +251,7 @@ export const dummyData: Product[] = [
   {
     _id: '08ed90d8-d938-4c56-b18a-dc09364a8223',
     name: 'Elegant Ottoman',
+    arrivalDate: '2024-05-10',
     price: 425.8,
     discount: 8,
     stock: 19,
@@ -301,6 +308,7 @@ export const dummyData: Product[] = [
   {
     _id: '421711c0-f53f-452a-b332-72358069b7a3',
     name: 'Fire Pit Dining Set',
+    arrivalDate: '2024-01-30',
     price: 620.54,
     discount: 6,
     stock: 18,
@@ -344,6 +352,7 @@ export const dummyData: Product[] = [
   {
     _id: '585c4aaa-e0e2-4939-a8b4-c0915eb0e610',
     name: 'Deluxe Velvet Sofa',
+    arrivalDate: '2024-04-15',
     price: 668.76,
     discount: 15,
     stock: null,
@@ -399,6 +408,7 @@ export const dummyData: Product[] = [
   {
     _id: '24589f8e-a68d-47a7-9fe1-99309528facc',
     name: 'Compact Computer Desk',
+    arrivalDate: '2023-10-05',
     price: 848.24,
     discount: null,
     stock: 15,
@@ -438,6 +448,7 @@ export const dummyData: Product[] = [
   {
     _id: '6cbd6721-1c79-4208-91cf-65286fa4faaf',
     name: 'Luxe Velvet Sofa',
+    arrivalDate: '2024-05-01',
     price: 899,
     discount: null,
     stock: 8,
@@ -519,6 +530,7 @@ export const dummyData: Product[] = [
   {
     _id: '3a8b9c7d-6e5f-4a3b-9c8d-7e6f5a4b3c2d',
     name: 'Modern Platform Bed',
+    arrivalDate: '2024-04-20',
     price: 799.99,
     discount: 15,
     stock: 12,
@@ -566,6 +578,7 @@ export const dummyData: Product[] = [
   {
     _id: '4b3c2d1e-9f8a-7b6c-5d4e-3f2a1b0c9d8e',
     name: 'Executive Office Chair',
+    arrivalDate: '2024-03-10',
     price: 499.95,
     discount: null,
     stock: 7,
@@ -612,6 +625,7 @@ export const dummyData: Product[] = [
   {
     _id: '5c4d3e2f-1a0b-9c8d-7e6f-5a4b3c2d1e0f',
     name: 'Rustic Dining Table',
+    arrivalDate: '2024-05-05',
     price: 1299.0,
     discount: 20,
     stock: 5,
@@ -654,6 +668,7 @@ export const dummyData: Product[] = [
   {
     _id: '6d5e4f3a-2b1c-0d9e-8f7a-6b5c4d3e2f1a',
     name: 'Outdoor Lounge Set',
+    arrivalDate: '2024-04-01',
     price: 1599.5,
     discount: 25,
     stock: 3,
@@ -699,6 +714,7 @@ export const dummyData: Product[] = [
   {
     _id: '7e6f5a4b-3c2d-1e0f-9a8b-7c6d5e4f3a2b',
     name: 'Minimalist Nightstand',
+    arrivalDate: '2023-12-05',
     price: 249.99,
     discount: null,
     stock: 18,
@@ -740,6 +756,7 @@ export const dummyData: Product[] = [
   {
     _id: '8f7a6b5c-4d3e-2f1a-0b9c-8d7e6f5a4b3c',
     name: 'Industrial Bookshelf',
+    arrivalDate: '2024-05-12',
     price: 649.0,
     discount: 10,
     stock: 9,
@@ -787,6 +804,7 @@ export const dummyData: Product[] = [
   {
     _id: '9a8b7c6d-5e4f-3a2b-1c0d-9e8f7a6b5c4d',
     name: 'Convertible Sofa Bed',
+    arrivalDate: '2024-02-15',
     price: 1199.0,
     discount: 30,
     stock: 6,
@@ -830,6 +848,7 @@ export const dummyData: Product[] = [
   {
     _id: '0b9c8d7e-6f5a-4b3c-2d1e-0f9a8b7c6d5e',
     name: 'Glass Display Cabinet',
+    arrivalDate: '2023-11-20',
     price: 899.95,
     discount: null,
     stock: 4,
@@ -875,6 +894,7 @@ export const dummyData: Product[] = [
   {
     _id: '1c0d9e8f-7a6b-5c4d-3e2f-1a0b9c8d7e6f',
     name: 'Adjustable Standing Desk',
+    arrivalDate: '2024-05-08',
     price: 749.0,
     discount: 15,
     stock: 11,
@@ -918,6 +938,7 @@ export const dummyData: Product[] = [
   {
     _id: '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p',
     name: 'Mid-Century Armchair',
+    arrivalDate: '2024-03-05',
     price: 349.99,
     discount: 10,
     stock: 15,
@@ -959,6 +980,7 @@ export const dummyData: Product[] = [
   {
     _id: '2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q',
     name: 'Wall-Mounted Floating Desk',
+    arrivalDate: '2024-05-14',
     price: 199.99,
     discount: null,
     stock: 20,
@@ -1000,6 +1022,7 @@ export const dummyData: Product[] = [
   {
     _id: '3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r',
     name: 'Modular Sectional Sofa',
+    arrivalDate: '2024-04-25',
     price: 1899.99,
     discount: 15,
     stock: 8,
@@ -1042,6 +1065,7 @@ export const dummyData: Product[] = [
   {
     _id: '4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r9s',
     name: 'Industrial Bar Stool',
+    arrivalDate: '2023-12-12',
     price: 149.99,
     discount: null,
     stock: 25,
@@ -1081,6 +1105,7 @@ export const dummyData: Product[] = [
   {
     _id: '5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s0t',
     name: 'Acacia Wood Coffee Table',
+    arrivalDate: '2024-02-20',
     price: 399.99,
     discount: 20,
     stock: 12,
@@ -1123,6 +1148,7 @@ export const dummyData: Product[] = [
   {
     _id: '6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t1u',
     name: 'Overbed Storage Table',
+    arrivalDate: '2024-01-08',
     price: 129.99,
     discount: null,
     stock: 18,
@@ -1158,6 +1184,7 @@ export const dummyData: Product[] = [
   {
     _id: '7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u2v',
     name: 'Leather Recliner Chair',
+    arrivalDate: '2024-03-18',
     price: 799.99,
     discount: 25,
     stock: 10,
@@ -1193,6 +1220,7 @@ export const dummyData: Product[] = [
   {
     _id: '8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v3w',
     name: 'Rustic Console Table',
+    arrivalDate: '2023-11-25',
     price: 279.99,
     discount: null,
     stock: 14,
@@ -1235,6 +1263,7 @@ export const dummyData: Product[] = [
   {
     _id: '9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w4x',
     name: 'Glass TV Stand',
+    arrivalDate: '2024-05-03',
     price: 349.99,
     discount: 10,
     stock: 9,
@@ -1275,6 +1304,7 @@ export const dummyData: Product[] = [
   {
     _id: '0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x5y',
     name: 'Bamboo Shoe Rack',
+    arrivalDate: '2024-02-10',
     price: 89.99,
     discount: null,
     stock: 22,
@@ -1309,6 +1339,7 @@ export const dummyData: Product[] = [
   {
     _id: '1k2l3m4n-5o6p-7q8r-9s0t-1u2v3w4x5y6z',
     name: 'Hanging Egg Chair',
+    arrivalDate: '2024-04-08',
     price: 499.99,
     discount: 15,
     stock: 7,
@@ -1351,6 +1382,7 @@ export const dummyData: Product[] = [
   {
     _id: '2l3m4n5o-6p7q-8r9s-0t1u-2v3w4x5y6z7a',
     name: "Children's Study Desk",
+    arrivalDate: '2024-03-30',
     price: 179.99,
     discount: null,
     stock: 16,
@@ -1392,6 +1424,7 @@ export const dummyData: Product[] = [
   {
     _id: '3m4n5o6p-7q8r-9s0t-1u2v-3w4x5y6z7a8b',
     name: 'Linen Upholstered Bed',
+    arrivalDate: '2024-01-22',
     price: 1299.99,
     discount: 20,
     stock: 5,
@@ -1432,6 +1465,7 @@ export const dummyData: Product[] = [
   {
     _id: '4n5o6p7q-8r9s-0t1u-2v3w-4x5y6z7a8b9c',
     name: 'Wall-Mounted Coat Rack',
+    arrivalDate: '2023-12-28',
     price: 59.99,
     discount: null,
     stock: 30,
@@ -1466,6 +1500,7 @@ export const dummyData: Product[] = [
   {
     _id: '5o6p7q8r-9s0t-1u2v-3w4x-5y6z7a8b9c0d',
     name: 'Marble Side Table',
+    arrivalDate: '2024-05-07',
     price: 249.99,
     discount: 10,
     stock: 11,
@@ -1506,6 +1541,7 @@ export const dummyData: Product[] = [
   {
     _id: '6p7q8r9s-0t1u-2v3w-4x5y-6z7a8b9c0d1e',
     name: 'Folding Bistro Set',
+    arrivalDate: '2024-02-05',
     price: 149.99,
     discount: null,
     stock: 18,
@@ -1545,6 +1581,7 @@ export const dummyData: Product[] = [
   {
     _id: '7q8r9s0t-1u2v-3w4x-5y6z-7a8b9c0d1e2f',
     name: 'Velvet Dining Chairs',
+    arrivalDate: '2024-04-12',
     price: 199.99,
     discount: 15,
     stock: 14,
@@ -1587,6 +1624,7 @@ export const dummyData: Product[] = [
   {
     _id: '8r9s0t1u-2v3w-4x5y-6z7a-8b9c0d1e2f3g',
     name: 'Industrial Bookshelf Lamp',
+    arrivalDate: '2024-03-15',
     price: 129.99,
     discount: null,
     stock: 22,
@@ -1627,6 +1665,7 @@ export const dummyData: Product[] = [
   {
     _id: '9s0t1u2v-3w4x-5y6z-7a8b-9c0d1e2f3g4h',
     name: 'Wicker Storage Basket',
+    arrivalDate: '2023-11-15',
     price: 49.99,
     discount: null,
     stock: 35,
@@ -1663,6 +1702,7 @@ export const dummyData: Product[] = [
   {
     _id: '0t1u2v3w-4x5y-6z7a-8b9c-0d1e2f3g4h5i',
     name: 'Modern Bar Cabinet',
+    arrivalDate: '2024-04-18',
     price: 599.99,
     discount: 20,
     stock: 6,
@@ -1702,6 +1742,7 @@ export const dummyData: Product[] = [
   {
     _id: '1u2v3w4x-5y6z-7a8b-9c0d-1e2f3g4h5i6j',
     name: 'Adjustable Laptop Stand',
+    arrivalDate: '2024-01-05',
     price: 79.99,
     discount: null,
     stock: 28,
@@ -1733,6 +1774,7 @@ export const dummyData: Product[] = [
   {
     _id: '2v3w4x5y-6z7a-8b9c-0d1e-2f3g4h5i6j7k',
     name: 'Floating Wall Shelves',
+    arrivalDate: '2024-02-18',
     price: 89.99,
     discount: 10,
     stock: 20,
@@ -1769,6 +1811,7 @@ export const dummyData: Product[] = [
   {
     _id: '3w4x5y6z-7a8b-9c0d-1e2f-3g4h5i6j7k8l',
     name: 'Leather Office Chair',
+    arrivalDate: '2023-12-08',
     price: 399.99,
     discount: 15,
     stock: 9,
@@ -1804,6 +1847,7 @@ export const dummyData: Product[] = [
   {
     _id: '4x5y6z7a-8b9c-0d1e-2f3g-4h5i6j7k8l9m',
     name: 'Round Mirror with Shelf',
+    arrivalDate: '2024-03-28',
     price: 179.99,
     discount: null,
     stock: 12,
@@ -1839,6 +1883,7 @@ export const dummyData: Product[] = [
   {
     _id: '5y6z7a8b-9c0d-1e2f-3g4h-5i6j7k8l9m0n',
     name: 'Outdoor Dining Set',
+    arrivalDate: '2024-04-22',
     price: 899.99,
     discount: 25,
     stock: 4,
@@ -1881,6 +1926,7 @@ export const dummyData: Product[] = [
   {
     _id: '6z7a8b9c-0d1e-2f3g-4h5i-6j7k8l9m0n1o',
     name: 'Velvet Accent Chair',
+    arrivalDate: '2024-02-25',
     price: 349.99,
     discount: null,
     stock: 8,
@@ -1923,6 +1969,7 @@ export const dummyData: Product[] = [
   {
     _id: '7a8b9c0d-1e2f-3g4h-5i6j-7k8l9m0n1o2p',
     name: 'Bunk Bed with Desk',
+    arrivalDate: '2024-05-09',
     price: 799.99,
     discount: 15,
     stock: 5,
@@ -1958,6 +2005,7 @@ export const dummyData: Product[] = [
   {
     _id: '8b9c0d1e-2f3g-4h5i-6j7k-8l9m0n1o2p3q',
     name: 'Glass Display Coffee Table',
+    arrivalDate: '2024-03-08',
     price: 499.99,
     discount: null,
     stock: 7,
@@ -1999,6 +2047,7 @@ export const dummyData: Product[] = [
   {
     _id: '9c0d1e2f-3g4h-5i6j-7k8l-9m0n1o2p3q4r',
     name: 'Farmhouse Dining Table',
+    arrivalDate: '2024-01-12',
     price: 899.99,
     discount: 20,
     stock: 3,
@@ -2039,6 +2088,7 @@ export const dummyData: Product[] = [
   {
     _id: '0d1e2f3g-4h5i-6j7k-8l9m-0n1o2p3q4r5s',
     name: 'Memory Foam Mattress',
+    arrivalDate: '2024-05-15',
     price: 699.99,
     discount: 30,
     stock: 10,
@@ -2075,6 +2125,7 @@ export const dummyData: Product[] = [
   {
     _id: '1e2f3g4h-5i6j-7k8l-9m0n-1o2p3q4r5s6t',
     name: 'Ceramic Table Lamp',
+    arrivalDate: '2023-12-22',
     price: 89.99,
     discount: null,
     stock: 25,
@@ -2115,6 +2166,7 @@ export const dummyData: Product[] = [
   {
     _id: '2f3g4h5i-6j7k-8l9m-0n1o-2p3q4r5s6t7u',
     name: 'Wall-Mounted Bike Rack',
+    arrivalDate: '2024-02-08',
     price: 69.99,
     discount: null,
     stock: 18,

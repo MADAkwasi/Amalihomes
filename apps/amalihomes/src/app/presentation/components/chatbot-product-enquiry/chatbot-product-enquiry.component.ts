@@ -23,9 +23,8 @@ import { Router } from '@angular/router';
 export class ChatbotProductEnquiryComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly products = this.store.selectSignal(selectProducts);
-  private readonly route = inject(Router);
+  private readonly router = inject(Router);
   public readonly selectedProduct = signal<Product | null>(null);
-  protected readonly productId = signal('');
   protected readonly enquiryTypes = ChatBotEnquiryType;
   protected readonly selected = signal('');
   public readonly return = output();
@@ -39,7 +38,7 @@ export class ChatbotProductEnquiryComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const paths = this.route.url.split('/');
+    const paths = this.router.url.split('/');
     const idIndex = paths.indexOf('product') + 1;
     const productId = paths[idIndex];
 

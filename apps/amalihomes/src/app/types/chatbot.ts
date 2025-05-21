@@ -35,6 +35,7 @@ export type Label = 'top seller' | 'new arrival';
 export interface Product {
   _id: string;
   name: string;
+  arrivalDate: string;
   price: number;
   discount: number | null;
   stock: number | null;
