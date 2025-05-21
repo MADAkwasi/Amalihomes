@@ -20,8 +20,13 @@ export type LoginFormErrorKey = 'required' | 'email' | 'minlength';
 
 export type User = {
   email: string;
-  email_verified: boolean;
+  email_verified?: boolean;
   full_name: string;
   phone_verified?: boolean;
-  sub: string;
+  sub?: string;
+  username?: string;
+  phone?: string;
+  avatar_url?: string;
+  updated_at?: string;
+  id?: string;
 };

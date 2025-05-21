@@ -1,0 +1,25 @@
+@if(showModal()){
+<div class="fixed inset-0 bg-[#00000073] flex items-center justify-center z-50">
+  <div class="bg-white p-8 rounded-lg text-center md:w-[650px] w-[95%] mx-auto flex flex-col gap-4">
+    <h2 class="text-3xl font-semibold mb-4">Log Out</h2>
+    <p class="mb-6 text-base font-normal">
+      You're about to log out of your account. Any unsaved changes may be lost. If you're sure, click below to proceed
+    </p>
+    <div class="flex justify-center gap-4">
+      <lib-button
+        buttonIdentifier="logout-confirmation-cancel"
+        buttonStyles=" !text-[#5D5D5D] font-bold text-base !border-none"
+        [type]="'secondary'"
+        (buttonClick)="close()"
+        >Cancel</lib-button
+      >
+      <lib-button
+        buttonStyles="font-bold text-base"
+        buttonIdentifier="logout-confirmation-yes"
+        (buttonClick)="confirmLogout()"
+        >Logout</lib-button
+      >
+    </div>
+  </div>
+</div>
+}
