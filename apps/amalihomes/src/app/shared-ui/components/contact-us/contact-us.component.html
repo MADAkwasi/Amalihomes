@@ -22,7 +22,6 @@
       [formGroup]="contactForm"
     >
       <h3 libText textType="heading3">{{ formContent()[0].heading }}</h3>
-      <label class="sr-only" for="name">Enter Full Name</label>
       <lib-text-input
         [placeholder]="formContent()[0].inputField[0].placeholder"
         [label]="formContent()[0].inputField[0].label"
@@ -32,7 +31,6 @@
         "
         [errorMessage]="getErrorMessage(contactFormControls.name, 'name')"
       ></lib-text-input>
-      <label class="sr-only" for="email">Enter Email Address</label>
       <lib-text-input
         [placeholder]="formContent()[0].inputField[1].placeholder"
         [label]="formContent()[0].inputField[1].label"
@@ -47,7 +45,6 @@
         <label for="message" libText textType="text-medium" class="text-black font-semibold">{{
           formContent()[0].inputField[2].label
         }}</label>
-        <label class="sr-only" for="message">Kindly type your message</label>
         <textarea
           formControlName="message"
           [placeholder]="formContent()[0].inputField[2].placeholder"

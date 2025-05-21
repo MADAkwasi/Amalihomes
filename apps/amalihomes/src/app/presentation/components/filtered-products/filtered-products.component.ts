@@ -6,7 +6,12 @@ import { ResponsivePaginationService } from '../../../logic/services/pagination/
 import { selectProducts } from '../../../logic/stores/selectors/dummy-data.selector';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import {
+  applyFilters,
+  filterAndSortProducts,
+  SortOption,
+  sortProducts,
+} from '../../../logic/utils/helpers/product-manipulation';
 import { TextDirective } from '@amalihomes/shared';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -60,8 +65,15 @@ export class FilteredProductsComponent implements OnInit {
       const size = this.parseQueryParam(params['size']);
       const availability = this.parseQueryParam(params['availability']);
       const styles = this.parseQueryParam(params['styles']);
+      const sort = this.parseQueryParam(params['sort']);
+      const isFiltering = category || size || availability || styles;
 
-      this.filteredProducts.set(applyFilters(this.products(), { category, size, availability, styles }));
+      const filters = { category, size, availability, styles };
+
+      if (isFiltering && sort)
+        this.filteredProducts.set(filterAndSortProducts(this.products(), filters, sort[0] as SortOption));
+      else if (sort) this.filteredProducts.set(sortProducts(this.products(), sort[0] as SortOption));
+      else this.filteredProducts.set(applyFilters(this.products(), filters));
     });
   }
 }

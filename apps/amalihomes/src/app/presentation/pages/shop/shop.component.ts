@@ -37,7 +37,11 @@ export class ShopComponent implements OnInit {
     this.route.queryParamMap.pipe(
       map(
         (params) =>
-          params.get('categories') ?? params.get('size') ?? params.get('availability') ?? params.get('styles'),
+          params.get('categories') ??
+          params.get('size') ??
+          params.get('availability') ??
+          params.get('styles') ??
+          params.get('sort'),
       ),
     ),
     {

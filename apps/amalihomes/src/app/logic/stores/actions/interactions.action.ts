@@ -7,6 +7,6 @@ export const interactionsActions = createActionGroup({
     closeMenu: emptyProps(),
     openSearchField: emptyProps(),
     closeSearchField: emptyProps(),
-    updateFilterValues: props<{ filterBy: string; keyword: string; checked: boolean }>(),
+    updateFilterValues: props<{ filterBy: string; keyword: string; checked: boolean; action: 'filter' | 'sort' }>(),
   },
 });

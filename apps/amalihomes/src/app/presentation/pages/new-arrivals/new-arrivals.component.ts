@@ -9,7 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ResponsivePaginationService } from '../../../logic/services/pagination/responsive-pagination.service';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
 import { NewArrivalsMetaData } from './static-meta-data';
-import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import {
+  applyFilters,
+  filterAndSortProducts,
+  SortOption,
+  sortProducts,
+} from '../../../logic/utils/helpers/product-manipulation';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
@@ -63,8 +68,15 @@ export class NewArrivalsComponent implements OnInit {
       const size = this.parseQueryParam(params['size']);
       const availability = this.parseQueryParam(params['availability']);
       const styles = this.parseQueryParam(params['styles']);
+      const sort = this.parseQueryParam(params['sort']);
+      const isFiltering = category || size || availability || styles;
 
-      this.displayProducts.set(applyFilters(this.newArrivals(), { category, size, availability, styles }));
+      const filters = { category, size, availability, styles };
+
+      if (isFiltering && sort)
+        this.displayProducts.set(filterAndSortProducts(this.newArrivals(), filters, sort[0] as SortOption));
+      else if (sort) this.displayProducts.set(sortProducts(this.newArrivals(), sort[0] as SortOption));
+      else this.displayProducts.set(applyFilters(this.newArrivals(), filters));
     });
 
     this.pageHeadTags.updateMetaData(NewArrivalsMetaData);

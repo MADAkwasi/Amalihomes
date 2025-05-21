@@ -7,7 +7,12 @@ import { selectTopSellers } from '../../../logic/stores/selectors/dummy-data.sel
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { TextDirective } from '@amalihomes/shared';
-import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import {
+  applyFilters,
+  filterAndSortProducts,
+  SortOption,
+  sortProducts,
+} from '../../../logic/utils/helpers/product-manipulation';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
@@ -63,8 +68,15 @@ export class TopSellersComponent implements OnInit {
       const size = this.parseQueryParam(params['size']);
       const availability = this.parseQueryParam(params['availability']);
       const styles = this.parseQueryParam(params['styles']);
+      const sort = this.parseQueryParam(params['sort']);
+      const isFiltering = category || size || availability || styles;
 
-      this.displayProducts.set(applyFilters(this.topSellers(), { category, size, availability, styles }));
+      const filters = { category, size, availability, styles };
+
+      if (isFiltering && sort)
+        this.displayProducts.set(filterAndSortProducts(this.topSellers(), filters, sort[0] as SortOption));
+      else if (sort) this.displayProducts.set(sortProducts(this.topSellers(), sort[0] as SortOption));
+      else this.displayProducts.set(applyFilters(this.topSellers(), filters));
     });
 
     this.pageHeadTags.updateMetaData(TopSellersMetaData);

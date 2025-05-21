@@ -9,7 +9,12 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
 import { TextDirective } from '@amalihomes/shared';
 import { SearchResultsMetaData } from './static-meta-data';
 import { MetaTagsService } from '../../../logic/services/meta-tags/meta-tags.service';
-import { applyFilters } from '../../../logic/utils/helpers/product-manipulation';
+import {
+  applyFilters,
+  filterAndSortProducts,
+  SortOption,
+  sortProducts,
+} from '../../../logic/utils/helpers/product-manipulation';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
@@ -70,8 +75,15 @@ export class SearchResultsComponent implements OnInit {
       const size = this.parseQueryParam(params['size']);
       const availability = this.parseQueryParam(params['availability']);
       const styles = this.parseQueryParam(params['styles']);
+      const sort = this.parseQueryParam(params['sort']);
+      const isFiltering = category || size || availability || styles;
 
-      this.displayProducts.set(applyFilters(this.productsData(), { category, size, availability, styles }));
+      const filters = { category, size, availability, styles };
+
+      if (isFiltering && sort)
+        this.displayProducts.set(filterAndSortProducts(this.productsData(), filters, sort[0] as SortOption));
+      else if (sort) this.displayProducts.set(sortProducts(this.productsData(), sort[0] as SortOption));
+      else this.displayProducts.set(applyFilters(this.productsData(), filters));
     });
 
     this.pageHeadTags.updateMetaData(SearchResultsMetaData(this.searchedKeyword()));
