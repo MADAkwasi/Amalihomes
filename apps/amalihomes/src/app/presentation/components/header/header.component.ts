@@ -52,7 +52,10 @@ export class HeaderComponent {
   protected isProfileOpen = signal(false);
   protected readonly data = this.store.selectSignal(selectSection('header'));
   protected authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
-  constructor(private router: Router) {}
+  private router: Router;
+  constructor(router: Router) {
+    this.router = router;
+  }
 
   protected onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
