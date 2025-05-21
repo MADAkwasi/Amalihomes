@@ -1,8 +1,8 @@
-import { Component, inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '@amalihomes/shared';
 import { SearchFieldComponent } from '../search-field/search-field.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { NavlinksComponent } from '../navlinks/navlinks.component';
 import { MenuComponent } from '../menu/menu.component';
 import { Store } from '@ngrx/store';
@@ -16,6 +16,7 @@ import { UserIconComponent } from '../svg-icons/user-icon/userIcon.component';
 import { LogoComponent } from '../svg-icons/logo/logo.component';
 import { CookieBannerComponent } from '../cookie-banner/cookie-banner.component';
 import { selectUserAuthenticationState } from '../../../logic/stores/selectors/auth.selector';
+import { headerMenuItems } from '../../../logic/data/account';
 
 @Component({
   selector: 'app-header',
@@ -47,13 +48,22 @@ export class HeaderComponent {
   protected isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
   protected isAuthenticated!: boolean;
   protected cdRef = inject(ChangeDetectorRef);
-
+  protected readonly menuItems = headerMenuItems;
+  protected isProfileOpen = signal(false);
   protected readonly data = this.store.selectSignal(selectSection('header'));
   protected authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   protected onOpenSearchField() {
     if (this.isSearching()) this.store.dispatch(interactionsActions.closeSearchField());
     else this.store.dispatch(interactionsActions.openSearchField());
+  }
+  protected navigate(route: string): void {
+    this.router.navigate(['/account', route]);
+  }
+
+  protected toggleProfile() {
+    this.isProfileOpen.set(!this.isProfileOpen());
   }
 
   protected onMenuToggle() {
