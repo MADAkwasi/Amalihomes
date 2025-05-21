@@ -8,7 +8,7 @@ import { Component, signal, output } from '@angular/core';
   templateUrl: './logout-modal.component.html',
 })
 export class LogoutModalComponent {
-  show = signal(false);
+  public show = signal(false);
   public readonly confirmed = output<void>();
 
   open() {
