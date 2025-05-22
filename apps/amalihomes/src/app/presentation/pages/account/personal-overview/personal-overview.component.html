@@ -1,0 +1,34 @@
+<div class="max-w-[559px]">
+  <div class="flex gap-8 w-full items-center">
+    <lib-image [src]="profilePhoto() || ''" alt="profile photo" class="w-[198px] !rounded-full object-cover" />
+
+    <div>
+      <input type="file" hidden #fileInput (change)="onFileSelected($event)" />
+      <button
+        class="py-[12px] px-6 border border-[#EA690C] text-[#EA690C] font-bold text-base rounded"
+        (click)="fileInput.click()"
+      >
+        Change Photo
+      </button>
+      <button class="font-bold text-base pl-6" (click)="removeProfilePhoto()">Remove</button>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-4 mt-8">
+    <lib-text-input
+      label="Full Name"
+      [control]="form.controls['fullName']"
+      [placeholder]="authenticatedUser().user?.full_name ?? 'Guest User'"
+    />
+    <lib-text-input label="Username" [control]="form.controls['username']" placeholder="Enter your username" />
+    <lib-text-input
+      label="Email"
+      [placeholder]="authenticatedUser().user?.email ?? 'email@gmail.com'"
+      [disabled]="true"
+    />
+    <lib-phone-input [control]="form.controls['phone']" (countryCodeChanged)="updateCountryCode($event)" />
+    <lib-button label="Save Changes" buttonIdentifier="update Profile Button" class="w-full mt-8" (click)="onSubmit()"
+      >Save Changes</lib-button
+    >
+  </div>
+</div>
