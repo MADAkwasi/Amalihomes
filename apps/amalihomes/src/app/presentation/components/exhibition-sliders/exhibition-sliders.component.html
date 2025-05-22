@@ -11,26 +11,31 @@
 
 <div class="absolute top-[45%] left-0 flex items-center justify-between w-full -translate-y-[50%] z-10">
   <lib-button
+    [state]="isAtStart() ? 'disabled' : 'default'"
     type="tetiary"
     title="Navigate left"
     buttonIdentifier="exhibition-sliders-left-arrow"
-    (buttonClick)="onArrowNavigation('left')"
+    (buttonClick)="autoScroll('left')"
     buttonStyles="!p-2 !rounded-full !justify-center !bg-[#F6F6F6] "
+    [ngClass]="{ 'opacity-40': isAtStart() }"
     ><lucide-icon [img]="icons.ArrowLeft" [size]="20" color="#545F71"
   /></lib-button>
   <lib-button
+    [state]="isLastCardVisible() ? 'disabled' : 'default'"
     type="tetiary"
     title="Navigate right"
     buttonIdentifier="exhibition-sliders-left-arrow"
-    (buttonClick)="onArrowNavigation('left')"
+    (buttonClick)="autoScroll('right')"
     buttonStyles="!p-2 !rounded-full !justify-center !bg-[#F6F6F6] "
+    [ngClass]="{ 'opacity-40': isLastCardVisible() }"
     ><lucide-icon [img]="icons.ArrowRight" [size]="20" color="#545F71"
   /></lib-button>
 </div>
 
-<div class="flex gap-4 overflow-x-auto hide-scrollbar">
+<div #cardsContainer class="flex gap-4 overflow-x-auto hide-scrollbar" (scroll)="onScroll()">
   @for(product of sliderProducts(); track $index) {
   <app-product-card
+    #cardElements
     [product]="product"
     [width]="'220px'"
     [isOnSlider]="true"

@@ -96,7 +96,9 @@
     <div class="flex justify-between" id="slider-labels">
       <span class="text-sm text-gray-600">${{ getFormattedMinPrice() }}</span>
       <span class="text-sm text-gray-600">+$2,500</span>
-      <span class="text-sm text-gray-600">${{ getFormattedMaxPrice() }}+</span>
+      <span class="text-sm text-gray-600"
+        >${{ getMaxPrice() === 5000 ? getFormattedMaxPrice() + '+' : getFormattedMaxPrice() }}</span
+      >
     </div>
     } }
   </div>

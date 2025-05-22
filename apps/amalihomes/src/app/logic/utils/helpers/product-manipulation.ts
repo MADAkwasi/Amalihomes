@@ -8,6 +8,8 @@ export function applyFilters(
     size?: string[];
     availability?: string[];
     styles?: string[];
+    minPrice?: number;
+    maxPrice?: number;
   },
 ) {
   return products.filter((product) => {
@@ -19,7 +21,12 @@ export function applyFilters(
       (filters.availability.includes('pre order') && !product.stock);
     const stylesPass = !filters.styles || filters.styles.includes(product.style.toLowerCase());
 
-    return categoryPass && sizePass && availabilityPass && stylesPass;
+    const finalPrice = product.price * (1 - (product.discount ?? 0) / 100);
+    const pricePass =
+      (filters.minPrice === undefined || finalPrice >= filters.minPrice) &&
+      (filters.maxPrice === undefined || finalPrice <= filters.maxPrice);
+
+    return categoryPass && sizePass && availabilityPass && stylesPass && pricePass;
   });
 }
 

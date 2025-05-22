@@ -47,10 +47,6 @@ export class FiltersComponent implements AfterViewInit {
   protected readonly currentHandle = signal<'left' | 'right' | null>(null);
   private readonly maxPrice = 5000;
 
-  private calculatePrice(position: number): number {
-    return (position / 100) * 5000;
-  }
-
   ngAfterViewInit(): void {
     this.updateProgressBar();
   }
@@ -99,6 +95,22 @@ export class FiltersComponent implements AfterViewInit {
 
     this.progressLeft.set(left);
     this.progressWidth.set(right - left);
+
+    this.store.dispatch(
+      interactionsActions.updateFilterValues({
+        filterBy: 'min-price',
+        keyword: this.getFormattedMinPrice(),
+        action: 'sort',
+      }),
+    );
+
+    this.store.dispatch(
+      interactionsActions.updateFilterValues({
+        filterBy: 'max-price',
+        keyword: this.getFormattedMaxPrice(),
+        action: 'sort',
+      }),
+    );
   }
 
   protected getMinPrice(): number {

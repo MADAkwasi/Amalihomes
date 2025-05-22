@@ -107,7 +107,7 @@ export class ShopLayoutComponent implements OnInit {
   protected onApplyFilters() {
     const filters = this.filterKeywords();
     const queryParams: Record<string, string> = {};
-    const filterKeys = ['categories', 'size', 'availability', 'styles', 'sort'];
+    const filterKeys = ['categories', 'size', 'availability', 'styles', 'sort', 'min-price', 'max-price'];
 
     for (const key of filterKeys) {
       const values = filters.find((f) => f.filterBy === key)?.value ?? [];

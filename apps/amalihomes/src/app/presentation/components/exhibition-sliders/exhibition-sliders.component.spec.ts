@@ -7,6 +7,36 @@ describe('ExhibitionSlidersComponent', () => {
   let component: ExhibitionSlidersComponent;
   let fixture: ComponentFixture<ExhibitionSlidersComponent>;
 
+  class MockIntersectionObserver implements IntersectionObserver {
+    constructor(
+      private readonly callback: IntersectionObserverCallback, // eslint-disable-next-line no-empty-function
+    ) {}
+
+    observe = jest.fn((element: Element) => {
+      this.callback(
+        [
+          {
+            isIntersecting: true,
+            target: element,
+            intersectionRatio: 1,
+            boundingClientRect: {} as DOMRectReadOnly,
+            intersectionRect: {} as DOMRectReadOnly,
+            rootBounds: null,
+            time: Date.now(),
+          },
+        ],
+        this,
+      );
+    });
+
+    unobserve = jest.fn();
+    disconnect = jest.fn();
+    takeRecords = jest.fn(() => []);
+    readonly root: Element | null = null;
+    readonly rootMargin: string = '';
+    readonly thresholds: ReadonlyArray<number> = [];
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ExhibitionSlidersComponent],
@@ -25,6 +55,7 @@ describe('ExhibitionSlidersComponent', () => {
       ],
     }).compileComponents();
 
+    global.IntersectionObserver = MockIntersectionObserver;
     fixture = TestBed.createComponent(ExhibitionSlidersComponent);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('products', []);

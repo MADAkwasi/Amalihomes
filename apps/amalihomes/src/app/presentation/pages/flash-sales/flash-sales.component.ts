@@ -62,6 +62,10 @@ export class FlashSalesComponent implements OnInit {
     return param.split(',').map((v) => v.replace(/-/g, ' '));
   }
 
+  protected parseQueryToNumber(num: string): number {
+    return Number(num.split(',').join(''));
+  }
+
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       const category = this.parseQueryParam(params['categories']);
@@ -69,9 +73,11 @@ export class FlashSalesComponent implements OnInit {
       const availability = this.parseQueryParam(params['availability']);
       const styles = this.parseQueryParam(params['styles']);
       const sort = this.parseQueryParam(params['sort']);
-      const isFiltering = category || size || availability || styles;
+      const minPrice = this.parseQueryToNumber(params['min-price']);
+      const maxPrice = this.parseQueryToNumber(params['max-price']);
+      const isFiltering = category || size || availability || styles || minPrice || maxPrice;
 
-      const filters = { category, size, availability, styles };
+      const filters = { category, size, availability, styles, minPrice, maxPrice };
 
       if (isFiltering && sort)
         this.displayProducts.set(filterAndSortProducts(this.flashSales(), filters, sort[0] as SortOption));

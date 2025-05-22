@@ -41,6 +41,8 @@ export class ShopComponent implements OnInit {
           params.get('size') ??
           params.get('availability') ??
           params.get('styles') ??
+          params.get('min-price') ??
+          params.get('max-price') ??
           params.get('sort'),
       ),
     ),
