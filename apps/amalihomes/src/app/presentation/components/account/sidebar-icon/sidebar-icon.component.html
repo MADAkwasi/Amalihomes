@@ -1,0 +1,15 @@
+<ng-container [ngSwitch]="type()">
+  <app-overview-icon *ngSwitchCase="'overview'" [selected]="selectedValue"></app-overview-icon>
+
+  <app-user-icon *ngSwitchCase="'personal-details'" [selected]="selectedValue"></app-user-icon>
+
+  <app-address-icon *ngSwitchCase="'address'" [selected]="selectedValue"></app-address-icon>
+
+  <app-order-history-icon *ngSwitchCase="'order-history'" [selected]="selectedValue"></app-order-history-icon>
+
+  <app-message-icon *ngSwitchCase="'message'" [selected]="selectedValue"></app-message-icon>
+
+  <app-account-settings-icon *ngSwitchCase="'account-settings'" [selected]="selectedValue"></app-account-settings-icon>
+
+  <span *ngSwitchDefault>?</span>
+</ng-container>
