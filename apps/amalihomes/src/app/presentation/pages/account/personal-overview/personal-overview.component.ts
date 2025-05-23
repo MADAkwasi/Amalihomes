@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -15,6 +15,7 @@ import { activeProfile } from 'apps/amalihomes/src/app/logic/stores/actions/auth
   standalone: true,
   imports: [CommonModule, ImageComponent, ButtonComponent, InputComponent, PhoneInputComponent],
   templateUrl: './personal-overview.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonalOverviewComponent {
   private store = inject(Store);
@@ -28,10 +29,10 @@ export class PersonalOverviewComponent {
     countryCode: new FormControl('+233'),
   });
 
-  profilePhoto = computed(() => this.authenticatedUser()?.user?.avatar_url || this.avatarUrl);
-  avatarUrl: string | null = null;
+  profilePhoto = computed(() => this.authenticatedUser()?.user?.avatar_url || this.avatarUrl());
+  private avatarUrl = signal<string | null>(null);
 
-  async onFileSelected(event: Event) {
+  protected async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input?.files?.[0];
 
@@ -51,13 +52,13 @@ export class PersonalOverviewComponent {
     if (uploadError) return;
 
     const { data: publicUrlData } = supabase.storage.from('avatars').getPublicUrl(filePath);
-    this.avatarUrl = publicUrlData.publicUrl;
+    this.avatarUrl.set(publicUrlData.publicUrl);
 
     const { data: upsertData, error: upsertError } = await supabase
       .from('profiles')
       .upsert({
         id: user.id,
-        avatar_url: this.avatarUrl,
+        avatar_url: this.avatarUrl(),
       })
       .select();
 
@@ -67,11 +68,11 @@ export class PersonalOverviewComponent {
     }
   }
 
-  async removeProfilePhoto() {
+  protected async removeProfilePhoto() {
     const { data: userResponse, error: userError } = await supabase.auth.getUser();
     if (userError || !userResponse?.user) return;
 
-    this.avatarUrl = null;
+    this.avatarUrl.set(null);
 
     const { data: upsertData, error } = await supabase
       .from('profiles')
@@ -106,14 +107,14 @@ export class PersonalOverviewComponent {
     });
   }
 
-  phoneNumber = computed(() => {
+  protected phoneNumber = computed(() => {
     const rawPhone = this.form.get('phone')?.value?.replace(/\D/g, '') || '';
     const sanitizedPhone = rawPhone.replace(/^0/, '');
     const countryCode = this.form.get('countryCode')?.value?.replace('+', '') || '233';
     return `${countryCode} ${sanitizedPhone}`;
   });
 
-  async onSubmit() {
+  protected async onSubmit() {
     const formValues = this.form.getRawValue();
     const phone = this.phoneNumber();
 
@@ -123,7 +124,7 @@ export class PersonalOverviewComponent {
     const updates = {
       id: userResponse.user.id,
       full_name: formValues.fullName || this.authenticatedUser()?.user?.full_name,
-      avatar_url: this.avatarUrl || this.authenticatedUser()?.user?.avatar_url,
+      avatar_url: this.avatarUrl() || this.authenticatedUser()?.user?.avatar_url,
       phone: phone,
       username: formValues.username,
       email: this.authenticatedUser()?.user?.email,
@@ -141,7 +142,7 @@ export class PersonalOverviewComponent {
     }
   }
 
-  updateCountryCode(code: string) {
+  protected updateCountryCode(code: string) {
     this.form.controls['countryCode'].setValue(code);
   }
 }
