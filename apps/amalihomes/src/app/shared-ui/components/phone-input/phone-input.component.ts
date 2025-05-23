@@ -14,7 +14,7 @@ import { countryCodes } from '../../../logic/data/account';
 export class PhoneInputComponent {
   public control = input<FormControl>();
   public label = input<string>('Phone Number');
-  public readonly arrowDown = ChevronDown;
+  protected readonly arrowDown = ChevronDown;
   public readonly countryCodeChanged = output<string>();
   public readonly codes = countryCodes;
   public readonly selectedCode = signal(countryCodes[0]);
