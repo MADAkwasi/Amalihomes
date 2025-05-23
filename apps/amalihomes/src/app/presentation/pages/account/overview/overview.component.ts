@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderStatus } from 'apps/amalihomes/src/app/types/account';
 import { recentOrders, orderSummaries } from 'apps/amalihomes/src/app/logic/data/account';
@@ -8,6 +8,7 @@ import { recentOrders, orderSummaries } from 'apps/amalihomes/src/app/logic/data
   standalone: true,
   imports: [CommonModule],
   templateUrl: './overview.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverviewComponent {
   protected orderSummaries = orderSummaries;
