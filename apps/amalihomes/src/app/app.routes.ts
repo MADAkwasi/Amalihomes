@@ -17,6 +17,29 @@ export const appRoutes: Route[] = [
       import('./presentation/pages/login/login.component').then((Default) => Default.SignInComponent),
   },
   {
+    path: 'account',
+    loadComponent: () =>
+      import('./presentation/layouts/account-layout/account-layout.component').then(
+        (Default) => Default.AccountLayoutComponent,
+      ),
+    children: [
+      {
+        path: 'overview',
+        loadComponent: () =>
+          import('./presentation/pages/account/overview/overview.component').then(
+            (Default) => Default.OverviewComponent,
+          ),
+      },
+      {
+        path: 'personal-details',
+        loadComponent: () =>
+          import('./presentation/pages/account/personal-overview/personal-overview.component').then(
+            (Default) => Default.PersonalOverviewComponent,
+          ),
+      },
+    ],
+  },
+  {
     path: 'shop',
     loadComponent: () =>
       import('./presentation/layouts/shop-layout/shop-layout.component').then((Default) => Default.ShopLayoutComponent),

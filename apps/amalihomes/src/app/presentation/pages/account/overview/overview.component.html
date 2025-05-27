@@ -1,0 +1,38 @@
+<div class="w-full">
+  <div class="w-full flex justify-between items-center mb-[32px] gap-[23px] flex-wrap">
+    <div
+      *ngFor="let summary of orderSummaries"
+      class="flex border border-[#E5E5E5] rounded-[8px] p-[16px] flex-col gap-[16px] h-[134px] justify-between w-full max-w-[270px]"
+    >
+      <div class="flex items-center gap-[12px]">
+        <div class="p-[4px] rounded-[4px] bg-[#FFF0D5]">
+          <img [src]="summary.icon" alt="icon" class="w-[20px] h-[20px]" />
+        </div>
+        <p class="font-bold text-[14px]">{{ summary.label }}</p>
+      </div>
+      <h5 class="font-bold text-3xl">{{ summary.count }}</h5>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-[16px] border border-[#E5E5E5] rounded-[8px] p-[16px]">
+    <h3 class="font-bold text-[20px]">Recent Activity</h3>
+
+    <div class="flex flex-col gap-[16px]">
+      <div class="flex justify-between py-[12px] px-[16px]" *ngFor="let order of recentOrders">
+        <div>
+          <h4>Order #{{ order.id }}</h4>
+          <p>{{ order.date }}</p>
+        </div>
+        <div class="flex flex-col gap-[12px] items-end">
+          <h4>${{ order.amount }}</h4>
+          <p
+            class="px-[8px] py-[4px] rounded-[20px] text-[10px]"
+            [ngClass]="[getBadgeStyles(order.status).bg, getBadgeStyles(order.status).text]"
+          >
+            {{ order.status }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

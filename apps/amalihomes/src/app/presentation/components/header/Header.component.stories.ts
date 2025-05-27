@@ -2,35 +2,13 @@ import { applicationConfig, Meta, StoryObj } from '@storybook/angular';
 import { provideMockStore } from '@ngrx/store/testing';
 import { provideRouter } from '@angular/router';
 import { HeaderComponent } from './header.component';
-import { Routes } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { localization } from '../../../logic/data/constants/localization';
+import { selectUserAuthenticationState } from '../../../logic/stores/selectors/auth.selector';
+import { mockedStore } from '../../../logic/data/testing/mocked-data';
+import { mockHeaderData, MockedUser, mockRoutes } from '../../../logic/data/header';
 
-const mockRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: class HomeComponent {} },
-  { path: 'shop', component: class ShopComponent {} },
-  { path: 'about', component: class AboutComponent {} },
-  { path: 'faqs', component: class FAQsComponent {} },
-  { path: 'news', component: class NewsComponent {} },
-  { path: '**', redirectTo: '/home' },
-];
-
-const mockHeaderData = {
-  component: 'header',
-  key: 'header',
-  navLinks: [
-    { href: { id: 'home', url: '/home' }, text: 'Home' },
-    { href: { id: 'shop', url: '/shop' }, text: 'Shop' },
-    { href: { id: 'about', url: '/about' }, text: 'About' },
-    { href: { id: 'faqs', url: '/faqs' }, text: 'FAQs' },
-    { href: { id: 'news', url: '/news' }, text: 'News' },
-  ],
-  buttonText: 'Login',
-  inputPlaceholder: 'Search product...',
-  locale: localization,
-};
+const cookieBannerData = mockedStore.content.body.find((item) => item.component === 'cookie_consent_banner');
 
 const meta: Meta<HeaderComponent> = {
   title: 'Header',
@@ -42,7 +20,7 @@ const meta: Meta<HeaderComponent> = {
           initialState: {
             storyblokPage: {
               content: {
-                body: [mockHeaderData],
+                body: [mockHeaderData, cookieBannerData],
               },
               locale: mockHeaderData.locale[0],
             },
@@ -50,7 +28,16 @@ const meta: Meta<HeaderComponent> = {
               isMenuOpen: false,
               isSearching: false,
             },
+            auth: {
+              user: null,
+            },
           },
+          selectors: [
+            {
+              selector: selectUserAuthenticationState,
+              value: { user: null },
+            },
+          ],
         }),
         provideRouter(mockRoutes),
         importProvidersFrom(HttpClientModule),
@@ -61,16 +48,15 @@ const meta: Meta<HeaderComponent> = {
 };
 
 export default meta;
-
 type Story = StoryObj<HeaderComponent>;
 
+const commonParameters = {
+  layout: 'fullscreen',
+  controls: { expanded: true },
+};
+
 export const Default: Story = {
-  parameters: {
-    layout: 'fullscreen',
-  },
-  args: {
-    isAuthenticated: false,
-  },
+  parameters: commonParameters,
 };
 
 export const LoadingState: Story = {
@@ -86,14 +72,15 @@ export const LoadingState: Story = {
               isMenuOpen: false,
               isSearching: false,
             },
+            auth: {
+              user: null,
+            },
           },
         }),
       ],
     }),
   ],
-  parameters: {
-    layout: 'fullscreen',
-  },
+  parameters: commonParameters,
 };
 
 export const WithSearchOpen: Story = {
@@ -104,7 +91,7 @@ export const WithSearchOpen: Story = {
           initialState: {
             storyblokPage: {
               content: {
-                body: [mockHeaderData],
+                body: [mockHeaderData, cookieBannerData],
               },
               locale: mockHeaderData.locale[0],
             },
@@ -112,17 +99,18 @@ export const WithSearchOpen: Story = {
               isMenuOpen: false,
               isSearching: true,
             },
+            auth: {
+              user: null,
+            },
           },
         }),
       ],
     }),
   ],
-  parameters: {
-    layout: 'fullscreen',
-  },
+  parameters: commonParameters,
 };
 
-export const AuthenticatedUser: Story = {
+export const Authenticated: Story = {
   decorators: [
     applicationConfig({
       providers: [
@@ -130,7 +118,7 @@ export const AuthenticatedUser: Story = {
           initialState: {
             storyblokPage: {
               content: {
-                body: [mockHeaderData],
+                body: [mockHeaderData, cookieBannerData],
               },
               locale: mockHeaderData.locale[0],
             },
@@ -138,15 +126,19 @@ export const AuthenticatedUser: Story = {
               isMenuOpen: false,
               isSearching: false,
             },
+            auth: {
+              user: MockedUser.user,
+            },
           },
+          selectors: [
+            {
+              selector: selectUserAuthenticationState,
+              value: { user: MockedUser.user },
+            },
+          ],
         }),
       ],
     }),
   ],
-  parameters: {
-    layout: 'fullscreen',
-  },
-  args: {
-    isAuthenticated: true,
-  },
+  parameters: commonParameters,
 };

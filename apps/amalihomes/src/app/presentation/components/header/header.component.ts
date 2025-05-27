@@ -50,12 +50,11 @@ export class HeaderComponent {
   protected readonly closeIcon = X;
   protected isSearching = this.store.selectSignal(selectIsSearching);
   protected isMenuOpen = this.store.selectSignal(selectIsMenuOpen);
-  protected isAuthenticated!: boolean;
   protected cdRef = inject(ChangeDetectorRef);
   protected readonly menuItems = headerMenuItems;
   protected isProfileOpen = signal(false);
   protected readonly data = this.store.selectSignal(selectSection('header'));
-  protected authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
+  public authenticatedUser = this.store.selectSignal(selectUserAuthenticationState);
   private readonly authService = inject(AuthService);
 
   private router: Router;

@@ -44,6 +44,12 @@ To generate a new library, use:
 npx nx g @nx/angular:lib mylib
 ```
 
+To Storybook, use:
+
+```sh
+npx nx storybook amalihomes
+```
+
 ## Install Nx Console
 
 Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
