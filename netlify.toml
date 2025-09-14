@@ -1,0 +1,14 @@
+# netlify.toml
+[build]
+  command = "npm run build:ssr"
+  publish = "dist/YOUR-APP-BROWSER"   # 👈 Replace with your browser output folder
+  functions = "netlify/functions"
+
+[[plugins]]
+  package = "@netlify/angular-runtime"
+
+# Optional: Redirect all routes to index.html (for Angular routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
